@@ -1,5 +1,8 @@
 class TripsController < ApplicationController
     before_action :set_trip, only: [:show, :edit, :update, :destroy]
+    before_action :check_for_cancel_create, only: :create
+    before_action :check_for_cancel_update, only: :update
+
 
     def show
     end
@@ -56,4 +59,19 @@ class TripsController < ApplicationController
             redirect_to "/"
     end
 
+
+    #### Can we merge these two into a single function? ####
+    def check_for_cancel_create
+        if(params.key?("cancel"))
+            flash[:notice] = "Trip creation cancelled."
+            redirect_to '/'
+        end
+    end
+
+    def check_for_cancel_update
+        if(params.key?("cancel"))
+            flash[:notice] = "Trip was not updated."
+            redirect_to trip_path
+        end
+    end
 end

@@ -12,7 +12,9 @@ Updated <%= time_ago_in_words(@trip.updated_at) %> ago<br />
 
 <%= @trip.description %><br />
 TAGS: <%= @trip.tag_list %><br />
-Start Location: <%= @trip.start_loc %><br />
-End Location: <%= @trip.end_loc %><br />
+Start Location: <%= @trip.start_loc %>  <br />
+Start Date:     <%= @trip.start_date %> <br />
+End Location:   <%= @trip.end_loc %>    <br />
+End Date:       <%=  @trip.end_date %>   <br />
 
 

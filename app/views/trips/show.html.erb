@@ -1,6 +1,6 @@
 <h2><%= @trip.title %></h2>
 
-Updated <%= time_ago_in_words(@trip.updated_at) %><br />
+Updated <%= time_ago_in_words(@trip.updated_at) %> ago<br />
 <%= link_to "Edit", edit_trip_path %>
 <%= link_to "Delete", 
     trip_path(@trip),
@@ -11,6 +11,7 @@ Updated <%= time_ago_in_words(@trip.updated_at) %><br />
 <IMG SRC="<%= @trip.image %>"><br />
 
 <%= @trip.description %><br />
+TAGS: <%= @trip.tag_list %><br />
 Start Location: <%= @trip.start_loc %><br />
 End Location: <%= @trip.end_loc %><br />
 

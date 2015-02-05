@@ -12,6 +12,7 @@ class TripsController < ApplicationController
         @trip = Trip.create(trip_params)
 
         if @trip.save
+            @trip.tag_list.add(trip_params[:tag_list], parse: true) 
             flash[:notice] = "You successfully created a trip"
             redirect_to @trip
         else
@@ -22,6 +23,8 @@ class TripsController < ApplicationController
 
     def update
         if @trip.update(trip_params)
+            @trip.tag_list.remove(@trip.tag_list, parse: true)
+            @trip.tag_list.add(trip_params[:tag_list], parse: true)
             flash[:notice] = "Trip has been updated"
             redirect_to @trip
         else
@@ -42,7 +45,7 @@ class TripsController < ApplicationController
 
     private
     def trip_params
-        params.require(:trip).permit(:title, :description, :start_loc, :end_loc, :image)
+        params.require(:trip).permit(:title, :description, :start_loc, :end_loc, :image, :tag_list)
     end
 
     def set_trip

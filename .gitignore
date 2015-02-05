@@ -31,3 +31,7 @@ pickle-email-*.html
 bower.json
 
 .idea/
+
+# Ignore swapfile for vim
+*.swp
+*.swo

@@ -4,6 +4,7 @@ class AccountsController < ApplicationController
 	end
 	
 	def show
+	  
 	end
 	
 	def edit
@@ -15,7 +16,7 @@ class AccountsController < ApplicationController
 			flash[:notice] = "Account successfully created."
 			redirect_to @account
 		else
-		  render :new
+		  render :new # Go back to the registration form to display any errors to the user. See 'new.html.erb'
 		end
 	end
 	

@@ -4,6 +4,7 @@ class AccountsController < ApplicationController
 	end
 	
 	def show
+	  
 	end
 	
 	def edit
@@ -13,9 +14,9 @@ class AccountsController < ApplicationController
 		@account = Account.new(account_params)
 		if @account.save
 			flash[:notice] = "Account successfully created."
-			redirect_to @account
+			redirect_to :root
 		else
-		  render :new
+		  render :new # Go back to the registration form to display any errors to the user. See 'new.html.erb'
 		end
 	end
 	
@@ -24,6 +25,6 @@ class AccountsController < ApplicationController
 	private
 	
 	def account_params
-		params.require(:account).permit(:username, :email, :password_digest, :password_confirmation)
+		params.require(:account).permit(:username, :email, :password, :password_confirmation)
 	end
 end

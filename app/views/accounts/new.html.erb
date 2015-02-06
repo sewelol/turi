@@ -1,4 +1,7 @@
 <%= form_for(@account) do |f| %>
+  
+
+  <!-- Display error message(s) to the user -->
   <% if @account.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being created: </h2>
@@ -10,6 +13,9 @@
       </ul>
     </div>
   <% end %>
+
+
+  <!-- Display the registration form -->
   <p>
 	  <%= f.label :username %><br />
 	  <%= f.text_field :username %>

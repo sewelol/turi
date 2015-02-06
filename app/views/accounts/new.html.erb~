@@ -1,4 +1,7 @@
 <%= form_for(@account) do |f| %>
+  
+
+  <!-- Display error messages to the user -->
   <% if @account.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being created: </h2>
@@ -10,6 +13,8 @@
       </ul>
     </div>
   <% end %>
+
+
   <p>
 	  <%= f.label :username %><br />
 	  <%= f.text_field :username %>
@@ -19,8 +24,8 @@
 	  <%= f.email_field :email %>
   </p>
   <p>
-	  <%= f.label :password_digest, "Password" %><br />
-	  <%= f.password_field :password_digest %>
+	  <%= f.label :password, "Password" %><br />
+	  <%= f.password_field :password %>
   </p>
   <p>
 	  <%= f.label :password_confirmation %><br />

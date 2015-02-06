@@ -2,9 +2,8 @@ class Account < ActiveRecord::Base
   
   validates :username, presence: true #, uniqueness: true
   validates :email, presence: true #, uniqueness: true
-  validates :password, presence: true, length: { minimum: 3 }
-  has_secure_password :error => ": Shit doesn't add up"
-  #validates :password_confirmation, presence: true 
-  #validates_confirmation_of :password, :message => ": Shit doesn't add up"
+  validates :password, presence: true, length: { minimum: 3 } # Should be higher, but 3 is ok while testing
+  has_secure_password # Compares password with password_confirmation, then digests the password and passes it to the database as password_digest
+
 end
 

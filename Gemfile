@@ -21,6 +21,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# ActsAsTaggableOn, tags support 
+gem 'acts-as-taggable-on', '~> 3.4'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
@@ -42,11 +45,15 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'capybara'
+  # FactoryGirl
+  gem 'factory_girl_rails'
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
 end
 
+# Heroku
+# - We have to use postgres instead of sqlite (not supported on heroku), therefore we've to use a different environment group
 group :production do
   gem 'pg'
   gem 'rails_12factor'

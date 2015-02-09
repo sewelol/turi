@@ -1,0 +1,50 @@
+<%= form_for(@trip) do |f| %>
+    <% if @trip.errors.any? %>
+        <div id="error_explanation">
+            <h2> <%= pluralize(@trip.errors.count, "error") %>
+            prohibited this trip from begin saved: 
+            </h2>
+            <ul>
+            <% @trip.errors.full_messages.each do |msg| %>
+                <li><%= msg %> </li>
+            <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <p>
+        <%= f.label :title %><br />
+        <%= f.text_field :title%>
+    </p>
+    <p>
+        <%= f.label :description %><br />
+        <%= f.text_field :description %>
+    </p>
+    <p> 
+        <%= f.label :start_loc %><br />
+        <%= f.text_field :start_loc %><br />
+    </p>
+    <p>
+        <%= f.label :start_date %><br />
+        <%= f.text_field :start_date %><br />
+    </p>
+    <p> 
+        <%= f.label :end_loc %><br />
+        <%= f.text_field :end_loc %><br />
+    </p>
+    <p>
+        <%= f.label :end_date %><br />
+        <%= f.text_field :end_date %><br />
+    </p>
+    <p>
+        <%= f.label :image %><br />
+        <%= f.text_field :image %>
+    </p>
+    <p>
+        <%= f.label :tag_list %><br />
+        <%= f.text_field :tag_list %>
+    </p>
+
+    <%= f.submit %>
+    <%= button_tag "Cancel", :type => 'cancel', :name => 'cancel' %>
+<% end %>

@@ -52,6 +52,8 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+# Heroku
+# - We have to use postgres instead of sqlite (not supported on heroku), therefore we've to use a different environment group
 group :production do
   gem 'pg'
   gem 'rails_12factor'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204213758) do
+ActiveRecord::Schema.define(version: 20150205180107) do
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 20150204213758) do
     t.text     "image"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.text     "start_date"
+    t.text     "end_date"
   end
 
 end

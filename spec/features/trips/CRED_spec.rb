@@ -3,10 +3,16 @@ require 'rails_helper'
 RSpec.feature "CRED operations for Trips" do
     before do
         @trip = FactoryGirl.create(:trip)
+        @user = FactoryGirl.create(:account)
         
         visit '/'                           # PlaceHolder
         click_link "Create Trip"            # ----"-----
-        expect(page).to have_content("Create Trip")
+        expect(page).to have_content("You must be signed in to create a trip")
+
+        fill_in "Username", with: @user.username
+        fill_in "Password", with: @user.password
+        click_button "Sign In"
+        click_link "Create Trip" 
 
         fill_in "Title", with: @trip.title
         fill_in "Description", with: @trip.description
@@ -24,6 +30,10 @@ RSpec.feature "CRED operations for Trips" do
         expect(page).to have_content(@trip.description)
         expect(page).to have_content(@trip.start_loc)
         expect(page).to have_content(@trip.end_loc)
+
+        within "#trip #owner" do
+            expect(page).to have_content("Created by tore")
+        end
         # image?
     end
     

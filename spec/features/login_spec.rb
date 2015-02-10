@@ -14,7 +14,24 @@ scenario "user can log in" do
 		
 		click_button "Sign In"
 		
-		expect(page).to have_content("Welcome")
+		expect(page).to have_content("Welcome #{@user.username}")
+	end
+
+
+
+
+scenario "user can log out" do
+		fill_in "Username", with: @user.username
+		fill_in "Password", with: @user.password
+		
+		click_button "Sign In"
+		
+		expect(page).to have_content("Welcome #{@user.username}")
+
+		click_link "Sign Out"
+		expect(page).to have_content("You have now signed out")
+		expect(page).to have_content("Sign In")
+
 	end
 	
 end

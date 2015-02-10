@@ -28,6 +28,9 @@ class TripsController < ApplicationController
     end
 
     def update
+
+        
+
         if @trip.update(trip_params)
             @trip.tag_list.remove(@trip.tag_list, parse: true)
             @trip.tag_list.add(trip_params[:tag_list], parse: true)
@@ -40,12 +43,22 @@ class TripsController < ApplicationController
     end
 
     def edit
+        if current_user.id != @trip.account_id
+            flash[:error] = "Error: Only owners can edit trips"
+            redirect_to @trip
+        end
     end
 
     def destroy
-        @trip.destroy
-        flash[:notice] = "Trip has been deleted"
-        redirect_to "/"
+        if current_user.id == @trip.account_id
+            @trip.destroy
+            flash[:notice] = "Trip has been deleted"
+            redirect_to "/"
+        else
+            flash[:error] = "Error: Only owners can delete trips"
+            redirect_to @trip
+        end
+
         # Remember to delete stuff thats linked that use this trip as a referance!
     end
 

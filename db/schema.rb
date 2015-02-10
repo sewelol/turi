@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205180107) do
+ActiveRecord::Schema.define(version: 20150210130612) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 20150205180107) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
+  create_table "trip_participants", force: :cascade do |t|
+    t.integer  "account_id"
+    t.string   "flag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "trip_participants", ["account_id"], name: "index_trip_participants_on_account_id"
+
   create_table "trips", force: :cascade do |t|
     t.text     "title"
     t.text     "description"
@@ -51,6 +60,18 @@ ActiveRecord::Schema.define(version: 20150205180107) do
     t.datetime "updated_at",  null: false
     t.text     "start_date"
     t.text     "end_date"
+    t.integer  "account_id"
   end
+
+  add_index "trips", ["account_id"], name: "index_trips_on_account_id"
+
+  create_table "user_trips", force: :cascade do |t|
+    t.integer  "trip_id"
+    t.string   "flag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_trips", ["trip_id"], name: "index_user_trips_on_trip_id"
 
 end

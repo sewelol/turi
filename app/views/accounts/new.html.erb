@@ -1,0 +1,36 @@
+<%= form_for(@account) do |f| %>
+  
+
+  <!-- Display error message(s) to the user -->
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being created: </h2>
+
+      <ul>
+	<% @account.errors.full_messages.each do |message| %>
+	  <li><%= message %></li>
+	<% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <!-- Display the registration form -->
+  <p>
+	  <%= f.label :username %><br />
+	  <%= f.text_field :username %>
+  </p>
+  <p>
+	  <%= f.label :email %><br />
+	  <%= f.email_field :email %>
+  </p>
+  <p>
+	  <%= f.label :password, "Password" %><br />
+	  <%= f.password_field :password %>
+  </p>
+  <p>
+	  <%= f.label :password_confirmation, "Confirm password" %><br />
+	  <%= f.password_field :password_confirmation %>
+  </p>
+  <%= f.submit %>
+<% end %>

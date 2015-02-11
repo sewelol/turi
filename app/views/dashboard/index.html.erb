@@ -1,0 +1,19 @@
+<h1>Hello World</h1>
+
+<%= link_to "Create Trip", new_trip_path %><br />
+
+<% ActsAsTaggableOn::Tag.most_used.each do |x|%>
+    <%= x %><br />
+<% end %>
+
+<p>My trips:</p>
+<% @trips.each do |trip| %>
+    <% if  trip.account_id == current_user.id%>
+        <%= link_to trip.title, trip %>
+    <% end %>
+<% end %>
+
+<p>All trips:</p>
+<% @trips.each do |trip| %>
+    <%= link_to trip.title, trip %>
+<% end %>

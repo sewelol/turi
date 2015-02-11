@@ -6,11 +6,14 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :trips
-  
-  get "/sign_in", to: "sessions#new"
-  post "/sign_in", to: "sessions#create"
 
-  get "/sign_out", to: "sessions#destroy"
+  get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+  get '/sign_up', to: 'accounts#new', as: 'signup'
+
+  get '/sign_in', to: 'sessions#new', as: 'signin'
+  post '/sign_in', to: 'sessions#create'
+
+  get '/sign_out', to: 'sessions#destroy'
 
 
 

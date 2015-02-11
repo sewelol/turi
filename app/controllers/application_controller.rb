@@ -18,7 +18,9 @@ def require_signin!
 
     helper_method :require_signin!
     def current_user
-        @current_user ||= Account.find(session[:account_id]) if session[:account_id]
+    	unless Account.count < 1
+        	@current_user ||= Account.find(session[:account_id]) if session[:account_id]
+        end
     end
 
     helper_method :current_user

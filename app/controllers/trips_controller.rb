@@ -53,7 +53,7 @@ class TripsController < ApplicationController
         if current_user.id == @trip.account_id
             @trip.destroy
             flash[:notice] = "Trip has been deleted"
-            redirect_to "/"
+            redirect_to dashboard_path
         else
             flash[:error] = "Error: Only owners can delete trips"
             redirect_to @trip
@@ -72,7 +72,7 @@ class TripsController < ApplicationController
         # Redirect to index(for now) if the trip is not in the database # 
         rescue ActiveRecord::RecordNotFound
             flash[:alert] = "The trip was not found!"
-            redirect_to "/"
+            redirect_to dashboard_path
     end
 
 
@@ -80,7 +80,7 @@ class TripsController < ApplicationController
     def check_for_cancel_create
         if(params.key?("cancel"))
             flash[:notice] = "Trip creation cancelled."
-            redirect_to '/'
+            redirect_to dashboard_path
         end
     end
 

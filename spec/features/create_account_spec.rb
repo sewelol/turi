@@ -8,10 +8,10 @@ feature "Create Account" do
 	end
 	
 	scenario "can create new account" do
-		fill_in "Username", with: "nu_user"
-		fill_in "Email", with: "user@user.com"
-		fill_in "Password", with: "password123"
-		fill_in "Confirm password", with: "password123"
+		fill_in "account_username", with: "nu_user"
+		fill_in "account_email", with: "user@user.com"
+		fill_in "account_password", with: "password123"
+		fill_in "account_password_confirmation", with: "password123"
 		
 		click_button "Create Account"
 		
@@ -20,10 +20,10 @@ feature "Create Account" do
 	
 
 	scenario "password too short" do
-		fill_in "Username", with: "nu_user"
-		fill_in "Email", with: "user@user.com"
-		fill_in "Password", with: "pa"
-		fill_in "Confirm password", with: "pa"
+		fill_in "account_username", with: "nu_user"
+		fill_in "account_email", with: "user@user.com"
+		fill_in "account_password", with: "pa"
+		fill_in "account_password_confirmation", with: "pa"
 		
 		click_button "Create Account"
 		
@@ -31,10 +31,10 @@ feature "Create Account" do
 	end
 	
 		scenario "Password confirmation does not match" do
-		fill_in "Username", with: "nu_user"
-		fill_in "Email", with: "user@user.com"
-		fill_in "Password", with: "password123"
-		fill_in "Confirm password", with: "password12"
+		fill_in "account_username", with: "nu_user"
+		fill_in "account_email", with: "user@user.com"
+		fill_in "account_password", with: "password123"
+		fill_in "account_password_confirmation", with: "password12"
 		
 		click_button "Create Account"
 		
@@ -42,20 +42,20 @@ feature "Create Account" do
 	end
 	
 	scenario "username already taken" do
-		fill_in "Username", with: "nu_user"
-		fill_in "Email", with: "user@user.com"
-		fill_in "Password", with: "password123"
-		fill_in "Confirm password", with: "password123"
+		fill_in "account_username", with: "nu_user"
+		fill_in "account_email", with: "user@user.com"
+		fill_in "account_password", with: "password123"
+		fill_in "account_password_confirmation", with: "password123"
 		
 		click_button "Create Account"
 		
 		visit "/"
 		click_link  "Sign Up"
 		
-		fill_in "Username", with: "nu_user"
-		fill_in "Email", with: "user@user.com"
-		fill_in "Password", with: "password123"
-		fill_in "Confirm password", with: "password123"
+		fill_in "account_username", with: "nu_user"
+		fill_in "account_email", with: "user@user.com"
+		fill_in "account_password", with: "password123"
+		fill_in "account_password_confirmation", with: "password123"
 		
 		click_button "Create Account"
 		
@@ -63,20 +63,20 @@ feature "Create Account" do
 	end
 
 	scenario "email already taken" do
-		fill_in "Username", with: "nu_user"
-		fill_in "Email", with: "user@user.com"
-		fill_in "Password", with: "password123"
-		fill_in "Confirm password", with: "password123"
+		fill_in "account_username", with: "nu_user"
+		fill_in "account_email", with: "user@user.com"
+		fill_in "account_password", with: "password123"
+		fill_in "account_password_confirmation", with: "password123"
 		
 		click_button "Create Account"
 		
 		visit "/"
 		click_link  "Sign Up"
 		
-		fill_in "Username", with: "nu_user69"
-		fill_in "Email", with: "user@user.com"
-		fill_in "Password", with: "password123"
-		fill_in "Confirm password", with: "password123"
+		fill_in "account_username", with: "nu_user69"
+		fill_in "account_email", with: "user@user.com"
+		fill_in "account_password", with: "password123"
+		fill_in "account_password_confirmation", with: "password123"
 		
 		click_button "Create Account"
 		

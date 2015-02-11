@@ -5,12 +5,11 @@ RSpec.feature "CRED operations for Trips" do
         @trip = FactoryGirl.create(:trip)
         @user = FactoryGirl.create(:account)
         
-        visit '/'                           # PlaceHolder
-        click_link "Create Trip"            # ----"-----
+        visit '/dashboard'
         expect(page).to have_content("You must be signed in to create a trip")
 
-        fill_in "Username", with: @user.username
-        fill_in "Password", with: @user.password
+        fill_in "sign_in_username", with: @user.username
+        fill_in "sign_in_password", with: @user.password
         click_button "Sign In"
         click_link "Create Trip" 
 
@@ -79,10 +78,5 @@ RSpec.feature "CRED operations for Trips" do
         expect(page).to have_content("The trip was not found!")
     end
 
-    scenario "Tags should be displayed on the frontpage" do
-        expect(page).to have_content(@tags)
-        visit '/'
-        expect(page).to have_content(@tags.delete!',')
-    end
 end
 

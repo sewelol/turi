@@ -1,7 +1,8 @@
 class WelcomeController < ApplicationController
 
+  layout 'webpage'
+
 	def index
-		@trips = Trip.all
 	end
 
 end

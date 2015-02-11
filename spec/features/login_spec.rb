@@ -9,8 +9,8 @@ feature "Login" do
 	
 	
 scenario "user can log in" do
-		fill_in "Username", with: @user.username
-		fill_in "Password", with: @user.password
+		fill_in "sign_in_username", with: @user.username
+		fill_in "sign_in_password", with: @user.password
 		
 		click_button "Sign In"
 		
@@ -21,16 +21,16 @@ scenario "user can log in" do
 
 
 scenario "user can log out" do
-		fill_in "Username", with: @user.username
-		fill_in "Password", with: @user.password
+		fill_in "sign_in_username", with: @user.username
+		fill_in "sign_in_password", with: @user.password
 		
 		click_button "Sign In"
 		
 		expect(page).to have_content("Welcome #{@user.username}")
 
 		click_link "Sign Out"
-		expect(page).to have_content("You have now signed out")
 		expect(page).to have_content("Sign In")
+		expect(page).to have_content("Sign Up")
 
 	end
 	

@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+
+  layout 'sign'
+
 	def new
 	end
 
@@ -8,7 +11,7 @@ class SessionsController < ApplicationController
 		if user && user.authenticate(params[:sign_in][:password])
 			session[:account_id] = user.id
 			flash[:notice] = "Welcome #{user.username}!"
-			redirect_to root_url
+			redirect_to '/dashboard'
 		else
 			flash[:error] = "Not Welcome"
 			render :new

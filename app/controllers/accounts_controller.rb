@@ -1,4 +1,7 @@
 class AccountsController < ApplicationController
+
+  layout 'sign'
+
 	def new
 		@account = Account.new
 	end
@@ -19,8 +22,6 @@ class AccountsController < ApplicationController
 		  render :new # Go back to the registration form to display any errors to the user. See 'new.html.erb'
 		end
 	end
-	
-	
 	
 	private
 	

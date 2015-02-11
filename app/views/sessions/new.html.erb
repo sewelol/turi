@@ -1,15 +1,36 @@
-<h1>Sign In</h1>
-
-<%= form_for :sign_in, method: "POST" do |f| %>
-	<p>
-	<%= f.label :username %><br />
-	<%= f.text_field :username %>
-	</p>
-	<p>
-	<%= f.label :password %><br />
-	<%= f.password_field :password %>
-	</p>
-
-	<%= f.submit "Sign In" %>
-
+<% content_for :page_title do %>
+    <i class="fa fa-cube"></i> <strong>Welcome to turi</strong>
 <% end %>
+
+<!-- Login Block -->
+<div class="block animation-fadeInQuickInv">
+  <!-- Login Title -->
+  <div class="block-title">
+    <div class="block-options pull-right">
+      <a href="<%=new_account_path%>" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left" title="Create new account"><i class="fa fa-plus"></i></a>
+    </div>
+    <h2>Please Login</h2>
+  </div>
+  <!-- END Login Title -->
+
+  <!-- Login Form -->
+  <%= form_for :sign_in, method: "POST", html: {class: 'form-horizontal'} do |f| %>
+    <div class="form-group">
+      <div class="col-xs-12">
+        <%= f.text_field :username, class: 'form-control', placeholder: 'Your username..' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-12">
+        <%= f.password_field :password, class: 'form-control', placeholder: 'Your password..' %>
+      </div>
+    </div>
+    <div class="form-group form-actions">
+      <div class="col-xs-12 text-right">
+        <%= f.submit 'Sign in', class: 'btn btn-effect-ripple btn-sm btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+  <!-- END Login Form -->
+</div>
+<!-- END Login Block -->

@@ -2,6 +2,8 @@
 
 <%= link_to "Create Trip", new_trip_path %><br />
 
+<%= link_to "Sign Out", sign_out_path %><br />
+
 <% ActsAsTaggableOn::Tag.most_used.each do |x|%>
     <%= x %><br />
 <% end %>

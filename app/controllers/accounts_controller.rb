@@ -14,7 +14,7 @@ class AccountsController < ApplicationController
 		@account = Account.new(account_params)
 		if @account.save
 			flash[:notice] = "Account successfully created."
-			redirect_to @account
+			redirect_to '/sign_in'
 		else
 		  render :new # Go back to the registration form to display any errors to the user. See 'new.html.erb'
 		end

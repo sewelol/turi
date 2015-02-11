@@ -4,8 +4,11 @@ class TripsController < ApplicationController
     before_action :check_for_cancel_update, only: :update
     before_action :require_signin!, except: [:show]
 
-
     def show
+    end
+
+    def index
+      @trips = Trip.all
     end
 
     def new
@@ -28,9 +31,6 @@ class TripsController < ApplicationController
     end
 
     def update
-
-        
-
         if @trip.update(trip_params)
             @trip.tag_list.remove(@trip.tag_list, parse: true)
             @trip.tag_list.add(trip_params[:tag_list], parse: true)

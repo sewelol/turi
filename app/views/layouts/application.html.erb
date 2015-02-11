@@ -103,7 +103,12 @@
           <!-- Notifications -->
           <div class="sidebar-section">
             <h2 class="text-light">Notifications</h2>
-            ...
+            <% flash.each do |key, value| %>
+                <div class="alert alert-info alert-dismissable" id='<%= key %>'>
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <p><%= value %></p>
+                </div>
+            <% end %>
           </div>
           <!-- END Notifications -->
         </div>
@@ -117,8 +122,8 @@
     <div id="sidebar">
       <!-- Sidebar Brand -->
       <div id="sidebar-brand" class="themed-background">
-        <a href="index.html" class="sidebar-title">
-          <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide">App<strong>UI</strong></span>
+        <a href="<%=dashboard_path%>" class="sidebar-title">
+          <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide"><strong>turi</strong></span>
         </a>
       </div>
       <!-- END Sidebar Brand -->
@@ -292,7 +297,7 @@
       <!-- Sidebar Extra Info -->
       <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
         <div class="text-center">
-          <small><span id="year-copy"></span> &copy; <a href="http://goo.gl/RcsdAh" target="_blank">AppUI 2.2</a></small>
+          <small><span id="year-copy"></span> &copy; Turi Inc.</small>
         </div>
       </div>
       <!-- END Sidebar Extra Info -->
@@ -340,7 +345,7 @@
         <ul class="nav navbar-nav-custom pull-right">
 
           <li>
-            <a href="<%=new_trip_path%>">
+            <a href="<%=new_trip_path%>" id="create_trip_link">
               <i class="gi gi-plus"></i>
             </a>
           </li>
@@ -364,7 +369,7 @@
                 <strong><%=current_user.email%></strong>
               </li>
               <li>
-                <a href="<%=sign_out_path%>">
+                <a href="<%=sign_out_path%>" id="sign_out_link">
                   <i class="fa fa-power-off fa-fw pull-right"></i>
                   Log out
                 </a>

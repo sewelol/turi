@@ -1,1 +1,37 @@
-... todo: display all trips
+<% content_for :page_title do %>
+    Trip List
+<% end %>
+
+<div class="row">
+
+  <% @trips.each do |trip| %>
+      <div class="col-sm-3">
+        <a href="<%=url_for(trip)%>" class="widget">
+          <div class="widget-content themed-background text-light-op">
+            <i class="fa fa-fw fa-pencil"></i> <strong><%=trip.title%></strong>
+          </div>
+          <div class="widget-image widget-image-sm">
+            <img src="<%= trip.image.empty? ? asset_path('app/img/placeholders/photos/photo9.jpg') : trip.image %>" alt="image">
+            <div class="widget-image-content">
+              <h2 class="widget-heading text-light"><strong><%=trip.title%></strong></h2>
+              <h3 class="widget-heading text-light-op h4">Created by <%= trip.account.username %></h3>
+            </div>
+            <i class="gi gi-airplane"></i>
+          </div>
+          <div class="widget-content text-dark">
+            <div class="row text-center">
+              <div class="col-xs-4">
+                <i class="fa fa-heart-o"></i> 9.5k
+              </div>
+              <div class="col-xs-4">
+                <i class="fa fa-eye"></i> 76k
+              </div>
+              <div class="col-xs-4">
+                <i class="fa fa-share-alt"></i> 7.2k
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+  <% end %>
+</div>

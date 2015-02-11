@@ -28,7 +28,7 @@ scenario "user can log out" do
 		
 		expect(page).to have_content("Welcome #{@user.username}")
 
-		click_link "Sign Out"
+		click_link "sign_out_link"
 		expect(page).to have_content("Sign In")
 		expect(page).to have_content("Sign Up")
 

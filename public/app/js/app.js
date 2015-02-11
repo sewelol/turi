@@ -96,7 +96,7 @@ var App = function() {
         $('.select-chosen').chosen({width: "100%"});
 
         // Initialize Select2
-        $('.select-select2').select2();
+        //$('.select-select2').select2();
 
         // Initialize Slider for Bootstrap
         $('.input-slider').slider();

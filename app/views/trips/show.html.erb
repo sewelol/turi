@@ -1,23 +1,37 @@
-<div id='trip'>
-	<h2><%= @trip.title %></h2>
-	<span id='owner'>
-		Created by <%= @trip.account.username %> 
-	</span>
+<% content_for :page_title do %>
+    <%= @trip.title %>
+<% end %>
+
+<div class="content-header content-header-media">
+  <div class="header-section">
+    <div class="row">
+      <div class="col-sm-7 col-md-8 col-lg-9 content-float-hor push-bit-top-bottom clearfix">
+        <h1><%= @trip.title %></h1>
+        <h2 class="text-light-op">Created by <%= @trip.account.username %> (updated <%= time_ago_in_words(@trip.updated_at) %> ago)</h2>
+      </div>
+      <div class="col-sm-5 col-md-4 col-lg-3 text-right push-bit-top-bottom">
+        <div class="row">
+          <div class="col-xs-6 col-sm-12">
+            <a href="<%=edit_trip_path%>" class="btn btn-block btn-effect-ripple btn-default" style="overflow: hidden; position: relative;"><i class="fa fa-pencil"></i> Edit</a>
+          </div>
+          <div class="col-xs-6 col-sm-12">
+            <%= link_to raw('<i class="fa fa-trash"></i> Delete'),
+                        trip_path(@trip),
+                        method: :delete,
+                        data: {
+                                confirm: 'Are you sure you want to delete this trip?'
+                        },
+                        style: 'overflow: hidden; position: relative;',
+                        class: 'btn btn-block btn-effect-ripple btn-danger'
+            %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- For best results use an image with a resolution of 2560x260 pixels (you could use a blurred image for smaller file size) -->
+  <img src="<%= @trip.image.empty? ? asset_path('app/img/placeholders/layout/socialnet_header.jpg') : @trip.image %>" alt="Header Image" class="animation-pulseSlow">
 </div>
-
-
-
-Updated <%= time_ago_in_words(@trip.updated_at) %> ago<br />
-<%= link_to "Edit", edit_trip_path %>
-<%= link_to "Delete", 
-    trip_path(@trip),
-    method: :delete, 
-    data: { 
-        confirm: "Are you sure you want to delete this trip?" }
-%><br />
-
-
-<IMG SRC="<%= @trip.image %>"><br />
 
 <%= @trip.description %><br />
 TAGS: <%= @trip.tag_list %><br />
@@ -25,5 +39,3 @@ Start Location: <%= @trip.start_loc %>  <br />
 Start Date:     <%= @trip.start_date %> <br />
 End Location:   <%= @trip.end_loc %>    <br />
 End Date:       <%=  @trip.end_date %>   <br />
-
-

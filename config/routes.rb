@@ -6,6 +6,13 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :trips
+  
+  get "/sign_in", to: "sessions#new"
+  post "/sign_in", to: "sessions#create"
+
+  get "/sign_out", to: "sessions#destroy"
+
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -19,10 +19,10 @@ class TripsController < ApplicationController
 
         if @trip.save
             @trip.tag_list.add(trip_params[:tag_list], parse: true) 
-            flash[:notice] = "You successfully created a trip"
+            flash[:notice] = I18n.t 'trip_created'
             redirect_to @trip
         else
-            flash[:alert] = "Trip was not created!"
+            flash[:alert] = I18n.t 'trip_not_created'
             render :new
         end
     end
@@ -34,17 +34,17 @@ class TripsController < ApplicationController
         if @trip.update(trip_params)
             @trip.tag_list.remove(@trip.tag_list, parse: true)
             @trip.tag_list.add(trip_params[:tag_list], parse: true)
-            flash[:notice] = "Trip has been updated"
+            flash[:notice] = I18n.t 'trip_updated'
             redirect_to @trip
         else
-            flash[:alert] = "Trip has not been updated!"
+            flash[:alert] = I18n.t 'trip_not_updated'
             render 'edit'
         end
     end
 
     def edit
         if current_user.id != @trip.account_id
-            flash[:error] = "Error: Only owners can edit trips"
+            flash[:error] = I18n.t 'trip_edit_permission_error'
             redirect_to @trip
         end
     end
@@ -52,10 +52,10 @@ class TripsController < ApplicationController
     def destroy
         if current_user.id == @trip.account_id
             @trip.destroy
-            flash[:notice] = "Trip has been deleted"
-            redirect_to "/"
+            flash[:notice] = I18n.t 'trip_deleted'
+            redirect_to dashboard_path
         else
-            flash[:error] = "Error: Only owners can delete trips"
+            flash[:error] = I18n.t 'trip_delete_permission_error'
             redirect_to @trip
         end
 
@@ -71,22 +71,22 @@ class TripsController < ApplicationController
         @trip = Trip.find(params[:id])
         # Redirect to index(for now) if the trip is not in the database # 
         rescue ActiveRecord::RecordNotFound
-            flash[:alert] = "The trip was not found!"
-            redirect_to "/"
+            flash[:alert] = I18n.t 'trip_not_found'
+            redirect_to dashboard_path
     end
 
 
     #### Can we merge these two into a single function? ####
     def check_for_cancel_create
         if(params.key?("cancel"))
-            flash[:notice] = "Trip creation cancelled."
-            redirect_to '/'
+            flash[:notice] = I18n.t 'trip_create_canceled'
+            redirect_to dashboard_path
         end
     end
 
     def check_for_cancel_update
         if(params.key?("cancel"))
-            flash[:notice] = "Trip was not updated."
+            flash[:notice] = I18n.t 'trip_not_updated'
             redirect_to trip_path
         end
     end

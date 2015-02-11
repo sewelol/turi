@@ -4,13 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
-
-
-
-
 def require_signin!
         if current_user.nil?
-            flash[:error] = "You must be signed in to create a trip"
+            flash[:error] = I18n.t 'sign_in_to_create_trip'
             redirect_to sign_in_url
 
         end

@@ -5,14 +5,13 @@ RSpec.feature "CRED operations for Trips" do
         @trip = FactoryGirl.create(:trip)
         @user = FactoryGirl.create(:account)
         
-        visit '/'                           # PlaceHolder
-        click_link "Create Trip"            # ----"-----
+        visit '/dashboard'
         expect(page).to have_content("You must be signed in to create a trip")
 
-        fill_in "Username", with: @user.username
-        fill_in "Password", with: @user.password
+        fill_in "sign_in_username", with: @user.username
+        fill_in "sign_in_password", with: @user.password
         click_button "Sign In"
-        click_link "Create Trip" 
+        click_link "create_trip_link"
 
         fill_in "Title", with: @trip.title
         fill_in "Description", with: @trip.description
@@ -25,13 +24,14 @@ RSpec.feature "CRED operations for Trips" do
     end
 
     scenario "Create/Show Trip" do
-        expect(page).to have_content("You successfully created a trip")
+        #FIXME: Expect for "url_for" is not working as expected
+        #expect(page.current_path).to eq(url_for(@trip))
         expect(page).to have_content(@trip.title)
         expect(page).to have_content(@trip.description)
         expect(page).to have_content(@trip.start_loc)
         expect(page).to have_content(@trip.end_loc)
 
-        within "#trip #owner" do
+        within ".trip .owner" do
             expect(page).to have_content("Created by tore")
         end
         # image?
@@ -79,10 +79,5 @@ RSpec.feature "CRED operations for Trips" do
         expect(page).to have_content("The trip was not found!")
     end
 
-    scenario "Tags should be displayed on the frontpage" do
-        expect(page).to have_content(@tags)
-        visit '/'
-        expect(page).to have_content(@tags.delete!',')
-    end
 end
 

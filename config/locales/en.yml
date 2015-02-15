@@ -8,7 +8,7 @@
 #
 # In views, this is aliased to just `t`:
 #
-#     <%= t('hello') %>
+#     	
 #
 # To use a different locale, set it with `I18n.locale`:
 #
@@ -21,3 +21,28 @@
 
 en:
   hello: "Hello world"
+
+  #Login and Session (session_controller)
+  sign_in_ok: 				"You have successfully signed in as"
+  sign_in_failed: 			"Wrong username/password"
+  sign_out_ok: 				"You have successfully signed out!"
+  signed_in_already:		"You are already signed in!"
+  
+  #Registration and account (account_controller)
+  acc_created:				"Account successfully created."
+  
+  #Application (application_controller)
+  sign_in_to_create_trip: 	"You must be signed in to create a trip"
+  
+  #Trips (trip_controller)
+  trip_created:					"You successfully created a trip"
+  trip_not_created:				"Trip was not created!"
+  trip_updated:					"Trip has been updated"
+  trip_not_updated:				"Trip has not been updated!"
+  trip_edit_permission_error:	"Error: Only owners can edit trips"
+  trip_delete_permission_error:	"Error: Only owners can delete trips"
+  trip_deleted:					"Trip has been deleted"
+  trip_not_deleted:				"Trip has not been deleted"
+  trip_not_found:				"The trip was not found!"
+  trip_create_canceled:			"Trip creation cancelled"
+  

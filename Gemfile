@@ -27,6 +27,9 @@ gem 'acts-as-taggable-on', '~> 3.4'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Gravatar profile pictures
+gem 'gravtastic'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

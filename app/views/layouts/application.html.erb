@@ -103,12 +103,7 @@
           <!-- Notifications -->
           <div class="sidebar-section">
             <h2 class="text-light">Notifications</h2>
-            <% flash.each do |key, value| %>
-                <div class="alert alert-info alert-dismissable" id='<%= key %>'>
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <p><%= value %></p>
-                </div>
-            <% end %>
+            ...
           </div>
           <!-- END Notifications -->
         </div>
@@ -405,6 +400,13 @@
           </div>
         </div>
         <!-- END Blank Header -->
+
+        <% flash.each do |key, value| %>
+            <div class="alert alert-info alert-dismissable" id='<%= key %>'>
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <p><%= value %></p>
+            </div>
+        <% end %>
 
         <%= yield %>
 

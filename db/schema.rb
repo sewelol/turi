@@ -55,9 +55,9 @@ ActiveRecord::Schema.define(version: 20150210130612) do
     t.text     "description"
     t.text     "start_loc"
     t.text     "end_loc"
-    t.text     "image"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.text     "image",       default: ""
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.text     "start_date"
     t.text     "end_date"
     t.integer  "account_id"

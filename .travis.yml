@@ -5,7 +5,6 @@ after_success:
   - '[ "${TRAVIS_BRANCH}" = "develop" ] && git push https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${TRAVIS_REPO_SLUG}.git HEAD:master'
 env:
   global:
-
     secure: Dd2apaFjstgOdrXuijlr/Uqg2+vUTTLdg4tXTXfs3LzQmrUUe0v1tMpicKvKPXRzBWU+S3PtamjF3vb2HbwKAtoiUy3QW725Hs4GR0TB2XBnzt1IzkfBqaVuezj5eWNR2+s9upmUvPlHVuundjAQnaud3Yoy4lx3s928VgXN9AU=
 deploy:
   provider: heroku

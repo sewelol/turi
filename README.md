@@ -2,6 +2,8 @@
 Yet another trip planner.
 
 [![Build Status](https://travis-ci.org/turi-inc/turi.svg?branch=develop)](https://travis-ci.org/turi-inc/turi)
+[![Code Climate](https://codeclimate.com/github/turi-inc/turi/badges/gpa.svg)](https://codeclimate.com/github/turi-inc/turi)
+[![Test Coverage](https://codeclimate.com/github/turi-inc/turi/badges/coverage.svg)](https://codeclimate.com/github/turi-inc/turi)
 [![Security Status](https://hakiri.io/github/turi-inc/turi/develop.svg)](https://hakiri.io/github/turi-inc/turi/develop/shield)
 [![Dependency Status](https://gemnasium.com/turi-inc/turi.svg)](https://gemnasium.com/turi-inc/turi)
 

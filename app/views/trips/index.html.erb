@@ -12,7 +12,7 @@
             <img src="<%= trip.image.empty? ? asset_path('app/img/placeholders/photos/photo9.jpg') : trip.image %>" alt="image">
             <div class="widget-image-content">
               <h2 class="widget-heading text-light"><strong><%=trip.title%></strong></h2>
-              <h3 class="widget-heading text-light-op">Created by <%= trip.account.username %></h3>
+              <h3 class="widget-heading text-light-op">Created by <%= trip.user.name %></h3>
             </div>
           </div>
           <div class="widget-content">

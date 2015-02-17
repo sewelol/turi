@@ -363,9 +363,7 @@
           <!-- Logout Button -->
           <% if current_user %>
               <li>
-                <a href="<%=sign_out_path%>" id="sign_out_link" title="Logout">
-                  <i class="gi gi-power"></i>
-                </a>
+                <%= link_to(raw('<i class="gi gi-power"></i>'), destroy_user_session_path, :method => :delete, id: 'sign_out_link', title: 'Logout') %>
               </li>
           <% end %>
           <!-- END Logout Button -->

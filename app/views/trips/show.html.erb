@@ -18,9 +18,9 @@
 
         <li>
           <a href="/path/to/account/page">
-            <%= image_tag @trip.account.gravatar_url, class: 'nav-users-avatar' %>
-            <span class="nav-users-heading"><%= @trip.account.username %></span>
-            <span class="text-muted"><%= @trip.account.email %></span>
+            <%= image_tag @trip.user.gravatar_url, class: 'nav-users-avatar' %>
+            <span class="nav-users-heading"><%= @trip.user.name %></span>
+            <span class="text-muted"><%= @trip.user.email %></span>
           </a>
         </li>
 
@@ -35,10 +35,10 @@
     <div class="row">
       <div class="col-sm-7 col-md-8 col-lg-9 content-float-hor push-bit-top-bottom clearfix">
         <h1><%= @trip.title %></h1>
-        <h2 class="text-light-op owner">Created by <%= @trip.account.username %> (updated <%= time_ago_in_words(@trip.updated_at) %> ago)</h2>
+        <h2 class="text-light-op owner">Created by <%= @trip.user.name %> (updated <%= time_ago_in_words(@trip.updated_at) %> ago)</h2>
       </div>
       <div class="col-sm-5 col-md-4 col-lg-3 text-right push-bit-top-bottom">
-        <% if current_user.id == @trip.account.id %>
+        <% if current_user.id == @trip.user.id %>
         <div class="row">
           <div class="col-xs-6 col-sm-12">
             <a href="<%=edit_trip_path%>" class="btn btn-block btn-effect-ripple btn-default" style="overflow: hidden; position: relative;"><i class="fa fa-pencil"></i> Edit</a>

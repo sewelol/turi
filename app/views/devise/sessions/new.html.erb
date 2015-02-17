@@ -1,0 +1,47 @@
+<% content_for :page_title do %>
+    <i class="fa fa-cube"></i> <strong>Welcome to turi</strong>
+<% end %>
+
+<!-- Login Block -->
+<div class="block animation-fadeInQuickInv">
+  <!-- Login Title -->
+  <div class="block-title">
+    <div class="block-options pull-right">
+      <a href="<%=new_user_password_path%>" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left" title="" style="overflow: hidden; position: relative;" data-original-title="Forgot your password?"><i class="fa fa-exclamation-circle"></i></a>
+      <a href="<%=new_user_registration_path%>" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left" title="Create new account"><i class="fa fa-plus"></i></a>
+    </div>
+    <h2>Please Login</h2>
+  </div>
+  <!-- END Login Title -->
+
+  <!-- Login Form -->
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-horizontal'}) do |f| %>
+
+      <%= devise_error_messages! %>
+
+      <div class="form-group">
+        <div class="col-xs-12">
+          <%= f.text_field :email, class: 'form-control', placeholder: 'Your email..', autofocus: true %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-12">
+          <%= f.password_field :password, class: 'form-control', placeholder: 'Your password..', autocomplete: 'off' %>
+        </div>
+      </div>
+      <div class="form-group form-actions">
+        <div class="col-xs-8">
+          <label class="csscheckbox csscheckbox-primary">
+            <%= f.check_box :remember_me %>
+            <span></span>
+          </label>
+          Remember Me?
+        </div>
+        <div class="col-xs-4 text-right">
+          <%= f.submit 'Sign In', class: 'btn btn-effect-ripple btn-sm btn-primary', id: 'sign_in_button' %>
+        </div>
+      </div>
+  <% end %>
+  <!-- END Login Form -->
+</div>
+<!-- END Login Block -->

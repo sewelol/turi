@@ -6,15 +6,10 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :trips
-  resources :accounts
+
+  devise_for :users, :controllers => { registrations: 'registrations' }
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
-  get '/sign_up', to: 'accounts#new', as: 'signup'
-
-  get '/sign_in', to: 'sessions#new', as: 'signin'
-  post '/sign_in', to: 'sessions#create'
-
-  get '/sign_out', to: 'sessions#destroy'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

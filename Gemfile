@@ -30,6 +30,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Gravatar profile pictures
 gem 'gravtastic'
 
+# Devise
+gem 'devise'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

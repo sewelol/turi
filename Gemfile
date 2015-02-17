@@ -55,6 +55,10 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
+end
+
 # Heroku
 # - We have to use postgres instead of sqlite (not supported on heroku), therefore we've to use a different environment group
 group :production do

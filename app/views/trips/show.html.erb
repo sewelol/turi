@@ -2,6 +2,34 @@
     <%= @trip.title %>
 <% end %>
 
+<% content_for :page_class do %>
+    inner-sidebar-right
+<% end %>
+
+<div id="page-content-sidebar">
+  <!-- Collapsible People List -->
+  <a href="javascript:void(0)" class="btn btn-block btn-effect-ripple btn-primary visible-xs" data-toggle="collapse" data-target="#people-nav" style="overflow: hidden; position: relative;">People</a>
+  <div id="people-nav" class="collapse navbar-collapse remove-padding">
+    <div class="block-section">
+      <h4 class="inner-sidebar-header">
+        Members
+      </h4>
+      <ul class="nav-users nav-users-online">
+
+        <li>
+          <a href="/path/to/account/page">
+            <%= image_tag @trip.account.gravatar_url, class: 'nav-users-avatar' %>
+            <span class="nav-users-heading"><%= @trip.account.username %></span>
+            <span class="text-muted"><%= @trip.account.email %></span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <!-- END Collapsible People List -->
+</div>
+
 <div class="content-header content-header-media trip">
   <div class="header-section">
     <div class="row">
@@ -10,6 +38,7 @@
         <h2 class="text-light-op owner">Created by <%= @trip.account.username %> (updated <%= time_ago_in_words(@trip.updated_at) %> ago)</h2>
       </div>
       <div class="col-sm-5 col-md-4 col-lg-3 text-right push-bit-top-bottom">
+        <% if current_user.id == @trip.account.id %>
         <div class="row">
           <div class="col-xs-6 col-sm-12">
             <a href="<%=edit_trip_path%>" class="btn btn-block btn-effect-ripple btn-default" style="overflow: hidden; position: relative;"><i class="fa fa-pencil"></i> Edit</a>
@@ -26,18 +55,39 @@
             %>
           </div>
         </div>
+            <% end %>
       </div>
     </div>
   </div>
   <!-- For best results use an image with a resolution of 2560x260 pixels (you could use a blurred image for smaller file size) -->
-  <img src="<%= @trip.image.empty? ? asset_path('app/img/placeholders/layout/socialnet_header.jpg') : @trip.image %>" alt="Header Image" class="animation-pulseSlow">
+  <img src="<%= @trip.image.empty? ? asset_path('app/img/placeholders/layout/socialnet_header.jpg') : @trip.image %>" alt="Trip Image" class="animation-pulseSlow">
 </div>
 
+<div class="row">
+  <div class="col-lg-6">
+    <div class="widget">
+      <div class="widget-content widget-content-mini themed-background-dark text-light-op">
+        Description
+      </div>
+      <div class="widget-content">
+        <p><%= @trip.description.empty? ? '-' : @trip.description %></p>
+        <h6>Start Location</h6> <%= @trip.start_loc.empty? ? '-' : @trip.start_loc %>
+        <h6>Start Date</h6> <%= @trip.start_date.empty? ? '-' : @trip.start_date %>
+        <h6>End Location</h6> <%= @trip.end_loc.empty? ? '-' : @trip.end_loc %>
+        <h6>End Date</h6> <%= @trip.end_date.empty? ? '-' : @trip.end_date %>
+      </div>
+    </div>
+  </div>
 
+  <div class="col-lg-6">
+    <div class="widget">
+      <div class="widget-content widget-content-mini themed-background-dark text-light-op">
+        Tags
+      </div>
+      <div class="widget-content">
+        <p><%= @trip.tag_list %></p>
+      </div>
+    </div>
+  </div>
 
-<%= @trip.description %><br />
-TAGS: <%= @trip.tag_list %><br />
-Start Location: <%= @trip.start_loc %>  <br />
-Start Date:     <%= @trip.start_date %> <br />
-End Location:   <%= @trip.end_loc %>    <br />
-End Date:       <%=  @trip.end_date %>   <br />
+</div>

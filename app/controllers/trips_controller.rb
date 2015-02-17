@@ -8,7 +8,12 @@ class TripsController < ApplicationController
     end
 
     def index
-      @trips = Trip.all
+      if(params['search-query'].nil? || params['search-query'].empty?)
+        @trips =  Trip.all
+      else
+        search_query = '%' << params['search-query'][0] << '%'
+        @trips =  Trip.where('title LIKE ? OR description LIKE ?', search_query, search_query)
+      end
     end
 
     def new

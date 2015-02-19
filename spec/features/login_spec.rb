@@ -20,7 +20,8 @@ feature 'Login' do
 		click_button 'Sign In'
 
     expect(page.current_path).to eq new_user_session_path
-	end
+    expect(page).to have_content('Error Invalid email or password.')
+  end
 
   scenario 'logged in user try to log in again' do
 		sign_in

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

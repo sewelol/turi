@@ -30,7 +30,7 @@ RSpec.feature 'CRED operations for Trips' do
         expect(page).to have_content(@trip.end_loc)
 
         within '.trip .owner' do
-            expect(page).to have_content('Created by tore')
+            expect(page).to have_content('Created by ' << @user.name)
         end
         # image?
     end
@@ -52,25 +52,23 @@ RSpec.feature 'CRED operations for Trips' do
         expect(page).to_not have_content(@tags.delete!',')
     end
 
-    # Both work in the webbrowser, not working in Rspec (seems like it can't click/find the button!    
-    # 
-    #scenario 'Cancel Update' do
-    #    click_link 'Edit'
-    #    fill_in 'Title', with: 'Editing Title'
-    #    click_button 'Cancel'
-    #    expect(page).to have_content('Trip was not updated.')
-    #    expect(page).to have_content(@trip.title)
-    #end
-    #   
-    #scenario 'Cancel Creation' do
-    #    visit '/'
-    #    click_link 'Create Trip'
-    #    fill_in 'Title', with: 'Cancel Trip'
-    #    fill_in 'Tag list', with: 'sjokoloade'
-    #    click_button 'Cancel'
-    #    expect(page).to have_content('Trip creation cancelled.')
-    #    expect(page).to_not have_content('sjokoloade')
-    #end
+    scenario 'Cancel Update' do
+        click_link 'Edit'
+        fill_in 'Title', with: 'Editing Title'
+        click_button 'cancel_button'
+        expect(page.current_path).to eq edit_trip_path(@trip.id + 1)
+        #expect(page).to have_content('Trip was not updated.')
+        expect(page).to have_content(@trip.title)
+    end
+
+    scenario 'Cancel Creation' do
+        click_link 'create_trip_link'
+        fill_in 'Title', with: 'Cancel Trip'
+        fill_in 'Tag list', with: 'sjokoloade'
+        click_button 'cancel_button'
+        #expect(page).to have_content('Trip creation cancelled.')
+        expect(page).to_not have_content('sjokoloade')
+    end
 
     scenario 'Redirection if trying to enter not made trip' do
         visit '/trips/99'

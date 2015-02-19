@@ -8,7 +8,7 @@
   </div>
 
   <% @trips.each do |trip| %>
-      <% if  trip.user_id == current_user.id%>
+      <% if trip.user_id == current_user.id %>
           <%= link_to trip.title, trip %>
       <% end %>
   <% end %>

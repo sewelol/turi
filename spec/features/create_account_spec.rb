@@ -19,7 +19,6 @@ feature 'Create Account' do
     fill_in 'user_password_confirmation', with: @user.password
 
     click_button 'Create Account'
-
     expect(page.current_path).to eq dashboard_path
   end
 

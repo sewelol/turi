@@ -14,10 +14,17 @@
 
               <div>
               <% @trips.each do |trip| %>
+                <ul>
                   <%= link_to trip.title, trip %>
-                  <p>
-
-                  </p>
+                  <div>
+                    <p>
+                      <%= trip.description %>
+                    </p>
+                    <p>
+                      <%= trip.tag_list %>
+                    </p>
+                  </div>
+                </ul>
               <% end %>
               </div>
 

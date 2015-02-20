@@ -12,7 +12,8 @@ class Trip < ActiveRecord::Base
     end
 
     if tag_search.present?
-      get_tagged = Trip.tagged_with(tag_search, :on => :tags)
+      ary_tag = tag_search.split
+      get_tagged = Trip.tagged_with(ary_tag, :on => :tags)
       if get_fields.blank?
         @trips = get_tagged
       else

@@ -5,7 +5,7 @@ RSpec.feature 'Search Trips' do
     @user = FactoryGirl.create(:account)
     @trip = FactoryGirl.create(:trip)
 
-    @atag = 'fun'
+    @atag = 'fun, cold'
     @trip.tag_list = @atag
     @trip.save
     visit '/'

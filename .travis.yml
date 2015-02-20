@@ -13,7 +13,8 @@ deploy:
   app: turi
   run:
     - "pg:reset DATABASE_URL --confirm turi"
-    - "rake db:migrate RAILS_ENV=production"
+    - "rake db:migrate:reset RAILS_ENV=production"
+    - "rake acts_as_taggable_on_engine:install:migrations RAILS_ENV=production"
     - "rake db:seed RAILS_ENV=production"
     - restart
   on:

@@ -1,23 +1,23 @@
 <% flash.each do |key, value| %>
 
     <% if key.eql? 'alert' or key.eql? 'error' %>
-
         <div class="alert alert-danger alert-dismissable" id='alert-<%= key %>'>
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
           <h4><strong>Error</strong></h4>
           <p><%= value %></p>
         </div>
-
-    <% end %>
-
-    <% if key.eql? 'notice' %>
-
+    <% elsif key.eql? 'notice' %>
         <div class="alert alert-info alert-dismissable" id='alert-<%= key %>'>
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <button type="button" class="close" data-dismiss="notice" aria-hidden="true">×</button>
           <h4><strong>Notice</strong></h4>
           <p><%= value %></p>
         </div>
-
+    <% else %> 
+        <div class="alert alert-info alert-dismissable" id='alert-<%= key %>'>
+          <button type="button" class="close" data-dismiss="notice" aria-hidden="true">×</button>
+          <h4><strong>Notice</strong></h4>
+          <p><%= value %></p>
+        </div>
     <% end %>
 
 <% end %>

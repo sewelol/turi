@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :trip_participant do
-    account nil
+    user nil
 flag "MyString"
   end
 

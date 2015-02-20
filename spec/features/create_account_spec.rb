@@ -6,7 +6,7 @@ end
 
 feature 'Create Account' do
   before do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.build(:user)
     visit root_path
 
     click_link  'Sign Up'
@@ -19,20 +19,21 @@ feature 'Create Account' do
     fill_in 'user_password_confirmation', with: @user.password
 
     click_button 'Create Account'
-    expect(page.current_path).to eq dashboard_path
+    
+    expect(page).to have_content(I18n.t('devise.registrations.signed_up'))
+
   end
 
 
   scenario 'password too short' do
     fill_in 'user_name', with: @user.name
     fill_in 'user_email', with: @user.email
-    fill_in 'user_password', with: @user.password
-    fill_in 'user_password_confirmation', with: @user.password
+    fill_in 'user_password', with: '1234'
+    fill_in 'user_password_confirmation', with: '1234'
 
     click_button 'Create Account'
 
-    #expect(page).to have_content('Password is too short')
-    expect(page.current_path).to eq new_user_registration_path
+    expect(page).to have_content(I18n.t('errors.messages.too_short', attribute: User.human_attribute_name('password'), count: 8))
 
 
   end
@@ -45,28 +46,7 @@ feature 'Create Account' do
 
     click_button 'Create Account'
 
-    expect(page).to have_content('Password confirmation doesn\'t match Password')
-  end
-
-  scenario 'username already taken' do
-    fill_in 'user_name', with: @user.name
-    fill_in 'user_email', with: @user.email
-    fill_in 'user_password', with: @user.password
-    fill_in 'user_password_confirmation', with: @user.password
-
-    click_button 'Create Account'
-
-    visit root_path
-    click_link  'Sign Up'
-
-    fill_in 'user_name', with: @user.name
-    fill_in 'user_email', with: @user.email << '1'
-    fill_in 'user_password', with: @user.password
-    fill_in 'user_password_confirmation', with: @user.password
-
-    click_button 'Create Account'
-
-    expect(page.current_path).to eq new_user_registration_path
+    expect(page).to have_content(I18n.t('errors.messages.confirmation', attribute: User.human_attribute_name('password')))
   end
 
   scenario 'email already taken' do
@@ -77,17 +57,44 @@ feature 'Create Account' do
 
     click_button 'Create Account'
 
-    visit root_path
+    click_link('sign_out_link')
+    expect(page.current_path).to eq root_path
+
     click_link  'Sign Up'
 
-    fill_in 'user_name', with: @user.name << '1'
+    fill_in 'user_name', with: @user.name
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: @user.password
     fill_in 'user_password_confirmation', with: @user.password
 
     click_button 'Create Account'
 
-    expect(page.current_path).to eq new_user_registration_path
+    expect(page).to have_content(I18n.t('errors.messages.taken', attribute: User.human_attribute_name('email')))
+
+  end
+
+    scenario 'username already taken' do
+    fill_in 'user_name', with: @user.name
+    fill_in 'user_email', with: @user.email
+    fill_in 'user_password', with: @user.password
+    fill_in 'user_password_confirmation', with: @user.password
+
+    click_button 'Create Account'
+
+    click_link('sign_out_link')
+    expect(page.current_path).to eq root_path
+
+    click_link  'Sign Up'
+
+    fill_in 'user_name', with: @user.name
+    fill_in 'user_email', with: @user.email << 1
+    fill_in 'user_password', with: @user.password
+    fill_in 'user_password_confirmation', with: @user.password
+
+    click_button 'Create Account'
+
+    expect(page).to have_content(I18n.t('errors.messages.taken'))
+
   end
 
 end

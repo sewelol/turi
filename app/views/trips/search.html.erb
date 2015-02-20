@@ -1,0 +1,33 @@
+<% content_for :page_title do %>
+    Search
+<% end %>
+
+<%= render 'searchform' %>
+
+<% unless @trips.nil? %>
+    <% unless @trips.blank? %>
+
+        <div class="block full">
+          <div class="block-title">
+            <h2>Search Results</h2>
+          </div>
+
+              <div>
+              <% @trips.each do |trip| %>
+                  <%= link_to trip.title, trip %>
+                  <p>
+
+                  </p>
+              <% end %>
+              </div>
+
+        </div>
+
+    <% else %>
+        <div class="block full">
+          <div class="block-title">
+            <h2>No trips matched your search parameters.</h2>
+          </div>
+        </div>
+    <% end %>
+<% end %>

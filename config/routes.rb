@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   get '/sign_out', to: 'sessions#destroy'
 
-
+  get 'search', to: 'trips#search', as: 'search'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -62,6 +62,10 @@ class TripsController < ApplicationController
         # Remember to delete stuff thats linked that use this trip as a referance!
     end
 
+    def search
+        @trips = Trip.search(params[:title_search], params[:location_search], params[:tag_search])
+    end
+
     private
     def trip_params
         params.require(:trip).permit(:title, :description, :start_loc, :start_date, :end_loc, :end_date, :image, :tag_list)

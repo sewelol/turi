@@ -30,6 +30,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Gravatar profile pictures
 gem 'gravtastic'
 
+# Devise
+gem 'devise'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -53,6 +56,10 @@ group :development, :test do
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+end
+
+group :test do
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 # Heroku

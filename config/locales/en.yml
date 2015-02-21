@@ -21,15 +21,6 @@
 
 en:
   hello: "Hello world"
-
-  #Login and Session (session_controller)
-  sign_in_ok: 				"You have successfully signed in as"
-  sign_in_failed: 			"Wrong username/password"
-  sign_out_ok: 				"You have successfully signed out!"
-  signed_in_already:		"You are already signed in!"
-  
-  #Registration and account (account_controller)
-  acc_created:				"Account successfully created."
   
   #Application (application_controller)
   sign_in_to_create_trip: 	"You must be signed in to create a trip"

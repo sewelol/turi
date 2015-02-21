@@ -2,7 +2,7 @@ class TripsController < ApplicationController
     before_action :set_trip, only: [:show, :edit, :update, :destroy]
     before_action :check_for_cancel_create, only: :create
     before_action :check_for_cancel_update, only: :update
-    before_action :require_signin!, except: [:show]
+    before_action :authenticate_user!, except: [:show]
 
     def show
     end
@@ -23,7 +23,7 @@ class TripsController < ApplicationController
     def create
         @trip = Trip.create(trip_params)
 
-        @trip.account = current_user
+        @trip.user = current_user
 
         if @trip.save
             @trip.tag_list.add(trip_params[:tag_list], parse: true) 
@@ -48,14 +48,14 @@ class TripsController < ApplicationController
     end
 
     def edit
-        if current_user.id != @trip.account_id
+        if current_user.id != @trip.user_id
             flash[:error] = I18n.t 'trip_edit_permission_error'
             redirect_to @trip
         end
     end
 
     def destroy
-        if current_user.id == @trip.account_id
+        if current_user.id == @trip.user_id
             @trip.destroy
             flash[:notice] = I18n.t 'trip_deleted'
             redirect_to dashboard_path

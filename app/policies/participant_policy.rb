@@ -1,29 +1,21 @@
 class ParticipantPolicy < ApplicationPolicy
 
-  def create?
-    return is_owner_or_editor? user, record.trip
-  end
-
-  # Only allow the owner and editor to remove participants
   def destroy?
-    return is_owner_or_editor? user, record.trip
-  end
 
-  private
+    participant = Participant.find_by trip_id: record.trip.id, user_id: user.id
 
-  def is_owner_or_editor? user, trip
-
-    if user.id == trip.user_id
-      return true
+    # Make sure that the current_user is a participant of the trip.
+    if(participant.nil?)
+      return false
     end
 
-    participant = Participant.find_by trip_id: trip.id, user_id: user.id
-
-    if participant.nil? == false and participant.participant_role.name == 'editor'
-      return true
+    # Make sure that the owner can not be removed.
+    if(record.participant_role.owner?)
+      return false
     end
 
-    return false
+    # Otherwise allow all participants which can edit the trip to remove the participant
+    Pundit.policy(user, record.trip).update?
 
   end
 

@@ -50,18 +50,22 @@
       <!-- Block Tabs Title -->
       <div class="block-title">
         <div class="block-options pull-right">
-          <a href="<%= edit_trip_path(@trip) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Edit trip"><i class="fa fa-cog"></i></a>
-          <%= link_to raw('<i class="fa fa-trash"></i>'),
-                      trip_path(@trip),
-                      method: :delete,
-                      data: {
-                              confirm: 'Are you sure you want to delete this trip?',
-                              toggle: 'tooltip'
-                      },
-                      class: 'btn btn-effect-ripple btn-default',
-                      title: 'Delete trip',
-                      id: 'delete_trip_button'
-          %>
+          <% if policy(@trip).update?  %>
+            <a href="<%= edit_trip_path(@trip) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Edit trip"><i class="fa fa-cog"></i></a>
+          <% end %>
+          <% if policy(@trip).destroy?  %>
+              <%= link_to raw('<i class="fa fa-trash"></i>'),
+                          trip_path(@trip),
+                          method: :delete,
+                          data: {
+                                  confirm: 'Are you sure you want to delete this trip?',
+                                  toggle: 'tooltip'
+                          },
+                          class: 'btn btn-effect-ripple btn-default',
+                          title: 'Delete trip',
+                          id: 'delete_trip_button'
+              %>
+          <% end %>
         </div>
         <ul class="nav nav-tabs">
           <li class="<%=current_page?(trip_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_path(@trip) %>">Overview</a></li>

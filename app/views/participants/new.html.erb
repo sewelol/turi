@@ -1,0 +1,52 @@
+<% content_for :page_title do %>
+    Add participant
+<% end %>
+
+<% content_for :content_header do %>
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="header-section">
+            <h1><%= yield :page_title %></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+    <!-- Add Participant Form -->
+    <div class="block">
+
+      <div class="block-title">
+        <h2>Add participant to '<%=@trip.title%>'</h2>
+      </div>
+
+      <%= form_tag({controller: :participants, action: 'create'}, class: 'form-horizontal form-bordered') do |f| %>
+        <div class="form-group">
+          <%= label_tag(:user_email, 'Email', class: 'col-md-3 control-label') %>
+          <div class="col-md-9">
+            <%= text_field_tag(:user_email, '', class: 'form-control') %>
+            <span class="help-block">Please enter the email of the person you want to add.</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= label_tag(:editor_flag, 'Can edit', class: 'col-md-3 control-label') %>
+          <div class="col-md-9">
+            <label class="switch switch-danger"><%= check_box_tag :editor_flag, 1, true %><span></span></label>
+            <span class="help-block">Editors have full control to add and remove people and change the details or visibility of the trip. Only the owner can delete the trip.</span>
+          </div>
+        </div>
+        <div class="form-group form-actions">
+          <div class="col-md-9 col-md-offset-3">
+            <%= submit_tag 'Save', id: 'save_participant_button', class: 'btn btn-effect-ripple btn-primary', style: 'overflow: hidden; position: relative;' %>
+            <%= link_to 'Cancel', trip_participants_path(@trip), class: 'btn btn-effect-ripple btn-danger', style: 'overflow: hidden; position: relative;' %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+    <!-- END Add Participant Form -->
+  </div>
+</div>

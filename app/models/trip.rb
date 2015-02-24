@@ -3,4 +3,5 @@ class Trip < ActiveRecord::Base
   ActsAsTaggableOn.remove_unused_tags = true
 
   belongs_to :user
+  has_many :participants
 end

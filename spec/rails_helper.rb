@@ -28,8 +28,12 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  # Devise helper function
+  # Devise helper functions
   config.include Devise::TestHelpers, type: :controller
+
+  # Warden helper functions
+  config.include Warden::Test::Helpers
+  Warden.test_mode!
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

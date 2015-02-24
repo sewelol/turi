@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217113917) do
+ActiveRecord::Schema.define(version: 20150222015027) do
+
+  create_table "participant_roles", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "trip_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "participant_role_id"
+  end
+
+  add_index "participants", ["participant_role_id"], name: "index_participants_on_participant_role_id"
+  add_index "participants", ["trip_id"], name: "index_participants_on_trip_id"
+  add_index "participants", ["user_id", "trip_id"], name: "index_participants_on_user_id_and_trip_id", unique: true
+  add_index "participants", ["user_id"], name: "index_participants_on_user_id"
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -32,17 +51,6 @@ ActiveRecord::Schema.define(version: 20150217113917) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
-
-  create_table "trip_participants", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "trip_id"
-    t.string   "flag"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "trip_participants", ["trip_id"], name: "index_trip_participants_on_trip_id"
-  add_index "trip_participants", ["user_id"], name: "index_trip_participants_on_user_id"
 
   create_table "trips", force: :cascade do |t|
     t.text     "title"

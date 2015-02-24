@@ -21,85 +21,36 @@ var myIcon = L.icon({
 });
 
 
+// array for holding the coordinates
+var latlngs = Array();
 
-var waypoints = Array();
-
-//for ( var i=0; i < markers.length; ++i )
-//{
-//    waypoints.push(L.marker( [markers[i].lat, markers[i].lng], {icon: myIcon} )
-//        .bindPopup( '<a href="' + markers[i].url + '" target="_blank">' + markers[i].name + '</a>' )
-//        .addTo( map ));
-//
-//}
-
-
+// var to hold popup
 var popup = L.popup()
+
+// function to be called on mouse click
 function onMapClick(e)
 {
     popup
         .setLatLng(e.latlng)
-        .setContent("waypoint #"+waypoints.length.toString())
+        .setContent("waypoint #"+latlngs.length.toString())
         .openOn(map);
 
-    waypoints.push(L.marker(e.latlng, {icon: myIcon}).bindPopup(' <a href="/trips">'+ e.latlng +'</a> ').addTo(map));
+    //  Save push coordinates to latlngs
+    latlngs.push(
+        L.marker(e.latlng, {icon: myIcon})
+            .bindPopup(' <a href="/trips">'+ e.latlng +'</a> ')
+            .addTo(map)
+            .getLatLng()
+    );
 
-    latlngs.push(waypoints[waypoints.length - 1].getLatLng());
-
+    // Draw line between all coordinates
     L.polyline(latlngs, {color: 'red'}).addTo(map);
 
-    //var myJsonString = JSON.stringify(waypoints);
 }
+
+// Event handler for mouse clicks
 map.on('click', onMapClick);
 
 
-//waypoints.push(L.marker([30, 0], {icon: myIcon}).addTo(map).bindPopup("<b>Hello!</b><br>wp1"));
-//waypoints.push(L.marker([20, -10]).addTo(map).bindPopup("<b>Hello!</b><br>wp2"));
-//waypoints.push(L.marker([10, -10]).addTo(map).bindPopup("<b>Hello!</b><br>wp3"));
-//waypoints.push(L.marker([10, 0]).addTo(map).bindPopup("<b>Hello!</b><br>wp4"));
-//waypoints.push(L.marker([0, 10], {icon: myIcon}).addTo(map).bindPopup("<b>Hello!</b><br>wp5"));
-
-
-
-var latlngs = Array();
-
-
-
-for (var i = 0; i < waypoints.length; i++)
-{
-
-    latlngs.push(waypoints[i].getLatLng());
-}
-
-// create a red polyline from an arrays of LatLng points
-var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
-
-// zoom the map to the polyline
+// zoom the map to the polyline when a route is loaded on start-up
 //map.fitBounds(polyline.getBounds());
-
-
-
-
-/*
-map.on('click', function(e) {
-    L.marker(e.latlng, {icon: myIcon}).bindPopup(' <a href="/trips">Trips</a> ') .addTo(map);
-
-
-    markers.push({name: '123123', url: 'www.vg.no', lat: 53.1, lng: 32.1});
-
-    markers.push({name: '123123', url: 'www.vg.no', lat: 53.1, lng: 32.1});
-    markers.push({name: '123123', url: 'www.vg.no', lat: 54.1, lng: 32.1});
-    markers.push({name: '123123', url: 'www.vg.no', lat: 55.1, lng: 32.1});
-
-
-    for ( var i=0; i < markers.length; ++i )
-    {
-        L.marker( [markers[i].lat, markers[i].lng], {icon: myIcon} )
-            .bindPopup( '<a href="' + markers[i].url + '" target="_blank">' + markers[i].name + '</a>' )
-            .addTo( map );
-
-        var polyline = L.polyline([
-            [markers[i].lat, markers[i].lng],
-            [markers[(i+1)%markers.length].lat, markers[(i+1)%markers.length].lng],
-        ]).addTo( map );
-    }
-});*/

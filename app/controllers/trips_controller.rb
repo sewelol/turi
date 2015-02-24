@@ -36,7 +36,7 @@ class TripsController < ApplicationController
   end
 
   def update
-    authorize @trip, :update?
+    authorize @trip
     if @trip.update(trip_params)
       @trip.tag_list.remove(@trip.tag_list, parse: true)
       @trip.tag_list.add(trip_params[:tag_list], parse: true)

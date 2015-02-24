@@ -25,6 +25,7 @@ en:
   #Application (application_controller)
   sign_in_to_create_trip: 	    "You must be signed in to create a trip"
   user_not_authorized:          "You are not authorized to perform this action."
+  user_not_found:               "The given user could not be found."
   
   #Trips (trip_controller)
   trip_created:					"You successfully created a trip"

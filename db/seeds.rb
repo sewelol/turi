@@ -6,5 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+ParticipantRole.delete_all
+ParticipantRole.create({ name: 'owner' })
 ParticipantRole.create({ name: 'editor' })
 ParticipantRole.create({ name: 'viewer' })

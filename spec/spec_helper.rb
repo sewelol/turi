@@ -1,4 +1,4 @@
-require 'support/controller_helpers.rb'
+require 'pundit/rspec'
 require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 

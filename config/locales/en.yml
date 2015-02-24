@@ -39,5 +39,6 @@ en:
   trip_create_canceled:			"Trip creation cancelled"
   trip_participant_added:       "Added trip participant '%{email}'."
   trip_participant_removed:     "Removed trip participant '%{email}'."
+  trip_role_owner:              "Owner"
   trip_role_editor:             "Editor"
   trip_role_viewer:             "Viewer"

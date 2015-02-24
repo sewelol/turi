@@ -57,14 +57,12 @@ RSpec.feature 'CRED operations for Trips' do
         click_button 'Create Trip'        
         click_link 'Edit'
         fill_in 'Title', with: 'Editing Title'
-        # TODO rspec does not click on a button_tag! find another solusion
         click_link 'cancel_button'
 
         expect(page).to have_content(@trip.title)
     end
 
     scenario 'Cancel Creation' do
-        # same as "Cancel Update" rspec can't get direct from the form..
         click_link 'cancel_button'
         expect(page.current_path).to eq(dashboard_path)
 
@@ -72,7 +70,8 @@ RSpec.feature 'CRED operations for Trips' do
 
     scenario 'Redirection if trying to enter not made trip' do
         visit '/trips/99'
-        expect(page).to have_content('The trip was not found!')
+        expect(page.current_path).to eq(dashboard_path)
+        expect(page).to have_content(I18n.t ('trip_not_found'))
     end
 
     def sign_in

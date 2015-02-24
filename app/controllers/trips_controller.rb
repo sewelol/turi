@@ -1,15 +1,8 @@
-# TODO: Use I18n!
-# TODO: Improve search (new controller?)
 class TripsController < ApplicationController
     before_action :set_trip, only: [:show, :edit, :update, :destroy]
-    before_action :check_for_cancel_create, only: :create
-    before_action :check_for_cancel_update, only: :update
     before_action :authenticate_user!, except: [:show]
 
     def show
-    end
-
-    def participants
     end
 
     def index
@@ -79,26 +72,8 @@ class TripsController < ApplicationController
 
     def set_trip
         @trip = Trip.find(params[:id])
-        # Redirect to index(for now) if the trip is not in the database # 
         rescue ActiveRecord::RecordNotFound
             flash[:alert] = I18n.t 'trip_not_found'
             redirect_to dashboard_path
     end
-
-
-    #### Can we merge these two into a single function? ####
-    def check_for_cancel_create
-        if(params.key?("cancel"))
-            flash[:notice] = I18n.t 'trip_create_canceled'
-            redirect_to dashboard_path
-        end
-    end
-
-    def check_for_cancel_update
-        if(params.key?("cancel"))
-            flash[:notice] = I18n.t 'trip_not_updated'
-            redirect_to trip_path
-        end
-    end
-
 end

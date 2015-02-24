@@ -48,8 +48,8 @@ RSpec.feature 'CRED operations for Trips' do
     end
 
     scenario 'Delete Trip' do
-        click_button 'Create Trip'        
-        click_link 'Delete'
+        click_button 'Create Trip'
+        click_link 'delete_trip_button'
         expect(page).to have_content(I18n.t('trip_deleted'))
     end
 

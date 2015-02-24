@@ -4,10 +4,10 @@
     <%= @trip.title %>
 <% end %>
 
-<!-- User Profile Row -->
+<!-- Trip Profile Row -->
 <div class="row">
   <div class="col-md-5 col-lg-4">
-    <div class="widget">
+    <div class="trip widget">
       <div class="widget-image widget-image-sm">
         <img src="<%= @trip.image.empty? ? 'http://lorempixel.com/315/270/nature' : @trip.image %>" alt="image">
         <div class="widget-image-content text-center">
@@ -27,8 +27,11 @@
       </div>
       <div class="widget-content border-bottom">
         <h4>About</h4>
-        <p>Proin ac nibh rutrum lectus rhoncus eleifend. Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum. Sed tincidunt scelerisque ligula, et facilisis nulla hendrerit non. Suspendisse potenti.</p>
-        <p>Sed porttitor pretium venenatis. Suspendisse potenti. Aliquam quis ligula elit. Aliquam at orci ac neque semper dictum.</p>
+        <p><%= @trip.description %></p>
+        <h4>Other information</h4>
+        <p><%= @trip.start_loc %></p>
+        <p><%= @trip.end_loc %></p>
+        <p class="owner">Created by <%= @trip.user.name %></p>
       </div>
       <div class="widget-content">
         <h4>Social</h4>
@@ -48,6 +51,17 @@
       <div class="block-title">
         <div class="block-options pull-right">
           <a href="<%= edit_trip_path(@trip) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Edit trip"><i class="fa fa-cog"></i></a>
+          <%= link_to raw('<i class="fa fa-trash"></i>'),
+                      trip_path(@trip),
+                      method: :delete,
+                      data: {
+                              confirm: 'Are you sure you want to delete this trip?',
+                              toggle: 'tooltip'
+                      },
+                      class: 'btn btn-effect-ripple btn-default',
+                      title: 'Delete trip',
+                      id: 'delete_trip_button'
+          %>
         </div>
         <ul class="nav nav-tabs">
           <li class="<%=current_page?(trip_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_path(@trip) %>">Overview</a></li>
@@ -68,4 +82,4 @@
     </div>
   </div>
 </div>
-<!-- END User Profile Row -->
+<!-- END Trip Profile Row -->

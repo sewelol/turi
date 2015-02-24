@@ -110,19 +110,5 @@ RSpec.feature 'As an user I want to be able to manage the participants of an exi
     expect(page.has_no_css?('#participant-list .remove-participant-button')).to be true
   end
 
-  scenario 'Trip viewer can not visit participant new page.' do
-    # Prepare
-    login_as(@owner, :scope => :user)
-    @trip.participants.create(participant_role_id: ParticipantRole.viewer.id, user_id: @participant_user.id)
-    logout(:user)
-    login_as(@participant_user, :scope => :user)
-
-    # Act
-    visit new_trip_participants_path(@trip)
-
-    # Check
-    # TODO: Check for error using authorization gem.
-  end
-
 end
 

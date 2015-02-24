@@ -70,6 +70,7 @@
         <ul class="nav nav-tabs">
           <li class="<%=current_page?(trip_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_path(@trip) %>">Overview</a></li>
           <li class="<%=current_page?(trip_participants_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_participants_path(@trip) %>">Participants</a></li>
+          <li class="<%=current_page? 'active' %>"> <a href="<%=trip_path+'/map' %>">Routes</a> </li>       // placeholder link
         </ul>
       </div>
       <!-- END Block Tabs Title -->

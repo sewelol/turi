@@ -35,6 +35,7 @@ bower.json
 # Ignore swapfile for vim
 *.swp
 *.swo
+*.swn
 
 # Temp files
 *~

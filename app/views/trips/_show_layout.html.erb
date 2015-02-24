@@ -1,0 +1,85 @@
+<% # NOTE: This layout is used by all nested trip resource controllers/views (e.g. the ParticipantController). %>
+
+<% content_for :page_title do %>
+    <%= @trip.title %>
+<% end %>
+
+<!-- Trip Profile Row -->
+<div class="row">
+  <div class="col-md-5 col-lg-4">
+    <div class="trip widget">
+      <div class="widget-image widget-image-sm">
+        <img src="<%= @trip.image.empty? ? 'http://lorempixel.com/315/270/nature' : @trip.image %>" alt="image">
+        <div class="widget-image-content text-center">
+          <h2 class="widget-heading text-light"><strong><%=@trip.title%></strong></h2>
+          <h4 class="widget-heading text-light-op"><em>updated <%= time_ago_in_words(@trip.updated_at) %> ago</em></h4>
+        </div>
+      </div>
+      <div class="widget-content widget-content-full border-bottom">
+        <div class="row text-center">
+          <div class="col-xs-6 push-inner-top-bottom border-right">
+            <h3 class="widget-heading"><i class="gi gi-heart text-danger push"></i> <br><small><strong>1.5k</strong> Hikes</small></h3>
+          </div>
+          <div class="col-xs-6 push-inner-top-bottom">
+            <h3 class="widget-heading"><i class="gi gi-group themed-color-social push"></i> <br><small><strong>58.6k</strong> Followers</small></h3>
+          </div>
+        </div>
+      </div>
+      <div class="widget-content border-bottom">
+        <h4>About</h4>
+        <p><%= @trip.description %></p>
+        <h4>Other information</h4>
+        <p><%= @trip.start_loc %></p>
+        <p><%= @trip.end_loc %></p>
+        <p class="owner">Created by <%= @trip.user.name %></p>
+      </div>
+      <div class="widget-content">
+        <h4>Social</h4>
+        <div class="btn-group">
+          <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook fa-fw"></i></a>
+          <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter fa-fw"></i></a>
+          <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Google Plus"><i class="fa fa-google-plus fa-fw"></i></a>
+          <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Pinterest"><i class="fa fa-pinterest fa-fw"></i></a>
+          <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Dribbble"><i class="fa fa-dribbble fa-fw"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7 col-lg-8">
+    <div class="block full">
+      <!-- Block Tabs Title -->
+      <div class="block-title">
+        <div class="block-options pull-right">
+          <a href="<%= edit_trip_path(@trip) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Edit trip"><i class="fa fa-cog"></i></a>
+          <%= link_to raw('<i class="fa fa-trash"></i>'),
+                      trip_path(@trip),
+                      method: :delete,
+                      data: {
+                              confirm: 'Are you sure you want to delete this trip?',
+                              toggle: 'tooltip'
+                      },
+                      class: 'btn btn-effect-ripple btn-default',
+                      title: 'Delete trip',
+                      id: 'delete_trip_button'
+          %>
+        </div>
+        <ul class="nav nav-tabs">
+          <li class="<%=current_page?(trip_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_path(@trip) %>">Overview</a></li>
+          <li class="<%=current_page?(trip_participants_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_participants_path(@trip) %>">Participants</a></li>
+        </ul>
+      </div>
+      <!-- END Block Tabs Title -->
+
+      <!-- Tabs Content -->
+      <div class="tab-content">
+
+        <div class="tab-pane active">
+          <%= yield :tab_content %>
+        </div>
+
+      </div>
+      <!-- END Tabs Content -->
+    </div>
+  </div>
+</div>
+<!-- END Trip Profile Row -->

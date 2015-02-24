@@ -2,6 +2,18 @@
     Dashboard
 <% end %>
 
+<% content_for :content_header do %>
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="header-section">
+            <h1><%= yield :page_title %></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+
 <div class="block full">
   <div class="block-title">
     <h2>My trips</h2>

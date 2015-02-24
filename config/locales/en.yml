@@ -23,7 +23,8 @@ en:
   hello: "Hello world"
   
   #Application (application_controller)
-  sign_in_to_create_trip: 	"You must be signed in to create a trip"
+  sign_in_to_create_trip: 	    "You must be signed in to create a trip"
+  user_not_authorized:          "You are not authorized to perform this action."
   
   #Trips (trip_controller)
   trip_created:					"You successfully created a trip"
@@ -36,4 +37,7 @@ en:
   trip_not_deleted:				"Trip has not been deleted"
   trip_not_found:				"The trip was not found!"
   trip_create_canceled:			"Trip creation cancelled"
-  
+  trip_participant_added:       "Added trip participant '%{email}'."
+  trip_participant_removed:     "Removed trip participant '%{email}'."
+  trip_role_editor:             "Editor"
+  trip_role_viewer:             "Viewer"

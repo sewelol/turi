@@ -327,12 +327,6 @@
             </a>
           </li>
           <!-- END Main Sidebar Toggle Button -->
-
-          <!-- Header Link -->
-          <li class="hidden-xs animation-fadeInQuick">
-            <a href="#"><strong><%= yield :page_title %></strong></a>
-          </li>
-          <!-- END Header Link -->
         </ul>
         <!-- END Left Header Navigation -->
 
@@ -384,25 +378,9 @@
 
       <!-- Page content -->
       <div id="page-content" class="<%= yield :page_class %>">
-        <!-- Blank Header -->
-        <div class="content-header">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="header-section">
-                <h1><%= yield :page_title %></h1>
-              </div>
-            </div>
-            <div class="col-sm-6 hidden-xs">
-              <div class="header-section">
-                <ul class="breadcrumb breadcrumb-top">
-                  <li>Pages</li>
-                  <li><a href=""><%= yield :page_title %></a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- END Blank Header -->
+        <!-- Content Header -->
+        <%= yield :content_header %>
+        <!-- END Content Header -->
         
         <%= render 'layouts/messages' %>
 

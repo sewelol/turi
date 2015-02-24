@@ -1,3 +1,4 @@
+require 'support/controller_helpers.rb'
 require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
@@ -21,6 +22,11 @@ RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+
+  # Seed the test database with static data before each suite.
+  config.before(:suite) do
+    require "#{Rails.root}/db/seeds.rb"
+  end
 
 
   config.expect_with :rspec do |expectations|

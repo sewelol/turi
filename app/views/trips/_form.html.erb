@@ -92,13 +92,16 @@
 
       <div class="form-group form-actions">
         <div class="col-md-9 col-md-offset-3">
-          <%= f.submit class: 'btn btn-effect-ripple btn-primary' %>
-          <%= button_tag "Cancel", :type => 'cancel', :name => 'cancel', class: 'btn btn-effect-ripple btn-danger', id: 'cancel_button' %>
+            <%= f.submit class: 'btn btn-effect-ripple btn-primary' %>
+            <% if current_page?(action: 'new') %>
+                <%= link_to 'Cancel', dashboard_path, class: 'btn btn-effect-ripple btn-primary', id: 'cancel_button' %>
+            <% else %>
+                <%= link_to 'Cancel', @trip , class: 'btn btn-effect-ripple btn-primary', id: 'cancel_button' %>
+            <% end %>
         </div>
       </div>
 
 
   <% end %>
-
   <!-- END Horizontal Form Content -->
 </div>

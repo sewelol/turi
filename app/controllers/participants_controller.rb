@@ -1,9 +1,7 @@
 class ParticipantsController < ApplicationController
 
   before_action :authenticate_user!
-
-  helper_method :current_user_role?
-  helper_method :current_user_trip_owner?
+  #after_action :verify_authorized
 
   def index
     @trip = Trip.find(params[:trip_id])
@@ -42,26 +40,14 @@ class ParticipantsController < ApplicationController
   def destroy
     @trip = Trip.find(params[:trip_id])
     @participant = Participant.find(params[:id])
+
+    authorize @participant
+
     user_email = @participant.user.email
+
     @participant.destroy
     flash[:notice] = I18n.t 'trip_participant_removed', :email => user_email
     redirect_to trip_participants_path(@trip)
   end
-
-  def current_user_role?(role)
-    participant = Participant.find_by trip_id: @trip.id, user_id: current_user.id
-    unless participant.nil?
-      participant.participant_role.name == role
-    else
-      false
-    end
-  end
-
-  def current_user_trip_owner?
-    @trip.user_id == current_user.id
-  end
-
-  protected
-
 
 end

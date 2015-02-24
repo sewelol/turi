@@ -1,3 +1,4 @@
+require 'support/controller_helpers.rb'
 require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
@@ -26,6 +27,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     require "#{Rails.root}/db/seeds.rb"
   end
+
 
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`

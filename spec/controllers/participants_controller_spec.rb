@@ -23,10 +23,9 @@ RSpec.describe ParticipantsController, type: :controller do
     context 'as trip viewer' do
       it 'does not remove a participant from the current trip' do
         participant = @trip.participants.create(participant_role_id: ParticipantRole.viewer.id, user_id: @participant_user.id)
-        login_as(@participant_user, :scope => :user)
+        sign_in @participant_user
         delete :destroy, trip_id: @trip, id: participant.id
         expect(response).to redirect_to(trip_participants_path(@trip))
-        expect(page).to have_content 'sadjasdjkasdjlaslasdljasdljasdljasd'
       end
       it 'renders the :index view with a error message' do
 

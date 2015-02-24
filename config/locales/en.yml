@@ -23,7 +23,8 @@ en:
   hello: "Hello world"
   
   #Application (application_controller)
-  sign_in_to_create_trip: 	"You must be signed in to create a trip"
+  sign_in_to_create_trip: 	    "You must be signed in to create a trip"
+  user_not_authorized:          "You are not authorized to perform this action."
   
   #Trips (trip_controller)
   trip_created:					"You successfully created a trip"

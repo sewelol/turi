@@ -2,21 +2,13 @@
     Dashboard
 <% end %>
 
-<!-- Display flash messages -->
-<% flash.each do |key, value| %>
-    <div class="flash alert alert-info alert-dismissable" id="<%= key %>">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      <p><%= value %></p>
-    </div>
-<% end %>
-
 <div class="block full">
   <div class="block-title">
     <h2>My trips</h2>
   </div>
 
   <% @trips.each do |trip| %>
-      <% if  trip.account_id == current_user.id%>
+      <% if trip.user_id == current_user.id %>
           <%= link_to trip.title, trip %>
       <% end %>
   <% end %>

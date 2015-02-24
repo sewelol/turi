@@ -103,12 +103,7 @@
           <!-- Notifications -->
           <div class="sidebar-section">
             <h2 class="text-light">Notifications</h2>
-            <% flash.each do |key, value| %>
-                <div class="alert alert-info alert-dismissable" id='<%= key %>'>
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <p><%= value %></p>
-                </div>
-            <% end %>
+            ...
           </div>
           <!-- END Notifications -->
         </div>
@@ -337,8 +332,8 @@
           <!-- END Main Sidebar Toggle Button -->
 
           <!-- Header Link -->
-          <li class="hidden-xs animation-fadeInQuick hidden">
-            <a href=""><strong>PAGES</strong></a>
+          <li class="hidden-xs animation-fadeInQuick">
+            <a href="#"><strong><%= yield :page_title %></strong></a>
           </li>
           <!-- END Header Link -->
         </ul>
@@ -346,6 +341,12 @@
 
         <!-- Right Header Navigation -->
         <ul class="nav navbar-nav-custom pull-right">
+
+          <li>
+            <%= form_tag trips_path, :controller => TripsController, :action => 'index', method: 'get', class: 'navbar-form-custom', role: 'search' do %>
+                <%= text_field 'search-query', '', class: 'form-control', placeholder: 'Search...' %>
+            <% end %>
+          </li>
 
           <li>
             <a href="<%=new_trip_path%>" id="create_trip_link">
@@ -362,25 +363,22 @@
           </li>
           <!-- END Alternative Sidebar Toggle Button -->
 
+          <!-- Logout Button -->
+          <% if current_user %>
+              <li>
+                <%= link_to(raw('<i class="gi gi-power"></i>'), destroy_user_session_path, :method => :delete, id: 'sign_out_link', title: 'Logout') %>
+              </li>
+          <% end %>
+          <!-- END Logout Button -->
+
           <!-- User Dropdown -->
           <% if current_user %>
               <li class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="/path/to/account/page">
                   <%= image_tag current_user.gravatar_url %>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-right">
-                  <li class="dropdown-header">
-                    <strong><%=current_user.email%></strong>
-                  </li>
-                  <li>
-                    <a href="<%=sign_out_path%>" id="sign_out_link">
-                      <i class="fa fa-power-off fa-fw pull-right"></i>
-                      Log out
-                    </a>
-                  </li>
-                </ul>
               </li>
-              <% end %>
+          <% end %>
           <!-- END User Dropdown -->
         </ul>
         <!-- END Right Header Navigation -->
@@ -388,7 +386,7 @@
       <!-- END Header -->
 
       <!-- Page content -->
-      <div id="page-content">
+      <div id="page-content" class="<%= yield :page_class %>">
         <!-- Blank Header -->
         <div class="content-header">
           <div class="row">
@@ -408,6 +406,8 @@
           </div>
         </div>
         <!-- END Blank Header -->
+        
+        <%= render 'layouts/messages' %>
 
         <%= yield %>
 
@@ -428,5 +428,8 @@
 <script src="<%= asset_path 'app/js/vendor/bootstrap.min.js' %>"></script>
 <script src="<%= asset_path 'app/js/plugins.js' %>"></script>
 <script src="<%= asset_path 'app/js/app.js' %>"></script>
+
+<%= yield :page_scripts %>
+
 </body>
 </html>

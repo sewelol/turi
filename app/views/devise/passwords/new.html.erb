@@ -1,0 +1,34 @@
+<% content_for :page_title do %>
+    <i class="fa fa-history"></i> <strong>Password Reminder</strong>
+<% end %>
+
+<!-- Reminder Block -->
+<div class="block animation-fadeInQuickInv">
+  <!-- Reminder Title -->
+  <div class="block-title">
+    <div class="block-options pull-right">
+      <a href="<%= new_user_session_path  %>" class="btn btn-effect-ripple btn-primary" data-toggle="tooltip" data-placement="left" title="Back to login"><i class="fa fa-user"></i></a>
+    </div>
+    <h2>Reminder</h2>
+  </div>
+  <!-- END Reminder Title -->
+
+  <!-- Reminder Form -->
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'form-horizontal' }) do |f| %>
+
+    <%= render 'layouts/messages' %>
+
+    <div class="form-group">
+      <div class="col-xs-12">
+        <%= f.email_field :email, class: 'form-control', placeholder: 'Enter your email..', autofocus: true %>
+      </div>
+    </div>
+    <div class="form-group form-actions">
+      <div class="col-xs-12 text-right">
+        <%= f.submit 'Remind Password', class: 'btn btn-effect-ripple btn-sm btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+  <!-- END Reminder Form -->
+</div>
+<!-- END Reminder Block -->

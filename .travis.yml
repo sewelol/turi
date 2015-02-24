@@ -13,9 +13,13 @@ deploy:
   app: turi
   run:
     - "pg:reset DATABASE_URL --confirm turi"
-    - "rake db:migrate RAILS_ENV=production"
+    - "rake db:migrate:reset RAILS_ENV=production"
+    - "rake acts_as_taggable_on_engine:install:migrations RAILS_ENV=production"
     - "rake db:seed RAILS_ENV=production"
     - restart
   on:
     repo: turi-inc/turi
     branch: master
+addons:
+  code_climate:
+    repo_token: 8485dd90d05420a36d95977ec06e1801694526551c0222195405c5014d363a8f

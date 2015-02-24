@@ -1,87 +1,101 @@
 require 'rails_helper'
 
-feature "Create Account" do
-	before do
-		visit "/"
-		
-		click_link  "Sign Up"
-	end
-	
-	scenario "can create new account" do
-		fill_in "account_username", with: "nu_user"
-		fill_in "account_email", with: "user@user.com"
-		fill_in "account_password", with: "password123"
-		fill_in "account_password_confirmation", with: "password123"
-		
-		click_button "Create Account"
-		
-		expect(page).to have_content("Account successfully created.")
-	end
-	
+class User
 
-	scenario "password too short" do
-		fill_in "account_username", with: "nu_user"
-		fill_in "account_email", with: "user@user.com"
-		fill_in "account_password", with: "pa"
-		fill_in "account_password_confirmation", with: "pa"
-		
-		click_button "Create Account"
-		
-		expect(page).to have_content("Password is too short")
-	end
-	
-		scenario "Password confirmation does not match" do
-		fill_in "account_username", with: "nu_user"
-		fill_in "account_email", with: "user@user.com"
-		fill_in "account_password", with: "password123"
-		fill_in "account_password_confirmation", with: "password12"
-		
-		click_button "Create Account"
-		
-		expect(page).to have_content("Password confirmation doesn't match Password")
-	end
-	
-	scenario "username already taken" do
-		fill_in "account_username", with: "nu_user"
-		fill_in "account_email", with: "user@user.com"
-		fill_in "account_password", with: "password123"
-		fill_in "account_password_confirmation", with: "password123"
-		
-		click_button "Create Account"
-		
-		visit "/"
-		click_link  "Sign Up"
-		
-		fill_in "account_username", with: "nu_user"
-		fill_in "account_email", with: "user@user.com"
-		fill_in "account_password", with: "password123"
-		fill_in "account_password_confirmation", with: "password123"
-		
-		click_button "Create Account"
-		
-		expect(page).to have_content("Username has already been taken")
-	end
+end
 
-	scenario "email already taken" do
-		fill_in "account_username", with: "nu_user"
-		fill_in "account_email", with: "user@user.com"
-		fill_in "account_password", with: "password123"
-		fill_in "account_password_confirmation", with: "password123"
-		
-		click_button "Create Account"
-		
-		visit "/"
-		click_link  "Sign Up"
-		
-		fill_in "account_username", with: "nu_user69"
-		fill_in "account_email", with: "user@user.com"
-		fill_in "account_password", with: "password123"
-		fill_in "account_password_confirmation", with: "password123"
-		
-		click_button "Create Account"
-		
-		expect(page).to have_content("Email has already been taken")
-	end
+feature 'Create Account' do
+  before do
+    @user = FactoryGirl.build(:user)
+    visit root_path
+
+    click_link  'Sign Up'
+  end
+
+  scenario 'can create new account' do
+    fill_in 'user_name', with: @user.name
+    fill_in 'user_email', with: @user.email
+    fill_in 'user_password', with: @user.password
+    fill_in 'user_password_confirmation', with: @user.password
+
+    click_button 'Create Account'
+    
+    expect(page).to have_content(I18n.t('devise.registrations.signed_up'))
+
+  end
+
+
+  scenario 'password too short' do
+    fill_in 'user_name', with: @user.name
+    fill_in 'user_email', with: @user.email
+    fill_in 'user_password', with: '1234'
+    fill_in 'user_password_confirmation', with: '1234'
+
+    click_button 'Create Account'
+
+    expect(page).to have_content(I18n.t('errors.messages.too_short', attribute: User.human_attribute_name('password'), count: 8))
+
+
+  end
+
+  scenario 'Password confirmation does not match' do
+    fill_in 'user_name', with: @user.name
+    fill_in 'user_email', with: @user.email
+    fill_in 'user_password', with: @user.password
+    fill_in 'user_password_confirmation', with: '12345679'
+
+    click_button 'Create Account'
+
+    expect(page).to have_content(I18n.t('errors.messages.confirmation', attribute: User.human_attribute_name('password')))
+  end
+
+  scenario 'email already taken' do
+    fill_in 'user_name', with: @user.name
+    fill_in 'user_email', with: @user.email
+    fill_in 'user_password', with: @user.password
+    fill_in 'user_password_confirmation', with: @user.password
+
+    click_button 'Create Account'
+
+    click_link('sign_out_link')
+    expect(page.current_path).to eq root_path
+
+    click_link  'Sign Up'
+
+    fill_in 'user_name', with: @user.name
+    fill_in 'user_email', with: @user.email
+    fill_in 'user_password', with: @user.password
+    fill_in 'user_password_confirmation', with: @user.password
+
+    click_button 'Create Account'
+
+    expect(page).to have_content(I18n.t('errors.messages.taken', attribute: User.human_attribute_name('email')))
+
+  end
+
+    scenario 'username already taken' do
+    fill_in 'user_name', with: @user.name
+    fill_in 'user_email', with: @user.email
+    fill_in 'user_password', with: @user.password
+    fill_in 'user_password_confirmation', with: @user.password
+
+    click_button 'Create Account'
+
+    click_link('sign_out_link')
+    expect(page.current_path).to eq root_path
+
+    click_link  'Sign Up'
+
+    fill_in 'user_name', with: @user.name
+    fill_in 'user_email', with: @user.email << 1
+    fill_in 'user_password', with: @user.password
+    fill_in 'user_password_confirmation', with: @user.password
+
+    click_button 'Create Account'
+
+    expect(page).to have_content(I18n.t('errors.messages.taken'))
+
+  end
 
 end
 

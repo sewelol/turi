@@ -1,6 +1,6 @@
-<div class="block">
+<div class="block-full">
 
-    <%= form_tag search_path, method: :get do %>
+    <%= form_tag search_path, html: {class: 'form-horizontal form-bordered'}, method: :get do %>
 
       <div class="form-group">
         <%= label_tag :title_search, 'Title', class: 'col-md-3 control-label' %>
@@ -10,7 +10,7 @@
       </div>
 
       <div class="form-group">
-        <%= label_tag :location_search, 'Start and/or End Location', class: 'col-md-3 control-label' %>
+        <%= label_tag :location_search, 'Start or end location', class: 'col-md-3 control-label' %>
         <div class="col-md-9">
             <%= text_field_tag :location_search, params[:location_search], class: 'form-control' %>
         </div>

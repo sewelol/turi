@@ -2,19 +2,19 @@ require 'rails_helper'
 
 RSpec.feature 'Search Trips' do
   before do
-    @user = FactoryGirl.create(:account)
+    @user = FactoryGirl.create(:user)
     @trip = FactoryGirl.create(:trip)
 
     @atag = 'fun, cold'
     @trip.tag_list = @atag
     @trip.save
-    visit '/'
+    visit root_path
 
     click_link 'Sign In'
-    fill_in 'sign_in_username', with: @user.username
-    fill_in 'sign_in_password', with: @user.password
+    fill_in 'user_email', with: @user.email
+    fill_in 'user_password', with: @user.password
 
-    click_button 'Sign In'
+    click_button 'sign_in_button'
     click_link 'Search'
   end
 

@@ -1,12 +1,24 @@
 language: ruby
-rvm:
-- 2.1.5
-script: bundle exec rspec spec
-branches:
-  only:
-  - develop
+rvm: 2.1.5
+script: bin/rake spec
 after_success:
-- '[ "${TRAVIS_BRANCH}" = "develop" ] && git push https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${TRAVIS_REPO_SLUG}.git HEAD:master'
+  - '[ "${TRAVIS_BRANCH}" = "develop" ] && git push https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${TRAVIS_REPO_SLUG}.git HEAD:master'
 env:
   global:
     secure: Dd2apaFjstgOdrXuijlr/Uqg2+vUTTLdg4tXTXfs3LzQmrUUe0v1tMpicKvKPXRzBWU+S3PtamjF3vb2HbwKAtoiUy3QW725Hs4GR0TB2XBnzt1IzkfBqaVuezj5eWNR2+s9upmUvPlHVuundjAQnaud3Yoy4lx3s928VgXN9AU=
+deploy:
+  provider: heroku
+  api_key:
+    secure: Cc0AciSWNyCDmUEHV/uxzIbo7mSVH0bDIQf9zTa+etlMUobyb1SqIxXPKYqd8ByZRRzbbeUIRMxRakZapuALtW2Uyh7pZDrUNfpOPxdzq50c9zqhy/NdLC+Z/RdmXUfNvvy6fHK4ZE9Co8Ox9IcUpSyoUmjXfTauPvACJfKWzc8=
+  app: turi
+  run:
+    - "pg:reset DATABASE_URL --confirm turi"
+    - "rake db:migrate RAILS_ENV=production"
+    - "rake db:seed RAILS_ENV=production"
+    - restart
+  on:
+    repo: turi-inc/turi
+    branch: master
+addons:
+  code_climate:
+    repo_token: 8485dd90d05420a36d95977ec06e1801694526551c0222195405c5014d363a8f

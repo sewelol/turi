@@ -1,0 +1,35 @@
+<% content_for :page_title do %>
+    Dashboard
+<% end %>
+
+<div class="block full">
+  <div class="block-title">
+    <h2>My trips</h2>
+  </div>
+
+  <% @trips.each do |trip| %>
+      <% if trip.user_id == current_user.id %>
+          <%= link_to trip.title, trip %>
+      <% end %>
+  <% end %>
+</div>
+
+<div class="block full">
+  <div class="block-title">
+    <h2>All trips</h2>
+  </div>
+
+  <% @trips.each do |trip| %>
+      <%= link_to trip.title, trip %>
+  <% end %>
+</div>
+
+<div class="block full">
+  <div class="block-title">
+    <h2>Tag cloud</h2>
+  </div>
+
+  <% ActsAsTaggableOn::Tag.most_used.each do |x|%>
+      <span class="label label-default"><%= x %></span>
+  <% end %>
+</div>

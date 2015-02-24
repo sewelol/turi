@@ -1,6 +1,5 @@
 class TripsController < ApplicationController
     before_action :set_trip, only: [:show, :edit, :update, :destroy]
-    before_action :check_for_cancel, only: [:create, :update]
     before_action :authenticate_user!, except: [:show]
 
     def show
@@ -77,21 +76,4 @@ class TripsController < ApplicationController
             flash[:alert] = I18n.t 'trip_not_found'
             redirect_to dashboard_path
     end
-
-
-    def check_for_cancel
-        if params.key?("cancel")
-            if URI(request.referer).path == new_trip_path
-                flash[:notice] = I18n.t 'trip_not_created'
-                redirect_to dashboard_path
-            else
-                flash[:notice] = I18n.t 'trip_not_updated'
-                redirect_to trip_path
-            end
-        end
-    end
-
-    
-
-
 end

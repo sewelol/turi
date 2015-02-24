@@ -58,16 +58,15 @@ RSpec.feature 'CRED operations for Trips' do
         click_link 'Edit'
         fill_in 'Title', with: 'Editing Title'
         # TODO rspec does not click on a button_tag! find another solusion
-        #click_on 'cancel_button'
-        
-        #expect(page).to have_content(I18n.t('trip_not_updated'))
-        #expect(page).to have_content(@trip.title)
+        click_link 'cancel_button'
+
+        expect(page).to have_content(@trip.title)
     end
 
     scenario 'Cancel Creation' do
         # same as "Cancel Update" rspec can't get direct from the form..
-        #click_button 'cancel_button'
-        #expect(page).to have_content(I18n.t('trip_not_created'))
+        click_link 'cancel_button'
+        expect(page.current_path).to eq(dashboard_path)
 
     end
 

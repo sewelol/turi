@@ -1,4 +1,3 @@
-// See post: http://asmaloney.com/2014/01/code/creating-an-interactive-map-with-leaflet-and-openstreetmap/
 var map = L.map( 'map', {
     center: [20.0, 5.0],
     minZoom: 2,
@@ -20,37 +19,100 @@ var myIcon = L.icon({
     popupAnchor: [0, -14]
 });
 
+var myButtonOptions = {
+    'text': 'MyButton',  // string
+    'iconUrl': myURL + 'images/myButton.png',  // string
+    'onClick': my_button_onClick,  // callback function
+    'hideText': true,  // bool
+    'maxWidth': 30,  // number
+    'doToggle': false,  // bool
+    'toggleStatus': false  // bool
+};
+
+// button (used as a UNDO button atm)
+var myButton = new L.Control.Button(myButtonOptions).addTo(map);
+
+// layer for holding the route (markers and lines)
+var waypointLayer = L.layerGroup();
 
 // array for holding the coordinates
 var latlngs = Array();
 
+//array for holding markers
+var markers = Array();
+
 // var to hold popup
-var popup = L.popup()
+var popup = L.popup();
+
+
+function drawMap() {
+    // clear old waypoint layer
+    waypointLayer.clearLayers();
+
+    // adds all makers to waypoint layer
+    for(var i = 0; i < markers.length; i++) {
+        markers[i].addTo(waypointLayer);
+    }
+
+    // adds all latlngs to the waypoint layer
+    L.polyline(latlngs, {color: 'red'})
+        .addTo(waypointLayer);
+
+    // draw waypoint layer to map
+    waypointLayer.addTo(map);
+
+}
+
 
 // function to be called on mouse click
 function onMapClick(e)
 {
+    console.log("someone clicked my map");
+
     popup
         .setLatLng(e.latlng)
         .setContent("waypoint #"+latlngs.length.toString())
         .openOn(map);
 
-    //  Save push coordinates to latlngs
+    // push coordinates to latlngs
     latlngs.push(
         L.marker(e.latlng, {icon: myIcon})
             .bindPopup(' <a href="/trips">'+ e.latlng +'</a> ')
-            .addTo(map)
             .getLatLng()
     );
+    markers.push(
+        L.marker(e.latlng, {icon: myIcon})
+            .bindPopup(' <a href="/trips">'+ e.latlng +'</a> ')
+    );
 
-    // Draw line between all coordinates
-    L.polyline(latlngs, {color: 'red'}).addTo(map);
 
+    drawMap();
+
+}
+
+// handle button clicks, button is atm a UNDO button
+function my_button_onClick() {
+    console.log("someone clicked my button");
+
+    latlngs.pop();
+    markers.pop();
+
+    popup
+        .setLatLng(latlngs[latlngs.length-1])
+        .setContent("waypoint removed.")
+        .openOn(map);
+
+    drawMap();
 }
 
 // Event handler for mouse clicks
 map.on('click', onMapClick);
 
 
+
 // zoom the map to the polyline when a route is loaded on start-up
 //map.fitBounds(polyline.getBounds());
+
+
+
+

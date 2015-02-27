@@ -7,6 +7,7 @@ class ParticipantsController < ApplicationController
 
   def index
     @trip = Trip.find(params[:trip_id])
+    @tags = @trip.tag_counts_on(:tags)
 
     # Only participants which can view the trip details are able to see the participant list
     authorize @trip, :show?
@@ -32,11 +33,11 @@ class ParticipantsController < ApplicationController
     # Only participants which can edit the trip are able to add a participant
     authorize trip, :update?
 
-    participant_user = User.find_by!(email: params[:user_email])
+      participant_user = User.find_by!(email: params[:user_email])
 
     role = ParticipantRole.viewer
 
-    if(params[:editor_flag])
+    if params[:editor_flag]
       role = ParticipantRole.editor
     end
 
@@ -48,7 +49,12 @@ class ParticipantsController < ApplicationController
     else
       flash[:alert] = I18n.t 'trip_participant_not_added'
       redirect_to new_trip_participant_path(trip)
-    end
+      end
+  rescue ActiveRecord::RecordNotFound
+
+    flash[:alert] = I18n.t 'user_not_found'
+    redirect_to new_trip_participant_path(trip)
+
   end
 
   # Removes the participant if the current user is allowed to execute this action.

@@ -21,24 +21,43 @@
 
 en:
   hello: "Hello world"
+
+  #General
+  email:  "Email"
+  role:   "Role"
+  save:   "Save"
+  cancel: "Cancel"
+  can_edit: "Can edit"
   
   #Application (application_controller)
-  sign_in_to_create_trip: 	    "You must be signed in to create a trip"
-  user_not_authorized:          "You are not authorized to perform this action."
-  
+  sign_in_to_create_trip: 	      "You must be signed in to create a trip"
+
+  #User
+  user_not_authorized:            "You are not authorized to perform this action."
+  user_not_found:                 "The given user could not be found."
+  user_go_to_profile_page:        "Open profile page"
+
   #Trips (trip_controller)
-  trip_created:					"You successfully created a trip"
-  trip_not_created:				"Trip was not created!"
-  trip_updated:					"Trip has been updated"
-  trip_not_updated:				"Trip has not been updated!"
-  trip_edit_permission_error:	"Error: Only owners can edit trips"
-  trip_delete_permission_error:	"Error: Only owners can delete trips"
-  trip_deleted:					"Trip has been deleted"
-  trip_not_deleted:				"Trip has not been deleted"
-  trip_not_found:				"The trip was not found!"
-  trip_create_canceled:			"Trip creation cancelled"
-  trip_participant_added:       "Added trip participant '%{email}'."
-  trip_participant_removed:     "Removed trip participant '%{email}'."
-  trip_role_owner:              "Owner"
-  trip_role_editor:             "Editor"
-  trip_role_viewer:             "Viewer"
+  trip_activities:                "Activities"
+  trip_participants:              "Participants"
+  trip_created:					  "You successfully created a trip"
+  trip_not_created:				  "Trip was not created!"
+  trip_updated:					  "Trip has been updated"
+  trip_not_updated:				  "Trip has not been updated!"
+  trip_edit_permission_error:	  "Error: Only owners can edit trips"
+  trip_delete_permission_error:	  "Error: Only owners can delete trips"
+  trip_deleted:					  "Trip has been deleted"
+  trip_not_deleted:				  "Trip has not been deleted"
+  trip_not_found:				  "The trip was not found!"
+  trip_create_canceled:			  "Trip creation cancelled"
+  trip_participant_added:         "Added trip participant '%{email}'."
+  trip_participant_removed:       "Removed trip participant '%{email}'."
+  trip_add_participant:           "Add participant"
+  trip_add_participant_to:        "Add participant to '%{trip_title}'"
+  trip_participant_email_description: "Please enter the email of the person you want to add."
+  trip_participant_role_description: "Editors have full control to add and remove people and change the details or visibility of the trip. Only the owner can delete the trip."
+  trip_participant_remove:        "Remove participant"
+  trip_participant_remove_confirm: "Are you sure you want to remove this participant?"
+  trip_role_owner:                "Owner"
+  trip_role_editor:               "Editor"
+  trip_role_viewer:               "Viewer"

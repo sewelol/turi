@@ -1,33 +1,42 @@
-<div class="block-full">
+<div class="block">
 
-    <%= form_tag search_path, html: {class: 'form-horizontal form-bordered'}, method: :get do %>
+  <%= form_tag search_path, :class => 'form-horizontal form-bordered', method: :get do %>
 
       <div class="form-group">
         <%= label_tag :title_search, 'Title', class: 'col-md-3 control-label' %>
-        <div class="col-md-9">
+        <div class="col-md-8">
           <%= text_field_tag :title_search, params[:title_search], class: 'form-control' %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= label_tag :location_search, 'Start or end location', class: 'col-md-3 control-label' %>
-        <div class="col-md-9">
+        <%= label_tag :location_search, 'Location', class: 'col-md-3 control-label' %>
+        <div class="col-md-8">
             <%= text_field_tag :location_search, params[:location_search], class: 'form-control' %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= label_tag :tag_search, 'Tags', class: 'col-md-3 control-label' %>
-        <div class="col-md-9">
-            <%= text_field_tag :tag_search, params[:tag_search], class: 'form-control' %>
+        <%= label_tag :date_search, 'Time range', class: 'col-md-3 control-label' %>
+        <div class="col-md-3">
+          <%= text_field_tag :date_beg, params[:date_beg], class: 'form-control input-datepicker', placeholder: 'mm/dd/yy', 'data-date-format' => 'mm/dd/yy' %>
+          <%= text_field_tag :date_end, params[:date_end], class: 'form-control input-datepicker', placeholder: 'mm/dd/yy', 'data-date-format' => 'mm/dd/yy' %>
         </div>
       </div>
 
-
-      <div class="col-md-9 col-md-offset-3">
-        <%= submit_tag 'Search Trips', name: nil, class: 'btn btn-effect-ripple btn-primary' %>
+      <div class="form-group">
+        <%= label_tag :tag_search, 'Tags', class: 'col-md-3 control-label' %>
+        <div class="col-md-8">
+          <%= text_field_tag :tag_search, params[:tag_search], class: 'form-control' %>
+        </div>
+      </div>
+      <div class="form-group form-actions">
+        <div class="col-md-9 col-md-offset-3">
+          <%= submit_tag 'Search Trips', name: nil, class: 'btn btn-effect-ripple btn-primary' %>
+        </div>
       </div>
 
     <% end %>
 
+  <!-- END Horizontal Form Content -->
 </div>

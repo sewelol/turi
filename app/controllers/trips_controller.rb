@@ -68,7 +68,7 @@ class TripsController < ApplicationController
     end
 
     def search
-        @trips = Trip.search(params[:title_search], params[:location_search], params[:tag_search])
+        @trips = Trip.search(params[:title_search], params[:location_search], params[:tag_search], params[:date_beg], params[:date_end])
     end
 
     private

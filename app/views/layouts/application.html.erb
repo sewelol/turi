@@ -138,6 +138,9 @@
             <li class="<%=current_page?(controller: 'trips', action: 'index') ? 'active' : ''%>">
               <a href="<%=trips_path%>"><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Trips</span></a>
             </li>
+            <li class="<%=current_page?(controller: 'trips', action: 'search') ? 'active' : ''%>">
+              <a href="<%=search_path%>"><i class="gi gi-search sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Search</span></a>
+            </li>
           </ul>
           <!-- END Sidebar Navigation -->
 

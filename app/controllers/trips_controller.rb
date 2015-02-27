@@ -36,6 +36,10 @@ class TripsController < ApplicationController
     end
   end
 
+  def search
+    @trips = Trip.search(params[:title_search], params[:location_search], params[:tag_search], params[:date_beg], params[:date_end])
+  end
+
   def update
     authorize @trip
     if @trip.update(trip_params)

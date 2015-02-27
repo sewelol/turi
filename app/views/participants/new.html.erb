@@ -1,5 +1,5 @@
 <% content_for :page_title do %>
-    Add participant
+    <%=t('trip_add_participant')%>
 <% end %>
 
 <% content_for :content_header do %>
@@ -20,28 +20,28 @@
     <div class="block">
 
       <div class="block-title">
-        <h2>Add participant to '<%=@trip.title%>'</h2>
+        <h2><%=t('trip_add_participant_to', trip_title: @trip.title)%></h2>
       </div>
 
       <%= form_tag({controller: :participants, action: 'create'}, class: 'form-horizontal form-bordered') do |f| %>
         <div class="form-group">
-          <%= label_tag(:user_email, 'Email', class: 'col-md-3 control-label') %>
+          <%= label_tag(:user_email, t('email'), class: 'col-md-3 control-label') %>
           <div class="col-md-9">
             <%= text_field_tag(:user_email, '', class: 'form-control') %>
-            <span class="help-block">Please enter the email of the person you want to add.</span>
+            <span class="help-block"><%=t('trip_participant_email_description')%></span>
           </div>
         </div>
         <div class="form-group">
-          <%= label_tag(:editor_flag, 'Can edit', class: 'col-md-3 control-label') %>
+          <%= label_tag(:editor_flag, t('can_edit'), class: 'col-md-3 control-label') %>
           <div class="col-md-9">
             <label class="switch switch-danger"><%= check_box_tag :editor_flag, 1, true %><span></span></label>
-            <span class="help-block">Editors have full control to add and remove people and change the details or visibility of the trip. Only the owner can delete the trip.</span>
+            <span class="help-block"><%=t('trip_participant_role_description')%>></span>
           </div>
         </div>
         <div class="form-group form-actions">
           <div class="col-md-9 col-md-offset-3">
-            <%= submit_tag 'Save', id: 'save_participant_button', class: 'btn btn-effect-ripple btn-primary', style: 'overflow: hidden; position: relative;' %>
-            <%= link_to 'Cancel', trip_participants_path(@trip), class: 'btn btn-effect-ripple btn-danger', style: 'overflow: hidden; position: relative;' %>
+            <%= submit_tag t('save'), id: 'save_participant_button', class: 'btn btn-effect-ripple btn-primary', style: 'overflow: hidden; position: relative;' %>
+            <%= link_to t('cancel'), trip_participants_path(@trip), class: 'btn btn-effect-ripple btn-danger', style: 'overflow: hidden; position: relative;' %>
           </div>
         </div>
       <% end %>

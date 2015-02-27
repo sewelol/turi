@@ -1,9 +1,10 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!
 
   def show
     authorize @trip
+    @tags = @trip.tag_counts_on(:tags)
   end
 
   def index
@@ -36,7 +37,7 @@ class TripsController < ApplicationController
   end
 
   def update
-    authorize @trip, :update?
+    authorize @trip
     if @trip.update(trip_params)
       @trip.tag_list.remove(@trip.tag_list, parse: true)
       @trip.tag_list.add(trip_params[:tag_list], parse: true)

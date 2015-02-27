@@ -18,10 +18,10 @@
       <div class="widget-content widget-content-full border-bottom">
         <div class="row text-center">
           <div class="col-xs-6 push-inner-top-bottom border-right">
-            <h3 class="widget-heading"><i class="gi gi-heart text-danger push"></i> <br><small><strong>1.5k</strong> Hikes</small></h3>
+            <h3 class="widget-heading"><i class="gi gi-heart text-danger push"></i> <br><small><strong>152</strong> Hikes</small></h3>
           </div>
           <div class="col-xs-6 push-inner-top-bottom">
-            <h3 class="widget-heading"><i class="gi gi-group themed-color-social push"></i> <br><small><strong>58.6k</strong> Followers</small></h3>
+            <h3 class="widget-heading"><i class="gi gi-group themed-color-social push"></i> <br><small><strong>7</strong> </small></h3>
           </div>
         </div>
       </div>
@@ -29,19 +29,14 @@
         <h4>About</h4>
         <p><%= @trip.description %></p>
         <h4>Other information</h4>
-        <p><%= @trip.start_loc %></p>
-        <p><%= @trip.end_loc %></p>
+        <p><%= @trip.start_loc %> (<%= @trip.start_date %>) - <%= @trip.end_loc %> (<%= @trip.end_date %>)</p>
         <p class="owner">Created by <%= @trip.user.name %></p>
       </div>
       <div class="widget-content">
-        <h4>Social</h4>
-        <div class="btn-group">
-          <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook fa-fw"></i></a>
-          <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter fa-fw"></i></a>
-          <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Google Plus"><i class="fa fa-google-plus fa-fw"></i></a>
-          <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Pinterest"><i class="fa fa-pinterest fa-fw"></i></a>
-          <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Dribbble"><i class="fa fa-dribbble fa-fw"></i></a>
-        </div>
+        <h4>Tags</h4>
+        <% tag_cloud(@tags, %w(label-primary label-warning label-danger label-success label-default label-info)) do |tag, css_class| %>
+            <span class="label <%=css_class%>"><%=tag.name%></span>
+        <% end %>
       </div>
     </div>
   </div>
@@ -68,8 +63,8 @@
           <% end %>
         </div>
         <ul class="nav nav-tabs">
-          <li class="<%=current_page?(trip_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_path(@trip) %>">Overview</a></li>
-          <li class="<%=current_page?(trip_participants_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_participants_path(@trip) %>">Participants</a></li>
+          <li class="<%=current_page?(trip_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_path(@trip) %>"><%=t('trip_activities')%></a></li>
+          <li class="<%=current_page?(trip_participants_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_participants_path(@trip) %>"><%=t('trip_participants')%></a></li>
         </ul>
       </div>
       <!-- END Block Tabs Title -->

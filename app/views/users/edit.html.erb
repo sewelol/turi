@@ -1,0 +1,34 @@
+<h2>Welcome to the edit user page</h2>
+
+<%= form_for @user do |form| %>
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+    <p>
+      <%= form.label :email %><br>
+      <%= form.text_field :email %>
+    </p>
+    <p>
+      <%= form.label :age %><br>
+      <%= form.number_field :age %>
+    </p>
+    <p>
+      <%= form.label :country %><br>
+      <%= form.text_field :country %>
+    </p>
+    <p>
+      <%= form.label :town %><br>
+      <%= form.text_field :town %>
+    </p>
+    <p>
+      <%= form.label :status %><br>
+      <%= form.text_field :status %>
+    </p>
+
+    <p>
+      <%= form.submit %>
+    </p>
+
+
+<% end %>

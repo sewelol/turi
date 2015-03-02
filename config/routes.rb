@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => { registrations: 'registrations' }
+  resources :users
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 

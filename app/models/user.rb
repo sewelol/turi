@@ -6,11 +6,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :name, presence: true
   validates_uniqueness_of :name
 
   gravtastic
   has_many :trips
-  has_many :participants
 
 end

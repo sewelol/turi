@@ -57,9 +57,10 @@ feature 'User_page' do
   end
 
   scenario "edit user details with incorrect details" do
-    fill_in 'email', with: ""
+    click_link "Edit"
+    fill_in 'Email', with: ""
     click_button "Update User"
 
-    #expect(page).to have_content(118.t('errors.message.too_short, attribute: User.human_attribute_name('email'), count:5))
+    #TODO finish me
   end
 end

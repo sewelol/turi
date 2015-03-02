@@ -12,16 +12,19 @@ invocation before each example.
 RSpec.describe UsersController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
 
+  before do
+    session[:user_id] = user.id
+  end
+
   context "get 'show'" do
     it "returns http success" do
-      sign_in_as!(user)
       get :show, id: user.id
 
       expect(response).to render_template(:show)
     end
 
     it "assigns my user id" do
-
+      #TODO implement me
     end
   end
 

@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
 
   layout 'webpage'
 
-	def index
-	end
+  def index
+  end
 
 end

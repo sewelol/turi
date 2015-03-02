@@ -5,7 +5,7 @@ module AuthenticationHelpers
     fill_in "user_email", with: user.email
     fill_in "user_password", with: user.password
     click_button "sign_in_button"
-    #expect(page).to have_content("Signed in successfully.")
+    
   end
 end
 

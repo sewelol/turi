@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224134639) do
+ActiveRecord::Schema.define(version: 20150227132152) do
 
   create_table "participant_roles", force: :cascade do |t|
     t.string   "name",       null: false
@@ -83,6 +83,10 @@ ActiveRecord::Schema.define(version: 20150224134639) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "country"
+    t.string   "town"
+    t.integer  "age"
+    t.string   "status"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

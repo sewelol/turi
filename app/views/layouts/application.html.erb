@@ -368,9 +368,12 @@
           <!-- User Dropdown -->
           <% if current_user %>
               <li class="dropdown">
+		  <!--
                 <a href="/path/to/account/page">
                   <%= image_tag current_user.gravatar_url %>
                 </a>
+		-->
+		<%= link_to image_tag(current_user.gravatar_url), user_path(current_user) %>
               </li>
           <% end %>
           <!-- END User Dropdown -->

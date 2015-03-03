@@ -3,7 +3,9 @@ class Trip < ActiveRecord::Base
   ActsAsTaggableOn.remove_unused_tags = true
 
   belongs_to :user
-  has_many :participants
+  has_many :participants, :dependent => :delete_all
+
+  validates_presence_of :title
 
   def self.search(title_search, location_search, tag_search, date_beg, date_end)
     @trips = nil

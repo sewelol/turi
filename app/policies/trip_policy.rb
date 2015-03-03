@@ -1,7 +1,7 @@
 class TripPolicy < ApplicationPolicy
 
   def show?
-    owner_or_participant?(user, record)
+    participant?(user, record)
   end
 
   def update?
@@ -19,7 +19,7 @@ class TripPolicy < ApplicationPolicy
     participant.nil? == false and participant.participant_role.owner?
   end
 
-  def owner_or_participant?(user, trip)
+  def participant?(user, trip)
     participant = Participant.find_by trip_id: trip.id, user_id: user.id
     participant.nil? == false
   end

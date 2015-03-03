@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.feature 'Search Trips' do
   before do
     @user = FactoryGirl.create(:user)
-    @trip = FactoryGirl.create(:trip)
-    @trip2nd = FactoryGirl.create(:trip, title: 'Another trip', start_date: '12/05/15', end_date: '27/05/15')
+    @trip = FactoryGirl.create(:trip, user_id: @user.id)
+    @trip2nd = FactoryGirl.create(:trip, title: 'Another trip', start_date: '12/05/15', end_date: '27/05/15', user_id: @user.id)
 
     @atag = 'fun, cold'
     @trip.tag_list = @atag

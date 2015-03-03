@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
+  # TODO: Use scopes so that we not bloat our routes.
   resources :trips do
     resources :participants
     resources :map

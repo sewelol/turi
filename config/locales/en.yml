@@ -41,6 +41,7 @@ en:
   trip_activities:                "Activities"
   trip_participants:              "Participants"
   trip_created:					  "You successfully created a trip"
+  trip_edit:					  "Edit trip"
   trip_not_created:				  "Trip was not created!"
   trip_updated:					  "Trip has been updated"
   trip_not_updated:				  "Trip has not been updated!"

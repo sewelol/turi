@@ -15,16 +15,6 @@
           <h4 class="widget-heading text-light-op"><em>updated <%= time_ago_in_words(@trip.updated_at) %> ago</em></h4>
         </div>
       </div>
-      <div class="widget-content widget-content-full border-bottom">
-        <div class="row text-center">
-          <div class="col-xs-6 push-inner-top-bottom border-right">
-            <h3 class="widget-heading"><i class="gi gi-heart text-danger push"></i> <br><small><strong>152</strong> Hikes</small></h3>
-          </div>
-          <div class="col-xs-6 push-inner-top-bottom">
-            <h3 class="widget-heading"><i class="gi gi-group themed-color-social push"></i> <br><small><strong>7</strong> </small></h3>
-          </div>
-        </div>
-      </div>
       <div class="widget-content border-bottom">
         <h4>About</h4>
         <p><%= @trip.description %></p>
@@ -45,8 +35,9 @@
       <!-- Block Tabs Title -->
       <div class="block-title">
         <div class="block-options pull-right">
-          <% if policy(@trip).update?  %>
-            <a href="<%= edit_trip_path(@trip) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Edit trip"><i class="fa fa-cog"></i></a>
+          <a href="<%= trip_participants_path(@trip) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="<%=t('trip_participants')%>"><i class="fa fa-user"></i></a>
+          <% if policy(@trip).update? %>
+            <a href="<%= edit_trip_path(@trip) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="<%=t('trip_edit')%>"><i class="fa fa-cog"></i></a>
           <% end %>
           <% if policy(@trip).destroy?  %>
               <%= link_to raw('<i class="fa fa-trash"></i>'),
@@ -64,7 +55,12 @@
         </div>
         <ul class="nav nav-tabs">
           <li class="<%=current_page?(trip_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_path(@trip) %>"><%=t('trip_activities')%></a></li>
-          <li class="<%=current_page?(trip_participants_path(@trip)) ? 'active' : ''%>"><a href="<%= trip_participants_path(@trip) %>"><%=t('trip_participants')%></a></li>
+          <li class=""><a href="#" style="color:orange">Routes</a></li>
+          <li class=""><a href="#" style="color:orange">Equipment</a></li>
+          <li class=""><a href="#" style="color:red">Discussion</a></li>
+          <li class=""><a href="#" style="color:orange">Blog</a></li>
+          <li class=""><a href="#" style="color:red">Gallery</a></li>
+          <li class=""><a href="#" style="color:red">Calendar</a></li>
         </ul>
       </div>
       <!-- END Block Tabs Title -->

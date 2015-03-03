@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => { registrations: 'registrations' }
-  resources :users
+  resources :users, only: [:show, :edit, :update]
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 

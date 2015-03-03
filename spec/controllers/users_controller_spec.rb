@@ -10,10 +10,11 @@ invocation before each example.
 =end
 
 RSpec.describe UsersController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryGirl.create(:user) }
 
   before do
-    session[:user_id] = user.id
+    #session[:user_id] = user.id
+    sign_in(user)
   end
 
   context "get #show" do
@@ -31,7 +32,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  context "get #edit" do
+  context "PUT #edit" do
     it "sends us to edit" do
       get :edit, id: user.id
 
@@ -40,9 +41,13 @@ RSpec.describe UsersController, type: :controller do
   end
 
   context "put #edit" do
+    before do
+
+
+    end
     it "saves the user" do
-      put :edit, id: user.id
-      expect(response).to render_template(:show)
+      put :update, id: user.id
+      expect(response).to render_template(:edit)
     end
   end
 end

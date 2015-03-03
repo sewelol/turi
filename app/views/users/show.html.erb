@@ -1,12 +1,52 @@
-<h1>This is your user page</h1>
+<div class="row">
+  <div class="col-md-5 col-lg-4">
+    <div class="user widget">
+      <div class="widget-image widget-image-sm">
+        <div id="user-image">
+            <img src="<%=@user.image%>" alt="image">
+        </div>
+        <div class="widget-image-content text-center">
+          <h2 class="widget-heading text-light"><strong><%= @user.name %> </strong></h2>
+        </div>
+      </div>
+      <div class="widget-content widget-content-full border-bottom">
+        <div class="row text-center">
+          <div class="row text-center">
+            <div class="col-xs-6 push-inner-top-bottom border-right">
+              <h3 class="widget-heading"><i class="gi gi-heart text-danger push"></i><br>
+                <small><strong>100</strong>Likes</small>
+              </h3>
+            </div>
+            <div class="col-xs-6 push-inner-top-bottom">
+              <h3 class="widget-heading"><i class="gi gi-group themed-color-social push"></i><br>
+                <small><strong>2</strong></small>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="widget-content border-bottom">
+          <h4>Information</h4>
 
-<ul>
-  <li><%= @user.name %></li>
-  <li><%= @user.email %></li>
-  <li><%= @user.age %></li>
-  <li><%= @user.country %></li>
-  <li><%= @user.town %></li>
-  <li><%= @user.status %></li>
-</ul>
+          <p><%= @user.email %></p>
 
-<%= link_to "Edit", edit_user_path(@user) %>
+          <p><%= @user.age %></p>
+
+          <p><%= @user.country %></p>
+
+          <p><%= @user.town %></p>
+
+          <p><%= @user.status %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7 col-lg-8">
+    <div class="block full">
+      <div class="block-title">
+        <div class="block-options pull-right">
+          <a href="<%= edit_user_path(@user) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Edit user"><i class="fa fa-cog"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

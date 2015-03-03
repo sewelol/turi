@@ -30,6 +30,8 @@ feature 'User_page' do
     #TODO status
     expect(page).to have_content(user.status)
     #TODO picture
+    # http://tinypic.com/r/2rqyvc9/8
+
   end
 
   scenario "edit user details with correct details" do

@@ -37,6 +37,11 @@ en:
   user_not_found:                 "The given user could not be found."
   user_go_to_profile_page:        "Open profile page"
 
+  #User page
+  user_id_not_found:              "This user id is not valid"
+  user_must_have_email:           "You can't have a blank email"
+  user_must_have_name:            "You can't have a blank name"
+
   #Trips (trip_controller)
   trip_activities:                "Activities"
   trip_participants:              "Participants"

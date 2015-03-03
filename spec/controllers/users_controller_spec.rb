@@ -16,16 +16,33 @@ RSpec.describe UsersController, type: :controller do
     session[:user_id] = user.id
   end
 
-  context "get 'show'" do
-    it "returns http success" do
+  context "get #show" do
+    it "directs to user page when user id exist" do
       get :show, id: user.id
 
       expect(response).to render_template(:show)
     end
 
-    it "assigns my user id" do
-      #TODO implement me
+    it " directs to root page when user id doesn't exist" do
+      get :show, id: 202
+
+      expect(response).to redirect_to(dashboard_path)
+      expect(flash[:alert]).to have_content(I18n.t('user_id_not_found'))
     end
   end
 
+  context "get #edit" do
+    it "sends us to edit" do
+      get :edit, id: user.id
+
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  context "put #edit" do
+    it "saves the user" do
+      put :edit, id: user.id
+      expect(response).to render_template(:show)
+    end
+  end
 end

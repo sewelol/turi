@@ -8,7 +8,7 @@
 #
 # In views, this is aliased to just `t`:
 #
-#
+#     	
 #
 # To use a different locale, set it with `I18n.locale`:
 #

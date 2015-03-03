@@ -33,7 +33,7 @@ class ParticipantsController < ApplicationController
     # Only participants which can edit the trip are able to add a participant
     authorize trip, :update?
 
-      participant_user = User.find_by!(email: params[:user_email])
+    participant_user = User.find_by!(email: params[:user_email])
 
     role = ParticipantRole.viewer
 
@@ -43,18 +43,14 @@ class ParticipantsController < ApplicationController
 
     participant = trip.participants.create(user_id: participant_user.id, participant_role_id: role.id)
 
-    if participant.save
-      flash[:notice] = I18n.t 'trip_participant_added', :email => participant_user.email
-      redirect_to trip_participants_path(trip)
-    else
-      flash[:alert] = I18n.t 'trip_participant_not_added'
-      redirect_to new_trip_participant_path(trip)
-      end
-  rescue ActiveRecord::RecordNotFound
+    participant.save
+    flash[:notice] = I18n.t 'trip_participant_added', :email => participant_user.email
+    redirect_to trip_participants_path(trip)
+
+    rescue ActiveRecord::RecordNotFound
 
     flash[:alert] = I18n.t 'user_not_found'
     redirect_to new_trip_participant_path(trip)
-
   end
 
   # Removes the participant if the current user is allowed to execute this action.

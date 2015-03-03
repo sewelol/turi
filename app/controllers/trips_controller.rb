@@ -5,15 +5,11 @@ class TripsController < ApplicationController
   def show
     authorize @trip
     @tags = @trip.tag_counts_on(:tags)
+    render layout: 'trip'
   end
 
   def index
-    if(params['search-query'].nil? || params['search-query'].empty?)
-      @trips =  Trip.all
-    else
-      search_query = '%' << params['search-query'][0] << '%'
-      @trips =  Trip.where('title LIKE ? OR description LIKE ?', search_query, search_query)
-    end
+    @trips =  Trip.all
   end
 
   def new
@@ -55,6 +51,7 @@ class TripsController < ApplicationController
 
   def edit
     authorize @trip, :update?
+    render layout: 'trip'
   end
 
   def destroy

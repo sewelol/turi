@@ -2,46 +2,60 @@
     Dashboard
 <% end %>
 
-<% content_for :content_header do %>
-    <div class="content-header">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="header-section">
-            <h1><%= yield :page_title %></h1>
-          </div>
-        </div>
-      </div>
-    </div>
+<% content_for :page_class do %>
+    background-image
 <% end %>
 
-<div class="block full">
-  <div class="block-title">
-    <h2>My trips</h2>
+<div class="row">
+  <div class="col-sm-offset-2 col-sm-2">
+    <a href="<%=search_path%>" class="widget">
+      <div class="widget-content themed-background-info text-light-op text-center">
+        <div class="widget-icon">
+          <i class="fa fa-search"></i>
+        </div>
+      </div>
+      <div class="widget-content text-dark text-center">
+        <strong>Search</strong>
+      </div>
+    </a>
   </div>
-
-  <% @trips.each do |trip| %>
-      <% if trip.user_id == current_user.id %>
-          <%= link_to trip.title, trip %>
-      <% end %>
-  <% end %>
+  <div class="col-sm-offset-1 col-sm-2">
+    <a href="<%=new_trip_path%>" class="widget">
+      <div class="widget-content themed-background-passion text-light-op text-center">
+        <div class="widget-icon">
+          <i class="fa fa-plus"></i>
+        </div>
+      </div>
+      <div class="widget-content text-dark text-center">
+        <strong>Create</strong>
+      </div>
+    </a>
+  </div>
+  <div class="col-sm-offset-1 col-sm-2">
+    <a href="<%=trips_path%>" class="widget">
+      <div class="widget-content themed-background-amethyst text-light-op text-center">
+        <div class="widget-icon">
+          <i class="fa fa-compass"></i>
+        </div>
+      </div>
+      <div class="widget-content text-dark text-center">
+        <strong>Explore</strong>
+      </div>
+    </a>
+  </div>
 </div>
 
-<div class="block full">
-  <div class="block-title">
-    <h2>All trips</h2>
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="text-center">My trips</h1>
+    <br/>
   </div>
-
-  <% @trips.each do |trip| %>
-      <%= link_to trip.title, trip %>
-  <% end %>
 </div>
 
-<div class="block full">
-  <div class="block-title">
-    <h2>Tag cloud</h2>
-  </div>
-
-  <% ActsAsTaggableOn::Tag.most_used.each do |x|%>
-      <span class="label label-default"><%= x %></span>
+<div class="row">
+  <% @trips.each do |trip| %>
+      <div class="col-lg-4">
+        <%= render 'trips/trip', :trip => trip %>
+      </div>
   <% end %>
 </div>

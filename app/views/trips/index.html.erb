@@ -2,11 +2,17 @@
     Trip List
 <% end %>
 
+<% content_for :page_class do %>
+    background-image
+<% end %>
+
 <div class="row">
 
   <% @trips.each do |trip| %>
 
-      <%= render 'trips/trip', :trip => trip %>
+      <div class="col-lg-4">
+        <%= render 'trips/trip', :trip => trip %>
+      </div>
 
   <% end %>
 </div>

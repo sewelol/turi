@@ -11,14 +11,11 @@ RSpec.feature 'Search Trips' do
     @trip.save
     @trip2nd.tag_list = @atag
     @trip2nd.save
-    visit root_path
 
-    click_link 'Sign In'
-    fill_in 'user_email', with: @user.email
-    fill_in 'user_password', with: @user.password
+    login_as(@user, :scope => :user)
 
-    click_button 'sign_in_button'
-    click_link 'Search'
+    visit dashboard_path
+    click_link 'search_page_link'
   end
 
   scenario 'do a search on location' do
@@ -54,7 +51,7 @@ RSpec.feature 'Search Trips' do
 
     click_button 'Search Trips'
 
-    expect(page).to have_content('No trips matched your search parameters.')
+    expect(page).to have_content(I18n.t('trip_search_no_results'))
   end
 
 end

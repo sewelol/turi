@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+.background-image {
+    background: url(https://unsplash.it/g/1200?random&gravity=south) no-repeat;
+    background-size: 100%;
+}

@@ -1,0 +1,49 @@
+<a href="<%= edit_trip_equipment_list_path(@trip, @equipment_list) %>", class="gi gi-cogwheel", id="edit_equipment_link"></a>
+<%= link_to raw('<i class="gi gi-bin"></i>'),
+        trip_equipment_list_path(@trip, @equipment_list),
+        :method => :delete,
+        :data => {
+            :confirm    => 'Are you sure you want to delete this equipment list?',
+            :toogle     => 'tooltip'
+        },
+        :class => 'text-danger',
+        :title => '',
+        :id    => 'delete_equipment_list'
+%>
+
+
+<div class="col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
+    <h1 class="text-center">
+        <strong>
+            <%= @equipment_list.name %>
+        </strong>
+    </h1>
+    <h5 class = "text-center"> 
+        <%= @equipment_list.description %>
+    </h5>        
+
+    <form id="add-task-form" class="push">
+        <input id="add-task" name="add-task" class="form-control input-lg" placeholder="Enter a task and press enter.." type="text">
+    </form>
+    <ul class="task-list">
+        <li>
+            <a href="javascript:void(0)" class="task-close text-danger"><i class="fa fa-times"></i></a>
+            <label class="checkbox-inline">
+                <input type="checkbox"> Update plugins
+            </label>
+        </li>
+        <li class="task-done">
+            <a href="javascript:void(0)" class="task-close text-danger"><i class="fa fa-times"></i></a>
+            <label class="checkbox-inline">
+                <input type="checkbox"> To do list page
+            </label>
+        </li>
+        <li>
+            <a href="javascript:void(0)" class="task-close text-danger"><i class="fa fa-times"></i></a>
+            <label class="checkbox-inline">
+                <input type="checkbox"> PSDs Freebies
+            </label>
+        </li>
+    </ul>
+</div>
+

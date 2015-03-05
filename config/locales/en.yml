@@ -131,6 +131,7 @@ en:
   trip_role_owner:                "Owner"
   trip_role_editor:               "Editor"
   trip_role_viewer:               "Viewer"
+  trip_add_route:                 "Add route"
 
   # equipment_lists
   trip_equipment_list_create:               "Create a new Equipment List for %{trip_title}"

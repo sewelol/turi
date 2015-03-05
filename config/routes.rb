@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     resources :requests, only: [:create, :destroy]
   end
 
+
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
   # Explore

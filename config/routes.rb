@@ -26,7 +26,10 @@ Rails.application.routes.draw do
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> made some progress on the the 'Routes' feature. Link in trip view works.
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
   get 'search', to: 'trips#search', as: 'search'

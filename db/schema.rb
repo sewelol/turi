@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150308123948) do
+ActiveRecord::Schema.define(version: 20150303144524) do
 
   create_table "api_access_tokens", force: :cascade do |t|
     t.integer  "user_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150308123948) do
 
   add_index "api_access_tokens", ["api_provider_id"], name: "index_api_access_tokens_on_api_provider_id"
   add_index "api_access_tokens", ["trip_id"], name: "index_api_access_tokens_on_trip_id"
+  add_index "api_access_tokens", ["user_id", "trip_id", "api_provider_id"], name: "index_tokens_on_use_and_trip_and_provider", unique: true
   add_index "api_access_tokens", ["user_id"], name: "index_api_access_tokens_on_user_id"
 
   create_table "api_providers", force: :cascade do |t|
@@ -43,21 +44,6 @@ ActiveRecord::Schema.define(version: 20150308123948) do
   end
 
   add_index "equipment_lists", ["trip_id"], name: "index_equipment_lists_on_trip_id"
-
-  create_table "events", force: :cascade do |t|
-    t.string   "name",                     null: false
-    t.text     "description", default: ""
-    t.string   "color",                    null: false
-    t.datetime "start_date",               null: false
-    t.datetime "end_date",                 null: false
-    t.integer  "trip_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "location"
-    t.boolean  "all_day"
-  end
-
-  add_index "events", ["trip_id"], name: "index_events_on_trip_id"
 
   create_table "participant_roles", force: :cascade do |t|
     t.string   "name",       null: false

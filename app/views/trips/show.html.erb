@@ -1,7 +1,24 @@
-<% content_for :tab_content do %>
-    ...
+<% content_for :page_title do %>
+    <%= @trip.title %>
 <% end %>
 
-<%= render layout: 'trips/show_layout' do %>
-    <% # Dirty layout trick, but does the work! %>
+<% content_for :content_header do %>
+<div class="content-header content-header-media" style="background: url(<%= @trip.image.empty? ? 'https://unsplash.it/1060/260?random' : @trip.image %>) no-repeat; background-size: 100%;">
+  <div class="header-section">
+    <div class="row">
+      <div class="col-sm-7 col-md-8 col-lg-9 content-float-hor push-bit-top-bottom clearfix">
+        <img src="<%= @trip.image.empty? ? 'https://unsplash.it/69?random&gravity=south' : @trip.image %>" alt="User Image" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
+        <h1><%=@trip.title%></h1>
+        <h2 class="text-light-op"> <%= @trip.start_loc %> (<%= @trip.start_date %>) - <%= @trip.end_loc %> (<%= @trip.end_date %>)</h2>
+      </div>
+    </div>
+  </div>
+</div>
 <% end %>
+
+<div class="trip clearfix">
+  <blockquote class="pull-left">
+    <p><%= @trip.image.empty? ? 'This awesome trip has no description yet. Feel free to add a creative text!' : @trip.description %></p>
+    <small><span class="owner">Created by <%= @trip.user.name %></span> and last updated <%= time_ago_in_words(@trip.updated_at) %> ago</small>
+  </blockquote>
+</div>

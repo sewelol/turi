@@ -1,5 +1,7 @@
 class ParticipantsController < ApplicationController
 
+  layout 'trip'
+
   before_action :authenticate_user!
 
   # Make sure that every action calls "authorize"
@@ -7,7 +9,6 @@ class ParticipantsController < ApplicationController
 
   def index
     @trip = Trip.find(params[:trip_id])
-    @tags = @trip.tag_counts_on(:tags)
 
     # Only participants which can view the trip details are able to see the participant list
     authorize @trip, :show?

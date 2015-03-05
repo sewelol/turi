@@ -2,36 +2,16 @@
     Trip List
 <% end %>
 
+<% content_for :page_class do %>
+    background-image
+<% end %>
+
 <div class="row">
 
   <% @trips.each do |trip| %>
 
-      <div class="col-lg-6">
-        <a href="<%=url_for(trip)%>" class="widget">
-          <div class="widget-image widget-image-xs">
-            <img src="<%= trip.image.empty? ? asset_path('app/img/placeholders/photos/photo9.jpg') : trip.image %>" alt="image">
-            <div class="widget-image-content">
-              <h2 class="widget-heading text-light"><strong><%=trip.title%></strong></h2>
-              <h3 class="widget-heading text-light-op">Created by <%= trip.user.name %></h3>
-            </div>
-          </div>
-          <div class="widget-content">
-            <div class="row">
-              <div class="col-xs-7">
-                <div class="text-dark push-bit">Updated <%= time_ago_in_words(trip.updated_at) %> ago</div>
-              </div>
-              <div class="col-xs-5 text-right">
-                <div class="text-warning">
-                  <i class="fa fa-2x fa-star"></i>
-                  <i class="fa fa-2x fa-star"></i>
-                  <i class="fa fa-2x fa-star"></i>
-                  <i class="fa fa-2x fa-star"></i>
-                  <i class="fa fa-2x fa-star-half-o"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
+      <div class="col-lg-4">
+        <%= render 'trips/trip', :trip => trip %>
       </div>
 
   <% end %>

@@ -28,6 +28,7 @@ en:
   save:   "Save"
   cancel: "Cancel"
   can_edit: "Can edit"
+  search:   "Search"
   
   #Application (application_controller)
   sign_in_to_create_trip: 	      "You must be signed in to create a trip"
@@ -43,9 +44,13 @@ en:
   user_must_have_name:            "You can't have a blank name"
 
   #Trips (trip_controller)
-  trip_activities:                "Activities"
+  trip_details:                   "Trip Home"
   trip_participants:              "Participants"
   trip_created:					  "You successfully created a trip"
+  trip_explore:					  "Explore trips"
+  trip_edit:					  "Edit trip"
+  trip_delete:					  "Delete trip"
+  trip_create:					  "Create trip"
   trip_not_created:				  "Trip was not created!"
   trip_updated:					  "Trip has been updated"
   trip_not_updated:				  "Trip has not been updated!"
@@ -63,6 +68,21 @@ en:
   trip_participant_role_description: "Editors have full control to add and remove people and change the details or visibility of the trip. Only the owner can delete the trip."
   trip_participant_remove:        "Remove participant"
   trip_participant_remove_confirm: "Are you sure you want to remove this participant?"
+  trip_search_no_results:         "No trips found."
   trip_role_owner:                "Owner"
   trip_role_editor:               "Editor"
   trip_role_viewer:               "Viewer"
+
+  # equipment_lists 
+  create_equipment_list:                    "Create a new Equipment List for '%{trip_title}'"
+  trip_equipment_name_description:          "Please enter the name of the new equipment list you want to add."
+  trip_equipment_description_description:   "You can add a description of the list."
+  trip_equipment_icon_description:          "You can add a icon to the list."
+  trip_equipment_list_not_created:          "Equipment list was not created!"
+  trip_equipment_list_created:              "Equipment list was created."
+  trip_equipment_list_updated:              "Equipment list was updated."
+  trip_equipment_list_not_updated:          "Equipment list was not updated."
+  trip_equipment_list_deleted:              "Equipment list successfully deleted."
+  trip_equipment_list_not_found:            "Equipment list not found!"
+  
+

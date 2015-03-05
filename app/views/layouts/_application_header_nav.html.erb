@@ -1,0 +1,45 @@
+<ul class="nav navbar-nav-custom pull-right">
+
+  <li>
+    <a href="<%=search_path%>" id="search_page_link" title="<%=t('search')%>">
+      <i class="gi gi-search sidebar-nav-icon"></i>
+    </a>
+  </li>
+
+  <li>
+    <a href="<%=new_trip_path%>" id="create_trip_link" title="<%=t('trip_create')%>">
+      <i class="gi gi-plus"></i>
+    </a>
+  </li>
+
+  <li>
+    <a href="<%=trips_path%>" id="explore_trips_link" title="<%=t('trip_explore')%>">
+      <i class="gi gi-compass sidebar-nav-icon"></i>
+    </a>
+  </li>
+
+  <!-- Alternative Sidebar Toggle Button -->
+  <li>
+    <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');
+            this.blur();">
+      <i class="gi gi-message_empty"></i>
+    </a>
+  </li>
+  <!-- END Alternative Sidebar Toggle Button -->
+
+  <!-- Logout Button -->
+  <% if current_user %>
+      <li>
+        <%= link_to(raw('<i class="gi gi-power"></i>'), destroy_user_session_path, :method => :delete, id: 'sign_out_link', title: 'Logout') %>
+      </li>
+  <% end %>
+  <!-- END Logout Button -->
+
+  <!-- User Dropdown -->
+  <% if current_user %>
+      <li class="dropdown">
+        <%= link_to image_tag(current_user.gravatar_url), user_path(current_user) %>
+      </li>
+  <% end %>
+  <!-- END User Dropdown -->
+</ul>

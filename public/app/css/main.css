@@ -901,12 +901,12 @@ a.sidebar-title:focus {
 }
 
 .content-header-media > img {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 2560px;
-    height: 260px;
-    margin-left: -1280px;
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 50%; */
+    /* width: 2560px; */
+    /* height: 260px; */
+    /* margin-left: -1280px; */
 }
 
 .content-header-media small {

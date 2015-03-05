@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :trips do
     resources :participants
     resources :map
+    resources :equipment_lists
   end
 
   devise_for :users, :controllers => { registrations: 'registrations' }

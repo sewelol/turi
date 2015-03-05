@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
 
 
+
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
   get 'search', to: 'trips#search', as: 'search'

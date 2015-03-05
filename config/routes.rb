@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'map/new'
+
   get 'map/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -10,7 +12,7 @@ Rails.application.routes.draw do
   # TODO: Use scopes so that we not bloat our routes.
   resources :trips do
     resources :participants
-    resources :map
+    resources :routes
     resources :equipment_lists
 
     resources :media, only: [:index, :show, :destroy]
@@ -18,6 +20,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users, only: [:show, :edit, :update]
+
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 

@@ -3,7 +3,11 @@
     <div class="user widget">
       <div class="widget-image widget-image-sm">
         <div id="user-image">
+          <% if @user.image %>
             <img src="<%=@user.image%>" alt="image">
+          <% else %>
+            <img src="http://lorempixel.com/315/270/nature" alt="image">
+          <% end %>
         </div>
         <div class="widget-image-content text-center">
           <h2 class="widget-heading text-light"><strong><%= @user.name %> </strong></h2>

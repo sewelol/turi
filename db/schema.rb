@@ -123,6 +123,13 @@ ActiveRecord::Schema.define(version: 20150317121036) do
   add_index "participants", ["user_id", "trip_id"], name: "index_participants_on_user_id_and_trip_id", unique: true
   add_index "participants", ["user_id"], name: "index_participants_on_user_id"
 
+  create_table "routes", force: :cascade do |t|
+    t.string   "title"
+    t.string   "desc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -181,5 +188,14 @@ ActiveRecord::Schema.define(version: 20150317121036) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "waypoints", force: :cascade do |t|
+    t.string   "desc"
+    t.decimal  "lat"
+    t.decimal  "lng"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

@@ -39,3 +39,7 @@ bower.json
 # Temp files
 *~
 .DS_Store
+
+#mail passwords shouldn't be uploaded
+.env
+Procfile

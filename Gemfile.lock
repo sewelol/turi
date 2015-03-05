@@ -75,11 +75,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    dotenv (2.0.0)
-    dotenv-rails (2.0.0)
-      dotenv (= 2.0.0)
-    dropbox-sdk (1.6.4)
-      json
+    dotenv (1.0.2)
     erubis (2.7.0)
     execjs (2.3.0)
     factory_girl (4.5.0)
@@ -87,7 +83,9 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    geocoder (1.2.7)
+    foreman (0.77.0)
+      dotenv (~> 1.0.2)
+      thor (~> 0.19.1)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
     gravtastic (3.2.6)
@@ -244,7 +242,7 @@ DEPENDENCIES
   dotenv-rails
   dropbox-sdk
   factory_girl_rails
-  geocoder
+  foreman
   gravtastic
   jbuilder (~> 2.0)
   jquery-rails

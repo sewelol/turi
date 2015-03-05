@@ -17,7 +17,7 @@ RSpec.describe UsersController, type: :controller do
     sign_in(user)
   end
 
-  context "get #show" do
+  describe "GET #show" do
     it "directs to user page when user id exist" do
       get :show, id: user.id
 
@@ -32,22 +32,53 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  context "PUT #edit" do
+  describe "GET #edit" do
     it "sends us to edit" do
       get :edit, id: user.id
-
       expect(response).to render_template(:edit)
     end
   end
 
-  context "put #edit" do
-    before do
+  describe "PUT #update" do
 
+    context "with valid attributes" do
+      it "locates the requested @user" do
+        put :update, id: user, user: FactoryGirl.attributes_for(:user)
+        expect(assigns(:user)).to eq(user)
+      end
 
+      it "changes @users attributes" do
+        put :update, id: user, user: FactoryGirl.attributes_for(:user, name: "Runar", email: "runar@uit.no")
+        user.reload
+        expect(user.name).to eql("Runar")
+        expect(user.email).to eql("runar@uit.no")
+      end
+
+      it "redirects to the updated contact" do
+        put :update, id: user, user: FactoryGirl.attributes_for(:user)
+        expect(response).to redirect_to user
+      end
     end
-    it "saves the user" do
-      put :update, id: user.id
-      expect(response).to render_template(:edit)
+
+    context "with invalid attributes" do
+      it "locates the requested user" do
+        put :update, id: user, user: FactoryGirl.attributes_for(:invalid_user)
+        expect(assigns(:user)).to eq(user)
+      end
+
+      it "does not change users attributes" do
+        email = user.email
+        put :update, id: user, user: FactoryGirl.attributes_for(:user, name: "Larry", email: nil)
+        user.reload
+        expect(user.name).to_not eql("Larry")
+        expect(user.email).to eql(email)
+      end
+
+      it "re-renders the edit method" do
+        put :update, id: user, user: FactoryGirl.attributes_for(:invalid_user)
+        expect(response).to render_template :edit
+      end
     end
   end
+
 end

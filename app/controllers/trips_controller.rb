@@ -71,4 +71,5 @@ class TripsController < ApplicationController
     flash[:alert] = I18n.t 'trip_not_found'
     redirect_to dashboard_path
   end
+
 end

@@ -30,6 +30,8 @@ feature 'User_page' do
     #TODO status
     expect(page).to have_content(user.status)
     #TODO picture
+    # http://tinypic.com/r/2rqyvc9/8
+
   end
 
   scenario "edit user details with correct details" do
@@ -59,8 +61,19 @@ feature 'User_page' do
   scenario "edit user details with incorrect details" do
     click_link "Edit"
     fill_in 'Email', with: ""
+    fill_in 'Name', with: ""
     click_button "Update User"
 
-    #TODO finish me
+    expect(page).to have_content("Email can't be blank")
+    expect(page).to have_content("Name can't be blank")
+  end
+
+  scenario "edit user email with taken email" do
+    taken_user = FactoryGirl.create(:user, email: "ingvild92@yahoo.com")
+    click_link "Edit"
+    fill_in "Email", with: taken_user.email
+    click_button "Update User"
+
+    expect(page).to have_content("Email has already been taken")
   end
 end

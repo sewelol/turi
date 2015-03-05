@@ -135,8 +135,19 @@ function onMapClick(e)
 
     temp.title = "waypoint #"+markers.length.toString();
 
-    markers.push(temp);
 
+
+    //addInputFieldForWaypoint(temp);
+
+    $('#waypoint-form')
+        .append('My waypoint: ' + markers.length.toString() +
+        ': <input type="text" value="' + temp.title  + '" name="desc"/> ' +
+        ': <input type="text" value="' + temp.getLatLng().lat  + '" name="lat"/> ' +
+        ': <input type="text" value="' + temp.getLatLng().lng  + '" name="lng"/> ' +
+        ': <input type="text" value="' + temp.title  + '" name="type"/> ' +
+        '<br/>')
+
+    markers.push(temp);
 
     drawMap();
 
@@ -235,7 +246,9 @@ function POST (route) {
 
     console.log("I am about to POST this: \n\n" + dat);
 
-    dat.post();
+    $.post( "ajax/test.html", function( dat ) {
+        //$( ".result" ).html( data );
+    });
 
 
 }

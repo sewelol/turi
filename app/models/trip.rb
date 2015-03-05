@@ -4,6 +4,7 @@ class Trip < ActiveRecord::Base
 
   belongs_to :user
   has_many :participants, :dependent => :delete_all
+  has_many :equipment_lists, :dependent => :delete_all
 
   validates_presence_of :title
 

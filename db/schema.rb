@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227132152) do
+ActiveRecord::Schema.define(version: 20150303144524) do
+
+  create_table "equipment_lists", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "icon"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "trip_id"
+  end
+
+  add_index "equipment_lists", ["trip_id"], name: "index_equipment_lists_on_trip_id"
 
   create_table "participant_roles", force: :cascade do |t|
     t.string   "name",       null: false

@@ -57,11 +57,52 @@
             </li>
 
             <li class="">
-              <a href="#"><i class="gi gi-fins sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Equipment</span></a>
+                <a class="sidebar-nav-menu" href="">
+                    <i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide">
+                        <!-- before -->
+                    </i>
+                    <i class="gi gi-fins sidebar-nav-icon">
+                        <!-- before -->
+                    </i>
+                    <span class="sidebar-nav-mini-hide">
+                        Equipment
+                    </span>
+
+                </a>
+                <ul>
+                    <li>
+                        <a class="", href="<%= new_trip_equipment_list_path(@trip) %>", id='new_equipment_list'>
+                            <i class="fa fa-plus sidebar-nav-icon"></i> Create new list
+                        </a>
+                    </li>
+                     <li> 
+                         <a class="", href="<%= trip_equipment_lists_path(@trip) %>", id='show_equipment_lists'>
+                             <i class="fa fa-navicon sidebar-nav-icon"></i> Show all lists
+                         </a>
+                    </li>
+                    <li class="sidebar-separator">
+                      <i class="fa fa-ellipsis-h"></i>
+                    </li>
+                     <% @trip.equipment_lists.last(5).each do |equipment_list| %>
+                         <li>
+                             <a class="", href="<%= trip_equipment_list_path(@trip, equipment_list) %>", id='<%= equipment_list.name %>_equipment_link'>
+                                <i class="fa fa-<%= equipment_list.icon %> sidebar-nav-icon"></i><%= equipment_list.name %>
+                            </a>
+                         </li>
+                     <% end %>
+                     <% if @trip.equipment_lists.count > 5 %>
+                         <li> 
+                            <a class="">
+                                <i class="fa fa-terminal sidebar-nav-icon"></i> showing (5/<%= @trip.equipment_lists.count %> lists)
+                                <!-- Dunno about this... -->
+                            </a>
+                         </li>
+                     <% end %>
+                </ul>
             </li>
 
             <li class="">
-              <a href="#"><i class="gi gi-group sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Discussion</span></a>
+                <a href="#"><i class="gi gi-group sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Discussion</span></a>
             </li>
 
             <li class="">

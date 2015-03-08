@@ -1,3 +1,6 @@
+<!-- Rails -->
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
 <!-- Bootstrap.js, Jquery plugins and Custom JS code -->
 <script src="<%= asset_path 'app/js/vendor/jquery-2.1.3.min.js' %>"></script>
 <script src="<%= asset_path 'app/js/vendor/bootstrap.min.js' %>"></script>
@@ -5,4 +8,3 @@
 <script src="<%= asset_path 'app/js/app.js' %>"></script>
 
 <%= yield :page_scripts %>
-<%= yield :page_stylesheets %>

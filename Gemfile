@@ -36,6 +36,9 @@ gem 'devise'
 # Pundit (authorization)
 gem 'pundit'
 
+# Dropbox
+gem 'dropbox-sdk'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

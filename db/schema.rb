@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303144524) do
+ActiveRecord::Schema.define(version: 20150305155134) do
+
+  create_table "api_access_tokens", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "trip_id"
+    t.integer  "api_provider_id"
+    t.string   "token",           null: false
+    t.string   "item"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "api_access_tokens", ["api_provider_id"], name: "index_api_access_tokens_on_api_provider_id"
+  add_index "api_access_tokens", ["trip_id"], name: "index_api_access_tokens_on_trip_id"
+  add_index "api_access_tokens", ["user_id"], name: "index_api_access_tokens_on_user_id"
+
+  create_table "api_providers", force: :cascade do |t|
+    t.string "name"
+  end
+
+  add_index "api_providers", ["name"], name: "index_api_providers_on_name", unique: true
 
   create_table "equipment_lists", force: :cascade do |t|
     t.string   "name"

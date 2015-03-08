@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :name
 
   gravtastic
-  has_many :trips
-  has_many :participants
+  has_many :trips # Do not make this dependent! This var has to be removed (replaced by participant owner).
+  has_many :participants, :dependent => :delete_all
+  has_many :api_access_tokens, :dependent => :delete_all
   
 end

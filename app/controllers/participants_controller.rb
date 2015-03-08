@@ -20,7 +20,7 @@ class ParticipantsController < ApplicationController
     @trip = Trip.find(params[:trip_id])
 
     # Only participants which can edit the trip are able to view the creation form of a participant
-    authorize @trip, :show?
+    authorize @trip, :update?
   end
 
   # Creates the participant with the given role if the current user is allowed to execute this action.

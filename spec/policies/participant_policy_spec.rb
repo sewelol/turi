@@ -17,12 +17,20 @@ describe ParticipantPolicy do
 
   permissions :destroy? do
 
-    it 'denies destroying participant for stranger' do
+    it 'denies destroying participant for stranger/viewer' do
       expect(subject).not_to permit(@stranger, @participant_viewer)
+      expect(subject).not_to permit(@viewer, @participant_viewer)
     end
 
-    it 'allows destroying participant for stranger' do
-      expect(subject).not_to permit(@stranger, @participant_viewer)
+    it 'denies destroying participant owner for owner/editor/viewer' do
+      expect(subject).not_to permit(@owner, @participant_owner)
+      expect(subject).not_to permit(@editor, @participant_owner)
+      expect(subject).not_to permit(@viewer, @participant_owner)
+    end
+
+    it 'allows destroying participant for owner/editor' do
+      expect(subject).to permit(@owner, @participant_viewer)
+      expect(subject).to permit(@editor, @participant_viewer)
     end
 
   end

@@ -1,0 +1,53 @@
+<% unless @access_tokens.empty? %>
+
+    <% content_for :page_class do %>
+        inner-sidebar-left
+    <% end %>
+
+    <div id="page-content-sidebar">
+      <!-- Collapsible Options -->
+      <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#media-list">Galleries</a>
+      <div id="media-list" class="collapse navbar-collapse remove-padding">
+        <!-- Lists -->
+        <h4 class="inner-sidebar-header">
+          <%= t('trip_media_sidebar_header') %>
+        </h4>
+        <div class="block-section">
+          <ul class="nav nav-pills nav-stacked">
+            <% @access_tokens.each do |access_token| %>
+            <li class="<%=current_page?(trip_medium_path(@trip, access_token)) ? 'active' : ''%>">
+              <a href="<%= trip_medium_path(@trip, access_token) %>">
+                <% if access_token.api_provider.dropbox? %>
+                    <i class="fa fa-fw fa-dropbox <%=current_page?(trip_medium_path(@trip, access_token)) ? '' : 'text-primary'%> icon-push"></i> <strong>by <%= access_token.user.name %></strong>
+                <% end %>
+              </a>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+        <!-- END Lists -->
+        <!-- Apis -->
+        <h4 class="inner-sidebar-header">
+          <%= t('trip_media_accounts') %>
+        </h4>
+        <table class="table table-striped table-vcenter media-accounts">
+          <tbody>
+              <tr>
+                <td class="text-center"><i class="fa fa-dropbox"></i> <strong><%= t('dropbox') %></strong></td>
+                <% dropbox_token = ApiAccessToken.for_trip_user_provider(@trip, current_user, ApiProvider.dropbox) %>
+                <% if dropbox_token.nil? %>
+                    <td> &middot; <i><%= t('disconnected ') %></i> &middot; <a href="<%= url_for :controller => 'media_dropbox', :action => 'auth_start', :trip_id => @trip.id, :user_id => current_user.id %>" class="btn btn-xs btn-success"><i class="fa fa-plug"></i></a></td>
+                <% else %>
+                    <td> &middot; <i><%= t('connected ') %></i> &middot;
+                        <%= link_to raw('<i class="fa fa-trash"></i>'), trip_medium_path(@trip, dropbox_token), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: t('dropbox_unlink_hint') } %>
+                <% end %>
+              </tr>
+          </tbody>
+        </table>
+        <!-- END Apis -->
+
+      </div>
+      <!-- END Collapsible Options -->
+    </div>
+
+<% end %>

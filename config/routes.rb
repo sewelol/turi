@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :participants
     resources :map
     resources :equipment_lists
+
+    resources :media, only: [:index, :show, :destroy]
   end
 
   devise_for :users, :controllers => { registrations: 'registrations' }
@@ -20,5 +22,9 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
   get 'search', to: 'trips#search', as: 'search'
+
+  # Dropbox
+  get '/dropbox-connect/:trip_id/:user_id', to: 'media_dropbox#auth_start', as: 'dropbox_connect'
+  get '/dropbox-finish', to: 'media_dropbox#auth_finish', as: 'dropbox_finish'
 
 end

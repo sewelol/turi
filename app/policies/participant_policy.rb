@@ -16,7 +16,6 @@ class ParticipantPolicy < ApplicationPolicy
 
     # Otherwise allow all participants which can edit the trip to remove the participant
     Pundit.policy(user, record.trip).update?
-
   end
 
 end

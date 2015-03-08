@@ -1,0 +1,63 @@
+<ul class="sidebar-nav">
+  <li class="<%=current_page?(trip_path(@trip)) ? 'active' : ''%>">
+    <a href="<%= trip_path(@trip) %>"><i class="gi gi-home sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_details')%></span></a>
+  </li>
+
+  <li class="sidebar-separator">
+    <i class="fa fa-ellipsis-h"></i>
+  </li>
+
+  <li class="<%=current_page?(trip_participants_path(@trip)) ? 'active' : ''%>">
+    <a href="<%=trip_participants_path(@trip)%>"><i class="gi gi-parents sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_participants')%></span></a>
+  </li>
+
+  <li class="">
+    <a href="#"><i class="gi gi-direction sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Routes</span></a>
+  </li>
+
+  <li class="<%=current_page?(trip_equipment_lists_path(@trip)) ? 'active' : ''%>">
+    <a href="<%=trip_equipment_lists_path(@trip)%>"><i class="gi gi-fins sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_equipment')%></span></a>
+  </li>
+
+  <li class="">
+    <a href="#"><i class="gi gi-group sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Discussion</span></a>
+  </li>
+
+  <li class="">
+    <a href="#"><i class="gi gi-blog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Blog</span></a>
+  </li>
+
+  <li class="<%=current_page?(trip_media_path(@trip)) ? 'active' : ''%>">
+    <a href="<%=trip_media_path(@trip)%>"><i class="gi gi-picture sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_media')%></span></a>
+  </li>
+
+  <li class="">
+    <a href="#"><i class="gi gi-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Calendar</span></a>
+  </li>
+
+  <li class="sidebar-separator">
+    <i class="fa fa-ellipsis-h"></i>
+  </li>
+
+  <% if policy(@trip).update? %>
+      <li class="<%=current_page?(edit_trip_path(@trip)) ? 'active' : ''%>">
+        <a href="<%=edit_trip_path(@trip)%>"><i class="gi gi-pencil sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_edit')%></span></a>
+      </li>
+  <% end %>
+
+  <% if policy(@trip).destroy? %>
+      <li>
+        <%= link_to raw('<i class="gi gi-bin sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">' << t('trip_delete') << '</span>'),
+                    trip_path(@trip),
+                    method: :delete,
+                    data: {
+                            confirm: 'Are you sure you want to delete this trip?',
+                            toggle: 'tooltip'
+                    },
+                    class: 'text-danger',
+                    title: '',
+                    id: 'delete_trip_button'
+        %>
+      </li>
+  <% end %>
+</ul>

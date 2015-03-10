@@ -33,6 +33,7 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to redirect_to(dashboard_path)
       expect(flash[:alert]).to have_content(I18n.t('user_id_not_found'))
     end
+
   end
 
   describe "GET #edit" do
@@ -43,6 +44,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "PUT #update" do
+
 
     context "with valid attributes" do
       it "locates the requested @user" do
@@ -80,6 +82,15 @@ RSpec.describe UsersController, type: :controller do
       it "re-renders the edit method" do
         put :update, id: user, user: FactoryGirl.attributes_for(:invalid_user)
         expect(response).to render_template :edit
+      end
+    end
+
+    context "cant update others people users" do
+      it "does not change others attributes" do
+        other_user = FactoryGirl.create(:user)
+        put :update, id: other_user, user: FactoryGirl.attributes_for(:user, name: "Lollypop")
+        expect(other_user.name).to_not eql("Lollypop")
+
       end
     end
   end

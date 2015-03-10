@@ -57,9 +57,11 @@
   <div class="col-md-7 col-lg-8">
     <div class="block full">
       <div class="block-title">
+        <% if @current_user == @user %>
         <div class="block-options pull-right">
           <a href="<%= edit_user_path(@user) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Edit user"><i class="fa fa-cog"></i></a>
         </div>
+        <% end %>
       </div>
     </div>
     <div class="block full">

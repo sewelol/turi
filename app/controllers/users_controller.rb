@@ -3,12 +3,14 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    @current_user = current_user
   end
 
   def edit
   end
 
   def update
+    authorize @user
     if @user.update(user_params)
       redirect_to user_path
     else

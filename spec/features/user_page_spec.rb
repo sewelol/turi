@@ -76,4 +76,11 @@ feature 'User_page' do
 
     expect(page).to have_content('Email has already been taken')
   end
+
+  scenario "can't edit other peoples user pages" do
+    other_user = FactoryGirl.create(:user)
+    visit "/users/#{other_user.id}"
+
+    expect(page).to_not have_selector(:link_or_button, "Edit")
+  end
 end

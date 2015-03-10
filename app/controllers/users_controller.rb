@@ -3,9 +3,14 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    @user = User.all
   end
 
   def edit
+  end
+
+  def search
+    @user = User.search(params[:name_search], params[:email_search])
   end
 
   def update

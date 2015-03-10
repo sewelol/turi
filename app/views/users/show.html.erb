@@ -1,12 +1,14 @@
+<h1>My Profile</h1>
+
 <div class="row">
   <div class="col-md-5 col-lg-4">
     <div class="user widget">
       <div class="widget-image widget-image-sm">
         <div id="user-image">
           <% if @user.image %>
-            <img src="<%=@user.image%>" alt="image">
+              <img src="<%=@user.image%>" alt="image">
           <% else %>
-            <img src="http://lorempixel.com/315/270/nature" alt="image">
+              <img src="http://lorempixel.com/315/270/nature" alt="image">
           <% end %>
         </div>
         <div class="widget-image-content text-center">
@@ -52,5 +54,31 @@
         </div>
       </div>
     </div>
+    <div class="block full">
+      <div class="block-title">
+        <div class="block-options pull-right">
+          <a href="<%=user_path %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Find friends"><i class="fa fa-users"></i></a>
+        </div>
+       <h2> Your friends </h2>
+      </div>
+      <% for user in @user.friendships do %>
+          <div class="User">
+            <p>
+              <strong><%=h @user.name %></strong>
+              <a href="<%=friendships_path friendship %>" class="btn btn-effect-ripple btn-default pull-right" data-toggle="tooltip" title="Add friends"><i class="fa fa-plus-circle"></i></a>
+            <div class="clear"></div>
+            </p>
+          </div>
+      <% end %>
+      <ul>
+        <% for friendship in @user.friendships %>
+            <li>
+              <%= h friendship.friend.name %>
+              <a href="<%=friendships_path friendship %>" class="btn btn-effect-ripple btn-default pull-right" data-toggle="tooltip" title="Delete friends"><i class="fa fa-minus-circle"></i></a>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+
   </div>
 </div>

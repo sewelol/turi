@@ -9,9 +9,19 @@ class User < ActiveRecord::Base
   validates_presence_of   :name
   validates_uniqueness_of :name
 
+  has_many :friendships
+  has_many :friends, :through => :friendships
+
+  def self.search(name_search, email_search)
+    @user = nil
+    if name_search.present? || email_search.present?
+      @user = User.where('name LIKE ? AND email LIKE ?', "%#{name_search}%", "%#{email_search}%")
+    end
+    return @user
+  end
+
   gravtastic
-  has_many :trips # Do not make this dependent! This var has to be removed (replaced by participant owner).
-  has_many :participants, :dependent => :delete_all
-  has_many :api_access_tokens, :dependent => :delete_all
+  has_many :trips
+  has_many :participants
   
 end

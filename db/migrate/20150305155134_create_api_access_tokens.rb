@@ -16,7 +16,7 @@ class CreateApiAccessTokens < ActiveRecord::Migration
     add_foreign_key :api_access_tokens, :trips
     add_foreign_key :api_access_tokens, :users
 
-    add_index :api_access_tokens, [:user_id, :trip_id, :api_provider], :unique => true
+    add_index :api_access_tokens, [:user_id, :trip_id, :api_provider_id], :unique => true, :name => 'index_tokens_on_use_and_trip_and_provider'
 
   end
 end

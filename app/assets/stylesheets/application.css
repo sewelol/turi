@@ -14,10 +14,6 @@
  *= require_self
  */
 
-/*img {
-    max-width:100%;
-    max-height:100%;
-}*/
 .background-image {
     background: url(https://unsplash.it/g/1200?random&gravity=south) no-repeat;
     background-size: 100%;

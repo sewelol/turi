@@ -2,11 +2,16 @@ class UsersController < ApplicationController
   before_action :set_user
   before_action :authenticate_user!
 
+  # Make sure that every action calls "authorize"
+  after_action :verify_authorized
+
   def show
     @current_user = current_user
+    authorize User
   end
 
   def edit
+    authorize @user, :update?
   end
 
   def update

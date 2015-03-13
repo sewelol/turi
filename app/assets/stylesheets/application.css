@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require leaflet
  *= require_tree .
  *= require_self
  */
@@ -21,4 +22,12 @@
 .background-image {
     background: url(https://unsplash.it/g/1200?random&gravity=south) no-repeat;
     background-size: 100%;
+}
+
+.header-buttons {
+    margin-top: 5px;
+}
+
+.header-buttons a, .header-buttons button {
+    font-size: 25px;
 }

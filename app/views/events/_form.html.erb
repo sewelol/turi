@@ -1,0 +1,98 @@
+<% content_for :page_scripts do %>
+    <script>
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                icons: {
+                    time: 'fa fa-clock-o',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-arrow-up',
+                    down: 'fa fa-arrow-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-crosshairs',
+                    clear: 'fa fa-trash'
+                }
+            });
+        });
+    </script>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+    <!-- Event Form -->
+    <div class="block">
+
+      <div class="block-title">
+        <h2><%=t('trip_events_form', trip_title: @trip.title)%></h2>
+      </div>
+
+      <%= form_for [@trip, @event], html: {class: 'form-horizontal form-bordered'} do |f| %>
+
+          <div class="<%= form_group_class @event, :name %>">
+            <%= f.label :name, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :name, class: 'form-control'%>
+              <%= form_group_errors @event, :name %>
+            </div>
+          </div>
+
+          <div class="<%= form_group_class @event, :description %>">
+            <%= f.label :description, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_area :description, class: 'form-control'%>
+              <%= form_group_errors @event, :description %>
+            </div>
+          </div>
+
+          <div class="<%= form_group_class @event, :location %>">
+            <%= f.label :location, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :location, class: 'form-control'%>
+              <%= form_group_errors @event, :location %>
+            </div>
+          </div>
+
+          <div class="<%= form_group_class @event, :start_date %>">
+            <%= f.label :start_date, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <div class="input-group">
+                <%= f.datetime_select :start_date, class: 'form-control', placeholder: 'mm/dd/yy hh:mm' %>
+              </div>
+              <%= form_group_errors @event, :start_date %>
+            </div>
+          </div>
+
+          <div class="<%= form_group_class @event, :end_date %>">
+            <%= f.label :end_date, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <div class="input-group">
+                <%= f.datetime_select :end_date, class: 'form-control', placeholder: 'mm/dd/yy hh:mm' %>
+              </div>
+              <%= form_group_errors @event, :end_date %>
+            </div>
+          </div>
+
+          <div class="<%= form_group_class @event, :color %>">
+            <%= f.label :color, t('color'), class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <div class="input-group input-colorpicker colorpicker-element">
+                <%= f.text_field :color, value: '#de4b39', class: 'form-control' %>
+                <span class="input-group-addon"><i style="background-color: #de4b39;"></i></span>
+              </div>
+              <%= form_group_errors @event, :color %>
+              <span class="help-block"><span class="help-block"><%=t('trip_events_color_help')%></span></span>
+            </div>
+          </div>
+
+          <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+              <%= f.submit t('save'), id: 'save-event-btn', class: 'btn btn-effect-ripple btn-primary', style: 'overflow: hidden; position: relative;' %>
+              <%= link_to t('cancel'), :back, class: 'btn btn-effect-ripple btn-danger', style: 'overflow: hidden; position: relative;' %>
+            </div>
+          </div>
+      <% end %>
+
+    </div>
+    <!-- END Event Form -->
+  </div>
+</div>

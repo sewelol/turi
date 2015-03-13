@@ -19,6 +19,7 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.create(trip_params)
 
+    # TODO: remove this relation.
     @trip.user = current_user
 
     if @trip.save

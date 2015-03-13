@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       resources :waypoints
     end
     resources :equipment_lists
+    resources :events
 
     resources :discussions do
       resources :comments

@@ -7,7 +7,7 @@ class CreateApiAccessTokens < ActiveRecord::Migration
       t.references :api_provider, index: true, required: true
 
       t.string :token, null: false
-      t.string :item, defaul: ''
+      t.string :item, default: ''
 
       t.timestamps null: false
     end

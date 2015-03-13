@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :waypoints
     end
     resources :equipment_lists
+    resources :events
 
     resources :media, only: [:index, :show, :destroy]
   end

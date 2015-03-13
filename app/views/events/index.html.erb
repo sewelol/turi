@@ -1,0 +1,68 @@
+<% content_for :page_title do %>
+    <%= t('trip_events') %>
+<% end %>
+
+<% content_for :page_scripts do %>
+    <script>
+        $(function () {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'title',
+                    center: '',
+                    right: 'today month,agendaWeek,agendaDay prev,next'
+                },
+                eventColor: '#de4b39',
+                firstDay: 1,
+                events: [{
+                    id: 'trip-<%=@trip.id%>',
+                    url: '<%=trip_path(@trip)%>',
+                    title: '<%=@trip.title%>',
+                    start: '<%=@trip.start_date%>',
+                    end: '<%=@trip.end_date%>'
+                }
+                <% @events.each do |event| %>
+                    , {
+                        id: 'trip-event-<%=event.id%>',
+                        title: '<%=event.name%>',
+                        url: '<%=trip_event_path(@trip, event)%>',
+                        start: '<%=event.start_date%>',
+                        end: '<%=event.end_date%>',
+                        color: '<%=event.color%>'
+                    }
+                <% end %>
+                ]
+            });
+        });
+    </script>
+<% end %>
+
+<!-- FullCalendar Block -->
+<div class="block full">
+  <div class="row">
+    <div class="col-md-3 col-md-push-9 col-lg-2 col-lg-push-10">
+      <div class="block-section">
+        <a href="<%=new_trip_event_path(@trip)%>" id="add-event-btn" class="btn btn-effect-ripple btn-primary"><i class="fa fa-plus"></i> Add event</a>
+      </div>
+      <div class="block-section">
+        <% if @events.empty? %>
+            <h4><%=t('trip_events_no_upcoming')%></h4>
+        <% else %>
+            <h4><%=t('trip_events_upcoming')%></h4>
+        <% end %>
+        <ul class="calendar-events">
+          <% @events.order(:start_date).each do |event| %>
+              <% if event.start_date > DateTime.now %>
+                <li style="background-color: <%=event.color%>">
+                  <a href="<%=trip_event_path(@trip, event)%>" data-toggle="modal"><i class="fa fa-calendar"></i> <%=event.name%></a>
+                </li>
+              <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-9 col-md-pull-3 col-lg-10 col-lg-pull-2">
+      <div id="calendar"></div>
+    </div>
+  </div>
+</div>
+<!-- END FullCalendar Block -->

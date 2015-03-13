@@ -6,6 +6,7 @@ class Trip < ActiveRecord::Base
   has_many :participants, :dependent => :delete_all
   has_many :equipment_lists, :dependent => :delete_all
   has_many :api_access_tokens, :dependent => :delete_all
+  has_many :events, :dependent => :delete_all
 
   validates_presence_of :title
 

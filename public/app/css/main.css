@@ -1275,8 +1275,12 @@ img.full-bg.full-bg-bottom {
 }
 
 .calendar-events li:hover {
-    cursor: move;
     opacity: 1;
+}
+
+.calendar-events a, .calendar-events a:hover {
+    color: #ffffff;
+    text-decoration: none;
 }
 
 /* Gallery */
@@ -2456,6 +2460,11 @@ a.list-group-item.active > .badge {
 }
 
 .dropdown-menu {
+    z-index: 100;
+}
+
+.dropdown-menu {
+
     min-width: 180px;
     padding: 0;
     font-size: 14px;
@@ -2463,12 +2472,14 @@ a.list-group-item.active > .badge {
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     display: block;
-    -webkit-transform: scale(0);
-    transform: scale(0);
-    -webkit-transform-origin: top left;
-    transform-origin: top left;
-    -webkit-transition: all .2s ease-out;
-    transition: all .2s ease-out;
+    /** Fixme: Removed this, because it breaks the default dropdowns.
+   -webkit-transform: scale(0);
+   transform: scale(0);
+   -webkit-transform-origin: top left;
+   transform-origin: top left;
+   -webkit-transition: all .2s ease-out;
+   transition: all .2s ease-out;
+    **/
 }
 
 .dropdown-menu.dropdown-menu-right {

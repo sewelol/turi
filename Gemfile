@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'bundler', '>= 1.7.0'
+
 ruby '2.1.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -38,6 +40,17 @@ gem 'pundit'
 
 # Dropbox
 gem 'dropbox-sdk'
+
+# Geocoding (find lat/lng by adress)
+gem 'geocoder'
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+
+source 'https://rails-assets.org' do
+  # Only jQuery should be included as extra gem, any other JS library should be included from rails-assets
+  gem 'rails-assets-leaflet'
+end
 
 # Cocoon (Dynamic nested forms using J-query(made easy))
 gem 'cocoon'

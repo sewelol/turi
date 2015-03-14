@@ -1,0 +1,96 @@
+<% content_for :page_title do %>
+    <%=t('trip_events_show', :name => @event.name)%>
+<% end %>
+
+<% content_for :content_header do %>
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="header-buttons pull-right">
+            <%= link_to raw('<i class="fa fa-reply"></i>'), :back, class: 'btn btn-lg btn-effect-ripple',  data: { toggle: 'tooltip', original_title: t('back') }, style: 'overflow: hidden; position: relative;'%>
+            <% if policy(@trip).update? %>
+              <a href="<%=edit_trip_event_path(@trip, @event)%>" class="btn btn-lg btn-effect-ripple" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="<%=t('trip_events_edit')%>"><i class="fa fa-pencil"></i></a>
+              <%= link_to raw('<i class="fa fa-trash"></i>'),
+                          trip_event_path(@trip, @event),
+                          :method => :delete,
+                          data: {
+                                  confirm: t('trip_events_destroy_confirm'), toggle: 'tooltip' },
+                          title: t('trip_events_destroy'),
+                          class: 'btn btn-lg btn-effect-ripple',
+                          id: 'destroy-event-btn'
+              %>
+          <% end %>
+          </div>
+          <div class="header-section">
+            <h1><%=@event.name%></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<% if @has_event_coordinates %>
+    <% content_for :page_scripts do %>
+        <script>
+            $(function () {
+                var markerIcon = L.icon({
+                    iconUrl: '<%= asset_path 'map/markers/regroup.png' %>',
+                    iconSize: [32, 37]
+                });
+                var map = L.map('map').setView([<%=@event_coordinates[0]%>, <%=@event_coordinates[1]%>], 13);
+                L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
+                    subdomains: ['otile1','otile2','otile3','otile4']
+                }).addTo( map );
+                L.marker([<%=@event_coordinates[0]%>, <%=@event_coordinates[1]%>], {icon: markerIcon}).addTo(map);
+            });
+        </script>
+    <% end %>
+<% end %>
+
+<br/>
+<h2 class="text-center "><%=t('trip_events_show_dates', :start => formatted_data_time(@event.start_date), :end => formatted_data_time(@event.end_date)).html_safe%></h2>
+<br/>
+
+<% if @event.description.nil? || @event.description.empty? %>
+    <h1 class="text-center"><%=t('trip_events_no_description')%></h1>
+    <br/>
+<% else %>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="block">
+            <!-- Map Title -->
+            <div class="block-title">
+              <h2><%=t('description')%></h2>
+            </div>
+
+            <div class="block-content">
+              <p><%=@event.description%></p>
+            </div>
+
+          </div>
+        </div>
+    </div>
+<% end %>
+
+<% if @has_event_coordinates %>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+    <!-- Map Block -->
+    <div class="block">
+      <!-- Map Title -->
+      <div class="block-title">
+        <h2><%=@event.location%></h2>
+      </div>
+
+      <div class="block-content-full">
+        <div id="map" class="gmap" style="height: 360px;"></div>
+      </div>
+
+    </div>
+    <!-- END Map Block -->
+  </div>
+</div>
+<% else %>
+    <h1 class="text-center"><%=t('trip_events_no_location')%></h1>
+<% end %>

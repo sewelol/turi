@@ -1,0 +1,51 @@
+<% content_for :page_title do %>
+    <%= @article.title %>
+<% end %>
+
+
+<!-- Article Header -->
+<div class="content-header">
+    <div class="header-section clearfix">
+      <h1><%= @article.title %> </h1>
+      <h2>Created on <%= @article.created_at %></h2>
+    </div>
+</div>
+<!-- END Article Header -->
+
+<!-- Article Content -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+  <!-- Article Block -->
+  <div class="block">
+    <!-- Article Title -->
+    <div class="block-title">
+      <div class="block-options pull-right">
+        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Add to favorites"><i class="fa fa-star"></i></a>
+        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="Add bookmark"><i class="fa fa-bookmark"></i></a>
+        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Love it"><i class="fa fa-heart"></i></a>
+      </div>
+      <h2><i class="fa fa-clock-o"></i> September 20, 2014</h2>
+    </div>
+    <!-- END Article Title -->
+
+    <!-- Article Content -->
+    <article class="article-story">
+
+      <p>
+        <%= @article.content %>
+      </p>
+    </article>
+    <hr>
+    <div class="block-section text-center">
+      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Facebook"><i class="fa fa-facebook"></i></a>
+      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Twitter"><i class="fa fa-twitter"></i></a>
+      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Linkedin"><i class="fa fa-linkedin"></i></a>
+      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Pinterest"><i class="fa fa-pinterest"></i></a>
+    </div>
+    <!-- END Article Content -->
+  </div>
+  <!-- END Article Block -->
+</div>
+</div>
+<!-- END Article Content -->

@@ -9,8 +9,13 @@ class Trip < ActiveRecord::Base
 
   validates_presence_of :title
 
-  def self.search(title_search, location_search, tag_search, date_beg, date_end)
+  def self.search(title_search, location_search, tag_search, date_beg, date_end, name_search)
     @trips = nil
+    @user = nil
+
+    if name_search.present?
+      @user = User.where('name LIKE ?', "%#{name_search}%")
+    end
 
     if title_search.present? || location_search.present?
       @trips = Trip.where('title LIKE ? AND (start_loc LIKE ? OR end_loc LIKE ?)', "%#{title_search}%","%#{location_search}%", "%#{location_search}%")
@@ -38,7 +43,7 @@ class Trip < ActiveRecord::Base
 
     end
 
-    return @trips
+    return [@user, @trips]
   end
 
 end

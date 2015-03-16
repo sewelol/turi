@@ -12,12 +12,15 @@ Rails.application.routes.draw do
     resources :participants
     resources :map
     resources :equipment_lists
-    resources :friendships
     resources :media, only: [:index, :show, :destroy]
   end
 
   devise_for :users, :controllers => { registrations: 'registrations' }
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update] do
+    resources :friendships
+  end
+
+
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 

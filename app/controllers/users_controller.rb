@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @user = User.all
   end
 
   def edit

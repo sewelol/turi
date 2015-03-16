@@ -10,6 +10,20 @@
     <%= render 'searchform' %>
 <% end %>
 
+<% unless @user.blank? %>
+    <% @user.each do |user| %>
+        <%= render 'users/user', :user => user %>
+    <% end %>
+
+<% else %>
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="text-center"><%= "No user found." %></h1>
+      </div>
+    </div>
+
+<% end %>
+
 <% unless @trips.nil? or @trips.blank? %>
 
     <div class="row">

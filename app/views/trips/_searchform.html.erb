@@ -25,6 +25,7 @@
       <div class="form-group remove-margin-bottom">
         <div class="col-sm-6 push-bit">
           <%= text_field_tag :tag_search, params[:tag_search], class: 'form-control', placeholder: 'Search tags...' %>
+          <%= text_field_tag :name_search, params[:name_search], class: 'form-control', placeholder: 'Search name...' %>
         </div>
         <div class="col-sm-offset-1 col-sm-5">
           <%= submit_tag raw('Search Trips'), name: nil, class: 'btn btn-effect-ripple btn-primary', style: 'overflow: hidden; position: relative;' %>

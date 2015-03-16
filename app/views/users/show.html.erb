@@ -24,6 +24,10 @@
               </h3>
             </div>
             <div class="col-xs-6 push-inner-top-bottom">
+              <% if current_user.id != @user.id%>
+                  <a href="<%= user_friendships_path(@user) %>" data-method="post"> <i class="fa fa-plus"></i></a>
+                  <%= link_to "Add Friend", user_friendships_path(@user), :method => :post %>
+              <% end %>
               <h3 class="widget-heading"><i class="gi gi-group themed-color-social push"></i><br>
                 <small><strong>2</strong></small>
               </h3>
@@ -61,20 +65,11 @@
         </div>
        <h2> Your friends </h2>
       </div>
-      <% for user in @user.friendships do %>
-          <div class="User">
-            <p>
-              <strong><%=h @user.name %></strong>
-              <a href="<%=friendships_path friendship %>" class="btn btn-effect-ripple btn-default pull-right" data-toggle="tooltip" title="Add friends"><i class="fa fa-plus-circle"></i></a>
-            <div class="clear"></div>
-            </p>
-          </div>
-      <% end %>
       <ul>
         <% for friendship in @user.friendships %>
             <li>
-              <%= h friendship.friend.name %>
-              <a href="<%=friendships_path friendship %>" class="btn btn-effect-ripple btn-default pull-right" data-toggle="tooltip" title="Delete friends"><i class="fa fa-minus-circle"></i></a>
+              <%= friendship.friend.name %>
+              (<%= link_to "remove", user_friendship_path(@user, friendship), :method => :delete %>)
             </li>
         <% end %>
       </ul>

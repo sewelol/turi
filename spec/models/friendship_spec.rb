@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Friendship, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe Friendship do
+  it "has a valid factory" do
+    expect(FactoryGirl.create(:friendship)).to be_valid
+  end
 end

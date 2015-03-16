@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     end
     resources :equipment_lists
     resources :events
+    resources :articles
 
     resources :discussions do
       resources :comments

@@ -43,6 +43,10 @@ class Trip < ActiveRecord::Base
   def self.search(title_search, location_search, tag_search, date_beg, date_end)
     trips = []
 
+    if name_search.present?
+      @user = User.where('name LIKE ?', "%#{name_search}%")
+    end
+
     if title_search.present? || location_search.present?
       trips = Trip.where('title LIKE ? AND (start_loc LIKE ? OR end_loc LIKE ?)', "%#{title_search}%","%#{location_search}%", "%#{location_search}%")
     end

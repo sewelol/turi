@@ -21,6 +21,7 @@ class MediaController < ApplicationController
   layout 'trip'
 
   before_action :authenticate_user!
+  before_action :verify_configuration
   after_action :verify_authorized
 
   def index
@@ -149,6 +150,16 @@ class MediaController < ApplicationController
       :files => files
     })
 
+  end
+
+  protected
+
+  def verify_configuration
+    puts ENV.inspect
+    if ENV['TURI_DROPBOX_KEY'].blank? or ENV['TURI_DROPBOX_SECRET'].blank?
+      flash[:error] = I18n.t 'dropbox_configuration_missing'
+      redirect_to dashboard_path
+    end
   end
 
 end

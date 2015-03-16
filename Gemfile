@@ -61,8 +61,8 @@ gem 'slim-rails'
 # Simple forms
 gem 'simple_form'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+# Use puma as the app server
+gem 'puma'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

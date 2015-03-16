@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20150308123948) do
 
   add_index "api_access_tokens", ["api_provider_id"], name: "index_api_access_tokens_on_api_provider_id"
   add_index "api_access_tokens", ["trip_id"], name: "index_api_access_tokens_on_trip_id"
-  add_index "api_access_tokens", ["user_id", "trip_id", "api_provider_id"], name: "index_tokens_on_use_and_trip_and_provider", unique: true
   add_index "api_access_tokens", ["user_id"], name: "index_api_access_tokens_on_user_id"
 
   create_table "api_providers", force: :cascade do |t|

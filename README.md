@@ -20,6 +20,12 @@ rake db:seed
 
 For the sake of completeness you can add a `RAILS_ENV=production` behind the rake commands if you want to run the app locally with max performance (note that you need a local postgres installation for this).
 
+If you want to use the production mode locally you also have to compile the assets:
+
+```
+rake assets:precompile
+```
+
 ## Testing
 
 Turi is built automatically with travis (https://travis-ci.org/turi-inc/turi). To ensure that all tests are passing run:

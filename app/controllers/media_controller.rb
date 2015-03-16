@@ -155,7 +155,6 @@ class MediaController < ApplicationController
   protected
 
   def verify_configuration
-    puts ENV.inspect
     if ENV['TURI_DROPBOX_KEY'].blank? or ENV['TURI_DROPBOX_SECRET'].blank?
       flash[:error] = I18n.t 'dropbox_configuration_missing'
       redirect_to dashboard_path

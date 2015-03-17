@@ -1,10 +1,6 @@
 require 'dropbox_sdk'
 require 'securerandom'
 
-# TODO: Use environments vars for these api keys.
-APP_KEY = 'h6liqcqwa3x0me2'
-APP_SECRET = '83dpeu8ps0hfs7o'
-
 class MediaDropboxController < ApplicationController
 
   before_action :authenticate_user!
@@ -63,7 +59,7 @@ class MediaDropboxController < ApplicationController
   
   def get_web_auth
     redirect_uri = url_for(:action => 'auth_finish')
-    DropboxOAuth2Flow.new(APP_KEY, APP_SECRET, redirect_uri, session, :dropbox_auth_csrf_token)
+    DropboxOAuth2Flow.new(ENV['TURI_DROPBOX_KEY'], ENV['TURI_DROPBOX_SECRET'], redirect_uri, session, :dropbox_auth_csrf_token)
   end
 
 end

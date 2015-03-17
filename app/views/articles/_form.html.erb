@@ -1,9 +1,45 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+    <div class="block">
+      <div class="block-title">
+        <h2>Blog entry</h2>
+      </div>
 
-<fieldset>
-  <legend><i class="fa fa-angle-right"></i>Blog content</legend>
-  <div class="form-group">
-    <div class="col-xs-12">
-      <textarea id="textarea-ckeditor" name="textarea-ckeditor" class="ckeditor"></textarea>
+      <%= form_for [@trip, @article], html: {class: 'form-horizontal form-bordered'} do |f| %>
+          <% if @article.errors.any? %>
+              <div id="error_explanation">
+                <h2> <%= pluralize(@article.errors.count, 'error') %>
+                  prohibited this trip from begin saved:
+                </h2>
+                <ul>
+                  <% @article.errors.full_messages.each do |msg| %>
+                      <li><%= msg %> </li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+
+              <div class="form-group">
+                <div class="pull-left">
+                    <%= f.label :title, class: 'col-md-3 control-label' %>
+                </div>
+                <%= f.text_field :title, class: 'form-control' %>
+              </div>
+
+              <div class="form-group">
+                <div class="pull-left">
+                    <%= f.label :content, class: 'col-md-3 control-label' %>
+                </div>
+                <%= f.text_area :content, class: 'form-control', size: '24x6' %>
+              </div>
+
+              <div class="form-group form-actions">
+                <%= f.submit class: 'btn btn-effect-ripple btn-primary' %>
+              </div>
+
+      <% end %>
+
     </div>
   </div>
-</fieldset>
+</div>
+

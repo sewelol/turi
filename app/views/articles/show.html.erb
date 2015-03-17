@@ -7,7 +7,6 @@
 <div class="content-header">
     <div class="header-section clearfix">
       <h1><%= @article.title %> </h1>
-      <h2>Created on <%= @article.created_at %></h2>
     </div>
 </div>
 <!-- END Article Header -->
@@ -24,18 +23,20 @@
         <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="Add bookmark"><i class="fa fa-bookmark"></i></a>
         <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Love it"><i class="fa fa-heart"></i></a>
       </div>
-      <h2><i class="fa fa-clock-o"></i> September 20, 2014</h2>
+      <h2><i class="fa fa-clock-o"></i><%= @article.created_at.strftime(' %d %B %Y') %></h2>
     </div>
     <!-- END Article Title -->
 
     <!-- Article Content -->
     <article class="article-story">
-
-      <p>
-        <%= @article.content %>
-      </p>
+        <%= simple_format(@article.content) %>
     </article>
     <hr>
+    <div class="blcok-section text-left">
+      <%= link_to raw('<i></i> ' << 'Edit'), [:edit, @trip, @article], id: 'add_article_button',class: 'btn btn-primary push-bit' %>
+      <%= link_to raw('<i></i> ' << 'Delete'), trip_article_path(@trip, @article),
+                  method: :delete, data: {confirm: 'Are you sure you want to delete this entry?'}, id: 'add_article_button',class: 'btn btn-primary push-bit' %>
+    </div>
     <div class="block-section text-center">
       <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Facebook"><i class="fa fa-facebook"></i></a>
       <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Twitter"><i class="fa fa-twitter"></i></a>

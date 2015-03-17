@@ -1,8 +1,6 @@
 FactoryGirl.define do
   factory :article do
-    title "MyString"
-    content "MyText"
-    trip nil
+    title 'Our trip results'
+    content 'Some content'
   end
-
 end

@@ -29,7 +29,7 @@
                   <%= link_to "Add Friend", user_friendships_path(@user), :method => :post %>
               <% end %>
               <h3 class="widget-heading"><i class="gi gi-group themed-color-social push"></i><br>
-                <small><strong>2</strong></small>
+                <small><strong><%= Friendship.where(user_id: current_user.id).count %></strong>Friends</small>
               </h3>
             </div>
           </div>
@@ -69,7 +69,7 @@
         <% for friendship in @user.friendships %>
             <li>
               <%= friendship.friend.name %>
-              (<%= link_to "remove", user_friendship_path(@user, friendship), :method => :delete %>)
+              <a href="<%= user_friendship_path(@user, friendship) %>" data-method="delete"> <i class="fa fa-minus"></i></a>
             </li>
         <% end %>
       </ul>

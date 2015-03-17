@@ -22,10 +22,13 @@ Rails.application.routes.draw do
     end
     resources :events
     resources :articles
-
+    resources :discussions
     resources :media, only: [:index, :show, :destroy]
   end
 
+  resources :discussions do
+    resources :comments
+  end
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users, only: [:show, :edit, :update] do
     resources :friendships

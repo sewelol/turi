@@ -39,6 +39,9 @@ en:
   # https://hackhands.com/format-datetime-ruby/
   date_time:  "%d/%m/%Y %I:%M %p"
 
+  header_title: "turi"
+  header_page_title: "turi | %{title}"
+
   sincerely_turi: "the turi team"
 
   #Application (application_controller)

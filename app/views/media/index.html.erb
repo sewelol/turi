@@ -1,0 +1,44 @@
+<% content_for :page_title do %>
+    <%=t('trip_media')%>
+<% end %>
+
+<% content_for :page_class do %>
+    background-image
+<% end %>
+
+
+
+<% if @access_tokens.empty? %>
+<div class="row">
+  <div class="col-md-offset-3 col-md-6 text-center">
+    <div class="clearfix">
+      <blockquote class="pull-left">
+        <p>Share your pictures with your trip mates.</p>
+        <p><a class="btn btn-danger" href="<%= url_for :controller => 'media_dropbox', :action => 'auth_start', :trip_id => @trip.id, :user_id => current_user.id %>">Connect with <i class="fa fa-dropbox"></i> Dropbox</a></p>
+        <small><%=t('sincerely_turi')%></small>
+      </blockquote>
+    </div>
+  </div>
+</div>
+<% else %>
+    <%= render 'sidebar' %>
+
+    <div class="row">
+
+      <% @access_tokens.each do |access_token| %>
+          <div class="col-xs-6 col-sm-3">
+            <a href="<%= trip_medium_path(@trip, access_token) %>" class="widget">
+              <div class="widget-content themed-background-info text-light-op text-center">
+                <div class="widget-icon">
+                  <i class="fa fa-<%= access_token.api_provider.name %>"></i>
+                </div>
+              </div>
+              <div class="widget-content text-dark text-center">
+                <strong>by <%= current_user.name %></strong>
+              </div>
+            </a>
+          </div>
+      <% end %>
+
+    </div>
+<% end %>

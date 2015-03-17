@@ -8,7 +8,7 @@
 #
 # In views, this is aliased to just `t`:
 #
-#     	
+#
 #
 # To use a different locale, set it with `I18n.locale`:
 #
@@ -29,7 +29,11 @@ en:
   cancel: "Cancel"
   can_edit: "Can edit"
   search:   "Search"
-  
+  connected:  "connected"
+  disconnected:  "disconnected"
+
+  sincerely_turi: "the turi team"
+
   #Application (application_controller)
   sign_in_to_create_trip: 	      "You must be signed in to create a trip"
 
@@ -38,9 +42,16 @@ en:
   user_not_found:                 "The given user could not be found."
   user_go_to_profile_page:        "Open profile page"
 
+  #User page
+  user_id_not_found:              "This user id is not valid"
+  user_must_have_email:           "You can't have a blank email"
+  user_must_have_name:            "You can't have a blank name"
+
   #Trips (trip_controller)
   trip_details:                   "Trip Home"
   trip_participants:              "Participants"
+  trip_equipment:                 "Equipment"
+  trip_media:                     "Gallery"
   trip_created:					  "You successfully created a trip"
   trip_explore:					  "Explore trips"
   trip_edit:					  "Edit trip"
@@ -69,7 +80,7 @@ en:
   trip_role_viewer:               "Viewer"
   trip_add_route:                 "Add route"
 
-  # equipment_lists 
+  # equipment_lists
   create_equipment_list:                    "Create a new Equipment List for '%{trip_title}'"
   trip_equipment_name_description:          "Please enter the name of the new equipment list you want to add."
   trip_equipment_description_description:   "You can add a description of the list."
@@ -80,5 +91,21 @@ en:
   trip_equipment_list_not_updated:          "Equipment list was not updated."
   trip_equipment_list_deleted:              "Equipment list successfully deleted."
   trip_equipment_list_not_found:            "Equipment list not found!"
-  
 
+  # media
+  trip_media_accounts:         "Your accounts"
+  trip_media_sidebar_header:   "Galleries"
+  trip_media_account_removed:  "Your account was successfully unlinked from the trip."
+  trip_media_account_added:    "Your account was successfully linked with the trip."
+
+  # dropbox
+  dropbox:                          "Dropbox" # I know, i know...
+  dropbox_unlink_hint:              "Note that this only removes the gallery from turi. You should also remove the access from your Dropbox account settings page."
+  dropbox_revoked_access:           "Unfortunately, the access to this Dropbox folder expired or was removed by the user."
+  dropbox_folder_not_found_html:    "Unfortunately, we could not find a folder with the name <b>'%{name}'</b> in this Dropbox account.<br/>As soon this folder is created, we will show you the awesome pictures in it!"
+  dropbox_auth_bad_request_error:   "Error in OAuth 2 flow: Bad request: %{message}"
+  dropbox_auth_bad_state_error:     "Error in OAuth 2 flow: No CSRF token in session: %{message}"
+  dropbox_auth_csrf_error:          "CSRF error"
+  dropbox_auth_not_approved_error:  "Not approved? Why not, bro?"
+  dropbox_auth_provider_error:      "Strange error."
+  dropbox_error:                    "Error communicating with Dropbox servers."

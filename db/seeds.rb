@@ -10,3 +10,6 @@ ParticipantRole.delete_all
 ParticipantRole.create({ name: 'owner' })
 ParticipantRole.create({ name: 'editor' })
 ParticipantRole.create({ name: 'viewer' })
+
+ApiProvider.delete_all
+ApiProvider.create({ name: 'dropbox' })

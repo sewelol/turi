@@ -13,6 +13,27 @@
 
 ActiveRecord::Schema.define(version: 20150305164424) do
 
+  create_table "api_access_tokens", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "trip_id"
+    t.integer  "api_provider_id"
+    t.string   "token",           null: false
+    t.string   "item"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "api_access_tokens", ["api_provider_id"], name: "index_api_access_tokens_on_api_provider_id"
+  add_index "api_access_tokens", ["trip_id"], name: "index_api_access_tokens_on_trip_id"
+  add_index "api_access_tokens", ["user_id", "trip_id", "api_provider_id"], name: "index_tokens_on_use_and_trip_and_provider", unique: true
+  add_index "api_access_tokens", ["user_id"], name: "index_api_access_tokens_on_user_id"
+
+  create_table "api_providers", force: :cascade do |t|
+    t.string "name"
+  end
+
+  add_index "api_providers", ["name"], name: "index_api_providers_on_name", unique: true
+
   create_table "equipment_lists", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -105,6 +126,7 @@ ActiveRecord::Schema.define(version: 20150305164424) do
     t.string   "town"
     t.integer  "age"
     t.string   "status"
+    t.text     "image"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

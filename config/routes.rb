@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'map/new'
+
   get 'map/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -23,6 +25,11 @@ Rails.application.routes.draw do
     end
     resources :events
     resources :articles
+    resources :routes do
+      resources :waypoints
+    end
+    resources :equipment_lists
+
     resources :discussions do
       resources :comments
     end

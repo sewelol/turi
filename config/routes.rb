@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   # TODO: Use scopes so that we not bloat our routes.
   resources :trips do
     resources :participants
-    resources :routes
+    resources :routes do
+      resources :waypoints
+    end
     resources :equipment_lists
 
     resources :media, only: [:index, :show, :destroy]

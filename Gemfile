@@ -39,6 +39,15 @@ gem 'pundit'
 # Dropbox
 gem 'dropbox-sdk'
 
+# Cocoon (Dynamic nested forms using J-query(made easy))
+gem 'cocoon'
+
+# Slim-rails (Slim generator like erb)
+gem 'slim-rails'
+
+# Simple forms
+gem 'simple_form'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

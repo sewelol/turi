@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :friendship do
-    user_id 1
-friend_id 1
+  factory :friendship do |f|
+    f.sequence(:user_id) { |n| "user#{n}" }
+    f.sequence(:friend_id) { |n| "friend#{n}" }
   end
 
 end

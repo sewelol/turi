@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     resources :participants
     resources :map
     resources :equipment_lists
+
+    resources :events
+
     resources :media, only: [:index, :show, :destroy]
   end
 

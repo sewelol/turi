@@ -31,8 +31,8 @@
     <a href="<%=trip_media_path(@trip)%>"><i class="gi gi-picture sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_media')%></span></a>
   </li>
 
-  <li class="">
-    <a href="#"><i class="gi gi-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Calendar</span></a>
+  <li class="<%=current_page?(trip_events_path(@trip)) ? 'active' : ''%>">
+    <a href="<%=trip_events_path(@trip)%>"><i class="gi gi-calendar sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_events')%></span></a>
   </li>
 
   <li class="sidebar-separator">

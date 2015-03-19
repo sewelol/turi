@@ -3,7 +3,13 @@
 
 <meta charset="utf-8">
 
-<title>turi | <%= yield :page_title %></title>
+<title>
+  <% if content_for?(:page_title) %>
+      <%= t('header_page_title', :title => yield(:page_title)) %>
+  <% else %>
+      <%= t('header_title') %>
+  <% end %>
+</title>
 
 <meta name="robots" content="noindex, nofollow">
 

@@ -4,19 +4,17 @@ class RoutesController < ApplicationController
   layout 'trip'
 
   def index
-    @trip = Trip.find(params[:trip_id])
-    @routes = Route.all
+    #@trip = Trip.find(params[:trip_id])
+    #@routes = Route.all
     # @route = Route.find(params[:id])
   end
 
   def show
-    @trip = Trip.find(params[:trip_id])
+    #@trip = Trip.find(params[:trip_id])
 
   end
 
   def new
-
-    # @route = Route.new(route_params)
     @trip = Trip.find(params[:trip_id])
 
     @route = Route.new
@@ -25,11 +23,15 @@ class RoutesController < ApplicationController
 
 
   def create
-    pp params
-
     @trip = Trip.find(params[:trip_id])
 
-    @route = Route.create(route_params)
+    @route = Trip.new(params[:trip_id]).route
+
+    if @trip.update_attribute(params[:trip_id])
+      return redirect_to root_url :notice => "Route added sucessfully"
+    else
+      render :action => :new
+    end
 
 
 

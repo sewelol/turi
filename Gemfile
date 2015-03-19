@@ -47,22 +47,10 @@ gem 'dropbox-sdk'
 # Geocoding (find lat/lng by adress)
 gem 'geocoder'
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-
 source 'https://rails-assets.org' do
   # Only jQuery should be included as extra gem, any other JS library should be included from rails-assets
   gem 'rails-assets-leaflet'
 end
-
-# Cocoon (Dynamic nested forms using J-query(made easy))
-gem 'cocoon'
-
-# Slim-rails (Slim generator like erb)
-gem 'slim-rails'
-
-# Simple forms
-gem 'simple_form'
 
 # Use puma as the app server
 gem 'puma'

@@ -14,10 +14,10 @@
     }).addTo( map );
 
     //var myURL = jQuery( 'script[src$="leaf-demo.js"]' ).attr( 'src' ).replace( 'leaf-demo.js', '' );
-    var myURL = '~public/app/maps'
+    var myURL = "<%= asset_path('public/maps/') %>"
 
     var wayPointIcon = L.icon({
-        iconUrl: myURL + 'images/Waypoint.png',
+        iconUrl: myURL,
         iconRetinaUrl: myURL + 'images/pin48.png',
         iconSize: [29, 24],
         iconAnchor: [9, 21],
@@ -133,18 +133,18 @@
 
 
 
-        //addInputFieldForWaypoint(temp);
 
-        $('#waypoint-form')
-                .append('<align> My waypoint: '         + markers.length.toString() +
-                ': <input type="text" value="'  + temp.title            + '" name="desc"/> ' +
-                ': <input type="text" value="'  + temp.getLatLng().lat  + '" name="lat"/> ' +
-                ': <input type="text" value="'  + temp.getLatLng().lng  + '" name="lng"/> ' +
-                ': <input type="text" value="'  + temp.title            + '" name="type"/> ' +
-                '<br/></align>')
+        // copy waypoint field to make a new field, if the first one is not empty
+        if ($( "#waypoint-list li:first").children("[id='waypoint_desc']").val() != '')
+        {
+            $('#waypoint-list li:first').clone().find('input').val('').end().appendTo('#waypoint-list');
+        }
 
-
-
+        // Insert the values into the fields
+        $( "#waypoint-list li:last").children("[id='waypoint_desc']")   .val(temp.title);
+        $( "#waypoint-list li:last").children("[id='waypoint_lat']")    .val(temp.getLatLng().lat);
+        $( "#waypoint-list li:last").children("[id='waypoint_lng']")    .val(temp.getLatLng().lng);
+        $( "#waypoint-list li:last").children("[id='waypoint_type']")   .val(temp.options.icon.options.iconUrl.toString()); //PLACEHOLDER
 
 
         markers.push(temp);
@@ -175,6 +175,14 @@
         } else {
             console.log("nothing to reset");
         }
+
+        // remove all waypoint fields except one
+        while($('#waypoint-list li').length > 1)
+            $('#waypoint-list li').last().remove();
+
+        // clean up the last
+        $('#waypoint-list li:first').clone().find('input').val('').end().prependTo('#waypoint-list');
+        $('#waypoint-list li').last().remove();
     }
 
 
@@ -195,20 +203,16 @@
             console.log("nothing to undo");
         }
 
-        // Also remove entry from form..
-        $('#waypoint-form').find('align').last().remove();
-
-
-    }
-
-    function POST (route) {
-        var dat = JSON.stringify(route);
-
-        console.log("I am about to POST this: \n\n" + dat);
-
-        $.post( "ajax/test.html", function( dat ) {
-            //$( ".result" ).html( data );
-        });
+        // Also remove entry from form, except the last one
+        if($('#waypoint-list li').length > 1)
+        {
+            $('#waypoint-list li').last().remove();
+        }
+        // clean up the last one
+        else if ($('#waypoint-list li').length = 1) {
+            $('#waypoint-list li:first').clone().find('input').val('').end().prependTo('#waypoint-list');
+            $('#waypoint-list li').last().remove();
+        }
 
 
     }
@@ -219,8 +223,6 @@
 
     // zoom the map to the polyline when a route is loaded on start-up
     //map.fitBounds(polyline.getBounds());
-
-
 
 
 </script>

@@ -39,3 +39,6 @@ bower.json
 # Temp files
 *~
 .DS_Store
+
+.env
+Procfile

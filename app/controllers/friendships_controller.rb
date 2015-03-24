@@ -8,7 +8,7 @@ class FriendshipsController < ApplicationController
       flash[:notice] = I18n.t 'user_friendship_added'
       redirect_to user_path @user
     else
-      flash[:notice] = I18n.t 'user_frienship_not_added'
+      flash[:alert] = I18n.t 'user_frienship_not_added'
       redirect_to user_path @user
     end
   end

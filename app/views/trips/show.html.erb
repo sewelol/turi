@@ -3,17 +3,34 @@
 <% end %>
 
 <% content_for :content_header do %>
-<div class="content-header content-header-media" style="background: url(<%= @trip.image.empty? ? 'https://unsplash.it/1060/260?random' : @trip.image %>) no-repeat; background-size: 100%;">
-  <div class="header-section">
-    <div class="row">
-      <div class="col-sm-7 col-md-8 col-lg-9 content-float-hor push-bit-top-bottom clearfix">
-        <img src="<%= @trip.image.empty? ? 'https://unsplash.it/69?random&gravity=south' : @trip.image %>" alt="User Image" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
-        <h1><%=@trip.title%></h1>
-        <h2 class="text-light-op"> <%= @trip.start_loc %> (<%= @trip.start_date %>) - <%= @trip.end_loc %> (<%= @trip.end_date %>)</h2>
+    <div class="content-header content-header-media" style="background: url(<%= @trip.image.empty? ? 'https://unsplash.it/1060/260?random' : @trip.image %>) no-repeat; background-size: 100%;">
+      <div class="header-section">
+        <div class="row">
+          <div class="col-sm-7 col-md-8 col-lg-9 content-float-hor push-bit-top-bottom clearfix">
+            <h1><%=@trip.title%></h1>
+            <h2 class="text-light-op">
+              <% if ! @trip.start_loc.blank? %>
+                  <%= @trip.start_loc %>
+              <% end %>
+              <% if ! @trip.start_date.blank? %>
+                  (<%= @trip.start_date %>)
+              <% end %>
+
+              <% if ! @trip.end_loc.blank? or ! @trip.end_date.blank? %>
+                    -
+              <% end %>
+
+              <% if ! @trip.end_loc.blank? %>
+                  <%= @trip.end_loc %>
+              <% end %>
+              <% if ! @trip.end_date.blank? %>
+                  (<%= @trip.end_date %>)
+              <% end %>
+            </h2>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 <% end %>
 
 <div class="trip clearfix">

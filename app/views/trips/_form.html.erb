@@ -22,73 +22,56 @@
           <% end %>
 
           <div class="form-group">
-            <%= f.label :title, class: 'col-md-3 control-label' %>
+            <%= f.label :title, t('trip_title'), class: 'col-md-3 control-label' %>
             <div class="col-md-9">
               <%= f.text_field :title, class: 'form-control'%>
-              <span class="help-block">Any trip title that's fine.</span>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label :description, class: 'col-md-3 control-label' %>
+            <%= f.label :description, t('trip_description'), class: 'col-md-3 control-label' %>
             <div class="col-md-9">
-              <%= f.text_field :description, class: 'form-control'%>
-              <span class="help-block">Any description that's fine.</span>
+              <%= f.text_area :description, class: 'form-control'%>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label :start_loc, class: 'col-md-3 control-label' %>
+            <%= f.label :start_date, raw('<i class="fa fa-calendar"></i>'), class: 'col-md-3 control-label' %>
             <div class="col-md-9">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+              <div class="input-group daterange">
+                <%= f.text_field :start_date, class: 'form-control input-datepicker', placeholder: 'From mm/dd/yy', 'data-date-format' => 'mm/dd/yy' %>
+                <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+                <%= f.text_field :end_date, class: 'form-control input-datepicker', placeholder: 'To mm/dd/yy', 'data-date-format' => 'mm/dd/yy' %>
+              </div>
+              <span class="help-block"><%=t('trip_dates_help')%></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :start_loc, raw('<i class="fa fa-map-marker"></i>'), class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <div class="input-group daterange">
                 <%= f.text_field :start_loc, class: 'form-control', placeholder: 'Your starting location.' %>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :start_date, class: 'col-md-3 control-label' %>
-            <div class="col-md-9">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <%= f.text_field :start_date, class: 'form-control input-datepicker', placeholder: 'mm/dd/yy', 'data-date-format' => 'mm/dd/yy' %>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :end_loc, class: 'col-md-3 control-label' %>
-
-            <div class="col-md-9">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
                 <%= f.text_field :end_loc, class: 'form-control', placeholder: 'Your ending location.' %>
               </div>
+              <span class="help-block"><%=t('trip_locations_help')%></span>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label :end_date, class: 'col-md-3 control-label' %>
+            <%= f.label :image, t('trip_image'), class: 'col-md-3 control-label' %>
             <div class="col-md-9">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <%= f.text_field :end_date, class: 'form-control input-datepicker', placeholder: 'mm/dd/yy', 'data-date-format' => 'mm/dd/yy' %>
-              </div>
+              <%= f.text_field :image, class: 'form-control', placeholder: 'https://unsplash.it/1060/260?random'%>
+              <span class="help-block"><%=t('trip_image_help')%></span>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label :image, class: 'col-md-3 control-label' %>
+            <%= f.label :tag_list, t('trip_tags'), class: 'col-md-3 control-label' %>
             <div class="col-md-9">
-              <%= f.text_field :image, class: 'form-control', placeholder: 'An image url for your trip...'%>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :tag_list, class: 'col-md-3 control-label' %>
-            <div class="col-md-9">
-              <%= f.text_field :tag_list, class: 'form-control', placeholder: 'Awesome tags for your trip...'%>
+              <%= f.text_field :tag_list, class: 'input-tags', placeholder: 'Awesome tags for your trip...'%>
+              <span class="help-block"><%=t('trip_tags_help')%></span>
             </div>
           </div>
 
@@ -96,9 +79,9 @@
             <div class="col-md-9 col-md-offset-3">
               <%= f.submit class: 'btn btn-effect-ripple btn-primary' %>
               <% if current_page?(action: 'new') %>
-                  <%= link_to 'Cancel', dashboard_path, class: 'btn btn-effect-ripple btn-primary', id: 'cancel_button' %>
+                  <%= link_to t('cancel'), dashboard_path, class: 'btn btn-effect-ripple btn-primary', id: 'cancel_button' %>
               <% else %>
-                  <%= link_to 'Cancel', @trip , class: 'btn btn-effect-ripple btn-primary', id: 'cancel_button' %>
+                  <%= link_to t('cancel'), @trip, class: 'btn btn-effect-ripple btn-primary', id: 'cancel_button' %>
               <% end %>
             </div>
           </div>

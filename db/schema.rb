@@ -17,14 +17,15 @@ ActiveRecord::Schema.define(version: 20150310095322) do
     t.integer  "user_id"
     t.integer  "trip_id"
     t.integer  "api_provider_id"
-    t.string   "token",           null: false
-    t.string   "item"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "token",                        null: false
+    t.string   "item",            default: ""
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "api_access_tokens", ["api_provider_id"], name: "index_api_access_tokens_on_api_provider_id"
   add_index "api_access_tokens", ["trip_id"], name: "index_api_access_tokens_on_trip_id"
+  add_index "api_access_tokens", ["user_id", "trip_id", "api_provider_id"], name: "index_tokens_on_use_and_trip_and_provider", unique: true
   add_index "api_access_tokens", ["user_id"], name: "index_api_access_tokens_on_user_id"
 
   create_table "api_providers", force: :cascade do |t|
@@ -59,12 +60,13 @@ ActiveRecord::Schema.define(version: 20150310095322) do
   add_index "events", ["trip_id"], name: "index_events_on_trip_id"
 
   create_table "friendships", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "friend_id"
-    t.integer  "pending"   , default: 1
+    t.integer  "user_id",    null: false
+    t.integer  "friend_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "friendships", ["user_id", "friend_id"], name: "index_friendships_on_user_id_and_friend_id", unique: true
 
   create_table "participant_roles", force: :cascade do |t|
     t.string   "name",       null: false

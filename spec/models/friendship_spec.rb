@@ -11,9 +11,9 @@ RSpec.describe Friendship, type: :model do
       expect(
         Friendship.create(:user_id => @user.id, :friend_id => @friend.id)
       ).to be_valid
-      expect(
+      expect{
         Friendship.create(:user_id => @user.id, :friend_id => @friend.id)
-      ).not_to be_valid
+      }.to raise_error(ActiveRecord::RecordNotUnique)
     end
     it 'people who add you, are added to your friend list' do
       expect(

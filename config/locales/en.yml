@@ -132,3 +132,8 @@ en:
   dropbox_auth_not_approved_error:  "Not approved? Why not, bro?"
   dropbox_auth_provider_error:      "Strange error."
   dropbox_error:                    "Error communicating with Dropbox servers."
+
+  # friendship
+  friendship_added:                  "Added friend '%{name}'."
+  friendship_removed:                "Removed friend '%{name}'."
+  frienship_not_added:               "Unable to add friend '%{name}'."

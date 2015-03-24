@@ -14,10 +14,10 @@ feature 'User_page' do
 
   before do
     sign_in_as!(user)
-    visit "/users/#{user.id}"
+    visit user_path(user)
   end
 
-  scenario "see user details" do
+  scenario 'see user details' do
     #TODO email
     expect(page).to have_content(user.email)
     #TODO name
@@ -34,12 +34,12 @@ feature 'User_page' do
 
   end
 
-  scenario "edit user details with correct details" do
-    click_link "Edit"
-    expect(page).to have_content("Welcome to the edit user page")
+  scenario 'edit user details with correct details' do
+    click_link 'Edit'
+    expect(page).to have_content('Welcome to the edit user page')
     #expect(response).to render_template(:edit)
 
-    runar = User.create(name: "Runar", email: "runar@turi.no", age: 24, country: "Japan", town: "Japan", status: "It's complicated")
+    runar = User.create(name: 'Runar', email: 'runar@turi.no', age: 24, country: 'Japan', town: 'Japan', status: 'It\'s complicated')
 
     fill_in 'Name', with: runar.name
     fill_in 'Email', with: runar.email
@@ -48,7 +48,7 @@ feature 'User_page' do
     fill_in 'Town', with: runar.town
     fill_in 'Status', with: runar.status
 
-    click_button "Update User"
+    click_button 'Update User'
 
     expect(page).to have_content(runar.email)
     expect(page).to have_content(runar.name)
@@ -58,22 +58,22 @@ feature 'User_page' do
     expect(page).to have_content(runar.status)
   end
 
-  scenario "edit user details with incorrect details" do
-    click_link "Edit"
-    fill_in 'Email', with: ""
-    fill_in 'Name', with: ""
-    click_button "Update User"
+  scenario 'edit user details with incorrect details' do
+    click_link 'Edit'
+    fill_in 'Email', with: ''
+    fill_in 'Name', with: ''
+    click_button 'Update User'
 
-    expect(page).to have_content("Email can't be blank")
-    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content('Email can\'t be blank')
+    expect(page).to have_content('Name can\'t be blank')
   end
 
-  scenario "edit user email with taken email" do
-    taken_user = FactoryGirl.create(:user, email: "ingvild92@yahoo.com")
-    click_link "Edit"
-    fill_in "Email", with: taken_user.email
-    click_button "Update User"
+  scenario 'edit user email with taken email' do
+    taken_user = FactoryGirl.create(:user, email: 'ingvild92@yahoo.com')
+    click_link 'Edit'
+    fill_in 'Email', with: taken_user.email
+    click_button 'Update User'
 
-    expect(page).to have_content("Email has already been taken")
+    expect(page).to have_content('Email has already been taken')
   end
 end

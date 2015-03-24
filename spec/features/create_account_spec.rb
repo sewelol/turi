@@ -9,7 +9,7 @@ feature 'Create Account' do
     @user = FactoryGirl.build(:user)
     visit root_path
 
-    click_link  'Sign Up'
+    click_link  'sign_up_button'
   end
 
   scenario 'can create new account' do
@@ -18,7 +18,7 @@ feature 'Create Account' do
     fill_in 'user_password', with: @user.password
     fill_in 'user_password_confirmation', with: @user.password
 
-    click_button 'Create Account'
+    click_button 'create_account_btn'
     
     expect(page).to have_content(I18n.t('devise.registrations.signed_up'))
 
@@ -31,7 +31,7 @@ feature 'Create Account' do
     fill_in 'user_password', with: '1234'
     fill_in 'user_password_confirmation', with: '1234'
 
-    click_button 'Create Account'
+    click_button 'create_account_btn'
 
     expect(page).to have_content(I18n.t('errors.messages.too_short', attribute: User.human_attribute_name('password'), count: 8))
 
@@ -44,7 +44,7 @@ feature 'Create Account' do
     fill_in 'user_password', with: @user.password
     fill_in 'user_password_confirmation', with: '12345679'
 
-    click_button 'Create Account'
+    click_button 'create_account_btn'
 
     expect(page).to have_content(I18n.t('errors.messages.confirmation', attribute: User.human_attribute_name('password')))
   end
@@ -55,19 +55,19 @@ feature 'Create Account' do
     fill_in 'user_password', with: @user.password
     fill_in 'user_password_confirmation', with: @user.password
 
-    click_button 'Create Account'
+    click_button 'create_account_btn'
 
     click_link('sign_out_link')
     expect(page.current_path).to eq root_path
 
-    click_link  'Sign Up'
+    click_link  'sign_up_button'
 
     fill_in 'user_name', with: @user.name
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: @user.password
     fill_in 'user_password_confirmation', with: @user.password
 
-    click_button 'Create Account'
+    click_button 'create_account_btn'
 
     expect(page).to have_content(I18n.t('errors.messages.taken', attribute: User.human_attribute_name('email')))
 
@@ -79,19 +79,19 @@ feature 'Create Account' do
     fill_in 'user_password', with: @user.password
     fill_in 'user_password_confirmation', with: @user.password
 
-    click_button 'Create Account'
+    click_button 'create_account_btn'
 
     click_link('sign_out_link')
     expect(page.current_path).to eq root_path
 
-    click_link  'Sign Up'
+    click_link  'sign_up_button'
 
     fill_in 'user_name', with: @user.name
     fill_in 'user_email', with: @user.email << 1
     fill_in 'user_password', with: @user.password
     fill_in 'user_password_confirmation', with: @user.password
 
-    click_button 'Create Account'
+    click_button 'create_account_btn'
 
     expect(page).to have_content(I18n.t('errors.messages.taken'))
 

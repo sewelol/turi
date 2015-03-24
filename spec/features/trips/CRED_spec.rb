@@ -6,8 +6,10 @@ RSpec.feature 'CRED operations for Trips' do
         @user = FactoryGirl.create(:user)
 
         visit root_path
-        
-        sign_in
+
+        login_as(@user, :scope => :user)
+
+        visit dashboard_path
 
         click_link 'create_trip_link'
 
@@ -73,16 +75,6 @@ RSpec.feature 'CRED operations for Trips' do
         expect(page.current_path).to eq(dashboard_path)
         expect(page).to have_content(I18n.t ('trip_not_found'))
     end
-
-    def sign_in
-      click_link 'Sign In'
-      fill_in 'user_email', with: @user.email
-      fill_in 'user_password', with: @user.password
-      click_button 'sign_in_button'
-
-      expect(page).to have_content(I18n.t ('devise.sessions.signed_in'))
-    end
-
 
 end
 

@@ -102,7 +102,7 @@ var App = function() {
         $('.input-slider').slider();
 
         // Initialize Tags Input
-        $('.input-tags').tagsInput({ width: 'auto', height: 'auto'});
+        $('.input-tags').tagsInput({ width: 'auto', height: 'auto', defaultText: ''});
 
         // Initialize Timepicker
         $('.input-timepicker').timepicker({minuteStep: 1,showSeconds: true,showMeridian: true});

@@ -136,3 +136,8 @@ en:
   dropbox_auth_provider_error:      "Strange error."
   dropbox_error:                    "Error communicating with Dropbox servers."
   dropbox_configuration_missing:    "@developer: You need to setup the dropbox configuration for your local project!"
+
+  # friendship
+  user_friendship_added:                  "Added friend."
+  user_friendship_removed:                "Removed friend."
+  user_frienship_not_added:               "Unable to add friend."

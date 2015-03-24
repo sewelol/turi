@@ -18,11 +18,16 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => { registrations: 'registrations' }
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update] do
+    resources :friendships
+  end
+
+
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
   get 'search', to: 'trips#search', as: 'search'
+  get 'user_search', to: 'users#search', as: 'user_search'
 
   # Dropbox
   get '/dropbox-connect/:trip_id/:user_id', to: 'media_dropbox#auth_start', as: 'dropbox_connect'

@@ -134,6 +134,6 @@ en:
   dropbox_error:                    "Error communicating with Dropbox servers."
 
   # friendship
-  friendship_added:                  "Added friend '%{name}'."
-  friendship_removed:                "Removed friend '%{name}'."
-  frienship_not_added:               "Unable to add friend '%{name}'."
+  friendship_added:                  "Added friend."
+  friendship_removed:                "Removed friend."
+  frienship_not_added:               "Unable to add friend."

@@ -11,13 +11,13 @@ RSpec.feature 'CRED operations for Trips' do
 
         click_link 'create_trip_link'
 
-        fill_in 'Title', with: @trip.title
-        fill_in 'Description', with: @trip.description
-        fill_in 'Start loc', with: @trip.start_loc
-        fill_in 'End loc', with: @trip.end_loc
-        fill_in 'Image', with: @trip.image
+        fill_in 'trip_title', with: @trip.title
+        fill_in 'trip_description', with: @trip.description
+        fill_in 'trip_start_loc', with: @trip.start_loc
+        fill_in 'trip_end_loc', with: @trip.end_loc
+        fill_in 'trip_image', with: @trip.image
         @tags = 'awesome, cool, pretty'
-        fill_in 'Tag list', with: @tags
+        fill_in 'trip_tag_list', with: @tags
     end
 
     scenario 'Create/Show Trip' do
@@ -38,8 +38,8 @@ RSpec.feature 'CRED operations for Trips' do
     scenario 'Edit Trip' do
         click_button 'Create Trip'
         click_link 'Edit'
-        fill_in 'Title', with: 'Not The Trip Title'
-        fill_in 'Description', with: 'Not the Trip Description'
+        fill_in 'trip_title', with: 'Not The Trip Title'
+        fill_in 'trip_description', with: 'Not the Trip Description'
         click_button 'Update Trip'
 
         expect(page).to have_content(I18n.t('trip_updated'))
@@ -56,7 +56,7 @@ RSpec.feature 'CRED operations for Trips' do
     scenario 'Cancel Update' do
         click_button 'Create Trip'        
         click_link 'Edit'
-        fill_in 'Title', with: 'Editing Title'
+        fill_in 'trip_title', with: 'Editing Title'
         click_link 'cancel_button'
 
         expect(page).to have_content(@trip.title)

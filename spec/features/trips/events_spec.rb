@@ -4,6 +4,8 @@ require 'rails_helper'
 RSpec.feature 'Trip event management:' do
 
   before do
+    # Stub the geocoder library.
+    allow(Geocoder).to receive(:coordinates).and_return([123, 456])
     logout(:user)
     @owner = FactoryGirl.create(:user)
     @editor = FactoryGirl.create(:user)

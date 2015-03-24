@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Search Trips' do
   before do
     @user = FactoryGirl.create(:user)
+    @user2nd = FactoryGirl.create(:user, name: 'Ingvild')
     @trip = FactoryGirl.create(:trip, user_id: @user.id)
     @trip2nd = FactoryGirl.create(:trip, title: 'Another trip', start_date: '12/05/15', end_date: '27/05/15', user_id: @user.id)
 
@@ -39,11 +40,14 @@ RSpec.feature 'Search Trips' do
     fill_in 'date_beg', with: @trip2nd.start_date
     fill_in 'date_end', with: @trip2nd.end_date
     fill_in 'tag_search', with: 'fun'
+    fill_in 'name_search', with: @user.name
 
     click_button 'Search Trips'
 
     expect(page).to have_content(@trip2nd.title)
     expect(page).to_not have_content(@trip.title)
+    expect(page).to have_content(@user.name)
+    expect(page).to_not have_content(@user2nd.name)
   end
 
   scenario 'do an unsuccessful search' do

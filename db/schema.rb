@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 20150508012530) do
 
   add_index "equipment_lists", ["trip_id"], name: "index_equipment_lists_on_trip_id"
   add_index "equipment_lists", ["user_id"], name: "index_equipment_lists_on_user_id"
-  
+
   create_table "events", force: :cascade do |t|
     t.string   "name",                     null: false
     t.text     "description", default: ""

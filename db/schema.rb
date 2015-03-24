@@ -103,6 +103,21 @@ ActiveRecord::Schema.define(version: 20150513153130) do
   add_index "equipment_lists", ["trip_id"], name: "index_equipment_lists_on_trip_id"
   add_index "equipment_lists", ["user_id"], name: "index_equipment_lists_on_user_id"
 
+  create_table "events", force: :cascade do |t|
+    t.string   "name",                     null: false
+    t.text     "description", default: ""
+    t.string   "color",                    null: false
+    t.datetime "start_date",               null: false
+    t.datetime "end_date",                 null: false
+    t.integer  "trip_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "location"
+    t.boolean  "all_day"
+  end
+
+  add_index "events", ["trip_id"], name: "index_events_on_trip_id"
+
   create_table "participant_roles", force: :cascade do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false

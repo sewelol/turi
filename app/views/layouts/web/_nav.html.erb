@@ -1,0 +1,28 @@
+<nav>
+  <!-- Menu Toggle -->
+  <!-- Toggles menu on small screens -->
+  <a href="javascript:void(0)" class="btn btn-default site-menu-toggle visible-xs visible-sm">
+    Menu
+  </a>
+  <!-- END Menu Toggle -->
+
+  <!-- Main Menu -->
+  <ul class="site-nav">
+    <li>
+      <a href="<%= root_path %>" class="<%=current_page?(root_path) ? 'active' : ''%>">Welcome</a>
+    </li>
+    <li>
+      <a href="<%= features_path %>" class="<%=current_page?(features_path) ? 'active' : ''%>">Features</a>
+    </li>
+    <li>
+      <a href="<%= faq_path %>" class="<%=current_page?(faq_path) ? 'active' : ''%>">FAQ</a>
+    </li>
+    <li>
+      <a href="<%=new_user_registration_path%>" class="btn btn-danger"><strong>Sign Up</strong></a>
+    </li>
+    <li>
+      <a href="<%=new_user_session_path%>" class="btn btn-default"><strong>Sign In</strong></a>
+    </li>
+  </ul>
+  <!-- END Main Menu -->
+</nav>

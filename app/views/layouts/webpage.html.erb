@@ -13,7 +13,7 @@
 
   <!-- Icons -->
   <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-  <link rel="shortcut icon" href="page/img/favicon.png">
+  <link rel="shortcut icon" href="<%= asset_path 'app/img/favicon.png' %>">
   <link rel="apple-touch-icon" href="page/img/icon57.png" sizes="57x57">
   <link rel="apple-touch-icon" href="page/img/icon72.png" sizes="72x72">
   <link rel="apple-touch-icon" href="page/img/icon76.png" sizes="76x76">
@@ -51,7 +51,7 @@
     <div class="container">
       <!-- Site Logo -->
       <a href="page/index.html" class="site-logo">
-        <i class="fa fa-cube"></i> <strong>turi</strong>
+        <img src="<%=asset_path('app/img/logo_white.png')%>" title="turi" class="logo"/> <strong>turi</strong>
       </a>
       <!-- END Site Logo -->
 

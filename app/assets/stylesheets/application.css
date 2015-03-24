@@ -31,3 +31,8 @@
 .header-buttons a, .header-buttons button {
     font-size: 25px;
 }
+
+.sidebar-title .logo {
+    margin-right: 8px;
+    padding-bottom: 3px
+}

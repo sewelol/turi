@@ -2,49 +2,60 @@ class ArticlesController < ApplicationController
   layout 'trip'
 
   before_action :set_trip
+  before_action :authenticate_user!
 
   def index
+    authorize @trip, :show?
     @articles = @trip.articles
   end
 
   def show
-    @article = Article.find(params[:id])
+    authorize @trip, :show?
+    @article = @trip.articles.find(params[:id])
   end
 
   def new
+    authorize @trip, :update?
     @article = @trip.articles.build
   end
 
   def create
+    authorize @trip, :update?
     @article = @trip.articles.build(article_params)
+
     if @article.save
-      flash[:notice] = 'Blog entry created.'
+      flash[:notice] = I18n.t 'trip_article_created'
       redirect_to [@trip, @article]
     else
-      flash[:alert] = 'Blog creation error.'
+      flash[:alert] = I18n.t 'trip_article_not_created'
       render 'new'
     end
   end
 
   def edit
+    authorize @trip, :update?
     @article = @trip.articles.find(params[:id])
   end
 
   def update
+    authorize @trip, :update?
     @article = @trip.articles.find(params[:id])
 
     if @article.update(article_params)
-      flash[:notice] = 'Blog entry updated.'
+      flash[:notice] = I18n.t 'trip_article_updated'
+      redirect_to [@trip, @article]
     else
-      flash[:notice] = 'Update aborted.'
+      flash[:alert] = I18n.t 'trip_article_not_updated'
+      render 'new'
     end
-
-    redirect_to [@trip, @article]
   end
 
   def destroy
+    authorize @trip, :update?
     @article = @trip.articles.find(params[:id])
+
     @article.destroy
+    flash[:notice] = I18n.t 'trip_article_destroyed'
     redirect_to trip_articles_path(@trip)
   end
 

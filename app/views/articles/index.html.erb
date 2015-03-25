@@ -1,12 +1,12 @@
 <% content_for :page_title do %>
-    <%= 'Blog Index ' %>
+    <%= I18n.t 'trip_article_index' %>
 <% end %>
 
 <div class="content-header">
   <div class="row">
     <div class="col-sm-6">
       <div class="header-section">
-        <h1>Blog Index</h1>
+        <h1><%= I18n.t 'trip_article_index' %></h1>
       </div>
     </div>
   </div>
@@ -15,7 +15,7 @@
 <div class="block-content-full" id="participant-list">
   <% if policy(@trip).update? %>
     <div class="text-center widget-content">
-      <%= link_to raw('<i class="fa fa-plus"></i> ' << 'Create new blog'), new_trip_article_path(@trip), id: 'add_article_button',class: 'btn btn-primary push-bit' %>
+      <%= link_to raw('<i class="fa fa-plus"></i> ' << t('trip_article_new_btn')), new_trip_article_path(@trip), id: 'add_article_button',class: 'btn btn-primary push-bit' %>
     </div>
   <% end %>
 </div>

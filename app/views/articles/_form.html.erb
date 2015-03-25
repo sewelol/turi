@@ -2,7 +2,7 @@
   <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
     <div class="block">
       <div class="block-title">
-        <h2>Blog entry</h2>
+        <h2><%= I18n.t 'trip_article_entry' %></h2>
       </div>
 
       <%= form_for [@trip, @article], html: {class: 'form-horizontal form-bordered'} do |f| %>
@@ -34,7 +34,7 @@
               </div>
 
               <div class="form-group form-actions">
-                <%= f.submit class: 'btn btn-effect-ripple btn-primary' %>
+                <%= f.submit t('save'), id: 'article_create_button' , class: 'btn btn-effect-ripple btn-primary' %>
               </div>
 
       <% end %>

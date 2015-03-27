@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150317121036) do
+ActiveRecord::Schema.define(version: 20150324124701) do
 
   create_table "api_access_tokens", force: :cascade do |t|
     t.integer  "user_id"
@@ -49,24 +49,29 @@ ActiveRecord::Schema.define(version: 20150317121036) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "equipment_item_id"
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "body",          null: false
+    t.integer  "discussion_id"
     t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "equipment_assignments", ["equipment_item_id"], name: "index_equipment_assignments_on_equipment_item_id"
-  add_index "equipment_assignments", ["user_id"], name: "index_equipment_assignments_on_user_id"
+  add_index "comments", ["discussion_id"], name: "index_comments_on_discussion_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
-  create_table "equipment_items", force: :cascade do |t|
-    t.string   "name"
-    t.float    "price",             default: 0.0
-    t.integer  "number",            default: 1
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "equipment_list_id"
+  create_table "discussions", force: :cascade do |t|
+    t.integer  "trip_id"
     t.integer  "user_id"
+    t.text     "title",      null: false
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "equipment_items", ["equipment_list_id"], name: "index_equipment_items_on_equipment_list_id"
-  add_index "equipment_items", ["user_id"], name: "index_equipment_items_on_user_id"
+  add_index "discussions", ["trip_id"], name: "index_discussions_on_trip_id"
+  add_index "discussions", ["user_id"], name: "index_discussions_on_user_id"
 
   create_table "equipment_lists", force: :cascade do |t|
     t.string   "name"

@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe Discussion, type: :model do
+RSpec.describe Comment, type: :model do
   it 'is valid with valid attributes' do
     expect(
-      FactoryGirl.create(:discussion)
+        FactoryGirl.create(:comment)
     ).to be_valid
   end
 
-  it 'is not valid without title' do
+  it 'is not valid without body' do
     expect{
-      FactoryGirl.create(:discussion, title: "")
+      FactoryGirl.create(:comment, body: '')
     }.to raise_error ActiveRecord::RecordInvalid
   end
 end

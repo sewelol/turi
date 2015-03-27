@@ -1,9 +1,9 @@
 class CreateDiscussions < ActiveRecord::Migration
   def change
     create_table :discussions do |t|
-      t.references :trip, index: true
-      t.references :user, index: true
-      t.text :title
+      t.references :trip, index: true, required: true
+      t.references :user, index: true, required: true
+      t.text :title, null: false
       t.text :body
 
       t.timestamps null: false

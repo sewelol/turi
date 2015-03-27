@@ -1,0 +1,78 @@
+<% content_for :page_title do %>
+    "Discussion"
+<% end %>
+
+<div class="block overflow-hidden">
+  <div class="block-section animation-fadeInQuick2" id="message-view">
+    <!-- Title -->
+    <div class="block-title clearfix">
+      <div class="block-options pull-right">
+        <%= link_to raw('<i class="fa fa-pencil"></i>'),
+                    edit_trip_discussion_path(@trip, @discussion),
+                    id: 'edit-discussion-btn',
+                    style: 'overflow: hidden; position: relative',
+                    class: 'btn btn-effect-ripple btn-warning',
+                    data: {toggle: 'tooltip', original_title: 'Edit'}
+        %>
+
+        <%= link_to raw('<i class="fa fa-trash"></i>'),
+                    trip_discussion_path(@trip, @discussion),
+                    method: :delete,
+                    data: {
+                            confirm: "Are you sure you want to delete this discussion?",
+                            toggle: 'tooltip',
+                            original_title: 'Delete'
+                    },
+                    title: '',
+                    id: 'destroy-discussion-btn',
+                    class: 'btn btn-effect-ripple btn-danger',
+                    style: 'overflow: hidden; position: relative;' %>
+      </div>
+      <div class="block-options pull-left">
+        <%= link_to :back,
+                    id: 'discussion-view-back',
+                    class: 'btn btn-effect-ripple btn-default',
+                    style: 'overflow: hidden; position: relative;' do %>
+            <i class="fa fa-chevron-left"></i>
+            Back to Discussions
+        <% end %>
+      </div>
+    </div>
+    <!-- END Title -->
+
+    <!-- Header -->
+    <h3>
+      <strong><%= @discussion.title %> </strong>
+      <small><em><%= distance_of_time_in_words (Time.now - @discussion.created_at) %></em></small>
+    </h3>
+    <p>
+      <%= link_to user_path(@discussion.user.id) do %>
+          <strong>&lt;<%= @discussion.user.email %>&gt;</strong>
+      <% end %>
+    </p>
+    <!-- END Header -->
+    <!-- Messages -->
+    <div class="block-content-full">
+      <table class="table table-borderless table-striped table-vcenter remove-margin">
+        <%= render partial: "comments/comment", collection: @comments %>
+      </table>
+    </div>
+    <!-- END Messages -->
+
+    <!-- Quick Reply Form -->
+
+    <%= form_for :comment do |f| %>
+        <%= f.text_area :body, placeholder: 'Your message...',
+                        class: 'form-control push-bit',
+                        rows: '5',
+                        name: 'quick-comment',
+                        id: 'quick-comment',
+                        required: true %>
+
+        <%= f.submit class: 'btn btn-effect-ripple btn-primary',
+                     style: 'overflow: hidden; position: relative;' %>
+
+    <% end %>
+    <!-- END Quick Reply Form -->
+  </div>
+</div>

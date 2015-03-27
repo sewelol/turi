@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    <h4>
+      <a class="text-dark" href="javascript:void(0)"><strong>
+        <%= link_to discussion.title, trip_discussion_path(@trip, discussion) %>
+      </strong></a>
+    </h4>
+    <span class="text-muted"><%= discussion.body %></span>
+  </td>
+  <td style="width: 120px;" class="hidden-xs text-right text-muted"><em><%= distance_of_time_in_words (Time.now - discussion.updated_at) %></em></td>
+</tr>

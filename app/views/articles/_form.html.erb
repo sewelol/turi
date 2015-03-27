@@ -30,7 +30,7 @@
                 <div class="pull-left">
                     <%= f.label :content, class: 'col-md-3 control-label' %>
                 </div>
-                <%= f.text_area :content, class: 'form-control', size: '24x6' %>
+                <%= f.text_area :content, class: 'ckeditor', size: '24x6' %>
               </div>
 
               <div class="form-group form-actions">
@@ -43,3 +43,4 @@
   </div>
 </div>
 
+<script src="<%= asset_path 'app/js/plugins/ckeditor/ckeditor.js' %>"></script>

@@ -7,4 +7,11 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
+    // config.skin = 'minimalist';
+    config.toolbar = [
+        ['Font','FontSize'],
+        ['Bold','Italic','Underline','TextColor','-','Print','-','Undo'],
+        ['NumberedList','BulletedList','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+        ['Image','Link','-','Source']
+    ] ;
 };

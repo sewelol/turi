@@ -32,7 +32,7 @@
         <%= simple_format(@article.content) %>
     </article>
     <hr>
-    <div class="blcok-section text-left">
+    <div class="block-section text-left">
       <%= link_to raw('<i></i> ' << t('trip_article_edit_btn')), [:edit, @trip, @article], id: 'edit_article_button',class: 'btn btn-primary push-bit' %>
       <%= link_to raw('<i></i> ' << t('trip_article_destroy_btn')), trip_article_path(@trip, @article),
                   method: :delete, data: {confirm: t('trip_article_destroy_confirm')}, id: 'delete_article_button',class: 'btn btn-primary push-bit' %>

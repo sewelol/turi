@@ -35,7 +35,7 @@
 
       <!-- Block Content -->
       <p>
-        <%= truncate(art.content, length: 1000, separator: ' ') %>
+        <%= truncate(sanitize(art.content, tags: %w(p, b, strong)), length: 1000, separator: ' ') %>
       </p>
       <!-- END Block Content -->
     </div>

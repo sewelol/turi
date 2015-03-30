@@ -11,16 +11,34 @@ RSpec.feature "Create discussions" do
     click_link 'discussion-btn'
   end
 
-  scenario "Create a discussion" do
-    # Act
-    click_link 'Create discussion'
-    title = 'Dette er en diskusjon'
-    text = 'La oss diskutere dette temaet som er veldig aktuelt'
-    fill_in 'discussion_title', with: title
-    fill_in 'discussion_text', with: text
+  context "As valid user" do
 
-    # Check
-    expect(page).to have_content title
-    expect(page).to have_content text
+
+    scenario "Create a discussion with valid attributes" do
+      # Act
+      click_link 'create-discussion'
+      title = 'Dette er en diskusjon'
+      body = 'La oss diskutere dette temaet som er veldig aktuelt'
+      fill_in 'discussion_title', with: title
+      fill_in 'discussion_body', with: body
+      click_button 'save-discussion-btn'
+
+      # Check
+      expect(page).to have_content title
+      expect(page).to have_content body
+    end
+
+    scenario "Create a discussion with invalid attributes" do
+      click_link 'create-discussion'
+      title = ''
+      body = 'whatever'
+      fill_in 'discussion_title', with: title
+      fill_in 'discussion_body', with: body
+      click_button 'save-discussion-btn'
+
+      # Check
+      expect()
+      expect(page).to render :new
+    end
   end
 end

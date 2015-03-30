@@ -13,6 +13,13 @@
         <a class="btn btn-effect-ripple btn-default" href="javascript:void(0)" style="overflow: hidden; position: relative;">Next
           <i class="fa fa-arrow-right"></i></a>
       </div>
+      <div class="block-options pull-left">
+        <%= link_to new_trip_discussion_path,
+                    class: 'btn btn-effect-ripple btn-default',
+                    id: 'create-discussion' do %>
+            <i class="fa fa-plus"></i>
+        <% end %>
+      </div>
     </div>
     <!-- END Title -->
 

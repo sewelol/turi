@@ -21,8 +21,13 @@ class CommentsController < TripResourceController
           # look at view/comment/create.js.erb
         }
       else
-        flash[:alert] = "Comment has not been created"
-        render :new
+        format.html {
+          flash[:alert] = "Comment has not been created"
+          render :new
+        }
+        format.js {
+          {}
+        }
       end
     end
   end

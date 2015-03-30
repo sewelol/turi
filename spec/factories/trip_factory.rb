@@ -1,11 +1,11 @@
 FactoryGirl.define do
   
     factory :trip do |t|
-        t.sequence(:title) { |n| "MyTrip#{n}" }
-        t.description 'MyDescription'
-        t.start_loc 'Tromso'
-        t.end_loc 'LA'
-        t.image 'https://lh6.googleusercontent.com/-EP_HfNwId-o/AAAAAAAAAAI/AAAAAAAAABo/QrC2Q7388Ew/photo.jpg'
+        t.sequence(:title) { |n| "My trip to Oslo Number #{n}" }
+        t.description 'A beautiful trip to Oslo with my friends.'
+        t.start_loc 'Tromsø'
+        t.end_loc 'Oslo'
+        t.image 'https://unsplash.it/1060/260?random'
     end
   
 end

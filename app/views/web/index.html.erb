@@ -1,0 +1,48 @@
+<!-- Intro + Action -->
+<section class="site-section site-section-top site-section-light themed-background-dark-default">
+  <div class="container">
+    <div class="push text-center">
+      <h1 class="animation-fadeInQuick2Inv"><strong>A powerful planner for your next trip with friends.</strong></h1>
+      <h2 class="text-light-op animation-fadeInQuickInv push-bit"><strong>Plan, Share, Collaborate.</strong></h2>
+      <a href="<%=new_user_registration_path%>" id="sign_up_button" class="btn btn-lg btn-danger push-right-left"><strong>Sign Up</strong></a>
+      <a href="<%=new_user_session_path%>" id="sign_in_button" class="btn btn-lg btn-default push-right-left"><strong>Sign In</strong></a>
+    </div>
+    <div class="site-promo-img visibility-none" data-toggle="animation-appear" data-animation-class="animation-slideUpQuick" data-element-offset="0">
+      <%= image_tag 'web/welcome.png' %>
+    </div>
+  </div>
+</section>
+<!-- END Intro + Action -->
+
+<!-- Promo Features -->
+<section class="site-content site-section border-bottom">
+  <div class="container">
+    <div class="row row-items">
+      <div class="col-sm-4 text-center">
+        <a href="<%= features_path %>" class="feature visibility-none themed-background-muted" data-toggle="animation-appear" data-animation-class="animation-fadeInQuickInv" data-element-offset="-100">
+          <i class="fa fa-edit text-dark"></i>
+        </a>
+        <h2 class="site-heading h4 feature-heading visibility-none" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick2Inv" data-element-offset="-20">
+          <strong>Plan</strong>
+        </h2>
+      </div>
+      <div class="col-sm-4 text-center">
+        <a href="<%= features_path %>" class="feature visibility-none themed-background-muted" data-toggle="animation-appear" data-animation-class="animation-fadeInQuickInv" data-element-offset="-100">
+          <i class="fa fa-user-plus text-dark"></i>
+        </a>
+        <h2 class="site-heading h4 feature-heading visibility-none" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick2Inv" data-element-offset="-20">
+          <strong>Share</strong>
+        </h2>
+      </div>
+      <div class="col-sm-4 text-center">
+        <a href="<%= features_path %>" class="feature visibility-none themed-background-muted" data-toggle="animation-appear" data-animation-class="animation-fadeInQuickInv" data-element-offset="-100">
+          <i class="fa fa-users text-dark"></i>
+        </a>
+        <h2 class="site-heading h4 feature-heading visibility-none" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick2Inv" data-element-offset="-20">
+          <strong>Collaborate</strong>
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END Promo Features -->

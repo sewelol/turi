@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe EventsController, type: :controller do
 
   before do
+    # Stub the geocoder library.
+    allow(Geocoder).to receive(:coordinates).and_return([123, 456])
     @owner = FactoryGirl.create(:user)
     @editor = FactoryGirl.create(:user)
     @stranger = FactoryGirl.create(:user)

@@ -13,7 +13,7 @@
 
   <!-- Icons -->
   <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-  <link rel="shortcut icon" href="page/img/favicon.png">
+  <link rel="shortcut icon" href="<%= asset_path 'app/img/favicon.png' %>">
   <link rel="apple-touch-icon" href="page/img/icon57.png" sizes="57x57">
   <link rel="apple-touch-icon" href="page/img/icon72.png" sizes="72x72">
   <link rel="apple-touch-icon" href="page/img/icon76.png" sizes="76x76">
@@ -51,20 +51,12 @@
     <div class="container">
       <!-- Site Logo -->
       <a href="page/index.html" class="site-logo">
-        <i class="fa fa-cube"></i> <strong>turi</strong>
+        <img src="<%=asset_path('app/img/logo_white.png')%>" title="turi" class="logo"/> <strong>turi</strong>
       </a>
       <!-- END Site Logo -->
 
       <!-- Site Navigation -->
-      <nav>
-        <!-- Menu Toggle -->
-        <!-- Toggles menu on small screens -->
-        <a href="page/javascript:void(0)" class="btn btn-default site-menu-toggle visible-xs visible-sm">
-          Menu
-        </a>
-        <!-- END Menu Toggle -->
-
-      </nav>
+      <%= render 'layouts/web/nav' %>
       <!-- END Site Navigation -->
     </div>
   </header>
@@ -73,23 +65,17 @@
   <%= yield %>
 
   <!-- Footer -->
-  <footer class="site-footer site-section site-section-light">
-    <div class="container">
-      <!-- Footer Links -->
-      <div class="row">
-        <div class="col-sm-12">
-          <em><span id="year-copy"></span></em> &copy; Turi Inc.</a>
-        </div>
-      </div>
-      <!-- END Footer Links -->
-    </div>
-  </footer>
+  <%= render 'layouts/web/footer' %>
   <!-- END Footer -->
 </div>
 <!-- END Page Container -->
 
 <!-- Scroll to top link, initialized in js/app.js - scrollToTop() -->
 <a href="#" id="to-top"><i class="fa fa-arrow-up"></i></a>
+
+<div class='hidden'>
+  <%= render 'layouts/messages' %>
+</div>
 
 <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

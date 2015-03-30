@@ -11,24 +11,7 @@
                 },
                 eventColor: '#de4b39',
                 firstDay: 1,
-                events: [{
-                    id: 'trip-<%=@trip.id%>',
-                    url: '<%=trip_path(@trip)%>',
-                    title: '<%=@trip.title%>',
-                    start: '<%=@trip.start_date%>',
-                    end: '<%=@trip.end_date%>'
-                }
-                <% @events.each do |event| %>
-                    , {
-                        id: 'trip-event-<%=event.id%>',
-                        title: '<%=event.name%>',
-                        url: '<%=trip_event_path(@trip, event)%>',
-                        start: '<%=event.start_date%>',
-                        end: '<%=event.end_date%>',
-                        color: '<%=event.color%>'
-                    }
-                <% end %>
-                ]
+                events: '<%=trip_events_path(@trip)%>'
             });
         });
     </script>
@@ -48,12 +31,10 @@
             <h4><%=t('trip_events_upcoming')%></h4>
         <% end %>
         <ul class="calendar-events">
-          <% @events.order(:start_date).each do |event| %>
-              <% if event.start_date > DateTime.now %>
-                <li style="background-color: <%=event.color%>">
-                  <a href="<%=trip_event_path(@trip, event)%>" data-toggle="modal"><i class="fa fa-calendar"></i> <%=event.name%></a>
-                </li>
-              <% end %>
+          <% @upcoming_events.each do |event| %>
+            <li style="background-color: <%=event.color%>">
+              <a href="<%=trip_event_path(@trip, event)%>" data-toggle="modal"><i class="fa fa-calendar"></i> <%=event.name%></a>
+            </li>
           <% end %>
         </ul>
       </div>

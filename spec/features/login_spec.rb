@@ -5,7 +5,7 @@ feature 'Login' do
   before do
 		@user = FactoryGirl.create(:user)
 		visit root_path
-		click_link 'Sign In'
+		click_link 'sign_in_button'
 	end
   
     scenario 'user can log in' do

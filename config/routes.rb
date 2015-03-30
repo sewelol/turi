@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root 'web/page#index'
+
+  get '/features', to: 'web/page#features', as: 'features'
+  get '/faq', to: 'web/page#faq', as: 'faq'
+
 
   # TODO: Use scopes so that we not bloat our routes.
   resources :trips do

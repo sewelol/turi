@@ -10,21 +10,6 @@
     <div class="content-header">
       <div class="row">
         <div class="col-sm-12">
-            <div class='header-buttons pull-right'>
-                <%= link_to raw('<i class="fa fa-reply"></i>)'), :back, class: 'btn btn-lg btn-effect-ripple', data: { toggle: 'tooltip', original_title: t('back') }, style: 'overflow: hidden; position: relative;' %>
-                <% if policy(@trip).update? %>
-                  <a href="<%=edit_trip_event_path(@trip, @event)%>" class="btn btn-lg btn-effect-ripple" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="<%=t('trip_events_edit')%>"><i class="fa fa-pencil"></i></a>
-                  <%= link_to raw('<i class="fa fa-trash"></i>'),
-                              trip_event_path(@trip, @event),
-                              :method => :delete,
-                              data: {
-                                      confirm: t('trip_events_destroy_confirm'), toggle: 'tooltip' },
-                              title: t('trip_events_destroy'),
-                              class: 'btn btn-lg btn-effect-ripple',
-                              id: 'destroy-event-btn'
-                  %>
-                <% end %>
-          </div>
           <div class="header-section">
               <h1><%= @equipment_item.name %></h1><i>Created by: <%= User.find(@equipment_item.user_id).name %></i>
           </div>
@@ -85,7 +70,7 @@
                 <thead>
                     <tr>
                         <th>Assigned to</th>
-                        <th>Number</th>
+                            <th>Number</th>
                     </tr>
                 </thead>
                 <tbody>

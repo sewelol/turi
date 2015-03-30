@@ -21,9 +21,8 @@ RSpec.feature "Items for equipment_lists" do
    end
 
    scenario "Create a item" do
-       click_link 'equipment'
-       click_link @equipment_list.name + '_equipment_link'
-
+ 
+       visit trip_equipment_list_path(@trip, @equipment_list)
        expect(page).to have_content(@equipment_list.name)
     
        # The form is hidden, but capybara ignores this 
@@ -49,11 +48,8 @@ RSpec.feature "Items for equipment_lists" do
    scenario "Edit a item" do
        @item = FactoryGirl.create(:equipment_item, :equipment_list_id => @equipment_list.id, :user_id => @user.id)
 
-       click_link 'equipment'
-       click_link @equipment_list.name + '_equipment_link'
 
-
-       click_link @item.name 
+       visit trip_equipment_list_equipment_item_path(@trip, @equipment_list, @item)
        click_link 'edit_equipment_item'
        fill_in 'equipment_item_name', with: "something else"
 
@@ -67,11 +63,7 @@ RSpec.feature "Items for equipment_lists" do
    scenario "Delete a item" do
        @item = FactoryGirl.create(:equipment_item, :equipment_list_id => @equipment_list.id, :user_id => @user.id)
        
-       click_link 'equipment'
-       click_link @equipment_list.name + '_equipment_link'
-
-
-       click_link  @item.name
+       visit trip_equipment_list_equipment_item_path(@trip, @equipment_list, @item)    
        click_link 'delete_equipment_item'
 
        expect(page.current_path).to eq(trip_equipment_list_path(@trip, @equipment_list))

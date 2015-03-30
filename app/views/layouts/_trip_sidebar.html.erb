@@ -41,7 +41,7 @@
 
   <% if policy(@trip).update? %>
       <li class="<%=current_page?(edit_trip_path(@trip)) ? 'active' : ''%>">
-        <a href="<%=edit_trip_path(@trip)%>"><i class="gi gi-pencil sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_edit')%></span></a>
+        <a href="<%=edit_trip_path(@trip)%>" id="edit_trip"><i class="gi gi-pencil sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_edit')%></span></a>
       </li>
   <% end %>
 

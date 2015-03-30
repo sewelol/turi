@@ -1,13 +1,11 @@
-<tr>
-  <td style="width: 7%;" class="text-center">
-    <%= link_to image_tag(comment.user.gravatar_url),
-                user_path(comment.user),
-                alt: 'avatar',
-                class: 'img-circle'
-    %>
-  </td>
-  <td>
-    <span class="text-muted"><p><%= comment.body %></p></span>
-  </td>
-  <td style="width: 120px;" class="hidden-xs text-right text-muted"><em><%= distance_of_time_in_words (Time.now - comment.updated_at) %></em></td>
-</tr>
+<li class="media">
+  <%= link_to image_tag(comment.user.gravatar_url, class: 'img-circle', alt: 'Avatar'),
+              user_path(comment.user),
+              class: 'pull-left'
+  %>
+  <div class="media-body">
+    <a href="javascript:void(0)"><strong><%= comment.user.name %></strong></a>
+    <span class="text-muted"><small><em><%= distance_of_time_in_words (Time.now - comment.updated_at) %></em></small></span>
+    <p><%= comment.body %></p>
+  </div>
+</li>

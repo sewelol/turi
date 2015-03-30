@@ -12,12 +12,18 @@ class CommentsController < TripResourceController
     authorize @trip, :show?
     @comment = @discussion.comments.build(comment_params)
     @comment.user = current_user
-    if @comment.save
-      flash[:notice] = "Comment has been created."
-      redirect_to [@trip, @discussion]
-    else
-      flash[:alert] = "Comment has not been created"
-      render :new
+    respond_to do |format|
+      if @comment.save
+        format.html {
+          flash[:notice] = "Comment has been created."
+          redirect_to [@trip, @discussion] }
+        format.js {
+          # look at view/comment/create.js.erb
+        }
+      else
+        flash[:alert] = "Comment has not been created"
+        render :new
+      end
     end
   end
 

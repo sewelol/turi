@@ -28,6 +28,7 @@ class DiscussionsController < TripResourceController
   def show
     authorize @trip, :show?
     @comments = @discussion.comments
+    @comment = @discussion.comments.build
   end
 
   def edit

@@ -2,6 +2,41 @@
     "Discussion"
 <% end %>
 
+<div class="widget">
+  <div class="widget-content widget-content-mini themed-background-dark text-light-op">
+    <span class="pull-right text-muted"><%= distance_of_time_in_words (Time.now - @discussion.created_at) %></span>
+    <%= link_to user_path(@discussion.user.id), class: 'text-light' do %>
+        <strong>&lt;<%= @discussion.user.name %>&gt;</strong>
+    <% end %>
+  </div>
+  <div class="widget-content">
+    <h3><%= @discussion.title %></h3>
+
+    <p><%= simple_format @discussion.body %></p>
+  </div>
+  <div class="widget-content themed-background-muted">
+    <ul class="media-list push" , id="comment-list">
+      <% if @comments.exists? %>
+          <%= render partial: "comments/comment", collection: @comments.select(&:persisted?) %>
+      <% end %>
+    </ul>
+    <ul class="media-list push">
+      <li class="media">
+        <%= link_to image_tag(current_user.gravatar_url, class: 'img-circle', alt: 'Avatar'),
+                    user_path(current_user),
+                    class: 'pull-left'
+        %>
+        <div class="media-body">
+          <%= form_for [@trip, @discussion, @comment], remote: true, id: 'new_comment' do |f| %>
+              <%= f.text_area :body, placeholder: 'Write your comment..', rows: '2', class: 'form-control' %>
+              <%= f.submit "Publish", class: 'btn btn-effect-ripple btn-sm btn-primary', style: 'overflow: hidden; position: relative;' %>
+          <% end %>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
 <div class="block overflow-hidden">
   <div class="block-section animation-fadeInQuick2" id="message-view">
     <!-- Title -->
@@ -39,40 +74,5 @@
       </div>
     </div>
     <!-- END Title -->
-
-    <!-- Header -->
-    <h3>
-      <strong><%= @discussion.title %> </strong>
-      <small><em><%= distance_of_time_in_words (Time.now - @discussion.created_at) %></em></small>
-    </h3>
-    <p>
-      <%= link_to user_path(@discussion.user.id) do %>
-          <strong>&lt;<%= @discussion.user.email %>&gt;</strong>
-      <% end %>
-    </p>
-    <!-- END Header -->
-    <!-- Messages -->
-    <div class="block-content-full">
-      <table class="table table-borderless table-striped table-vcenter remove-margin">
-        <%= render partial: "comments/comment", collection: @comments %>
-      </table>
-    </div>
-    <!-- END Messages -->
-
-    <!-- Quick Reply Form -->
-
-    <%= form_for :comment do |f| %>
-        <%= f.text_area :body, placeholder: 'Your message...',
-                        class: 'form-control push-bit',
-                        rows: '5',
-                        name: 'quick-comment',
-                        id: 'quick-comment',
-                        required: true %>
-
-        <%= f.submit class: 'btn btn-effect-ripple btn-primary',
-                     style: 'overflow: hidden; position: relative;' %>
-
-    <% end %>
-    <!-- END Quick Reply Form -->
   </div>
 </div>

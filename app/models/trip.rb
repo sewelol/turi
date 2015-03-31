@@ -10,25 +10,20 @@ class Trip < ActiveRecord::Base
 
   validates_presence_of :title
 
-  def self.search(title_search, location_search, tag_search, date_beg, date_end, name_search)
-    @trips = nil
-    @user = nil
-
-    if name_search.present?
-      @user = User.where('name LIKE ?', "%#{name_search}%")
-    end
+  def self.search(title_search, location_search, tag_search, date_beg, date_end)
+    trips = []
 
     if title_search.present? || location_search.present?
-      @trips = Trip.where('title LIKE ? AND (start_loc LIKE ? OR end_loc LIKE ?)', "%#{title_search}%","%#{location_search}%", "%#{location_search}%")
+      trips = Trip.where('title LIKE ? AND (start_loc LIKE ? OR end_loc LIKE ?)', "%#{title_search}%","%#{location_search}%", "%#{location_search}%")
     end
 
     if tag_search.present?
       ary_tag = tag_search.split
       #get_tagged = Trip.tagged_with(ary_tag, :on => :tags)
-      if @trips.nil?
-        @trips = Trip.tagged_with(ary_tag, :on => :tags)
+      if trips.blank?
+        trips = Trip.tagged_with(ary_tag, :on => :tags)
       else
-        @trips = @trips.tagged_with(ary_tag, :on => :tags)
+        trips = trips.tagged_with(ary_tag, :on => :tags)
       end
     end
 
@@ -36,15 +31,15 @@ class Trip < ActiveRecord::Base
       #date_beg = date_end unless date_beg.present?
       #date_end = date_beg unless date_end.present?
 
-      if @trips.nil?
-        @trips = Trip.where('start_date >= ? AND end_date <= ?', date_beg, date_end)
+      if trips.nil?
+        trips = Trip.where('start_date >= ? AND end_date <= ?', date_beg, date_end)
       else
-        @trips = @trips.where('start_date >= ? AND end_date <= ?', date_beg, date_end)
+        trips = trips.where('start_date >= ? AND end_date <= ?', date_beg, date_end)
       end
 
     end
 
-    return [@user, @trips]
+    return trips
   end
 
 end

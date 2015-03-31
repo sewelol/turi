@@ -27,4 +27,12 @@ module ApplicationHelper
     return date_time.strftime(I18n.t('date_time'))
   end
 
+  def quote(message)
+    render 'layouts/quote', :message => message
+  end
+
+  def quote_t(message)
+    quote t(message)
+  end
+
 end

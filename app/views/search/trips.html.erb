@@ -1,0 +1,21 @@
+<% page_title_t 'search_trips_title' %>
+
+<% content_for :page_class do %>
+    background-image
+<% end %>
+
+<% content_for :content_header do %>
+    <%= render :partial => 'trip_form', :layout => 'form' %>
+<% end %>
+
+<% if @trips.blank? %>
+    <%= quote_t 'search_no_trips' %>
+<% else %>
+    <div class="row">
+      <% @trips.each do |trip| %>
+          <div class="col-lg-6">
+            <%= render 'trips/trip', :trip => trip %>
+          </div>
+      <% end %>
+    </div>
+<% end %>

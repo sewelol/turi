@@ -51,6 +51,7 @@ gem 'jquery-rails'
 source 'https://rails-assets.org' do
   # Only jQuery should be included as extra gem, any other JS library should be included from rails-assets
   gem 'rails-assets-leaflet'
+  gem 'rails-assets-bootstrap-vertical-tabs'
 end
 
 # Use puma as the app server

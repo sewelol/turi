@@ -19,5 +19,15 @@ class User < ActiveRecord::Base
   has_many :trips # Do not make this dependent! This var has to be removed (replaced by participant owner).
   has_many :participants, :dependent => :delete_all
   has_many :api_access_tokens, :dependent => :delete_all
+
+  def self.search(name_search)
+    users = []
+
+    if name_search.present?
+      users = User.where('name LIKE ?', "%#{name_search}%")
+    end
+
+    return users
+  end
   
 end

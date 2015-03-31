@@ -1,0 +1,23 @@
+<div class="content-header">
+  <div class="header-section">
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-2"> <!-- required for floating -->
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs tabs-left">
+          <li class="<%=current_page?(search_path) || current_page?(search_trips_path) ? 'active' : ''%>"><a href="<%=search_trips_path%>" id="search_trips_tab_link"><i class="fa fa-compass"></i>  <%=t('search_trips')%></a></li>
+          <li class="<%=current_page?(search_users_path) ? 'active' : '' %>"><a href="<%=search_users_path%>" id="search_users_tab_link"><i class="fa fa-users"></i> <%=t('search_users')%></a></li>
+        </ul>
+      </div>
+
+      <div class="col-xs-12 col-sm-10">
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

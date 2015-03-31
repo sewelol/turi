@@ -1,0 +1,17 @@
+<% page_title_t 'search_users_title' %>
+
+<% content_for :page_class do %>
+    background-image
+<% end %>
+
+<% content_for :content_header do %>
+    <%= render :partial => 'user_form', :layout => 'form' %>
+<% end %>
+
+<% if @users.blank? %>
+    <%= quote_t 'search_no_users' %>
+<% else %>
+    <% @users.each do |user| %>
+        <%= render 'users/user', :user => user %>
+    <% end %>
+<% end %>

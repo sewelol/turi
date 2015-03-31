@@ -30,8 +30,10 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
-  get 'search', to: 'trips#search', as: 'search'
-  get 'user_search', to: 'users#search', as: 'user_search'
+  # Search
+  get 'search', to: 'search#index', as: 'search'
+  get 'search/trips', to: 'search#trips', as: 'search_trips'
+  get 'search/users', to: 'search#users', as: 'search_users'
 
   # Dropbox
   get '/dropbox-connect/:trip_id/:user_id', to: 'media_dropbox#auth_start', as: 'dropbox_connect'

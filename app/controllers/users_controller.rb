@@ -8,10 +8,6 @@ class UsersController < ApplicationController
   def edit
   end
 
-  def search
-    @user = User.search(params[:name_search], params[:email_search])
-  end
-
   def update
     if @user.update(user_params)
       redirect_to user_path

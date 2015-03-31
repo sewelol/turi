@@ -33,7 +33,7 @@ RSpec.feature "Items for equipment_lists" do
        click_button 'submit'
 
        expect(page.current_path).to eq(trip_equipment_list_path(@trip, @equipment_list))
-       expect(page).to have_content(I18n.t 'trip_equipment_list_equipment_item_created')
+       expect(page).to have_content(I18n.t 'trip_equipment_item_created')
 
        expect(page).to have_content(@item.name)
 
@@ -55,7 +55,7 @@ RSpec.feature "Items for equipment_lists" do
 
        click_button 'submit'
        expect(page.current_path).to eq(trip_equipment_list_path(@trip, @equipment_list))
-       expect(page).to have_content(I18n.t 'trip_equipment_list_equipment_item_updated')
+       expect(page).to have_content(I18n.t 'trip_equipment_item_updated')
     
        expect(page).not_to have_content(@item.name)
    end     
@@ -67,7 +67,7 @@ RSpec.feature "Items for equipment_lists" do
        click_link 'delete_equipment_item'
 
        expect(page.current_path).to eq(trip_equipment_list_path(@trip, @equipment_list))
-       expect(page).to have_content(I18n.t 'trip_equipment_list_equipment_item_deleted')
+       expect(page).to have_content(I18n.t 'trip_equipment_item_deleted')
        expect(page).not_to have_content(@item.name)
    end
 
@@ -81,7 +81,7 @@ RSpec.feature "Items for equipment_lists" do
 
        click_link 'delete_equipment_item'
        expect(page.current_path).to eq(trip_equipment_list_path(@trip, @equipment_list))
-       expect(page).to have_content(I18n.t 'trip_equipment_list_equipment_item_deleted')
+       expect(page).to have_content(I18n.t 'trip_equipment_item_deleted')
    end
 
    scenario "Editor can't delete others items but can edit it" do
@@ -98,7 +98,7 @@ RSpec.feature "Items for equipment_lists" do
        fill_in 'equipment_item_name', with: 'Something'
        click_button 'submit'
        expect(page.current_path).to eq(trip_equipment_list_path(@trip, @equipment_list))
-       expect(page).to have_content(I18n.t 'trip_equipment_list_equipment_item_updated')
+       expect(page).to have_content(I18n.t 'trip_equipment_item_updated')
        expect(page).not_to have_content(@item.name)
    end
 

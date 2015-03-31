@@ -51,7 +51,7 @@ RSpec.feature 'Search Trips' do
 
     click_button 'Search Trips'
 
-    expect(page).to have_content(I18n.t('trip_search_no_results'))
+    expect(page).to have_content(I18n.t('search_no_trips'))
   end
 
 end

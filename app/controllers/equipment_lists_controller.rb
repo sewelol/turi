@@ -1,10 +1,10 @@
 class EquipmentListsController < ApplicationController
 
-  layout 'trip'
-
-    before_action :authenticate_user!
-    before_action :set_trip
-    before_action :set_equipment_list, :only => [:show, :update, :edit, :destroy]
+    # Include the EquipmentConcern which contains all the set functionality
+    include EquipmentConcern
+    before_action { |c| c.set_trip params[:trip_id] }
+    before_action(:only => [:show, :update, :edit, :destroy]) { |c| c.set_equipment_list params[:id] }
+    layout 'trip'
 
     def index 
         @equipment_lists = @trip.equipment_lists
@@ -56,23 +56,6 @@ class EquipmentListsController < ApplicationController
         @equipment_list.destroy
         flash[:notice] = I18n.t 'trip_equipment_list_deleted'
         redirect_to trip_path(@trip)
-    end
-
-    private
-
-    def set_trip
-        @trip = Trip.find(params[:trip_id])
-        rescue ActiveRecord::RecordNotFound
-            flash[:alert] = I18n.t 'trip_not_found'
-            redirect_to dashboard_path
-    end
-
-    def set_equipment_list
-        @equipment_list = EquipmentList.find(params[:id])
-        rescue ActiveRecord::RecordNotFound
-            flash[:alert] = I18n.t 'trip_equipment_list_not_found'
-            redirect_to trip_path(@trip)
-        
     end
 
     def equipment_list_params

@@ -127,6 +127,7 @@ en:
   trip_equipment_item_edit:                 "Edit equipment list"
 
 
+  # equipment_items
   trip_equipment_item_name_placeholder:     "Any name is fine."
   trip_equipment_item_price_placeholder:    "Price for one item"
   trip_equipment_item_number_placeholder:   "Number of items"
@@ -140,7 +141,6 @@ en:
   trip_equipment_item_status:                "Status"
   trip_equipment_item_add_new:               "You can now add a new item to the list."
   trip_equipment_item_delete:                "Delete Item"
-
   trip_equipment_item_not_created:           "Equipment item was not created!"
   trip_equipment_item_created:               "Equipment item was created"
   trip_equipment_item_update:                "Equipment item was updated"
@@ -156,8 +156,6 @@ en:
   trip_equipment_assigment_all_assigned:        "All items assigned"
   trip_equipment_assigment_assignment:          "Assigned"
   trip_equipment_assigment_edit:                "Edit assigment"
-
-
   trip_equipment_assignment_created:            "Equipment Assigment successfully created"
   trip_equipment_assignment_not_created:        "Equipment Assigment not created"
   trip_equipment_assignment_updated:            "Equipment Assigment was updated"

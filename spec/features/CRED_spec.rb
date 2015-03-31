@@ -71,11 +71,5 @@ RSpec.feature 'CRED operations for Trips' do
 
 #        expect(page).to have_content(@trip.title)
 #    end
-
-    scenario 'Redirection if trying to enter not made trip' do
-        visit '/trips/99'
-        expect(page.current_path).to eq(dashboard_path)
-        expect(page).to have_content(I18n.t ('trip_not_found'))
-    end
 end
 

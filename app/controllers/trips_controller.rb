@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  include TripConcern
+  before_action(:only => [:show, :edit, :update, :destroy]) { |c| c.set_trip params[:id] }
 
   def show
     authorize @trip
@@ -64,12 +64,4 @@ class TripsController < ApplicationController
   def trip_params
     params.require(:trip).permit(:title, :description, :start_loc, :start_date, :end_loc, :end_date, :image, :tag_list)
   end
-
-  def set_trip
-    @trip = Trip.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = I18n.t 'trip_not_found'
-    redirect_to dashboard_path
-  end
-
 end

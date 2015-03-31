@@ -1,22 +1,15 @@
 class EquipmentItemsController < ApplicationController
+    # Include the EquipmentConcern which contains all the set functionality 
+    include EquipmentConcern
+    before_action { |c| c.set_trip params[:trip_id] }
+    before_action { |c| c.set_equipment_list params[:equipment_list_id] }
+    before_action(:only => [:show, :update, :edit, :destroy]) { |c| c.set_equipment_item params[:id] }
     layout 'trip'
 
-    before_action :authenticate_user!
-    before_action :set_equipment_list
-    before_action :set_equipment_item, :only => [:show, :update, :edit, :destroy]
-    before_action :set_trip
-
-    def index
-    end
 
     def show
         authorize @trip
         @equipment_assignment = EquipmentAssignment.new
-    end
-
-    def new
-        authorize @trip, :update?
-        @equipment_item = EquipmentItem.new        
     end
 
     def create
@@ -59,28 +52,6 @@ class EquipmentItemsController < ApplicationController
         redirect_to trip_equipment_list_path(@trip, @equipment_list)
     end
 
-    protected
-    def set_equipment_list
-        @equipment_list = EquipmentList.find(params[:equipment_list_id])
-        rescue ActiveRecord::RecordNotFound
-            flash[:alert] = I18n.t 'trip_equipment_list_not_found'
-            redirect_to :back
-    end
-
-    def set_equipment_item
-        @equipment_item = EquipmentItem.find(params[:id])
-        rescue ActiveRecord::RecordNotFound
-            flash[:alert] = I18n.t 'trip_equipment_item_not_found'
-            redirect_to :back
-    end
-
-    def set_trip
-        @trip = @equipment_list.trip
-        rescue ActiveRecord::RecordNotFound
-            flash[:alert] = I18n.t 'trip_not_found'
-            redirect_to :back
-    end
-    
     private
     def equipment_item_params
         params.require(:equipment_item).permit(:name, :price, :number)

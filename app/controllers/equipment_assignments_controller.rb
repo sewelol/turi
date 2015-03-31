@@ -1,27 +1,30 @@
-class EquipmentAssignmentsController < EquipmentItemsController
-    before_action :authenticate_user!
-    before_action :set_equipment_item
-    before_action :set_equipment_list
-    before_action :set_equipment_assigment, :only => [:show, :update, :edit, :destroy]
-    before_action :set_trip
+class EquipmentAssignmentsController <  ApplicationController
+    # Include the EquipmentConcern which contains all the set functionality
+    include EquipmentConcern
+    before_action { |c| c.set_trip params[:trip_id] }
+    before_action { |c| c.set_equipment_list params[:equipment_list_id] }
+    before_action { |c| c.set_equipment_item params[:equipment_item_id] }
+    before_action(:only => [:show, :update, :edit, :destroy]) { |c| c.set_equipment_assignment params[:id] }
+    layout 'trip'
 
     def create
         @equipment_assignment = EquipmentAssignment.create(equipment_assignment_params)
 
-
-         # Assign to other people
-         if params[:user_email].blank?
-           @equipment_assignment.user_id = current_user.id
-         else 
-           user = User.find_by(:email => params[:user_email])
-           if user && @trip.participants.find_by(:user_id => user.id) 
-               @equipment_assignment.user_id = user.id
-           else
-               flash[:alert] = I18n.t 'trip_partipant_not_found'
-               render :new
-               return
-           end
-         end
+        # if the email field is blank user_id is the current_user
+        if params[:user_email].blank?
+            @equipment_assignment.user_id = current_user.id
+        # Or try to find the user and check if the user is a participant to the trip before setting the user_id
+        else 
+            user = User.find_by(:email => params[:user_email])
+            if user && @trip.participants.find_by(:user_id => user.id) 
+                @equipment_assignment.user_id = user.id
+            else
+                # TODO better return?
+                flash[:alert] = I18n.t 'trip_partipant_not_found'
+                render :new
+                return
+            end
+        end
 
         @equipment_assignment.equipment_item_id = @equipment_item.id
         authorize @equipment_assignment
@@ -36,8 +39,8 @@ class EquipmentAssignmentsController < EquipmentItemsController
     end
 
     def edit
-       authorize @equipment_assignment
-       render 'edit' 
+        authorize @equipment_assignment
+        render 'edit' 
     end
 
     def update
@@ -60,31 +63,9 @@ class EquipmentAssignmentsController < EquipmentItemsController
         redirect_to trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item)
     end
 
-    protected
-    def set_equipment_assigment
-        @equipment_assignment = EquipmentAssignment.find(params[:id])
-        rescue ActiveRecord::RecordNotFound
-            flash[:alert] = I18n.t 'trip_equipment_assignment_not_found'
-            redirect_to :back
-    end
-
-    def set_equipment_item
-        @equipment_item = EquipmentItem.find(params[:equipment_item_id])
-        rescue ActiveRecord::RecordNotFound
-            flash[:alert] = I18n.t 'trip_equipment_list_equipment_item_not_found'
-            redirect_to :back
-    end    
 
     private
-
-
     def equipment_assignment_params
         params.require(:equipment_assignment).permit(:number)
-    end
-
-    def authorize_assigment 
-        unless current_user.id == @equipment_assignment.user_id
-            authorize @trip, :update?
-        end
     end
 end

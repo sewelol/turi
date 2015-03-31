@@ -10,6 +10,7 @@ class EquipmentItemsController < ApplicationController
     end
 
     def show
+        authorize @trip
         @equipment_assignment = EquipmentAssignment.new
     end
 
@@ -19,45 +20,42 @@ class EquipmentItemsController < ApplicationController
     end
 
     def create
-        authorize @trip, :update?
         @equipment_item = EquipmentItem.create(equipment_item_params)
         @equipment_item.equipment_list = @equipment_list
         @equipment_item.user_id = current_user.id
 
+        authorize @equipment_item        
+
         if @equipment_item.save 
-            flash[:notice] = I18n.t 'trip_equipment_list_equipment_item_created'
+            flash[:notice] = I18n.t 'trip_equipment_item_created'
             redirect_to trip_equipment_list_path(@trip, @equipment_list)
         else
-            flash[:alert] = I18n.t 'trip_equipment_list_equipment_item_not_created'
+            flash[:alert] = I18n.t 'trip_equipment_item_not_created'
             render :new
         end 
     end
 
     def update
-        authorize @trip
+        authorize @equipment_item
         if @equipment_item.update(equipment_item_params)
-            flash[:notice] = I18n.t 'trip_equipment_list_equipment_item_updated'
+            flash[:notice] = I18n.t 'trip_equipment_item_updated'
             redirect_to trip_equipment_list_path(@trip, @equipment_list)
         else
-            flash[:alert] = I18n.t 'trip_equipment_list_equipment_item_not_updated'
+            flash[:alert] = I18n.t 'trip_equipment_item_not_updated'
             render 'edit'
         end
     end
 
     def edit
-        authorize @trip, :update?
+        authorize @equipment_item
         render 'edit'
     end
 
     def destroy
-        # if the current user did create the item, the user should be able to delete it again!
-        unless current_user.id == @equipment_item.user_id
-            # owner should we able to delete the item anyways
-            authorize @trip
-        end
+        authorize @equipment_item
 
         @equipment_item.destroy
-        flash[:notice] = I18n.t 'trip_equipment_list_equipment_item_deleted'
+        flash[:notice] = I18n.t 'trip_equipment_item_deleted'
         redirect_to trip_equipment_list_path(@trip, @equipment_list)
     end
 
@@ -72,7 +70,7 @@ class EquipmentItemsController < ApplicationController
     def set_equipment_item
         @equipment_item = EquipmentItem.find(params[:id])
         rescue ActiveRecord::RecordNotFound
-            flash[:alert] = I18n.t 'trip_equipment_list_equipment_item_not_found'
+            flash[:alert] = I18n.t 'trip_equipment_item_not_found'
             redirect_to :back
     end
 

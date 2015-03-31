@@ -1,5 +1,5 @@
 <% content_for :page_title do %>
-    equipment | <%= @equipment_list.name %> | <%= @equipment_item.name %>
+    <%= @equipment_list.name %> | <%= @equipment_item.name %>
 <% end %>
 
 
@@ -11,7 +11,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="header-section">
-              <h1><%= @equipment_item.name %></h1><i>Created by: <%= User.find(@equipment_item.user_id).name %></i>
+              <h1><%= @equipment_item.name %></h1><i><%= t('created_by') %> <%= User.find(@equipment_item.user_id).name %></i>
           </div>
 
         </div>
@@ -20,7 +20,7 @@
 <% end %>
 
 <!-- EquipmentList -->
-<div class='block' id='EquipmentList'>
+<div class='block' id='equipment_list'>
     <div class='block-title'>
         <!-- begin drop down menu -->
         <div class='block-options pull-right'>
@@ -42,7 +42,7 @@
                                     trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item),
                                     :method => :delete,
                                     :data => {
-                                        :confirm    => 'are you sure you want to delete this equipment item?',
+                                        :confirm    => t('trip_equipment_item_delete_confirmation'),
                                         :toogle     => 'tooltip'
                                     },
                                     :class => 'text-danger',
@@ -57,8 +57,8 @@
             <!-- end drop down menu -->
         </div>
     </div>
-    <p> <h3> Number of items </h3> <%= @equipment_item.number %> </p>
-    <p> <h3> Price </h3> <%= @equipment_item.price %> </p>
+    <p> <h3> <%= t('trip_equipment_item_number_of_items') %> </h3> <%= @equipment_item.number %> </p>
+    <p> <h3> <%= t('trip_equipment_item_price') %> </h3> <%= @equipment_item.price %> </p>
 </div>
 
 
@@ -69,8 +69,8 @@
             <table class="table table-borderless table-vcenter">
                 <thead>
                     <tr>
-                        <th>Assigned to</th>
-                            <th>Number</th>
+                        <th><%= t('trip_equipment_assigment_assignmnet') %></th>
+                        <th><%= t('trip_equipment_assigment_number') %></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,15 +79,15 @@
                             <td><strong><%= User.find(assignment.user_id).name %></strong></td>
                             <td><%= assignment.number %><td>
                                     <td class="text-center">
-                                        <% if policy(@trip).update? %>
+                                        <% if policy(assignment).update? %>
                                             <a href="<%= edit_trip_equipment_list_equipment_item_equipment_assignment_path(@trip, @equipment_list, @equipment_item, assignment) %>" data-toggle="tooltip" id='edit_equipment_assignment' title="Edit assignment" class="btn btn-effect-ripple btn-xs btn-success"><i class="fa fa-pencil"></i></a>
                                         <% end %>
-                                        <% if policy(@trip).destroy? %>
+                                        <% if policy(assignment).destroy? %>
                                             <%= link_to raw('<i data-toggle="tooltip" title="delete item" class="btn btn-effect-ripple btn-xs btn-danger fa fa-times"></i>'),
                                                 trip_equipment_list_equipment_item_equipment_assignment_path(@trip, @equipment_list, @equipment_item, assignment),
                                                 :method => :delete,
                                                 :data => {
-                                                    :confirm => 'Are you sure you want to delete this assignment?',
+                                                    :confirm => t('trip_equipment_assigment_delete_confirmation'),
                                                     :toogle => 'tooltip'
                                                 },
                                                 :class => 'text-danger',
@@ -106,11 +106,14 @@
     </div>
 <% end %>
 
-<div class='block'>
-    <% unless @equipment_item.equipment_assignments.sum(:number) == @equipment_item.number %>
+<% unless @equipment_item.equipment_assignments.sum(:number) == @equipment_item.number %>
+    <div class='block'>
+        <div class='block-title'>
+            <strong><%= t('trip_equipment_assigment_assign') %></strong>
+        </div>
         <%= render :partial => 'equipment_assignments/form' %>
-    <% end %>
-</div>
+    </div>
+<% end %>
 
 
 

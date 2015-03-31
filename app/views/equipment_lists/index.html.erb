@@ -1,9 +1,5 @@
 <% content_for :page_title do %>
-    Equipment Lists
-<% end %>
-
-<% content_for :page_class do %>
-    background-image
+    <%= t('trip_equipment_list_title') %>
 <% end %>
 
 <%= render 'sidebar' %>
@@ -15,14 +11,14 @@
     <div class="clearfix">
       <blockquote class="pull-left">
         <% if @trip.equipment_lists.empty? %>
-            <p>You don't have any equipment lists right now.</p>
+            <p><%= t('trip_equipment_list_no_list') %></p>
             <p>
-                <a class="btn btn-danger" href="<%= new_trip_equipment_list_path(@trip) %>">Create a new equipment list</a>
+            <a class="btn btn-danger" href="<%= new_trip_equipment_list_path(@trip) %>"><%= t('trip_equipment_list_create') %></a>
             </p>
         <% else %>
-            <p>Click on a equipment list to the left to collaborate.</p>
+            <p> <%= t('trip_equipment_list_collaborate') %></p>
         <% end %>
-        <small>Yours sincerely, turi team</small>
+        <small><%= t('trip_equipment_list_sign') %></small>
       </blockquote>
     </div>
 

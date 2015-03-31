@@ -1,10 +1,8 @@
 <% content_for :page_title do %>
-    | <%= @equipment_list.name %> | new item
+    | <%= @equipment_list.name %> | <%= t('trip_equipment_item_edit_item', :equipment_item_name => @equipment_item.name) %>
 <% end %>
 
-<% content_for :page_class do %>
-    background-image 
-<% end %>
+
 
 <%= render 'equipment_lists/sidebar' %>
 <%= render 'form' %>

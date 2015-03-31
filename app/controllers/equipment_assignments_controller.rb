@@ -6,13 +6,10 @@ class EquipmentAssignmentsController < EquipmentItemsController
     before_action :set_trip
 
     def create
-        authorize @trip, :show?
-
         @equipment_assignment = EquipmentAssignment.create(equipment_assignment_params)
 
-        #@equipment_assignment.user_id = current_user.id
 
-        # Assign to other people
+         # Assign to other people
          if params[:user_email].blank?
            @equipment_assignment.user_id = current_user.id
          else 
@@ -27,7 +24,7 @@ class EquipmentAssignmentsController < EquipmentItemsController
          end
 
         @equipment_assignment.equipment_item_id = @equipment_item.id
-
+        authorize @equipment_assignment
 
         if @equipment_assignment.save
             flash[:notice] = I18n.t 'trip_equipment_assignment_created'
@@ -39,16 +36,12 @@ class EquipmentAssignmentsController < EquipmentItemsController
     end
 
     def edit
-       unless current_user.id == @equipment_assignment.user_id 
-           authorize @trip, :update?
-       end
+       authorize @equipment_assignment
        render 'edit' 
     end
 
     def update
-        unless current_user.id == @equipment_assignment.user_id 
-            authorize @trip
-        end
+        authorize @equipment_assignment
 
         if @equipment_assignment.update(equipment_assignment_params)
             flash[:notice] = I18n.t 'trip_equipment_assignment_updated'
@@ -60,9 +53,7 @@ class EquipmentAssignmentsController < EquipmentItemsController
     end
 
     def destroy
-        unless current_user.id == @equipment_assignment.user_id
-            authorize @trip
-        end
+        authorize @equipment_assignment
 
         @equipment_assignment.destroy
         flash[:notice] = I18n.t 'trip_equipment_assignment_deleted'

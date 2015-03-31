@@ -1,8 +1,7 @@
 <% content_for :page_title do %>
-    Create Equipment List for <%= @trip.title %>
-<% end %>
-<% content_for :page_class do %>
-    background-image
+    <%= t('trip_equipment_list_create', :trip_title => @trip.title) %>
 <% end %>
 
+
+<%= render 'sidebar' %>
 <%= render 'form' %>

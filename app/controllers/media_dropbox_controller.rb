@@ -55,6 +55,7 @@ class MediaDropboxController < ApplicationController
     end
   end
 
+
   private
   
   def get_web_auth

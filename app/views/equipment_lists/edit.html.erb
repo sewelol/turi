@@ -1,8 +1,7 @@
 <% content_for :page_title do %>
-    Edit <%= @equipment_list.name %>
-<% end %>
-<% content_for :page_class do %>
-    background-image
+    <%= t('trip_equipment_list_edit', :equipment_list_title => @equipment_list.name) %>
 <% end %>
 
+
+<%= render 'sidebar' %>
 <%= render 'form' %>

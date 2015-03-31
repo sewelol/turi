@@ -1,12 +1,14 @@
 require 'rails_helper'
 
-# The controller is using the same authorization rules as the trip, so there is no need to test for that!
 RSpec.describe EquipmentListsController, type: :controller do
     before do
         @user = FactoryGirl.create(:user)
         @trip = FactoryGirl.create(:trip)
         FactoryGirl.create(:participant, trip_id: @trip.id, user_id: @user.id, participant_role_id: ParticipantRole.owner.id)
         sign_in(@user)
+        # set HTTP_REFERER to root_path, to make :back redirects to work
+        request.env['HTTP_REFERER'] = root_path
+        
     end
 
     describe "GET #index" do
@@ -33,7 +35,7 @@ RSpec.describe EquipmentListsController, type: :controller do
         it "Create a valid Equipment list, for a non existing trip" do
             post :create, :trip_id => 999, :equipment_list => FactoryGirl.attributes_for(:equipment_list, :trip_id => 999)
             expect(flash[:alert]).to eq(I18n.t 'trip_not_found')
-            expect(response).to redirect_to dashboard_path
+            expect(response).to redirect_to root_path
         end
 
         it "Render the form again, if something went wrong" do
@@ -53,7 +55,7 @@ RSpec.describe EquipmentListsController, type: :controller do
 
         it "Get a unvalid equipment list" do
             get :show, :trip_id => @trip.id, :id => 999
-            expect(response).to redirect_to trip_path(@trip)
+            expect(response).to redirect_to root_path
             expect(flash[:alert]).to eq(I18n.t 'trip_equipment_list_not_found')
         end
     end

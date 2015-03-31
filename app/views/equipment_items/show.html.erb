@@ -1,0 +1,119 @@
+<% content_for :page_title do %>
+    <%= @equipment_list.name %> | <%= @equipment_item.name %>
+<% end %>
+
+
+
+<%= render 'equipment_lists/sidebar' %>
+
+<% content_for :content_header do %>
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="header-section">
+              <h1><%= @equipment_item.name %></h1><i><%= t('created_by') %> <%= User.find(@equipment_item.user_id).name %></i>
+          </div>
+
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<!-- EquipmentList -->
+<div class='block' id='equipment_list'>
+    <div class='block-title'>
+        <!-- begin drop down menu -->
+        <div class='block-options pull-right'>
+            <div class='btn-group'>
+                <% if policy(@trip).update? %>
+                    <a href="javascript:void(0)" class="btn btn-effect-ripple btn-primary dropdown-toggle enable-tooltip" data-toggle="dropdown" title="Extras"><i class="fa fa-chevron-down"></i></a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="<%= edit_trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item) %>", id='edit_equipment_item'>
+                                <i class="fa fa-pencil pull-right"></i>
+                                edit
+                            </a>
+                        </li>
+                        <% if current_user.id == @equipment_item.user_id or policy(@trip).destroy? %>
+                            <li class="divider"></li>
+                            <li>
+                                <%= link_to raw('<i class="fa fa-trash-o fa-fw pull-right"></i> delete'),
+                                    trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item),
+                                    :method => :delete,
+                                    :data => {
+                                        :confirm    => t('trip_equipment_item_delete_confirmation'),
+                                        :toogle     => 'tooltip'
+                                    },
+                                    :class => 'text-danger',
+                                    :title => '',
+                                    :id    => 'delete_equipment_item'
+                                %>
+                        </li>
+                    <% end %>
+                    </ul>
+                <% end %>
+            </div>
+            <!-- end drop down menu -->
+        </div>
+    </div>
+    <p> <h3> <%= t('trip_equipment_item_number_of_items') %> </h3> <%= @equipment_item.number %> </p>
+    <p> <h3> <%= t('trip_equipment_item_price') %> </h3> <%= @equipment_item.price %> </p>
+</div>
+
+
+<!-- begin equipment table if there is any assigments -->
+<% if @equipment_item.equipment_assignments.count != 0 %>
+    <div class='block'>
+        <div class='table-responsive'>
+            <table class="table table-borderless table-vcenter">
+                <thead>
+                    <tr>
+                        <th><%= t('trip_equipment_assigment_assignmnet') %></th>
+                        <th><%= t('trip_equipment_assigment_number') %></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @equipment_item.equipment_assignments.each do |assignment| %>
+                        <tr>
+                            <td><strong><%= User.find(assignment.user_id).name %></strong></td>
+                            <td><%= assignment.number %><td>
+                                    <td class="text-center">
+                                        <% if policy(assignment).update? %>
+                                            <a href="<%= edit_trip_equipment_list_equipment_item_equipment_assignment_path(@trip, @equipment_list, @equipment_item, assignment) %>" data-toggle="tooltip" id='edit_equipment_assignment' title="Edit assignment" class="btn btn-effect-ripple btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                                        <% end %>
+                                        <% if policy(assignment).destroy? %>
+                                            <%= link_to raw('<i data-toggle="tooltip" title="delete item" class="btn btn-effect-ripple btn-xs btn-danger fa fa-times"></i>'),
+                                                trip_equipment_list_equipment_item_equipment_assignment_path(@trip, @equipment_list, @equipment_item, assignment),
+                                                :method => :delete,
+                                                :data => {
+                                                    :confirm => t('trip_equipment_assigment_delete_confirmation'),
+                                                    :toogle => 'tooltip'
+                                                },
+                                                :class => 'text-danger',
+                                                :title => '',
+                                                :id => 'delete_equipment_assignment'
+                                            %>
+
+                                    <% end %>
+                                    </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <!-- end block -->        
+    </div>
+<% end %>
+
+<% unless @equipment_item.equipment_assignments.sum(:number) == @equipment_item.number %>
+    <div class='block'>
+        <div class='block-title'>
+            <strong><%= t('trip_equipment_assigment_assign') %></strong>
+        </div>
+        <%= render :partial => 'equipment_assignments/form' %>
+    </div>
+<% end %>
+
+
+

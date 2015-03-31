@@ -4,6 +4,10 @@ RSpec.describe TripsController, :type => :controller do
     before do
         @user = FactoryGirl.create(:user)
         sign_in(@user)
+
+
+        # Redirect_to :back fix
+        request.env["HTTP_REFERER"] = root_path
     end
 
 
@@ -46,7 +50,7 @@ RSpec.describe TripsController, :type => :controller do
 
         it "get a unvalid trip" do
             get :show, id: 999
-            expect(response).to redirect_to dashboard_path
+            expect(response).to redirect_to root_path
             expect(flash[:alert]).to eq(I18n.t 'trip_not_found')
         end
     end

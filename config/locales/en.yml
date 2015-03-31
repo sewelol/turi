@@ -128,7 +128,6 @@ en:
   trip_participant_role_description: "Editors have full control to add and remove people and change the details or visibility of the trip. Only the owner can delete the trip."
   trip_participant_remove:        "Remove participant"
   trip_participant_remove_confirm: "Are you sure you want to remove this participant?"
-  trip_search_no_results:         "No trips found."
   trip_role_owner:                "Owner"
   trip_role_editor:               "Editor"
   trip_role_viewer:               "Viewer"

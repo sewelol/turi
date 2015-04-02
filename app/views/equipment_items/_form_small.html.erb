@@ -1,26 +1,28 @@
 
-
 <%= form_for [@trip, @equipment_list, @equipment_item], html: {class: 'form-horizontal form-bordered'} do |f| %>
     <div class="form-group">
-        <div class="col-md-8">
-            <%= f.text_field :name, class: 'form-control input-lg', placeholder: t('trip_equipment_item_name_placeholder') %>
+        <label class='col-md-1 control-label'> <%= t('name') %> </label>   
+        <div class="col-md-6">
+            <%= f.text_field :name, class: 'form-control', placeholder: t('trip_equipment_item_name_placeholder') %>
         </div>
     </div>
 
     <div class="form-group">
-        <div class="col-md-8">
-            <%= f.number_field :price, class: 'form-control input-lg', placeholder: t('trip_equipment_item_price_placeholder') %>
+        <label class='col-md-1 control-label'>  price </label>           
+        <div class="col-md-6">
+            <%= f.number_field :price, class: 'form-control', placeholder: t('trip_equipment_item_price_placeholder') %>
         </div>
     </div>
 
     <div class="form-group">
-        <div class="col-md-8">
-            <%= f.number_field :number, class: 'form-control input-lg', placeholder: t('trip_equipment_item_number_placeholder') %>
+        <label class='col-md-1 control-label'> number </label>           
+        <div class="col-md-6">
+            <%= f.number_field :number, class: 'form-control', placeholder: t('trip_equipment_item_number_placeholder') %>
         </div>
     </div>
 
     <div class="form-group form-actions">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <%= f.submit class: 'btn btn-effect-ripple btn-primary', id: 'submit' %>
         </div>
     </div>

@@ -1,25 +1,40 @@
-<%= form_for [@trip, @discussion] do |f| %>
-    <% if @discussion.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@discussion.errors.count, "error") %> prohibited this discussion from being saved:</h2>
+<div class="row">
+  <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+    <!-- Discussion Form -->
+    <div class="block">
+      <div class="block-title">
+        <h2><%=t('trip_discussions_form', trip_title: @trip.title)%></h2>
+      </div>
+      <%= form_for [@trip, @discussion], html: {class: 'form-horizontal form-bordered'} do |f| %>
 
-          <ul>
-            <% @discussion.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+          <div class="<%= form_group_class @discussion, :title%>">
+            <%= f.label :title, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :title, class: 'form-control'%>
+              <%= form_group_errors @discussion, :title %>
+            </div>
+          </div>
 
-    <div class="form-group">
-      <%= f.label :title %>
-      <%= f.text_field :title, class: 'form-control' %>
+          <div class="<%= form_group_class @discussion, :body %>">
+            <%= f.label :body, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_area :body, class: 'form-control' %>
+              <%= form_group_errors @discussion, :body %>
+            </div>
+          </div>
+
+          <%= f.submit t('save'),
+                       class: 'btn bt-effect-ripple, btn-primary',
+                       style: 'overflow: hidden; position: relative;',
+                       id: 'save-discussion-btn' %>
+          <%= button_to t('cancel'), :back,
+                               method: "get",
+                               id: 'cancel-save-discussion-btn',
+                               class: 'btn btn-effect-ripple btn-danger',
+                               style: 'overflow: hidden; position: relative;' %>
+      <% end %>
+
     </div>
+  </div>
+</div>
 
-    <div class="form-group">
-      <%= f.label :body %>
-      <%= f.text_area :body, class: 'form-control', required: true %>
-    </div>
-
-    <%= f.submit class: 'btn btn-primary', id: 'save-discussion-btn' %>
-<% end %>

@@ -48,7 +48,6 @@ gem 'geocoder'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-gem 'closure_tree'
 
 source 'https://rails-assets.org' do
   # Only jQuery should be included as extra gem, any other JS library should be included from rails-assets

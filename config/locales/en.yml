@@ -219,3 +219,11 @@ en:
   user_friendship_added:                  "Added friend."
   user_friendship_removed:                "Removed friend."
   user_frienship_not_added:               "Unable to add friend."
+
+  # discussion
+  discussion_updated:               "Discussion has been updated."
+  discussion_not_updated:           "Discussion has not been updated."
+  discussion_created:               "Discussion has been created."
+  discussion_not_created:           "Discussion has not been created."
+  discussion_destroyed:             "Discussion has been deleted."
+  trip_discussions_form:                 "Your discussion for '%{trip_title}'"

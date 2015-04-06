@@ -49,7 +49,7 @@ RSpec.describe UsersController, type: :controller do
     context "with valid attributes" do
       it "locates the requested @user" do
         put :update, id: user, user: FactoryGirl.attributes_for(:user)
-        expect(assigns(:user)).to equal(user)
+        expect(assigns(:user)).to eql(user)
       end
 
       it "changes @users attributes" do
@@ -68,7 +68,7 @@ RSpec.describe UsersController, type: :controller do
     context "with invalid attributes" do
       it "locates the requested user" do
         put :update, id: user, user: FactoryGirl.attributes_for(:invalid_user)
-        expect(assigns(:user)).to equal(user)
+        expect(assigns(:user)).to eql(user)
       end
 
       it "does not change users attributes" do

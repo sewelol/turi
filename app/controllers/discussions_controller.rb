@@ -17,10 +17,10 @@ class DiscussionsController < TripResourceController
     @discussion = @trip.discussions.build(discussion_params)
     @discussion.user = current_user
     if @discussion.save
-      flash[:notice] = "Discussion has been created."
+      flash[:notice] = I18n.t 'discussion_created'
       redirect_to [@trip, @discussion]
     else
-      flash[:alert] = "Discussion has not been created"
+      flash[:alert] = I18n.t 'discussion_not_created'
       render "new"
     end
   end
@@ -38,10 +38,10 @@ class DiscussionsController < TripResourceController
   def update
     authorize @trip, :update?
     if @discussion.update(discussion_params)
-      flash[:notice] = "Discussion has been updated."
+      flash[:notice] = I18n.t 'discussion_updated'
       redirect_to [@trip, @discussion]
     else
-      flash[:alert] = "Discussion has not been updated."
+      flash[:alert] = I18n.t 'discussion_not_updated'
       render "edit"
     end
   end
@@ -49,7 +49,7 @@ class DiscussionsController < TripResourceController
   def destroy
     authorize @trip, :update?
     @discussion.destroy
-    flash[:notice] = "Discussion has been deleted."
+    flash[:notice] = I18n.t 'discussion_destroyed'
 
     redirect_to trip_discussions_path @trip
   end

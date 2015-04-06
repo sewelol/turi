@@ -7,36 +7,38 @@
     <!-- TITLE BEGIN -->
     <div class="block-title clearfix">
       <div class="block-options pull-right">
-        <%= link_to raw('<i class="fa fa-pencil"></i>'),
-                    edit_trip_discussion_path(@trip, @discussion),
-                    id: 'edit-discussion-btn',
-                    style: 'overflow: hidden; position: relative',
-                    class: 'btn btn-effect-ripple btn-warning',
-                    data: {toggle: 'tooltip', original_title: 'Edit'}
-        %>
-        <%= link_to raw('<i class="fa fa-trash"></i>'),
-                    trip_discussion_path(@trip, @discussion),
-                    method: :delete,
-                    data: {
-                            confirm: "Are you sure you want to delete this discussion?",
-                            toggle: 'tooltip',
-                            original_title: 'Delete'
-                    },
-                    title: '',
-                    id: 'destroy-discussion-btn',
-                    class: 'btn btn-effect-ripple btn-danger',
-                    style: 'overflow: hidden; position: relative;' %>
-      </div>
-      <div class="block-options pull-left">
-        <%= link_to trip_discussions_path,
-                    id: 'discussion-view-back',
-                    class: 'btn btn-effect-ripple btn-default',
-                    style: 'overflow: hidden; position: relative;' do %>
-            <i class="fa fa-chevron-left"></i>
-            Back to Discussions
+        <% if policy(@trip).update? %>
+            <%= link_to raw('<i class="fa fa-pencil"></i>'),
+                        edit_trip_discussion_path(@trip, @discussion),
+                        id: 'edit-discussion-btn',
+                        style: 'overflow: hidden; position: relative',
+                        class: 'btn btn-effect-ripple btn-warning',
+                        data: {toggle: 'tooltip', original_title: 'Edit'}
+            %>
+            <%= link_to raw('<i class="fa fa-trash"></i>'),
+                        trip_discussion_path(@trip, @discussion),
+                        method: :delete,
+                        data: {
+                                confirm: "Are you sure you want to delete this discussion?",
+                                toggle: 'tooltip',
+                                original_title: 'Delete'
+                        },
+                        title: '',
+                        id: 'destroy-discussion-btn',
+                        class: 'btn btn-effect-ripple btn-danger',
+                        style: 'overflow: hidden; position: relative;' %>
+            </div>
         <% end %>
-      </div>
-    </div>
+        <div class="block-options pull-left">
+          <%= link_to trip_discussions_path,
+                      id: 'discussion-view-back',
+                      class: 'btn btn-effect-ripple btn-default',
+                      style: 'overflow: hidden; position: relative;' do %>
+              <i class="fa fa-chevron-left"></i>
+              Back to Discussions
+          <% end %>
+        </div>
+        </div>
   </div>
   <!-- TITLE END -->
   <!-- -->
@@ -70,7 +72,7 @@
         <div class="media-body">
           <%= form_for [@trip, @discussion, @comment], remote: true, id: 'new_comment' do |f| %>
               <%= f.text_area :body, placeholder: 'Write your comment..', rows: '2', class: 'form-control' %>
-              <%= f.submit "Publish", class: 'btn btn-effect-ripple btn-sm btn-primary', style: 'overflow: hidden; position: relative;' %>
+              <%= f.submit "Publish", id: 'save-comment-btn', class: 'btn btn-effect-ripple btn-sm btn-primary', style: 'overflow: hidden; position: relative;' %>
           <% end %>
         </div>
       </li>
@@ -78,7 +80,3 @@
   </div>
 </div>
 
-<div class="block overflow-hidden">
-  <div class="block-section animation-fadeInQuick2" id="message-view">
-  </div>
-</div>

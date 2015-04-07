@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         end
     end
     resources :events
+    resources :articles
 
     resources :media, only: [:index, :show, :destroy]
   end

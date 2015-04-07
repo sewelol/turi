@@ -1,0 +1,15 @@
+<% content_for :page_title do %>
+    <%= I18n.t 'trip_article_new' %>
+<% end %>
+
+<div class="content-header">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="header-section">
+        <h1><%= I18n.t 'trip_article_new_btn' %></h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'form' %>

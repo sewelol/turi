@@ -23,8 +23,8 @@
     <a href="#"><i class="gi gi-group sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Discussion</span></a>
   </li>
 
-  <li class="">
-    <a href="#"><i class="gi gi-blog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Blog</span></a>
+  <li class="<%=current_page?(trip_articles_path(@trip)) ? 'active' : ''%>">
+    <a href="<%=trip_articles_path(@trip)%>"><i class="gi gi-blog sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_article')%></span></a>
   </li>
 
   <li class="<%=current_page?(trip_media_path(@trip)) ? 'active' : ''%>">

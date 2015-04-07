@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20150317121036) do
 
   add_index "api_providers", ["name"], name: "index_api_providers_on_name", unique: true
 
-<<<<<<< HEAD
   create_table "equipment_assignments", force: :cascade do |t|
     t.integer  "number"
     t.datetime "created_at",        null: false
@@ -58,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150317121036) do
 
   add_index "equipment_items", ["equipment_list_id"], name: "index_equipment_items_on_equipment_list_id"
   add_index "equipment_items", ["user_id"], name: "index_equipment_items_on_user_id"
-=======
+
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -68,7 +67,6 @@ ActiveRecord::Schema.define(version: 20150317121036) do
   end
 
   add_index "articles", ["trip_id"], name: "index_articles_on_trip_id"
->>>>>>> Started work on blog framework.
 
   create_table "equipment_lists", force: :cascade do |t|
     t.string   "name"

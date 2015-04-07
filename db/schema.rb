@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150317121036) do
+ActiveRecord::Schema.define(version: 20150310095322) do
 
   create_table "api_access_tokens", force: :cascade do |t|
     t.integer  "user_id"
@@ -122,6 +122,13 @@ ActiveRecord::Schema.define(version: 20150317121036) do
   add_index "participants", ["trip_id"], name: "index_participants_on_trip_id"
   add_index "participants", ["user_id", "trip_id"], name: "index_participants_on_user_id_and_trip_id", unique: true
   add_index "participants", ["user_id"], name: "index_participants_on_user_id"
+
+  create_table "requests", force: :cascade do |t|
+    t.integer  "requester_id"
+    t.integer  "reciever_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"

@@ -10,20 +10,41 @@ RSpec.feature "Equipment List" do
     end
 
     scenario "Create a new list" do
-        visit trip_equipment_lists_path(@trip)
+        # can't click on trip_sidebar so move directly into the new path
+        visit new_trip_equipment_list_path(@trip)
         
-        click_link 'new_list' # why does this not work? something with rendering sidebar?
-        expect(page.current_page).to eq(new_trip_equipment_list_path(@trip))
-        fill_in :name, :with => @equipment_list.name
-        fill_in :description, :with => @equipment_list.description
-        fill_in :icon, :with => @equipment_list.icon
+        fill_in :equipment_list_name, :with => @equipment_list.name
+        fill_in :equipment_list_description, :with => @equipment_list.description
+        fill_in :equipment_list_icon, :with => @equipment_list.icon
         click_button 'submit'
 
         expect(page).to have_content(I18n.t 'trip_equipment_list_created')
         expect(page).to have_content(@equipment_list.name)
+        expect(page).to have_content(@equipment_list.description)
     end
 
     scenario "Edit a list" do
+        @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+        visit trip_equipment_list_path(@trip, @equipment_list)
+
+        click_link 'edit_equipment_list'
+        expect(page.current_path).to eq(edit_trip_equipment_list_path(@trip, @equipment_list))
+        fill_in :equipment_list_name, :with => "Something"
+        click_button 'submit'
+
+        expect(page.current_path).to eq(trip_equipment_list_path(@trip, @equipment_list))
+        expect(page).to have_content(I18n.t 'trip_equipment_list_updated')
+        expect(page).to have_content("Something")
+        expect(page).to_not have_content(@equipment_list.name)
+    end
+
+    scenario "Delete a list" do
+        @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+        visit trip_equipment_list_path(@trip, @equipment_list)
+
+        click_link 'delete_equipment_list'
+
+        expect(page).to have_content(I18n.t('trip_equipment_list_deleted'))
     end
 
 end

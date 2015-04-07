@@ -27,21 +27,15 @@ RSpec.describe EquipmentAssignmentsController, type: :controller do
 
         it "Create a valid equipment_assignment for the owner as the owner" do
             expect { 
-                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_email => @owner.email, :number => 2)
+                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_id => @owner.id, :number => 2)
             }.to change(EquipmentAssignment, :count).by(1)
             expect(flash[:notice]).to eq(I18n.t 'trip_equipment_assignment_created')
         end
 
-        it "Create a valid equipment_assignment without a user email" do
-            expect { 
-                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_email => "")
-            }.to change(EquipmentAssignment, :count).by(1)
-            expect(flash[:notice]).to eq(I18n.t 'trip_equipment_assignment_created')
-        end
 
         it "Create a valid equipment_assignment with the editors email" do
             expect { 
-                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_email => @editor.email)
+                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_id => @editor.id)
             }.to change(EquipmentAssignment, :count).by(1)
             expect(flash[:notice]).to eq(I18n.t 'trip_equipment_assignment_created')
         end

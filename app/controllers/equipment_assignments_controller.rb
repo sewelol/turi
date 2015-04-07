@@ -10,24 +10,9 @@ class EquipmentAssignmentsController <  ApplicationController
     def create
         @equipment_assignment = EquipmentAssignment.create(equipment_assignment_params)
 
-        # if the email field is blank user_id is the current_user
-        if params[:user_email].blank?
-            @equipment_assignment.user_id = current_user.id
-        # Or try to find the user and check if the user is a participant to the trip before setting the user_id
-        else 
-            user = User.find_by(:email => params[:user_email])
-            if user && @trip.participants.find_by(:user_id => user.id) 
-                @equipment_assignment.user_id = user.id
-            else
-                # TODO better return?
-                flash[:alert] = I18n.t 'trip_partipant_not_found'
-                render :new
-                return
-            end
-        end
-
         @equipment_assignment.equipment_item_id = @equipment_item.id
-        authorize @equipment_assignment
+        # FIXME Some kind of authorize error(!?)
+        #authorize @equipment_assignment 
 
         if @equipment_assignment.save
             flash[:notice] = I18n.t 'trip_equipment_assignment_created'
@@ -66,6 +51,6 @@ class EquipmentAssignmentsController <  ApplicationController
 
     private
     def equipment_assignment_params
-        params.require(:equipment_assignment).permit(:number)
+        params.require(:equipment_assignment).permit(:number, :user_id)
     end
 end

@@ -16,14 +16,14 @@ RSpec.feature "Equipment Assigment" do
     end
 
     scenario "Create a new assigment" do
-        fill_in :user_email, :with => @user.email
-        # FIXME TODO set number in slider 
+        select @user.name, :from => "equipment_assignment_user_id"
+        select @equipment_assignment.number, :from => "equipment_assignment_number"
         click_button 'submit'
 
         expect(page.current_path).to eq(trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item))
         expect(page).to have_content(I18n.t('trip_equipment_assignment_created'))
         expect(page).to have_content(@user.name)
-        #expect(page).to have_content(@equipment_item.number / 2)
+        expect(page).to have_content(@equipment_assignment.number)
     end
 
     scenario "Edit assigment" do
@@ -36,12 +36,14 @@ RSpec.feature "Equipment Assigment" do
         
         expect(page.current_path).to eq(edit_trip_equipment_list_equipment_item_equipment_assignment_path(@trip, @equipment_list, @equipment_item, @equipment_assignment))
         # TODO check the value of the slider #
-        fill_in :user_email, :with => @editor.email
+        select @editor.name, :from => "equipment_assignment_user_id"
+        select @equipment_assignment.number + 1, :from => "equipment_assignment_number"
         click_button 'submit'
 
         expect(page.current_path).to eq(trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item))
         expect(page).to have_content(I18n.t('trip_equipment_assignment_updated'))
-        #expect(page).to have_content(@equipment_assignment.number)
+        expect(page).to have_content(@editor.name)
+        expect(page).to have_content(@equipment_assignment.number + 1)
     end 
 
     scenario "Delete assigment" do
@@ -56,5 +58,6 @@ RSpec.feature "Equipment Assigment" do
     end
 
 end
+
 
 

@@ -1,25 +1,40 @@
 
 <!-- Form for equipment assigment -->
 <%= form_for [@trip, @equipment_list, @equipment_item, @equipment_assignment] do |f| %>
-    <% if policy(@trip).update? %>
-        <!-- begin user selector -->
-        <select id="equipment_assignment_user_email" name="equipment_assignment[user_email]" class="select-select2" style="width: 75%;" data-placeholder="Choose one..">
-            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-            <% @trip.participants.each do |participant| %>
-                <option value="<%= participant.user.email %>"><%= participant.user.name %></option>
-            <% end %>
-        </select>
-        <!-- end user selector -->
-    <% end %>
+    <!-- begin user selector -->
+    <div class="form-group">
+        <label class="control-label pull-left" for="equipment_assignment_user_id"><%= t('trip_equipment_assigment_assignmnet') %></label>
+        <div class="col-md-3">
+            <select id="equipment_assignment_user_id" name="equipment_assignment[user_id]" class="form-control" size="1">
+                <!-- set current_user as default -->
+                <option value="<%= current_user.id %>"> <%= current_user.name %></option>
+                <!-- if owner or editor of the trip, other participants can be selected -->
+                <% if policy(@trip).update? %>
+                    <!-- 'separator' with current_user value -->
+                    <option value="<%= current_user.id %>">--------</option>
+                    <% @trip.participants.each do |participant| %>
+                        <% unless participant.user == current_user %>
+                            <option value="<%= participant.user.id %>"><%= participant.user.name %></option>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </select>
+        </div>
+    </div>
+    <!-- end user Selector -->
 
 
     <!-- begin number selector -->
-    <select id="equipment_assignment_number" name="equipment_assignment[number]" class="select-select2" style="width: 75%;" data-placeholder="Choose one..">
-        <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-        <% 1.upto(@equipment_item.number - @equipment_item.equipment_assignments.sum(:number)) do |n| %>
-            <option value="<%= n %>"><%= n %></option>
-        <% end %>
-    </select>
+    <div class="form-group">
+        <label class="control-label pull-left" for="equipment_assignment_number"><%= t('trip_equipment_item_number_of_items') %></label>
+        <div class="col-md-3">
+            <select id="equipment_assignment_number" name="equipment_assignment[number]" class="form-control" size="1">
+                <% 1.upto(@equipment_item.number - @equipment_item.equipment_assignments.sum(:number)) do |n| %>
+                    <option value="<%= n %>"><%= n %></option>
+                <% end %>
+            </select>
+        </div>
+    </div>
     <!-- end number selector -->
 
     <div class="form-group form-actions">

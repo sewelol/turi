@@ -8,7 +8,7 @@ RSpec.feature "Equipment Assigment" do
         FactoryGirl.create(:participant, :trip_id => @trip.id, :user_id => @user.id, :participant_role_id => ParticipantRole.owner.id)
         FactoryGirl.create(:participant, :trip_id => @trip.id, :user_id => @editor.id, :participant_role_id => ParticipantRole.editor.id)
 
-        @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+        @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
         @equipment_item = FactoryGirl.create(:equipment_item, :equipment_list_id => @equipment_list.id, :user_id => @user.id)
         @equipment_assignment = FactoryGirl.build(:equipment_assignment, :equipment_item_id => @equipment_item.id)
         login_as(@user, :scope => :user)

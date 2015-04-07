@@ -5,7 +5,7 @@ RSpec.describe EquipmentItemsController, type: :controller do
         @user = FactoryGirl.create(:user)
         @trip = FactoryGirl.create(:trip)
         FactoryGirl.create(:participant, :trip_id => @trip.id, :user_id => @user.id, participant_role_id: ParticipantRole.owner.id)
-        @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+        @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
         @equipment_item = FactoryGirl.build(:equipment_item)
         sign_in(@user)
 

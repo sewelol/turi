@@ -1,6 +1,6 @@
 class EquipmentItem < ActiveRecord::Base
     belongs_to :equipment_list
-    has_many :equipment_assignments
+    has_many :equipment_assignments, :dependent => :delete_all
 
     validates_presence_of :name
     validates_presence_of :price

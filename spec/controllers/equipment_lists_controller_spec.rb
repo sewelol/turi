@@ -47,7 +47,7 @@ RSpec.describe EquipmentListsController, type: :controller do
 
     describe "GET #show" do
         it "Render and assign the #show" do
-            equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+            equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
             get :show, :trip_id => @trip.id, :id => equipment_list.id
             expect(assigns(:equipment_list)).to eq(equipment_list)
             expect(response).to render_template :show
@@ -62,7 +62,7 @@ RSpec.describe EquipmentListsController, type: :controller do
 
     describe "PUT #edit" do
         before do
-            @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+            @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
         end
 
         it "locate the requested and redirect to the @equipment_list" do
@@ -89,7 +89,7 @@ RSpec.describe EquipmentListsController, type: :controller do
 
     describe "DELETE #delete" do
         before do
-            @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+            @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
         end
 
         it "Deletes the equipment_list" do

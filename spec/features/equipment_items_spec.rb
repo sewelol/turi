@@ -12,7 +12,7 @@ RSpec.feature "Items for equipment_lists" do
        FactoryGirl.create(:participant, :trip_id => @trip.id, :user_id => @user2.id, :participant_role_id => ParticipantRole.editor.id)
        FactoryGirl.create(:participant, :trip_id => @trip.id, :user_id => @user3.id, :participant_role_id => ParticipantRole.viewer.id)       
        
-       @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+       @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
        @item = FactoryGirl.build(:equipment_item)
        login_as(@user, :scope => :user)
        #sign_in_as!(@user)

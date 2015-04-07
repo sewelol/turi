@@ -4,8 +4,8 @@ RSpec.feature "Equipment List" do
     before do
         @user = FactoryGirl.create(:user)
         @trip = FactoryGirl.create(:trip, :user_id => @user.id)
-        FactoryGirl.create(:participant, :trip_id => @trip.id, :user_id => @user.id, :participant_role_id => ParticipantRole.owner.id)
-        @equipment_list = FactoryGirl.build(:equipment_list, :trip_id => @trip.id)
+        FactoryGirl.create(:participant, :trip => @trip, :user => @user, :participant_role_id => ParticipantRole.owner.id)
+        @equipment_list = FactoryGirl.build(:equipment_list, :trip => @trip, :user => @user)
         login_as(@user, :scope => :user)
     end
 
@@ -24,7 +24,7 @@ RSpec.feature "Equipment List" do
     end
 
     scenario "Edit a list" do
-        @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+        @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
         visit trip_equipment_list_path(@trip, @equipment_list)
 
         click_link 'edit_equipment_list'
@@ -39,7 +39,7 @@ RSpec.feature "Equipment List" do
     end
 
     scenario "Delete a list" do
-        @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+        @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
         visit trip_equipment_list_path(@trip, @equipment_list)
 
         click_link 'delete_equipment_list'

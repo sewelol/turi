@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-7 col-lg-8">
+    <div class="block-full">
+      <%= form_for [@friendship, @request], html: {class: 'form-horizontal form-bordered'} do |r| %>
+          <div class="form-group">
+            <div class="col-md-7 push-bit">
+              <%= r.name  %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>

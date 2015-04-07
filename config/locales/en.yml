@@ -134,6 +134,8 @@ en:
   dropbox_error:                    "Error communicating with Dropbox servers."
 
   # friendship
-  user_friendship_added:                  "Added friend."
-  user_friendship_removed:                "Removed friend."
-  user_frienship_not_added:               "Unable to add friend."
+  user_friendship_added:                  "Friend requested."
+  user_friendship_removed:                "Removed friendship."
+  user_friendship_not_added:              "Unable to request friendship."
+  user_friendship_confirmed:              "Successfully confirmed friend!"
+  user_friendship_not_confirmed:          "Sorry! Could not confirm friend!"

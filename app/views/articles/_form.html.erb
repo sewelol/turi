@@ -9,7 +9,7 @@
           <% if @article.errors.any? %>
               <div id="error_explanation">
                 <h2> <%= pluralize(@article.errors.count, 'error') %>
-                  prohibited this trip from begin saved:
+                  <%= I18n.t 'trip_article_save_error' %>
                 </h2>
                 <ul>
                   <% @article.errors.full_messages.each do |msg| %>

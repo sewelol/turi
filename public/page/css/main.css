@@ -374,7 +374,8 @@ header nav {
     border: 10px solid rgba(0, 0, 0, .1);
 }
 
-.feature:hover {
+.feature:hover,
+.feature:focus {
     color: #ffffff;
     text-decoration: none;
     border-color: rgba(0, 0, 0, 0);
@@ -790,6 +791,12 @@ blockquote .small:before {
     border-color: #de4b39;
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .2);
     box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+}
+
+.table.table-pricing.table-pricing-nohover:hover {
+    border-color: #ffffff;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 .table.table-pricing th {

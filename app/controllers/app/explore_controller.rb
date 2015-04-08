@@ -11,6 +11,8 @@ class App::ExploreController < ApplicationController
       unless trip.start_loc.blank?
         trip_coordinates = Geocoder.coordinates(trip.start_loc)
         trip_item = {
+            id: trip.id,
+            url: trip_path(trip),
             lat: trip_coordinates[0],
             long: trip_coordinates[1]
         }

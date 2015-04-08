@@ -4,7 +4,7 @@
 
 <% content_for :page_scripts do %>
     <script>
-      var map;
+        var map;
         $(function () {
 
             // Resize the map with window changes.
@@ -15,9 +15,10 @@
             $('#map').css('height', $('#page-content').outerHeight() - $('.navbar').outerHeight());
 
             // Initialize the map.
-            var markerIcon = L.icon({
-                iconUrl: '<%= asset_path 'map/markers/regroup.png' %>',
-                iconSize: [32, 37]
+            var markerIcon = L.AwesomeMarkers.icon({
+                prefix: 'fa',
+                icon: 'compass',
+                markerColor: 'red'
             });
 
             map = L.map('map').setView([51.505, -0.09], 4);
@@ -27,11 +28,21 @@
             }).addTo( map );
             map.invalidateSize();
 
+            var markers = new L.MarkerClusterGroup();
+
             <% @trip_items.each do |trip_item| %>
-                L.marker([<%=trip_item[:lat]%>, <%=trip_item[:long]%>], {icon: markerIcon}).addTo(map);
+                var tripMarker_<%= trip_item[:id] %> = new L.marker([<%=trip_item[:lat]%>, <%=trip_item[:long]%>], {icon: markerIcon, url: '<%= trip_item[:url] %>'});
+                tripMarker_<%= trip_item[:id] %>.on('click', onTripMarkerClick);
+                markers.addLayer(tripMarker_<%= trip_item[:id] %>);
             <% end %>
 
+            map.addLayer(markers);
+
         });
+
+        function onTripMarkerClick() {
+            window.location.href = this.options.url;
+        }
     </script>
 <% end %>
 

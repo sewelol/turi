@@ -33,3 +33,11 @@
     margin-right: 8px;
     padding-bottom: 3px
 }
+
+.no-page-padding {
+    padding: 50px 0 0 0 !important;
+}
+
+.cover-image {
+    background-size: cover;
+}

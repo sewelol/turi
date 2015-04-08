@@ -47,6 +47,7 @@ gem 'geocoder'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-turbolinks'
 
 
 source 'https://rails-assets.org' do

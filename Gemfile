@@ -80,7 +80,7 @@ group :development, :test do
   gem 'sqlite3'
 
   #use foreman to use enviroment variables
-  gem 'foreman'
+  #gem 'foreman'
 end
 
 group :test do

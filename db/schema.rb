@@ -44,12 +44,6 @@ ActiveRecord::Schema.define(version: 20150324124701) do
 
   add_index "articles", ["trip_id"], name: "index_articles_on_trip_id"
 
-  create_table "equipment_assignments", force: :cascade do |t|
-    t.integer  "number"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "equipment_item_id"
-
   create_table "comments", force: :cascade do |t|
     t.text     "body",          null: false
     t.integer  "discussion_id"

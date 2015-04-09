@@ -26,26 +26,6 @@ RSpec.feature "Equipment Assigment" do
         expect(page).to have_content(@equipment_assignment.number)
     end
 
-    scenario "Edit assigment" do
-        @equipment_assignment = FactoryGirl.create(:equipment_assignment, :equipment_item_id => @equipment_item.id, :user_id => @user.id)
-        visit trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item)
-                
-        expect(page).to have_content(@user.name)
-        expect(page).to have_content(@equipment_assignment.number)
-        click_link 'edit_equipment_assignment'
-        
-        expect(page.current_path).to eq(edit_trip_equipment_list_equipment_item_equipment_assignment_path(@trip, @equipment_list, @equipment_item, @equipment_assignment))
-        # TODO check the value of the slider #
-        select @editor.name, :from => "equipment_assignment_user_id"
-        select @equipment_assignment.number + 1, :from => "equipment_assignment_number"
-        click_button 'submit'
-
-        expect(page.current_path).to eq(trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item))
-        expect(page).to have_content(I18n.t('trip_equipment_assignment_updated'))
-        expect(page).to have_content(@editor.name)
-        expect(page).to have_content(@equipment_assignment.number + 1)
-    end 
-
     scenario "Delete assigment" do
         @equipment_assignment = FactoryGirl.create(:equipment_assignment, :equipment_item_id => @equipment_item.id, :user_id => @user.id)
         visit trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item)

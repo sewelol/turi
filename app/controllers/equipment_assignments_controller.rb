@@ -8,35 +8,38 @@ class EquipmentAssignmentsController <  ApplicationController
     layout 'trip'
 
     def create
-        @equipment_assignment = EquipmentAssignment.create(equipment_assignment_params)
+        authorize @trip, :show?
+      
+        # Fetch the params
+        permitted = params.require(:equipment_assignment).permit(:number, :user_id)
 
-        @equipment_assignment.equipment_item_id = @equipment_item.id
-        # FIXME Some kind of authorize error(!?)
-        #authorize @equipment_assignment 
-
-        if @equipment_assignment.save
-            flash[:notice] = I18n.t 'trip_equipment_assignment_created'
-            redirect_to trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item)
+        @equipment_assignment = @equipment_item.equipment_assignments.find_by(user_id: permitted.fetch(:user_id).to_i)
+        # If a record where the user_id match the params just update the old one with old value + new value (from
+        # params)
+        unless @equipment_assignment.nil?
+            
+            # ruby...
+            number = permitted.fetch(:number).to_i + @equipment_assignment.read_attribute(:number)
+            if @equipment_assignment.update(:number => number)
+                flash[:notice] = I18n.t 'trip_equipment_assignment_created'
+                redirect_to trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item)
+            else 
+                flash[:alert] = I18n.t 'trip_equipment_assignment_not_created'
+                render :new
+            end
+        # If no record was found, create a new one
         else 
-            flash[:alert] = I18n.t 'trip_equipment_assignment_not_created'
-            render :new
-        end
-    end
+            @equipment_assignment = EquipmentAssignment.create(permitted)
 
-    def edit
-        authorize @equipment_assignment
-        render 'edit' 
-    end
+            @equipment_assignment.equipment_item = @equipment_item
 
-    def update
-        authorize @equipment_assignment
-
-        if @equipment_assignment.update(equipment_assignment_params)
-            flash[:notice] = I18n.t 'trip_equipment_assignment_updated'
-            redirect_to trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item)
-        else 
-            flash[:alert] = I18n.t 'trip_equipment_assignment_not_updated'
-            render 'edit'
+            if @equipment_assignment.save
+                flash[:notice] = I18n.t 'trip_equipment_assignment_created'
+                redirect_to trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item)
+            else 
+                flash[:alert] = I18n.t 'trip_equipment_assignment_not_created'
+                render :new
+            end
         end
     end
 
@@ -46,11 +49,5 @@ class EquipmentAssignmentsController <  ApplicationController
         @equipment_assignment.destroy
         flash[:notice] = I18n.t 'trip_equipment_assignment_deleted'
         redirect_to trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item)
-    end
-
-
-    private
-    def equipment_assignment_params
-        params.require(:equipment_assignment).permit(:number, :user_id)
     end
 end

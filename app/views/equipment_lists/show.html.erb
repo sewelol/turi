@@ -19,6 +19,22 @@ $(function () {
     <div class="content-header">
       <div class="row">
         <div class="col-sm-12">
+            <div class="header-buttons pull-right">
+                <%= link_to raw('<i class="fa fa-reply"></i>'), trip_equipment_lists_path(@trip), class: 'btn btn-lg btn-effect-ripple', style: 'overflow: hidden; position: relative;' %>
+                <% if policy(@trip).update? %>
+                    <a href="<%= edit_trip_equipment_list_path(@trip, @equipment_list)%>" class="btn btn-lg btn-effect-ripple" data-toogl="tooltip" style="overflow: hidden; position: relative;", id="edit_equipment_list">
+                        <i class="fa fa-pencil"></a></i>
+                        <%= link_to raw('<i class="fa fa-trash"></i>'),
+                          trip_equipment_list_path(@trip, @equipment_list),
+                          :method => :delete,
+                          data: {
+                                  confirm: t('trip_equipment_list_delete_confimation'), toggle: 'tooltip' },
+                          title: t('trip_equipment_list_delete'),
+                          class: 'btn btn-lg btn-effect-ripple',
+                          id: 'delete_equipment_item'
+              %>
+                <% end %>
+            </div>
           <div class="header-section">
               <h1><%= @equipment_list.name %></h1><i><%= t('created_by') %> <%= @equipment_list.user.name %> </i>
           </div>
@@ -30,41 +46,7 @@ $(function () {
 <!-- Begin block -->
 <div class='block'>
     <div class='block-title'>
-        <div class="block-options pull-right">
-            <div class="btn-group">
-                <% if policy(@trip).update? %>
-                    <a aria-expanded="false" data-original-title="Options" style="overflow: hidden; position: relative;" class="btn btn-effect-ripple btn-default dropdown-toggle enable-tooltip" data-toggle="dropdown" title="">
-                        <span  class="btn-ripple animate"></span>
-                        <i class="fa fa-chevron-down"></i></a>
-
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li>
-                            <a href="<%= edit_trip_equipment_list_path(@trip, @equipment_list) %>" , id='edit_equipment_list'>
-                                <i class="fa fa-pencil pull-right"></i>
-                                <%= t('trip_equipment_list_edit', :equipment_list_title => @equipment_list.name) %>
-                            </a>
-                        </li>
-                        <% if policy(@trip).destroy? %>
-                            <li class="divider"></li>
-                            <li>
-                                <%= link_to raw('<i class="fa fa-trash-o fa-fw pull-right"></i> Delete'),
-                                    trip_equipment_list_path(@trip, @equipment_list),
-                                    :method => :delete,
-                                    :data => {
-                                        :confirm => t('trip_equipment_list_delete_confimation'),
-                                        :toogle => 'tooltip'
-                                    },
-                                    :class => 'text-danger',
-                                    :title => t('trip_equipment_list_delete'),
-                                    :id => 'delete_equipment_list'
-                                %>
-                        </li>
-                    <% end %>
-                    </ul>
-                <% end %>
-            </div>
-        </div>
-        <h2> <%= t('Description') %> </h2>
+       <h2> <%= t('Description') %> </h2>
     </div>
     <p> <%= @equipment_list.description %> </p>
 </div>

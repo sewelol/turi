@@ -39,31 +39,17 @@ RSpec.describe EquipmentAssignmentsController, type: :controller do
             }.to change(EquipmentAssignment, :count).by(1)
             expect(flash[:notice]).to eq(I18n.t 'trip_equipment_assignment_created')
         end
-    end
 
-    describe "PUT #edit" do
-        before do 
-            @equipment_assignment = FactoryGirl.create(:equipment_assignment, :equipment_item_id => @equipment_item.id, :user_id => @owner.id)
-        end
-
-        it "Locate the requested EquipmentAssignment" do
-            put :update, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :id => @equipment_assignment.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment)
-            expect(assigns(:equipment_assignment)).to eq(@equipment_assignment)
-            expect(flash[:notice]).to eq(I18n.t 'trip_equipment_assignment_updated')
-        end
-
-        it 'change @equipment_assignment attributes' do
-            put :update, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :id => @equipment_assignment.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :number => 3)
-            @equipment_assignment.reload 
-            expect(@equipment_assignment.number).to eq(3)            
-        end
-
-        it 'invalid/missing attributes, should not change value' do
-            put :update, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :id => @equipment_assignment.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :number => 42, :user_email => @stranger.email)
-            @equipment_assignment.reload
-            expect(@equipment_assignment).to_not eq(42)
+        it "Assigments should 'stack' when user_id matches a already exisiting record" do
+            FactoryGirl.create(:equipment_assignment, :equipment_item => @equipment_item, :user_id => @owner.id)
+            expect {
+                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_id => @owner.id)
+            }.to change(EquipmentAssignment, :count).by(0)
+            @ea = @equipment_item.equipment_assignments.find_by(:user_id => @owner.id)
+            expect(@ea.number).to eq(@equipment_assignment.number * 2)
         end
     end
+
 
     describe "POST #delete" do
         before do 

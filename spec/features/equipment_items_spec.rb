@@ -15,7 +15,6 @@ RSpec.feature "Items for equipment_lists" do
        @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
        @item = FactoryGirl.build(:equipment_item)
        login_as(@user, :scope => :user)
-       #sign_in_as!(@user)
        
        visit trip_path(@trip)
    end
@@ -37,9 +36,10 @@ RSpec.feature "Items for equipment_lists" do
 
        expect(page).to have_content(@item.name)
 
+       fetched_item = @equipment_list.equipment_items.where(name: @item.name).first
 
        # click the item(show item) and check if the values are correct
-       click_link @item.name
+       click_link "task-link-#{fetched_item.id}"
        expect(page).to have_content(@user.name)
        expect(page).to have_content(@item.number)
        expect(page).to have_content(@item.price)

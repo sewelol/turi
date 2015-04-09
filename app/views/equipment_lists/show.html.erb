@@ -2,113 +2,96 @@
     <%= @equipment_list.name %>
 <% end %>
 
-<% content_for :page_scripts do %>
-    <script>
-$(function () {
-    $('#expand_button').click(function () {
-        $('#new_form').toggleClass('hidden');
-    });
-});
-    </script>
-<% end %>
-
 <%= render 'sidebar' %>
-
 
 <% content_for :content_header do %>
     <div class="content-header">
       <div class="row">
         <div class="col-sm-12">
-            <div class="header-buttons pull-right">
-                <%= link_to raw('<i class="fa fa-reply"></i>'), trip_equipment_lists_path(@trip), class: 'btn btn-lg btn-effect-ripple', style: 'overflow: hidden; position: relative;' %>
-                <% if policy(@trip).update? %>
-                    <a href="<%= edit_trip_equipment_list_path(@trip, @equipment_list)%>" class="btn btn-lg btn-effect-ripple" data-toogl="tooltip" style="overflow: hidden; position: relative;", id="edit_equipment_list">
-                        <i class="fa fa-pencil"></a></i>
-                        <%= link_to raw('<i class="fa fa-trash"></i>'),
-                          trip_equipment_list_path(@trip, @equipment_list),
-                          :method => :delete,
-                          data: {
-                                  confirm: t('trip_equipment_list_delete_confimation'), toggle: 'tooltip' },
-                          title: t('trip_equipment_list_delete'),
-                          class: 'btn btn-lg btn-effect-ripple',
-                          id: 'delete_equipment_item'
-              %>
-                <% end %>
-            </div>
+          <div class="header-buttons pull-right">
+            <% if policy(@trip).update? %>
+                <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');" class="btn btn-lg btn-effect-ripple" data-toggle="tooltip" data-original-title="<%=t('trip_equipment_list_add_item')%>"><i class="fa fa-plus"></i></a>
+                <a href="<%=edit_trip_equipment_list_path(@trip, @equipment_list)%>" id="edit_equipment_list" class="btn btn-lg btn-effect-ripple" data-toggle="tooltip" data-original-title="<%=t('trip_equipment_list_edit', :equipment_list_title => @equipment_list.name)%>"><i class="fa fa-pencil"></i></a>
+                <%= link_to raw('<i class="fa fa-trash"></i>'),
+                            trip_equipment_list_path(@trip, @equipment_list),
+                            method: :delete,
+                            data: {
+                                    confirm: t('trip_equipment_list_delete_confimation'),
+                                    original_title: t('trip_equipment_list_delete'),
+                                    toggle: 'tooltip'
+                            },
+                            title: t('trip_equipment_list_delete', :equipment_list_title => @equipment_list.name),
+                            class: 'btn btn-lg btn-effect-ripple',
+                            id: 'delete_equipment_list'
+                %>
+            <% end %>
+          </div>
           <div class="header-section">
-              <h1><%= @equipment_list.name %></h1><i><%= t('created_by') %> <%= @equipment_list.user.name %> </i>
+            <h1><%= @equipment_list.name %> <small><%= @equipment_list.description %></small></h1>
           </div>
         </div>
       </div>
     </div>
 <% end %>
 
-<!-- Begin block -->
-<div class='block'>
-    <div class='block-title'>
-       <h2> <%= t('Description') %> </h2>
-    </div>
-    <p> <%= @equipment_list.description %> </p>
-</div>
 
-<!-- Begin render the form if authorized -->
-<div class='block'>
-    <% if @equipment_list.equipment_items.count != 0 %>
-    <button type="button" id='expand_button' class="btn btn-success pull-right"><%= t('Create new item') %></button>
-    <div id='new_form' class='hidden'>
-        <%= render :partial => 'equipment_items/form_small' %>
-    </div>
-    <!-- End render form -->
+<%= render 'equipment_items/form_sidebar' %>
 
-    <!-- begin equipment table -->
-    <div class='table-responsive'>
-        <table class="table table-borderless table-vcenter">
-            <thead>
-                <tr>
-                    <th><%= t('trip_equipment_item_name') %></ht>
-                        <th><%= t('trip_equipment_item_status') %></th>
-                        <th class="text-center"><i class="fa fa-flash"></i></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @equipment_list.equipment_items.each do |item| %>
-                    <tr>
-                        <td><a href="<%= trip_equipment_list_equipment_item_path(@trip, @equipment_list, item) %>"><strong><%= item.name %></strong></a></td>
-                        <% if item.number == item.equipment_assignments.sum(:number) %>
-                            <td><a href="javascript:void(0)" class="label label-success"><%= t('trip_equipment_assigment_all_assigned') %></a></td>
-                        <% else %>
-                            <td><a href="javascript:void(0)" class='label label-danger'><%= item.equipment_assignments.sum(:number)%>/<%=item.number%> <%= t('trip_equipment_assigment_assignment') %></a></td>
-                        <% end %>
-                        <td class="text-center">
-                            <% if policy(item).update? %>
-                                <a href="<%= edit_trip_equipment_list_equipment_item_path(@trip, @equipment_list, item) %>" data-toggle="tooltip" title="<%= t('trip_equipment_item_edit', :equipment_item_name => item.name) %>" class="btn btn-effect-ripple btn-xs btn-success"><i class="fa fa-pencil"></i></a>
-                            <% end %>
-                            <% if policy(item).destroy? %>
-                                <%= link_to raw('<i data-toggle="tooltip" class="btn btn-effect-ripple btn-xs btn-danger fa fa-times"></i>'),
-                                    trip_equipment_list_equipment_item_path(@trip, @equipment_list, item),
-                                    :method => :delete,
-                                    :data => {
-                                        :confirm => t('trip_equipment_item_delete_confirmation'),
-                                        :toogle => 'tooltip'
-                                    },
-                                    :class => 'text-danger',
-                                    :title => t('trip_equipment_item_delete'),
-                                    :id => 'delete_equipment_item'
-                                %>
-
-                        <% end %>
-                        </td>
-                    </tr>
-                <% end %>
-            </tbody>
-        </table>
+<% if @equipment_list.equipment_items.blank? %>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6 text-center">
+        <div class="clearfix">
+          <blockquote class="pull-left">
+            <p><%= t('trip_equipment_item_add_qoute') %></p>
+            <p><a class="btn btn-danger" href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');"><i class="fa fa-plus"></i> Add an equipment item.</a></p>
+            <small><%=t('sincerely_turi')%></small>
+          </blockquote>
+        </div>
+      </div>
     </div>
-</div>
-<% else %>
-    <%= t('trip_equipment_item_add_new') %>
-    <%= render partial: 'equipment_items/form_small' %>
 <% end %>
-</div>
-</div>
-</div>
 
+<!-- Tasks List -->
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
+
+    <ul class="task-list">
+      <% @equipment_list.equipment_items.each do |item| %>
+
+          <li class="<%= item.number == item.equipment_assignments.sum(:number) ? 'task-done' : '' %>">
+
+            <div class="task-actions">
+              <% if policy(item).update? %>
+                  <a href="<%= edit_trip_equipment_list_equipment_item_path(@trip, @equipment_list, item) %>" data-toggle="tooltip" title="<%= t('trip_equipment_item_edit', :equipment_item_name => item.name) %>" class="task-button text-dark"><i class="fa fa-pencil"></i></a>
+              <% end %>
+              <% if policy(item).destroy? %>
+                  <%= link_to raw('<i class="fa fa-times"></i>'),
+                              trip_equipment_list_equipment_item_path(@trip, @equipment_list, item),
+                              method: :delete,
+                              data: {
+                                      confirm: t('trip_equipment_item_delete_confirmation'),
+                                      toggle: 'tooltip'
+                              },
+                              class: 'task-button text-danger',
+                              title: t('trip_equipment_item_delete'),
+                              id: 'delete_equipment_item'
+                  %>
+              <% end %>
+            </div>
+
+            <a href="<%= trip_equipment_list_equipment_item_path(@trip, @equipment_list, item) %>" class="task-link" id="task-link-<%=item.id%>">
+              <span class="task-name"><%= item.name %></span>
+              <% if item.number == item.equipment_assignments.sum(:number) %>
+                  <span class="label label-success task-state task-assigned"><%=item.number%>/<%=item.number%></span>
+              <% else %>
+                  <span class="label label-danger task-state task-undone"><%= item.equipment_assignments.sum(:number)%>/<%=item.number%></span>
+              <% end %>
+            </a>
+          </li>
+
+      <% end %>
+
+    </ul>
+  </div>
+</div>
+<!-- END Task List -->

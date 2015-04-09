@@ -34,6 +34,8 @@ en:
   color: "Color"
   description: "Description"
   back: "Back"
+  edit: "Edit"
+  publish: "Publish"
 
   # http://en.wikipedia.org/wiki/Date_format_by_country
   # https://hackhands.com/format-datetime-ruby/
@@ -64,6 +66,7 @@ en:
   user_id_not_found:              "This user id is not valid"
   user_must_have_email:           "You can't have a blank email"
   user_must_have_name:            "You can't have a blank name"
+  edit_user:                      "Edit user"
 
   #Trips (trip_controller)
   trip_title:                     "Title"
@@ -226,4 +229,28 @@ en:
   discussion_created:               "Discussion has been created."
   discussion_not_created:           "Discussion has not been created."
   discussion_destroyed:             "Discussion has been deleted."
-  trip_discussions_form:                 "Your discussion for '%{trip_title}'"
+  trip_discussions_form:            "Your discussion for '%{trip_title}'"
+  edit_discussion:                  "Edit discussion"
+  discussions:                      "Discussions"
+  new_discussion:                   "New discussion"
+  discussion_delete_verification:   "Are you sure you want to delete this discussion?"
+  back_to_discussions:              "Back to discussions"
+  discussion:                       "Discussion"
+
+
+  # comment
+  comment_created:              "Comment has been created."
+  comment_not_created:          "Comment has not been created."
+  comment_updated:              "Comment has been updated."
+  comment_not_updated:          "Comment has not been updated."
+  comment_deleted:              "Comment has been deleted."
+  write_your_comment:           "Write your comment..."
+
+  # password
+  reset_password:               "Reset password"
+  back_to_login:                "Back to login"
+  reset:                        "Reset"
+  new_password:                 "New password"
+  confirm_new_password:         "Confirm new password"
+  change_my_password:           "Change my password"
+

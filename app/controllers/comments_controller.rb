@@ -1,12 +1,6 @@
 class CommentsController < TripResourceController
   before_action :set_discussion
-  before_action :set_comment, only: [:edit, :update, :destroy]
   after_action :verify_authorized
-
-  def new
-    authorize @trip, :show?
-    @comment = Comment.new
-  end
 
   def create
     authorize @trip, :show?
@@ -14,45 +8,15 @@ class CommentsController < TripResourceController
     @comment.user = current_user
     respond_to do |format|
       if @comment.save
-        format.html {
-          flash[:notice] = "Comment has been created."
-          redirect_to [@trip, @discussion] }
         format.js {
           # look at view/comment/create.js.erb
         }
       else
-        format.html {
-          flash[:alert] = "Comment has not been created"
-          render :new
-        }
         format.js {
-          {}
+          ""
         }
       end
     end
-  end
-
-  def edit
-    authorize @trip, :update?
-  end
-
-  def update
-    authorize @trip, :update?
-    if @comment.update(comment_params)
-      flash[:notice] = "Comment has been updated."
-      redirect_to [@trip, @discussion]
-    else
-      flash[:alert] = "Comment has not been updated."
-      render :edit
-    end
-  end
-
-  def destroy
-    authorize @trip, :update?
-    @comment.destroy
-    flash[:notice] = "Comment has been deleted."
-
-    redirect_to [@trip, @discussion]
   end
 
   private

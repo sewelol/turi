@@ -6,9 +6,9 @@
       <div class="widget-image widget-image-sm">
         <div id="user-image">
           <% if @user.image %>
-            <img src="<%=@user.image%>" alt="image">
+              <img src="<%= @user.image %>" alt="image">
           <% else %>
-            <img src="http://lorempixel.com/315/270/nature" alt="image">
+              <img src="http://lorempixel.com/315/270/nature" alt="image">
           <% end %>
         </div>
         <div class="widget-image-content text-center">
@@ -24,7 +24,7 @@
               </h3>
             </div>
             <div class="col-xs-6 push-inner-top-bottom">
-              <% if current_user.id != @user.id%>
+              <% if current_user.id != @user.id %>
                   <% f = Friendship.where('(friend_id LIKE ? AND user_id LIKE ?) OR (user_id LIKE ? AND friend_id LIKE ?)', "%#{@user.id}%", "%#{current_user.id}%", "%#{current_user.id}%", "%#{@user.id}%") %>
                   <% if f.blank? %>
                       <a href="<%= user_friendships_path(@user) %>" data-method="post"> <i class="fa fa-plus"></i></a>
@@ -33,7 +33,9 @@
 
               <% end %>
               <h3 class="widget-heading"><i class="gi gi-group themed-color-social push"></i><br>
-                <small><strong><%= Friendship.where(user_id: @user.id).count + Friendship.where(friend_id: @user.id).count %></strong>Friends</small>
+                <small>
+                  <strong><%= Friendship.where(user_id: @user.id).count + Friendship.where(friend_id: @user.id).count %></strong>Friends
+                </small>
               </h3>
             </div>
           </div>
@@ -57,16 +59,22 @@
   <div class="col-md-7 col-lg-8">
     <div class="block full">
       <div class="block-title">
-        <% if @current_user == @user %>
-        <div class="block-options pull-right">
-          <a href="<%= edit_user_path(@user) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Edit user"><i class="fa fa-cog"></i></a>
-        </div>
+        <% if policy(@user).update? %>
+            <div class="block-options pull-right">
+              <%= link_to edit_user_path(@user),
+                            id: "edit-user-btn",
+                            class: "btn btn-effect-ripple btn-default",
+                            data_toggle: "tooltip",
+                            title: t(:edit_user) do %>
+                  <i class="fa fa-cog"></i>
+              <% end %>
+            </div>
         <% end %>
       </div>
     </div>
     <div class="block full">
       <div class="block-title">
-       <h2> Your friends </h2>
+        <h2> Your friends </h2>
         <ul>
           <% for user in @user.inverse_friends %>
               <li>
@@ -76,10 +84,11 @@
           <% for friendship in @user.friendships %>
               <li>
                 <%= link_to friendship.friend.name, user_path(friendship.friend), :method => :get %>
-                <% if current_user.id == @user.id%>
-                    <a href="<%= user_friendship_path(@user, friendship) %>" data-method="delete"> <i class="fa fa-minus"></i></a>
+                <% if current_user.id == @user.id %>
+                    <a href="<%= user_friendship_path(@user, friendship) %>" data-method="delete">
+                      <i class="fa fa-minus"></i></a>
                 <% end %>
-                </li>
+              </li>
           <% end %>
         </ul>
       </div>

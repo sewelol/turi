@@ -27,7 +27,6 @@ RSpec.feature "Comments" do
       old_page = page
       fill_in 'comment_body', with: ''
       click_button 'save-comment-btn'
-
       expect(page).to eql(old_page)
     end
   end

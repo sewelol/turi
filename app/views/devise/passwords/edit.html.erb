@@ -1,15 +1,18 @@
 <% content_for :page_title do %>
-    <i class="fa fa-history"></i> <strong>Reset password</strong>
+    <i class="fa fa-history"></i> <strong><%= t(:reset_password) %></strong>
 <% end %>
 
 <div class="block animation-fadeInQuickInv">
   <div class="block-title">
     <div class="block-options pull-right">
-      <%= link_to new_user_session_path, title: "Back to login", class: "btn btn-effect-ripple btn-primary", data: {toggle: "tooltip", placement: "left"} do %>
+      <%= link_to new_user_session_path,
+                  title: t(:back_to_login),
+                  class: "btn btn-effect-ripple btn-primary",
+                  data: {toggle: "tooltip", placement: "left"} do %>
           <i class="fa fa-user"></i>
       <% end %>
     </div>
-    <h2>Reset</h2>
+    <h2><%= t(:reset) %></h2>
   </div>
 
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put, class: "form-horizontal"}) do |f| %>
@@ -21,19 +24,19 @@
 
       <div class="form-group">
         <div class="col-xs-12">
-          <%= f.password_field :password, placeholder: "New password", class: "form-control", autofocus: true, autocomplete: "off" %>
+          <%= f.password_field :password, placeholder: t(:new_password), class: "form-control", autofocus: true, autocomplete: "off" %>
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-xs-12">
-          <%= f.password_field :password_confirmation, placeholder: "Confirm new password", class: "form-control", autocomplete: "off" %>
+          <%= f.password_field :password_confirmation, placeholder: t(:confirm_new_password), class: "form-control", autocomplete: "off" %>
         </div>
       </div>
 
       <div class="form-group form-actions">
         <div class="col-xs-12 text-right">
-          <%= f.submit "Change my password", class: "btn btn-effect-ripple btn-sm btn-primary" %>
+          <%= f.submit t(:change_my_password), class: "btn btn-effect-ripple btn-sm btn-primary" %>
         </div>
       </div>
   <% end %>

@@ -10,7 +10,7 @@ RSpec.feature "Check that the mail is not sent to the WWW" do
   it "sends email to ActionMailer::Base.deliveries" do
     expect {
       fill_in "user_email", with: user.email
-      click_button "Remind Password"
+      click_button "remind-password-btn"
     }.to change { ActionMailer::Base.deliveries.count }.by(1)
   end
 end

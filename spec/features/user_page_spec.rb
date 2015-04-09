@@ -13,8 +13,8 @@ feature 'User_page' do
   let(:user) { FactoryGirl.create(:user) }
 
   before do
-    sign_in_as!(user)
-    visit "/users/#{user.id}"
+    login_as(user, :scope => :user)
+    visit user_path(user)
   end
 
   scenario "see user details" do
@@ -29,7 +29,7 @@ feature 'User_page' do
   end
 
   scenario 'edit user details with correct details' do
-    click_link 'Edit'
+    click_link 'edit-user-btn'
     expect(page).to have_content('Welcome to the edit user page')
     #expect(response).to render_template(:edit)
 
@@ -42,7 +42,7 @@ feature 'User_page' do
     fill_in 'Town', with: runar.town
     fill_in 'Status', with: runar.status
 
-    click_button 'Update User'
+    click_button 'save-user-btn'
 
     expect(page).to have_content(runar.email)
     expect(page).to have_content(runar.name)
@@ -53,10 +53,10 @@ feature 'User_page' do
   end
 
   scenario 'edit user details with incorrect details' do
-    click_link 'Edit'
+    click_link 'edit-user-btn'
     fill_in 'Email', with: ''
     fill_in 'Name', with: ''
-    click_button 'Update User'
+    click_button 'save-user-btn'
 
     expect(page).to have_content('Email can\'t be blank')
     expect(page).to have_content('Name can\'t be blank')
@@ -64,17 +64,17 @@ feature 'User_page' do
 
   scenario 'edit user email with taken email' do
     taken_user = FactoryGirl.create(:user, email: 'ingvild92@yahoo.com')
-    click_link 'Edit'
+    click_link 'edit-user-btn'
     fill_in 'Email', with: taken_user.email
-    click_button 'Update User'
+    click_button 'save-user-btn'
 
     expect(page).to have_content('Email has already been taken')
   end
 
   scenario "can't edit other peoples user pages" do
     other_user = FactoryGirl.create(:user)
-    visit "/users/#{other_user.id}"
+    visit user_path(other_user)
 
-    expect(page).to_not have_selector(:link_or_button, "Edit")
+    expect(page).to_not have_selector(:link_or_button, "edit-user-btn")
   end
 end

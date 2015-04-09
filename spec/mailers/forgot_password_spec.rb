@@ -5,12 +5,12 @@ RSpec.feature "I forgot the password" do
 
   before do
     ActionMailer::Base.deliveries.clear
-    visit '/'
+    visit root_path
 
-    click_link 'Sign In'
+    click_link 'sign_in_button'
     click_link 'forgot_password'
     fill_in "user_email", with: 'iforget@forget.com'
-    click_button "Remind Password"
+    click_button "remind-password-btn"
 
     @email = find_email!(forgetful_user.email)
   end

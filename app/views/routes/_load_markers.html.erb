@@ -1,0 +1,33 @@
+<script>
+
+    $(function () {
+
+//    function addMarker(desc, lat, lng)
+//    {
+//
+//        var marker = new L.Marker(L.latLng(lat, lng), {icon: wayPointIcon}).bindPopup(desc);
+//
+//        waypointLayer.push(marker);
+//    }
+        // copy waypoint field to make a new field, if the first one is not empty
+        //        if ($( "#waypoint-list li:first").children("[id='waypoint_desc']").val() != '')
+        //        {
+        //            $('#waypoint-list li:first').clone().find('input').val('').end().appendTo('#waypoint-list');
+        //        }
+        //
+        //        // Insert the values into the fields
+        //        $( "#waypoint-list li:last").children("[id='waypoint_desc']")   .val(temp.title);
+        //        $( "#waypoint-list li:last").children("[id='waypoint_lat']")    .val(temp.getLatLng().lat);
+        //        $( "#waypoint-list li:last").children("[id='waypoint_lng']")    .val(temp.getLatLng().lng);
+        //        $( "#waypoint-list li:last").children("[id='waypoint_typ']")   .val(temp.options.icon.options.iconUrl.toString()); //PLACEHOLDER
+
+        //$("#waypoint-table tr:last").children("[id='waypoint_desc']").val();
+
+       test = $("#waypoint-table tr:last").children("[id='desc']").val().toString();
+
+        console.log(test);
+
+        console.log($("#waypoint-table tr:last").children("[id='desc']").val());
+
+    });
+</script>

@@ -14,24 +14,19 @@
     </div>
 <% end %>
 
-<% content_for :page_scripts do %>
-
-    <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2'></script>
-
-    <script src="<%= asset_path 'app/maps/control.js' %>"></script>
-    <!--<script src="<%= asset_path 'app/maps/leaf-demo.js' %>"></script>-->
-    <%= render 'routes/map' %>
-
-
-<% end %>
-
-
-
 <% content_for :page_stylesheets do %>
     <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
 <% end %>
 
+<% content_for :page_scripts do %>
+    <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2'></script>
 
+    <%= render 'routes/map' %>
+
+    <%= render 'routes/map_control' %>
+
+    <%= render 'routes/create_gui' %>
+<% end %>
 
 <div class="col-lg-8">
   <div class="widget">
@@ -53,10 +48,8 @@
         </ul>
 
         <div>
-              <%= submit_tag "Save route" %>
-              <%= f.submit 'Save Route', class: 'btn btn-primary' %>
-              <%= form_tag trip_routes_path, method: "post", id: "waypoint-list" %>
-              <%= button_tag "Save", class: "btn btn-primary" %> <br>
+              <%= f.submit 'Save Route', class: 'btn btn-primary', data: { no_turbolink: true }%>
+
         </div>
 
       <% end %>

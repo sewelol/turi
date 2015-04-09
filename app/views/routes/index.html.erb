@@ -21,7 +21,7 @@
   <div class="widget">
     <div class="widget-content" >
 
-      <%= link_to raw('<i class="fa fa-plus"></i> ' << t('trip_add_route')), new_trip_route_path(@trip), id: 'add_route_button',class: 'btn btn-primary push-bit' %>
+      <%= link_to raw('<i class="fa fa-plus"></i> ' << t('trip_add_route')), new_trip_route_path(@trip), id: 'add_route_button',class: 'btn btn-primary push-bit',data: { no_turbolink: true } %>
 
       <% @routes.each do |route| %>
           <li>

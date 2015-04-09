@@ -4,9 +4,11 @@ class CreateWaypoints < ActiveRecord::Migration
       t.string :desc
       t.decimal :lat
       t.decimal :lng
-      t.string :type
+      t.string :typ
 
       t.timestamps null: false
     end
+
+    add_reference :waypoints, :route, index: true
   end
 end

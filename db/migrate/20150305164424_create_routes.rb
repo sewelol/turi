@@ -6,5 +6,6 @@ class CreateRoutes < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_reference :routes, :trip, index: true
   end
 end

@@ -12,7 +12,9 @@
   </li>
 
   <li class="<%=current_page?(trip_routes_path(@trip)) ? 'active' : ''%>">
-    <a href="<%=trip_routes_path(@trip)%>"><i class="gi gi-direction sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Routes</span></a>
+    <%= link_to trip_routes_path(@trip) do %>
+        <i class="gi gi-direction sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Routes</span>
+    <% end %>
   </li>
 
   <li class="<%=current_page?(trip_equipment_lists_path(@trip)) ? 'active' : ''%>">

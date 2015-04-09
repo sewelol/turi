@@ -14,10 +14,10 @@
     }).addTo( map );
 
     //var myURL = jQuery( 'script[src$="leaf-demo.js"]' ).attr( 'src' ).replace( 'leaf-demo.js', '' );
-    var myURL = "<%= asset_path('public/maps/') %>"
+    var myURL = "<%= asset_path('app/maps/') %>"
 
     var wayPointIcon = L.icon({
-        iconUrl: myURL,
+        iconUrl: myURL + 'images/Waypoint.png',
         iconRetinaUrl: myURL + 'images/pin48.png',
         iconSize: [29, 24],
         iconAnchor: [9, 21],
@@ -114,7 +114,6 @@
 
     }
 
-
     // function to be called on mouse click
     function onMapClick(e)
     {
@@ -135,16 +134,57 @@
 
 
         // copy waypoint field to make a new field, if the first one is not empty
-        if ($( "#waypoint-list li:first").children("[id='waypoint_desc']").val() != '')
-        {
-            $('#waypoint-list li:first').clone().find('input').val('').end().appendTo('#waypoint-list');
-        }
+//        if ($( "#waypoint-list li:first").children("[id='waypoint_desc']").val() != '')
+//        {
+//            $('#waypoint-list li:first').clone().find('input').val('').end().appendTo('#waypoint-list');
+//        }
+//
+//        // Insert the values into the fields
+//        $( "#waypoint-list li:last").children("[id='waypoint_desc']")   .val(temp.title);
+//        $( "#waypoint-list li:last").children("[id='waypoint_lat']")    .val(temp.getLatLng().lat);
+//        $( "#waypoint-list li:last").children("[id='waypoint_lng']")    .val(temp.getLatLng().lng);
+//        $( "#waypoint-list li:last").children("[id='waypoint_typ']")   .val(temp.options.icon.options.iconUrl.toString()); //PLACEHOLDER
 
-        // Insert the values into the fields
-        $( "#waypoint-list li:last").children("[id='waypoint_desc']")   .val(temp.title);
-        $( "#waypoint-list li:last").children("[id='waypoint_lat']")    .val(temp.getLatLng().lat);
-        $( "#waypoint-list li:last").children("[id='waypoint_lng']")    .val(temp.getLatLng().lng);
-        $( "#waypoint-list li:last").children("[id='waypoint_type']")   .val(temp.options.icon.options.iconUrl.toString()); //PLACEHOLDER
+        // This is some hackish thing to get the server to understand the waypoint data. Should be some
+        // more eloquent way to do this...
+        console.log("Putting field %d", markers.length);
+        var lat = temp.getLatLng().lat;
+        var lng = temp.getLatLng().lng;
+        console.log("Lat is %f", lat);
+        console.log("Lng is %f", lng);
+
+        var form_title = '<input ' +
+                'id="route_waypoints_attributes_' + markers.length + '_desc" ' +
+                'type="text" value="' + temp.title + '" ' +
+                'name="route[waypoints_attributes][' + markers.length + '][desc]">';
+        var form_lat = '<input ' +
+                'id="route_waypoints_attributes_' + markers.length + '_lat" ' +
+                'type="number" value="' + lat + '" ' +
+                'name="route[waypoints_attributes][' + markers.length + '][lat]">';
+        var form_lng = '<input ' +
+                'id="route_waypoints_attributes_' + markers.length + '_lng" ' +
+                'type="number" ' +
+                'value="' + lng + '" ' +
+                'name="route[waypoints_attributes][' + markers.length + '][lng]">';
+        var form_type = '<input ' +
+                'id="route_waypoints_attributes_' + markers.length + '_typ" ' +
+                'type="text" ' +
+                'value="' + temp.options.icon.options.iconUrl.toString() + '" ' +
+                'name="route[waypoints_attributes][' + markers.length + '][typ]">';
+
+        console.log("Form_title: %s", form_title);
+        console.log("Form_lat: %s", form_lat);
+        console.log("Form_lng: %s", form_lng);
+        console.log("Form_type: %s", form_type);
+
+        //addInputFieldForWaypoint(temp);
+        if (form_title) {
+
+
+            $('#waypoint-list').append(
+                    "<li>" + form_title + form_lat + form_lng + form_type
+            );
+        }
 
 
         markers.push(temp);
@@ -177,12 +217,9 @@
         }
 
         // remove all waypoint fields except one
-        while($('#waypoint-list li').length > 1)
+        while($('#waypoint-list li').length > 0)
             $('#waypoint-list li').last().remove();
 
-        // clean up the last
-        $('#waypoint-list li:first').clone().find('input').val('').end().prependTo('#waypoint-list');
-        $('#waypoint-list li').last().remove();
     }
 
 
@@ -204,15 +241,11 @@
         }
 
         // Also remove entry from form, except the last one
-        if($('#waypoint-list li').length > 1)
+        if($('#waypoint-list li').length > 0)
         {
             $('#waypoint-list li').last().remove();
         }
-        // clean up the last one
-        else if ($('#waypoint-list li').length = 1) {
-            $('#waypoint-list li:first').clone().find('input').val('').end().prependTo('#waypoint-list');
-            $('#waypoint-list li').last().remove();
-        }
+
 
 
     }

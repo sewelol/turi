@@ -162,7 +162,10 @@ ActiveRecord::Schema.define(version: 20150513153130) do
     t.string   "desc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "trip_id"
   end
+
+  add_index "routes", ["trip_id"], name: "index_routes_on_trip_id"
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -237,9 +240,12 @@ ActiveRecord::Schema.define(version: 20150513153130) do
     t.string   "desc"
     t.decimal  "lat"
     t.decimal  "lng"
-    t.string   "type"
+    t.string   "typ"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "route_id"
   end
+
+  add_index "waypoints", ["route_id"], name: "index_waypoints_on_route_id"
 
 end

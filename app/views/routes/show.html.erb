@@ -1,0 +1,9 @@
+<h1>Your route is:</h1>
+<p><%= @route.inspect %></p>
+<% @route.waypoints.each do |waypoint| %>
+    <p> Description: <%= waypoint.desc %></p>
+    <p> Latitude: <%= waypoint.lat %></p>
+    <p> Longitude: <%= waypoint.lng %></p>
+    <p> Tralal: <%= waypoint.typ %></p>
+    <br>
+<% end %>

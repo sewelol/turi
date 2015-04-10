@@ -63,6 +63,8 @@
                 markers[0].setIcon(startIcon);
             }
 
+            var     maxLat=-90, minLat=90,
+                    maxLng=-180, minLng=180;
 
             // adds all makers to waypoint layer
             for (var i = 0; i < markers.length; i++) {
@@ -75,11 +77,29 @@
                     L.polyline([markers[i - 1].getLatLng(), markers[i].getLatLng()], {color: 'red'})
                             .addTo(waypointLayer);
                 }
+
+
+                // Find the extreme points of the route to fit the bounds to
+                if (maxLat < markers[i].getLatLng().lat)
+                    maxLat = markers[i].getLatLng().lat;
+
+                if (minLat > markers[i].getLatLng().lat)
+                    minLat = markers[i].getLatLng().lat;
+
+                if (maxLng < markers[i].getLatLng().lng)
+                    maxLng = markers[i].getLatLng().lng;
+
+                if (minLng > markers[i].getLatLng().lng)
+                    minLng = markers[i].getLatLng().lng;
+
             }
+
+            var bounds = [[minLat, minLng],[maxLat, maxLng]];
+            // Fit the bounds of the map view to the extreme points of the route.
+            map.fitBounds(bounds);
 
             // draw waypoint layer to map
             waypointLayer.addTo(map);
-
         }
 
 
@@ -113,6 +133,8 @@
         //temp.addTo(map);
 
         drawMap();
+
+
 
     });
 

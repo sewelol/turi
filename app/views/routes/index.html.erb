@@ -8,6 +8,9 @@
         <div class="col-sm-12">
           <div class="header-section">
             <h1><%= yield :page_title %></h1>
+            <div class="col-md-offset-7">
+                <%= link_to raw('<i class="fa fa-plus"></i> ' << t('trip_add_route')), new_trip_route_path(@trip), id: 'add_route_button',class: 'btn btn-primary push-bit',data: { no_turbolink: true } %>
+            </div>
           </div>
         </div>
       </div>
@@ -15,23 +18,22 @@
 <% end %>
 
 
+<div class="row">
+  <div class="col-lg-8">
+
+    <% @routes.each do |route| %>
+        <div class="col-lg-8">
+          <div class="block">
+            <div class="block-content" >
+
+              <strong><%= link_to route.title, trip_route_path(@trip, route) %></strong> <br>
+              <%= route.desc %>
+            </div>
+          </div>
+        </div>
 
 
-<div class="col-lg-12">
-  <div class="widget">
-    <div class="widget-content" >
+    <%end%>
 
-      <%= link_to raw('<i class="fa fa-plus"></i> ' << t('trip_add_route')), new_trip_route_path(@trip), id: 'add_route_button',class: 'btn btn-primary push-bit',data: { no_turbolink: true } %>
-
-      <% @routes.each do |route| %>
-          <li>
-
-            <strong><%= route.title %> </strong> -
-            <%= route.desc %>
-
-          </li>
-      <%end%>
-
-    </div>
   </div>
 </div>

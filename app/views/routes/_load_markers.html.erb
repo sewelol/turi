@@ -80,6 +80,7 @@
             // adds all makers to waypoint layer
             for (var i = 0; i < markers.length; i++) {
 
+
                 markers[i].addTo(waypointLayer);
 
                 if (i != 0) {
@@ -110,6 +111,7 @@
 
             // draw waypoint layer to map
             waypointLayer.addTo(map);
+
         }
 
 
@@ -161,8 +163,6 @@
         //temp.addTo(map);
 
         drawMap();
-
-
 
     });
 

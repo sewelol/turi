@@ -18,6 +18,14 @@
 
         var myURL = "<%= asset_path('app/maps/') %>"
 
+        var oldIcon = L.icon({
+            iconUrl: myURL + 'images/myButton.png',
+            iconRetinaUrl: myURL + 'images/pin48.png',
+            iconSize: [29, 24],
+            iconAnchor: [9, 21],
+            popupAnchor: [0, -14]
+        });
+
         var wayPointIcon = L.icon({
             iconUrl: myURL + 'images/Waypoint.png',
             iconRetinaUrl: myURL + 'images/pin48.png',
@@ -61,6 +69,9 @@
 
             if (markers.length != 0) {
                 markers[0].setIcon(startIcon);
+
+                if (markers.length > 1)
+                    markers[markers.length-1].setIcon(endIcon);
             }
 
             var     maxLat=-90, minLat=90,
@@ -68,7 +79,6 @@
 
             // adds all makers to waypoint layer
             for (var i = 0; i < markers.length; i++) {
-
 
                 markers[i].addTo(waypointLayer);
 
@@ -121,7 +131,25 @@
 
       for(var i = 0; i < waypoints.length; i++) {
 
-          var temp = L.marker([waypoints[i].lat, waypoints[i].lng], {icon: wayPointIcon})
+          var icon;
+          switch (waypoints[i].typ) {
+              case "wayPointIcon":
+                  icon = wayPointIcon;
+                  break;
+              case "startIcon":
+                  icon = startIcon;
+                  break;
+              case "endIcon":
+                  icon = endIcon;
+                  break;
+              case "oldIcon":
+                  icon = oldIcon;
+                  break;
+              default:
+                  icon = wayPointIcon;
+          }
+
+          var temp = L.marker([waypoints[i].lat, waypoints[i].lng], {icon: icon})
                   .bindPopup(waypoints[i].desc);
 
           markers.push(temp);

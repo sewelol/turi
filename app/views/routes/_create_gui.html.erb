@@ -60,14 +60,23 @@
                 'name="route[waypoints_attributes][' + markers.length + '][lat]">';
         var form_lng = '<input ' +
                 'id="route_waypoints_attributes_' + markers.length + '_lng" ' +
-                'type="number" ' +
-                'value="' + lng + '" ' +
+                'type="number" value="' + lng + '" ' +
                 'name="route[waypoints_attributes][' + markers.length + '][lng]">';
-        var form_type = '<input ' +
-                'id="route_waypoints_attributes_' + markers.length + '_typ" ' +
-                'type="text" ' +
-                'value="' + temp.options.icon.options.iconUrl.toString() + '" ' +
-                'name="route[waypoints_attributes][' + markers.length + '][typ]">';
+
+
+        var form_type = '<select id="route_waypoints_attributes_' + markers.length + '_typ"' +
+                ' name="route[waypoints_attributes][' + markers.length + '][typ]">>' +
+                '<option value="wayPointIcon">Blue Dot</option>' +
+                '<option value="startIcon">Green Pin</option>' +
+                '<option value="endIcon">Red Pin</option>' +
+                '<option value="oldIcon">Blue Pin</option>' +
+                '</select>';
+
+//        var form_type = '<input ' +
+//                'id="route_waypoints_attributes_' + markers.length + '_typ" ' +
+//                'type="text" ' +
+//                'value="' + temp.options.icon.options.iconUrl.toString() + '" ' +
+//                'name="route[waypoints_attributes][' + markers.length + '][typ]">';
 
         console.log("Form_title: %s", form_title);
         console.log("Form_lat: %s", form_lat);

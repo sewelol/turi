@@ -7,7 +7,7 @@
 <% content_for :page_scripts do %>
     <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2'></script>
 
-    <%= render 'routes/map' %>
+    <!--<%= render 'routes/map' %>-->
     <%= render 'routes/load_markers' %>
 
 <% end %>
@@ -34,30 +34,35 @@
         <h2><%= @route.title %></h2>
       </div>
       <div class="col-md-offset-1">
-              <table style="width: 90%;" class="table table-striped table-bordered">
-                <thead>
+          <table id="waypoint-table" style="width: 90%;" class="table table-striped table-bordered">
+            <thead>
                 <tr>
                   <td>Description</td>
                   <td>Latitude</td>
                   <td>Longitude</td>
                   <td>Type</td>
                 </tr>
-                </thead>
+            </thead>
 
-                <tbody id="waypoint-table">
+            <% @route.waypoints.each do |waypoint| %>
+                <tr class="waypoint-entry">
+                  <td>
+                    <input readonly="readonly" type="text"     id="desc"   value="<%= waypoint.desc %>"/>
+                  </td>
+                  <td>
+                    <input readonly="readonly" type="number"   id="lat"     value="<%= waypoint.lat %>"/>
+                  </td>
+                  <td>
+                    <input readonly="readonly" type="number"   id="lng"    value="<%= waypoint.lng %>"/>
+                  </td>
+                  <td>
+                    <input readonly="readonly" type="text"     id="typ"    value="<%= waypoint.typ %>"/>
+                  </td>
+                </tr>
+            <% end %>
 
-                <% @route.waypoints.each do |waypoint| %>
-                    <tr class="waypoint-entry">
-                      <td id="desc" value="<%= waypoint.desc %>"><%= waypoint.desc %></td>
-                      <td id=lat" value=<%= waypoint.lat %>><%= waypoint.lat %></td>
-                      <td id=lng" value=<%= waypoint.lng %>><%= waypoint.lng %></td>
-                      <td id="typ" value="<%= waypoint.typ %>"><%= waypoint.typ %></td>
-                    </tr>
-                <% end %>
 
-                </tbody>
-
-              </table>
+          </table>
       </div>
     </div>
   </div>

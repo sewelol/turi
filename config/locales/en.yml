@@ -216,8 +216,12 @@ en:
   dropbox_configuration_missing:    "@developer: You need to setup the dropbox configuration for your local project!"
 
   # friendship
-  user_friendship_added:                  "Friend requested."
   user_friendship_removed:                "Removed friendship."
-  user_friendship_not_added:              "Unable to request friendship."
   user_friendship_confirmed:              "Successfully confirmed friend!"
   user_friendship_not_confirmed:          "Sorry! Could not confirm friend!"
+
+  # request
+  user_request_added:                     "Friend requested."
+  user_request_not_added:                 "Unable to request friend."
+  user_request_removed:                   "Request removed."
+

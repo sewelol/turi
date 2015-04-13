@@ -4,7 +4,7 @@
       <%= form_for [@friendship, @request], html: {class: 'form-horizontal form-bordered'} do |r| %>
           <div class="form-group">
             <div class="col-md-7 push-bit">
-              <%= r.name  %>
+              <%= r.user.id  %>
             </div>
           </div>
       <% end %>

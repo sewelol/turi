@@ -87,12 +87,28 @@
               <% requests.each do |request| %>
                   <li>
                     <% if current_user.id == @user.id %>
-                        <%= form_tag({controller: :friendship, action: 'reques'}, class: 'form-horizontal form-bordered') do |r| %>
+                        <%= form_tag({controller: :friendship, action: 'request'}, class: 'form-horizontal form-bordered') do |r| %>
                             <div class="form-group">
                               <%= label_tag(:friend_name, "Name", class: 'col-md-3 control-label') %>
+                              <div class="col-md-7">
+                                <%= text_field_tag(:user_name, request.requester.name, class: 'col-md-3 control-label') %>
+                              </div>
                             </div>
+                            <div class="form-group">
+                              <%= label_tag(:request_flag, t('accept'), class: 'col-md-3 control-label') %>
+                              <div class="col-md-7">
+                                <label class="switch switch-danger"><%= check_box_tag :request_flag, 1, true %><span></span></label>
+                              </div>
+                            </div>
+                            <div class="form-group form-actions">
+                              <div class="col-md-7 col-md-offset-3">
+                                <=% submit_tag "Save", id: 'save_friendship_button', class: 'btn btn-effect-ripple btn-primary', style: 'overflow: hidden; position: relativ;' %>
+                                <%= link_to "Cancel", users_friendships_requests_path(@user), class: 'btn btn-effect-ripple btn-danger', style: 'overflow:  hidden; position: relative;' %>
+                              </div>
+                            </div>
+                        <% end %>
                         <%= link_to request.requester.name, user_path(request.requester), :method => :get %>
-                        <%= link_to "Accept", user_friendship_path(:friend_id => request), :method => "put" %>
+                        <%= link_to "Accept", user_friendship_path(:friend_id => request), :method => :put %>
                         <%= link_to "Decline", user_friendship_path(:friend_id => request), :method => :delete %>
                     <% end %>
                   </li>

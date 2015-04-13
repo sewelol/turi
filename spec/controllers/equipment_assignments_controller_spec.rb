@@ -39,16 +39,40 @@ RSpec.describe EquipmentAssignmentsController, type: :controller do
             }.to change(EquipmentAssignment, :count).by(1)
             expect(flash[:notice]).to eq(I18n.t 'trip_equipment_assignment_created')
         end
-
-        it "Assigments should 'stack' when user_id matches a already exisiting record" do
-            FactoryGirl.create(:equipment_assignment, :equipment_item => @equipment_item, :user_id => @owner.id)
-            expect {
-                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_id => @owner.id)
-            }.to change(EquipmentAssignment, :count).by(0)
-            @ea = @equipment_item.equipment_assignments.find_by(:user_id => @owner.id)
-            expect(@ea.number).to eq(@equipment_assignment.number * 2)
-        end
     end
+
+        it "Controller does updates the record if the record with the same user_id exists in the database" do
+            FactoryGirl.create(:equipment_assignment, :equipment_item => @equipment_item, :user_id => @owner.id)
+            expect { 
+                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_id => @owner.id, :number => 2)
+            }.to change(EquipmentAssignment, :count).by(0)
+            expect(flash[:notice]).to eq(I18n.t 'trip_equipment_assignment_updated')
+        end
+
+        it "A value which is higher than the equipment_item's number is rejected" do
+            expect { 
+                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_id => @owner.id, :number => @equipment_item.number + 1)
+            }.to change(EquipmentAssignment, :count).by(0)
+            expect(flash[:alert]).to eq(I18n.t 'trip_equipment_assignment_not_created')
+        end
+
+        it "A none existing record should not be made unless value is higher than 0" do
+            expect { 
+                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_id => @owner.id, :number => 0)
+            }.to change(EquipmentAssignment, :count).by(0)
+            expect(flash[:alert]).to eq(I18n.t 'trip_equipment_assignment_not_created')
+        end
+
+        it "An existing record should be deleted when a updates is made with a number less than 1" do
+            FactoryGirl.create(:equipment_assignment, :equipment_item => @equipment_item, :user_id => @owner.id)
+            expect { 
+                post :create, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :equipment_assignment => FactoryGirl.attributes_for(:equipment_assignment, :user_id => @owner.id, :number => 0)
+            }.to change(EquipmentAssignment, :count).by(-1)
+            expect(flash[:notice]).to eq(I18n.t 'trip_equipment_assignment_deleted')
+
+
+        end
+
 
 
     describe "POST #delete" do
@@ -60,7 +84,7 @@ RSpec.describe EquipmentAssignmentsController, type: :controller do
             expect { 
                 post :destroy, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :equipment_item_id => @equipment_item.id, :id => @equipment_assignment.id
             }.to change(EquipmentAssignment, :count).by(-1)
-            expect(response).to redirect_to trip_equipment_list_equipment_item_path(@trip, @equipment_list, @equipment_item)
+            expect(response).to redirect_to trip_equipment_list_path(@trip, @equipment_list)
             expect(flash[:notice]).to eq(I18n.t 'trip_equipment_assignment_deleted')
         end
     end

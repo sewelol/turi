@@ -8,6 +8,7 @@ class Trip < ActiveRecord::Base
   has_many :api_access_tokens, :dependent => :delete_all
   has_many :events, :dependent => :delete_all
   has_many :articles, :dependent => :delete_all
+  has_many :discussions, :dependent => :delete_all
 
   validates_presence_of :title
 

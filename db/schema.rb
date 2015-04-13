@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150317121036) do
+ActiveRecord::Schema.define(version: 20150324124701) do
 
   create_table "api_access_tokens", force: :cascade do |t|
     t.integer  "user_id"
@@ -43,6 +43,29 @@ ActiveRecord::Schema.define(version: 20150317121036) do
   end
 
   add_index "articles", ["trip_id"], name: "index_articles_on_trip_id"
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "body",          null: false
+    t.integer  "discussion_id"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "comments", ["discussion_id"], name: "index_comments_on_discussion_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "discussions", force: :cascade do |t|
+    t.integer  "trip_id"
+    t.integer  "user_id"
+    t.text     "title",      null: false
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "discussions", ["trip_id"], name: "index_discussions_on_trip_id"
+  add_index "discussions", ["user_id"], name: "index_discussions_on_user_id"
 
   create_table "equipment_assignments", force: :cascade do |t|
     t.integer  "number"

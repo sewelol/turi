@@ -19,8 +19,10 @@
     <a href="<%=trip_equipment_lists_path(@trip)%>"><i class="gi gi-fins sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide"><%=t('trip_equipment')%></span></a>
   </li>
 
-  <li class="">
-    <a href="#"><i class="gi gi-group sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Discussion</span></a>
+  <li class="<%= current_page?(trip_discussions_path(@trip)) ? 'active' : '' %>">
+    <%= link_to trip_discussions_path(@trip), id: 'discussion-btn' do %>
+        <i class="gi gi-group sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Discussion</span>
+    <% end %>
   </li>
 
   <li class="<%=current_page?(trip_articles_path(@trip)) ? 'active' : ''%>">

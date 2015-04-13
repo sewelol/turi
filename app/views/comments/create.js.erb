@@ -1,0 +1,2 @@
+$("<%= escape_javascript(render partial: "comments/comment", locals: {comment: @comment}) %>").appendTo("#comment-list");
+$("#new_comment").find("input[type=text], textarea").val("");

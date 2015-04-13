@@ -79,4 +79,31 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'turi.herokuapp.com', port: 80 }
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.defult charset: "utf-8"
+
+  # gmail configuration
+  # config.action_mailer.smtp_settings = {
+  #     address: "smtp.gmail.com",
+  #     port: 587,
+  #     domain: ENV["GMAIL_DOMAIN"],
+  #     authentication: "plain",
+  #     enable_starttls_auto: true,
+  #     user_name: ENV["GMAIL_USERNAME"],
+  #     password: ENV["GMAIL_PASSWORD"]
+  # }
+
+  # mailgun configuration
+  config.action_mailer.smtp_settings = {
+      address: "smtp.mailgun.org",
+      port: 587,
+      domain: ENV["MAILGUN_DOMAIN"],
+      authentication: "plain",
+      enable_starttls_auto: true,
+      user_name: ENV["MAILGUN_USERNAME"],
+      password: ENV["MAILGUN_PASSWORD"]
+  }
+
 end

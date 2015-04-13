@@ -48,6 +48,7 @@ gem 'geocoder'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+
 source 'https://rails-assets.org' do
   # Only jQuery should be included as extra gem, any other JS library should be included from rails-assets
   gem 'rails-assets-leaflet'
@@ -77,10 +78,14 @@ group :development, :test do
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+
+  #use foreman to use enviroment variables
+  #gem 'foreman'
 end
 
 group :test do
   gem 'codeclimate-test-reporter', require: nil
+  gem 'email_spec'
 end
 
 # Heroku

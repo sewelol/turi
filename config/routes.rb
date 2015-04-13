@@ -22,7 +22,9 @@ Rails.application.routes.draw do
     end
     resources :events
     resources :articles
-
+    resources :discussions do
+      resources :comments
+    end
     resources :media, only: [:index, :show, :destroy]
   end
 

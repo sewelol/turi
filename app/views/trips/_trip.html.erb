@@ -1,6 +1,5 @@
 <a href="<%=trip_path(trip)%>" class="widget">
-<div class="widget-image widget-image-xs">
-  <img src="<%= trip.image.empty? ? 'https://unsplash.it/500/20' << rand(9).to_s << '?random' : trip.image %>" alt="image" style="min-width: inherit;">
+<div class="widget-image widget-image-xs cover-image" style="background-image: url(<%= trip.image.empty? ? 'https://unsplash.it/500/200?random' : trip.image %>)">
   <div class="widget-image-content">
     <h2 class="widget-heading text-light"><strong><%=trip.title%></strong></h2>
     <h3 class="widget-heading text-light-op">Created by <%= trip.user.name %></h3>

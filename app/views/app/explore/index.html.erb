@@ -1,0 +1,49 @@
+<% content_for :page_class do %>
+    no-page-padding
+<% end %>
+
+<% content_for :page_scripts do %>
+    <script>
+        var map;
+        $(function () {
+
+            // Resize the map with window changes.
+            $(window).resize(function() {
+                $('#map').css('height', $('#page-content').outerHeight() - $('.navbar').outerHeight());
+            });
+
+            $('#map').css('height', $('#page-content').outerHeight() - $('.navbar').outerHeight());
+
+            // Initialize the map.
+            var markerIcon = L.AwesomeMarkers.icon({
+                prefix: 'fa',
+                icon: 'compass',
+                markerColor: 'red'
+            });
+
+            map = L.map('map').setView([51.505, -0.09], 4);
+            L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
+                subdomains: ['otile1','otile2','otile3','otile4']
+            }).addTo( map );
+            map.invalidateSize();
+
+            var markers = new L.MarkerClusterGroup();
+
+            <% @trip_items.each do |trip_item| %>
+                var tripMarker_<%= trip_item[:id] %> = new L.marker([<%=trip_item[:lat]%>, <%=trip_item[:long]%>], {icon: markerIcon, url: '<%= trip_item[:url] %>'});
+                tripMarker_<%= trip_item[:id] %>.on('click', onTripMarkerClick);
+                markers.addLayer(tripMarker_<%= trip_item[:id] %>);
+            <% end %>
+
+            map.addLayer(markers);
+
+        });
+
+        function onTripMarkerClick() {
+            window.location.href = this.options.url;
+        }
+    </script>
+<% end %>
+
+<div id="map" class="gmap explore-map"></div>

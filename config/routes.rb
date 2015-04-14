@@ -37,6 +37,9 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
+  # Explore
+  get 'explore', to: 'app/explore#index', as: 'explore'
+
   # Search
   get 'search', to: 'search#index', as: 'search'
   get 'search/trips', to: 'search#trips', as: 'search_trips'

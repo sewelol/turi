@@ -1,2 +1,2 @@
-$("<%= escape_javascript(render partial: "comments/comment", locals: {comment: @comment}) %>").appendTo("#comment-list");
+$("<%= escape_javascript(render partial: "comments/comment", locals: {comment: @comment}) %>").insertBefore(".comment-editor-head");
 $("#new_comment").find("input[type=text], textarea").val("");

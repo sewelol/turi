@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
 
   def index
     authorize @trip, :show?
-    @articles = @trip.articles
+    @articles = @trip.articles.reverse
   end
 
   def show

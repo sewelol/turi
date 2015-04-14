@@ -136,6 +136,11 @@ en:
   trip_equipment_list_delete_confimation:   "Are you sure you want to delete this equipment list?"
   trip_equipment_item_edit:                 "Edit equipment list"
   trip_equipment_item_add_qoute:            "Add an useful item to your equipment list."
+  trip_equipment_list_money_widget_index:   "Total cost of trip"
+  trip_equipment_list_item_widget_index:    "Total number of items"
+  trip_equipment_list_money_widget:         "Total cost of list"
+  trip_equipment_list_item_widget:          "Total number of items in the list"
+
 
 
   # equipment_items

@@ -37,9 +37,14 @@ en:
   back: "Back"
   edit: "Edit"
   publish: "Publish"
+  by: "by"
+  now: "Now"
+  reply : "Reply"
+  distance_ago: "%{distance} ago"
 
   # http://en.wikipedia.org/wiki/Date_format_by_country
   # https://hackhands.com/format-datetime-ruby/
+  # TODO: I've seen this already exists in official rails translations.. so may we should go with them.
   date_time:  "%d/%m/%Y %I:%M %p"
 
   header_title: "turi"
@@ -235,6 +240,7 @@ en:
   edit_discussion:                  "Edit discussion"
   discussions:                      "Discussions"
   new_discussion:                   "New discussion"
+  trip_discussion_delete:           "Delete discussion"
   discussion_delete_verification:   "Are you sure you want to delete this discussion?"
   back_to_discussions:              "Back to discussions"
   discussion:                       "Discussion"

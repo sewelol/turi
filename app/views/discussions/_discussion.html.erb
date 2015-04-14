@@ -1,10 +1,16 @@
 <tr>
-  <td>
+  <td colspan="2">
     <h4>
-      <a class="text-dark" href="javascript:void(0)"><strong>
-        <%= link_to discussion.title, trip_discussion_path(@trip, discussion), id: "discussion_" << discussion.id.to_s %>
-      </strong></a>
+      <%= link_to trip_discussion_path(@trip, discussion), class: 'text-dark', id: 'discussion_' << discussion.id.to_s do %>
+          <strong><%=discussion.title%></strong>
+      <% end %>
     </h4>
+    <div class="text-muted"><a href="<%= user_path discussion.user %>"><%=discussion.user.name%></a> <em><%= t :distance_ago, distance: distance_of_time_in_words(Time.now - discussion.updated_at) %></em></div>
   </td>
-  <td style="width: 120px;" class="hidden-xs text-right text-muted"><em><%= distance_of_time_in_words (Time.now - discussion.updated_at) %></em></td>
+  <td class="text-center hidden-xs hidden-sm"><a href="<%=trip_discussion_path(@trip, discussion)%>"><strong><%=discussion.comments.count%></strong></a></td>
+  <% unless  discussion.comments.last.blank? %>
+    <td class="hidden-xs hidden-sm"><%=t :by %> <a href="<%= user_path discussion.comments.last.user %>"><%=discussion.comments.last.user.name%></a><br><small><%= t :distance_ago, distance: distance_of_time_in_words(Time.now - discussion.comments.last.updated_at) %></small></td>
+  <% else %>
+      <td class="hidden-xs hidden-sm">-</td>
+  <% end %>
 </tr>

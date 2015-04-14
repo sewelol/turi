@@ -4,6 +4,10 @@
         inner-sidebar-left
     <% end %>
 
+    <% content_for :page_script do %>
+        <script src="public/app/js/compNestable.js"></script>
+        <script> $(function(){ CompNestable.init(); });</script>
+    <% end %>
 
     <div id="page-content-sidebar">
       <!-- Collapsible Options -->
@@ -11,25 +15,26 @@
       <div id="todo-options" class="collapse navbar-collapse remove-padding">
         <!-- Lists -->
         <h4 class="inner-sidebar-header">
-          <a href="<%= new_trip_equipment_list_path(@trip) %>" class="btn btn-xs btn-default pull-right" title="Create equipment list"><i class="fa fa-plus"></i></a>
+          <a href="<%= new_trip_equipment_list_path(@trip) %>" class="btn btn-xs btn-default pull-right" title="Create equipment list" id='new_list'><i class="fa fa-plus"></i></a>
           Lists
         </h4>
         <div class="block-section">
           <ul class="nav nav-pills nav-stacked">
 
-            <% @trip.equipment_lists.each do |equipment_list| %>
-                <li class="<%= current_page?(trip_equipment_list_path(@trip, equipment_list)) || current_page?(edit_trip_equipment_list_path(@trip, equipment_list)) ? 'active' : ''%>">
+              <% @trip.equipment_lists.each do |equipment_list| %>
+                <!-- highlight list if selected -->
+                <li class="<%= 'active' if @equipment_list == equipment_list%>">
                   <a href="<%= trip_equipment_list_path(@trip, equipment_list) %>" id="<%= equipment_list.name %>_equipment_link">
-                    <i class="fa <%= equipment_list.icon %> fa-fw icon-push"></i> <strong><%= equipment_list.name %></strong>
+                      <i class="fa <%= equipment_list.icon %> fa-fw icon-push"></i> <strong><%= equipment_list.name %></strong>
                   </a>
                 </li>
             <% end %>
           </ul>
         </div>
-        <!-- END Lists -->
-
       </div>
       <!-- END Collapsible Options -->
     </div>
-
 <% end %>
+
+
+

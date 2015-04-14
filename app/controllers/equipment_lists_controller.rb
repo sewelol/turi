@@ -23,7 +23,8 @@ class EquipmentListsController < ApplicationController
         # Reuse the update policy from the trip, since only editors and owner can create a new EquipmentList
         authorize @trip, :update?
         @equipment_list = EquipmentList.create(equipment_list_params)
-        @equipment_list.trip_id = @trip.id
+        @equipment_list.trip = @trip
+        @equipment_list.user = current_user
         
         if @equipment_list.save
             flash[:notice] = I18n.t 'trip_equipment_list_created'

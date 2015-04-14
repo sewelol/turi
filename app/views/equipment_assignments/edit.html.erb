@@ -1,5 +1,5 @@
 <% content_for :page_title do %>
-    | <%= @equipment_list.name %> | <%= @equipment_item.name %>
+    <%= @equipment_list.name %> | <%= @equipment_item.name %>
 <% end %>
 
 
@@ -7,6 +7,52 @@
 
 <div class="col-md-offset-3 col-md-6 text-center">
     <div class='block'>
-        <%= render 'form' %>
+        <!-- Form for equipment assigment -->
+        <%= form_for [@trip, @equipment_list, @equipment_item, @equipment_assignment] do |f| %>
+
+            <!-- begin user selector -->
+            <div class="form-group">
+                <label class="control-label pull-left" for="equipment_assignment_user_id"><%= t('trip_equipment_assigment_assignmnet') %></label>
+                <div class="col-md-3">
+                    <select id="equipment_assignment_user_id" name="equipment_assignment[user_id]" class="form-control" size="1">
+                        <!-- The user which is currently assigned to the item, should always be first -->
+                        <% user = User.find(@equipment_assignment.user_id) %>
+                        <option value="<%= user.id %>"><%= user.name %></option>
+                        <!-- if the current_user is a owner or editor, all participant can be selected -->
+                        <% if policy(@trip).update? %>
+                            <!-- 'seperator' -->
+                            <option value="<%= user.id %>">--------</option>
+                            <!-- current_user should be on the top -->
+                            <option value="<%= current_user.id %>"><%= current_user.name %></option>
+                            <!-- the rest of the participants -->
+                            <% @trip.participants.each do |participant| %>
+                                <% unless participant.user == current_user || participant.user == user %>
+                                    <option value="<%= participant.user.id %>"><%= participant.user.name %></option>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    </select>
+                </div>
+            </div>
+            <!-- end user selector -->
+
+            <!-- begin number selector -->
+            <div class="form-group">
+                <label class="control-label pull-left" for="equipment_assignment_number"><%= t('trip_equipment_item_number_of_items') %></label>
+                <div class="col-md-3">
+                    <select id="equipment_assignment_number" name="equipment_assignment[number]" class="form-control" size="1">
+                        <% 1.upto(@equipment_item.number - @equipment_item.equipment_assignments.sum(:number) + @equipment_assignment.number) do |n| %>
+                            <option value="<%= n %>"><%= n %></option>
+                        <% end %>
+                    </select>
+                </div>
+            </div>
+            <!-- end number selector -->
+
+
+            <div class="form-group form-actions">
+                <%= f.submit class: 'btn btn-effect-ripple btn-primary', id: 'submit' %>
+            </div>
+        <% end %>
     </div>
 </div>

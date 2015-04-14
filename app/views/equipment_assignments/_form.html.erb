@@ -1,30 +1,44 @@
 
 <!-- Form for equipment assigment -->
 <%= form_for [@trip, @equipment_list, @equipment_item, @equipment_assignment] do |f| %>
-    <!-- 
-        if the current_user is authorized, he/she can add assigments for other people
-        It's done by adding the email for the participant into the field, if the field is blank it's assigned to current_user
-    -->
-    <% if policy(@trip).update? %>
-        <%= text_field_tag(:user_email, '', class: 'form-control') %>
-    <% end %>
-    <!-- Begin slider -->
-    <div class="input-slider-info">
-        <div class="slider slider-horizontal">
-            <div class="slider-track">
-                <div class="slider-selection"></div>
-                <div tabindex="0" class="slider-handle round"></div>
-                <div tabindex="0" class="slider-handle round hide"></div>
-            </div>
-            <div class="tooltip top hide">
-                <div class="tooltip-arrow"></div>
-                <div class="tooltip-inner"></div>
-            </div>
-            <input id="equipment_assignment_number" name="equipment_assignment[number]" class="form-control input-slider" data-slider-min="1" data-slider-max="<%= (@equipment_item.number - @equipment_item.equipment_assignments.sum(:number)) %>" data-slider-step="1" data-slider-value="<%= (@equipment_item.number - @equipment_item.equipment_assignments.sum(:number))/2 %>" value="<%= (@equipment_item.number - @equipment_item.equipment_assignments.sum(:number))/2 %>" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" type="number">
+    <!-- begin user selector -->
+    <div class="form-group">
+        <label class="control-label pull-left" for="equipment_assignment_user_id"><%= t('trip_equipment_assigment_assignmnet') %></label>
+        <div class="col-md-3">
+            <select id="equipment_assignment_user_id" name="equipment_assignment[user_id]" class="form-control" size="1">
+                <!-- set current_user as default -->
+                <option value="<%= current_user.id %>"> <%= current_user.name %></option>
+                <!-- if owner or editor of the trip, other participants can be selected -->
+                <% if policy(@trip).update? %>
+                    <!-- 'separator' with current_user value -->
+                    <option value="<%= current_user.id %>">--------</option>
+                    <% @trip.participants.each do |participant| %>
+                        <% unless participant.user == current_user %>
+                            <option value="<%= participant.user.id %>"><%= participant.user.name %></option>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </select>
         </div>
     </div>
-    <!-- end slider -->
+    <!-- end user Selector -->
+
+
+    <!-- begin number selector -->
+    <div class="form-group">
+        <label class="control-label pull-left" for="equipment_assignment_number"><%= t('trip_equipment_item_number_of_items') %></label>
+        <div class="col-md-3">
+            <select id="equipment_assignment_number" name="equipment_assignment[number]" class="form-control" size="1">
+                <% 1.upto(@equipment_item.number - @equipment_item.equipment_assignments.sum(:number)) do |n| %>
+                    <option value="<%= n %>"><%= n %></option>
+                <% end %>
+            </select>
+        </div>
+    </div>
+    <!-- end number selector -->
+
     <div class="form-group form-actions">
         <%= f.submit class: 'btn btn-effect-ripple btn-primary', id: 'submit' %>
     </div>
 <% end %>
+<!-- end form -->

@@ -98,9 +98,11 @@ ActiveRecord::Schema.define(version: 20150324124701) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "trip_id"
+    t.integer  "user_id"
   end
 
   add_index "equipment_lists", ["trip_id"], name: "index_equipment_lists_on_trip_id"
+  add_index "equipment_lists", ["user_id"], name: "index_equipment_lists_on_user_id"
 
   create_table "events", force: :cascade do |t|
     t.string   "name",                     null: false

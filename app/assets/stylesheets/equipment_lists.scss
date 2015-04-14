@@ -1,3 +1,36 @@
-// Place all the styles related to the EquipmentLists controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.task-list li {
+  padding-left: 35px;
+}
+
+.task-list li > .task-actions {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  opacity: 0;
+  -webkit-transition: opacity .15s ease-out;
+  transition: opacity .15s ease-out;
+}
+
+.task-list li:hover > .task-actions {
+  opacity: 1;
+}
+
+.task-list li a.task-link {
+  color: #252d2f;
+}
+
+.task-list li a:hover.task-link, .task-list li a:focus.task-link {
+  text-decoration: none;
+}
+
+.task-list li > .task-actions .task-button {
+  margin-right: 3px;
+}
+
+.task-list .task-state {
+  margin-left: 5px;
+}
+
+.task-list li.task-done .task-name {
+  text-decoration: line-through;
+}

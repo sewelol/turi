@@ -10,7 +10,7 @@
         <div class="col-sm-12">
           <div class="header-buttons pull-right">
             <% if policy(@trip).update? %>
-                <%= link_to raw('<i class="fa fa-plus"></i>'), new_trip_article_path(@trip), id: 'add_article_button',class: 'btn btn-lg btn-effect-ripple', data: { toggle: 'tooltip', original_title: t('trip_article_new')} %>
+                <%= link_to raw('<i class="fa fa-plus"></i>'), new_trip_article_path(@trip), id: 'add_article_button',class: 'btn btn-lg btn-effect-ripple', data: { toggle: 'tooltip', no_turbolink: true, original_title: t('trip_article_new')} %>
             <% end %>
           </div>
           <div class="header-section">

@@ -1,44 +1,55 @@
-<% content_for :page_title do %>
-    <%= I18n.t 'trip_article_index' %>
+<% page_title t('trip_article_index_title', trip_name: @trip.title).html_safe %>
+
+<% content_for :page_class do %>
+    background-image
 <% end %>
 
-<div class="content-header">
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="header-section">
-        <h1><%= I18n.t 'trip_article_index' %></h1>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="block-content-full" id="participant-list">
-  <% if policy(@trip).update? %>
-    <div class="text-center widget-content">
-      <%= link_to raw('<i class="fa fa-plus"></i> ' << t('trip_article_new_btn')), new_trip_article_path(@trip), id: 'add_article_button',class: 'btn btn-primary push-bit' %>
-    </div>
-  <% end %>
-</div>
-
-<% articles = @trip.articles.reverse %>
-<% articles.each do |art| %>
-<!-- Block -->
-    <div class="block">
-      <!-- Block Title -->
-      <div class="block-title">
-        <a href="<%= trip_article_path(@trip, art) %>"><h2><%= art.title %></h2></a>
-        <div class="pull-right">
-          <h2><%= art.created_at.strftime(' %d %B %Y') %></h2>
+<% content_for :content_header do %>
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="header-buttons pull-right">
+            <% if policy(@trip).update? %>
+                <%= link_to raw('<i class="fa fa-plus"></i>'), new_trip_article_path(@trip), id: 'add_article_button',class: 'btn btn-lg btn-effect-ripple', data: { toggle: 'tooltip', no_turbolink: true, original_title: t('trip_article_new')} %>
+            <% end %>
+          </div>
+          <div class="header-section">
+            <h1><%= t('trip_article_index', trip_name: @trip.title).html_safe %></h1>
+          </div>
         </div>
       </div>
-      <!-- END Block Title -->
-
-      <!-- Block Content -->
-      <p>
-        <%= truncate(sanitize(art.content, tags: %w(p, b, strong)), length: 1000, separator: ' ') %>
-      </p>
-      <!-- END Block Content -->
     </div>
-    <!-- END Block -->
+<% end %>
+
+<% if @articles.empty? and policy(@trip).update? == false %>
+
+    <%= quote_t 'trip_article_empty' %>
+
+<% elsif @articles.empty? and policy(@trip).update? %>
+
+    <%= quote_btn t('trip_article_new_quote'), t('trip_article_new_btn'), new_trip_article_path(@trip), 'add_article_button_empty' %>
+
+<% else %>
+
+    <% @articles.each do |art| %>
+        <!-- Block -->
+        <div class="block">
+          <!-- Block Title -->
+          <div class="block-title">
+            <a href="<%= trip_article_path(@trip, art) %>"><h2><%= art.title %></h2></a>
+            <div class="pull-right">
+              <h2><%= art.created_at.strftime('%B %d, %Y') %></h2>
+            </div>
+          </div>
+          <!-- END Block Title -->
+
+          <!-- Block Content -->
+          <p>
+            <%= truncate(sanitize(art.content, tags: %w(p, b, strong)), length: 1000, separator: ' ') %>
+          </p>
+          <!-- END Block Content -->
+        </div>
+        <!-- END Block -->
+    <% end %>
 
 <% end %>

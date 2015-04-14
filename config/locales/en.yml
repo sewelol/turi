@@ -192,19 +192,20 @@ en:
   trip_events_no_description:   "No description for this event."
 
   # articles
-  trip_article_index:           "Blog index"
-  trip_article_entry:           "Blog entry"
-  trip_article_new:             "New blog entry"
-  trip_article_edit:            "Edit blog entry"
-  trip_article_edit_btn:        "Edit"
-  trip_article_destroy_btn:     "Delete"
-  trip_article_destroy_confirm: "Are you sure you want to delete this entry?"
-  trip_article_new_btn:         "Create new blog"
-  trip_article_created:         "Blog entry created."
-  trip_article_not_created:     "Blog entry was not created."
-  trip_article_updated:         "Blog entry updated."
-  trip_article_not_updated:     "Blog update failed."
-  trip_article_destroyed:       "Blog entry deleted."
+  trip_article_index_title:     "Blog"
+  trip_article_index:           "%{trip_name}&#39;s blog"
+  trip_article_entry:           "Article"
+  trip_article_new_quote:       "Share your experience with others."
+  trip_article_new:             "New article"
+  trip_article_edit:            "Edit article"
+  trip_article_destroy:         "Delete article"
+  trip_article_destroy_confirm: "Are you sure you want to delete this article?"
+  trip_article_new_btn:         "Create new article"
+  trip_article_created:         "Article created."
+  trip_article_not_created:     "Article was not created."
+  trip_article_updated:         "Article updated."
+  trip_article_not_updated:     "Article update failed."
+  trip_article_destroyed:       "Article deleted."
 
   # dropbox
   dropbox:                          "Dropbox" # I know, i know...

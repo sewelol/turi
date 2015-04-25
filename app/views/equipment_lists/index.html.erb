@@ -13,7 +13,7 @@
 
         var data = google.visualization.arrayToDataTable([
                 ['participant_name', 'total_assigned_cost'],
-                <% @list.each do |id, values| %>
+                <% @user_summary_hash.each do |id, values| %>
                     <% if id.is_a? Integer %>
                         ['<%= User.find(id).name %>', <%= values[0] %>],
                     <% else %>
@@ -37,7 +37,7 @@
 
         var data = google.visualization.arrayToDataTable([
                 ['participant_name', 'total_assigned_items'],
-                <% @list.each do |id, values| %>
+                <% @user_summary_hash.each do |id, values| %>
                     <% if id.is_a? Integer %>
                         ['<%= User.find(id).name %>', <%= values[1] %>],
                     <% else %>
@@ -70,7 +70,7 @@
                     <i class="gi gi-wallet text-light-op"></i>
                 </div>
                 <h2 class="widget-heading h3 text-danger">
-                    <strong>$ <span data-toggle="counter" data-to="<%= @total_amount %>"></span><%= @total_amount %></strong>
+                    <strong>$ <span data-toggle="counter" data-to="<%= @total_amount_summary %>"></span><%= @total_amount_summary %></strong>
                 </h2>
                 <span class="text-muted"><%= t('trip_equipment_list_money_widget_index') %></span>
                 <div id="money_piechart" class="hidden" ></div>
@@ -85,7 +85,7 @@
                     <i class="gi gi-briefcase text-light-op"></i>
                 </div>
                 <h2 class="widget-heading h3 text-warning">
-                    <strong><span data-toggle="counter" data-to="<%= @total_items %>"><%= @total_items %></span></strong>
+                    <strong><span data-toggle="counter" data-to="<%= @total_items_summary %>"><%= @total_items_summary %></span></strong>
                 </h2>
                 <span class="text-muted"><%= t('trip_equipment_list_item_widget_index') %></span>
                 <div id="item_piechart" class="hidden"></div>

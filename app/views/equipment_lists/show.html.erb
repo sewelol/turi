@@ -57,8 +57,14 @@
         data.addColumn('string', 'participant_name');
         data.addColumn('number', 'total_assigned_cost');
         data.addRows([
-                <% @participants_list.each do |participant| %>
-                    ['<%= participant[0] %>', <%= participant[1] %>],
+                <% @list.each do |id, values| %>
+                    <% if id.is_a? Integer %>
+                        ['<%= User.find(id).name %>', <%= values[0] %>],
+                    <% else %>
+                        <% if values[0] > 0 %>
+                            ['<%= id %>', <%= values[0] %>],
+                        <% end %>
+                    <% end %>
                 <% end %>
         ]);
 
@@ -82,8 +88,14 @@
         data.addColumn('string', 'participant_name');
         data.addColumn('number', 'total_assigned_items');
         data.addRows([
-                <% @participants_list.each do |participant| %>
-                    ['<%= participant[0] %>', <%= participant[2] %>],
+                <% @list.each do |id, values| %>
+                    <% if id.is_a? Integer %>
+                        ['<%= User.find(id).name %>', <%= values[1] %>],
+                    <% else %>
+                        <% if values[1] > 0 %>
+                            ['<%= id %>', <%= values[1] %>],
+                        <% end %>
+                    <% end %>
                 <% end %>
         ]);
 
@@ -143,7 +155,7 @@
                         <i class="gi gi-briefcase text-light-op"></i>
                     </div>
                     <h2 class="widget-heading h3 text-warning">
-                        <strong><span data-toggle="counter" data-to="<%= @equipment_list.equipment_items.sum(:number) %>"><%= @equipment_list.equipment_items.sum(:number) %></span></strong>
+                        <strong><span data-toggle="counter" data-to="<%= @total_items %>"><%= @total_items %></span></strong>
                     </h2>
                     <span class="text-muted"><%= t('trip_equipment_list_item_widget') %></span>
                     <div id="item_chart_div" class="hidden"></div>
@@ -177,7 +189,7 @@
                                 },
                                 class: 'task-button text-danger',
                                 title: t('trip_equipment_item_delete'),
-                                id: 'delete_equipment_item'
+                                id: 'delete_' + item.id.to_s
                             %>
                     <% end %>
                     </div>

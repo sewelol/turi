@@ -10,30 +10,86 @@
     <% end %>
 
     <div id="page-content-sidebar">
-      <!-- Collapsible Options -->
-      <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-options">Options</a>
-      <div id="todo-options" class="collapse navbar-collapse remove-padding">
-        <!-- Lists -->
-        <h4 class="inner-sidebar-header">
-          <a href="<%= new_trip_equipment_list_path(@trip) %>" class="btn btn-xs btn-default pull-right" title="Create equipment list" id='new_list'><i class="fa fa-plus"></i></a>
-          Lists
-        </h4>
-        <div class="block-section">
-          <ul class="nav nav-pills nav-stacked">
+        <!-- Collapsible Options -->
+        <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-options">Options</a>
+        <div id="todo-options" class="collapse navbar-collapse remove-padding">
+            <!-- Lists -->
+            <h4 class="inner-sidebar-header">
+                <a href="<%= new_trip_equipment_list_path(@trip) %>" class="btn btn-xs btn-default pull-right" title="Create equipment list" id='new_list'><i class="fa fa-plus"></i></a>
+                Lists
+            </h4>
+            <div class="block-section">
+                <ul class="nav nav-pills nav-stacked">
 
-              <% @trip.equipment_lists.each do |equipment_list| %>
-                <!-- highlight list if selected -->
-                <li class="<%= 'active' if @equipment_list == equipment_list%>">
-                  <a href="<%= trip_equipment_list_path(@trip, equipment_list) %>" id="<%= equipment_list.name %>_equipment_link">
-                      <i class="fa <%= equipment_list.icon %> fa-fw icon-push"></i> <strong><%= equipment_list.name %></strong>
-                  </a>
-                </li>
-            <% end %>
-          </ul>
+                    <% @trip.equipment_lists.each do |equipment_list| %>
+                        <!-- highlight list if selected -->
+                        <li class="<%= 'active' if @equipment_list == equipment_list%>">
+                            <a href="<%= trip_equipment_list_path(@trip, equipment_list) %>" id="<%= equipment_list.name %>_equipment_link">
+                                <i class="fa <%= equipment_list.icon %> fa-fw icon-push"></i> <strong><%= equipment_list.name %></strong>
+                                <span class='badge pull-right'>
+                                    <% sum = 0 %>
+                                    <% equipment_list.equipment_items.each do |item| %>
+                                        <% sum += item.equipment_assignments.sum(:number) %>
+                                    <% end %>
+                                    <%= sum %>/
+                                    <%= equipment_list.equipment_items.sum(:number) %>
+                                </span>
+                            </a>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
         </div>
-      </div>
-      <!-- END Collapsible Options -->
+
+
+        <!--  Account assigment Info -->
+        <div class="text-center">
+            <div class="pie-chart block-section easyPieChart" data-percent="60" data-line-width="2" data-bar-color="#deb25c" data-track-color="#ffffff">
+                <img src="<%= current_user.image %>" alt="avatar" class="pie-avatar img-circle">
+                <canvas width="80" height="80"></canvas></div>
+        </div>
+        <table class="table table-striped table-vcenter">
+            <tbody>
+                <tr>
+                    <td class="text-right"><strong>Items</strong></td>
+                    <td>
+                        <strong><%= @user_summary_hash[current_user.id][1] %></strong>
+                        <!-- change icon to fa-chevron-down? -->
+                        <a data-original-title="Click to show your items" href="javascript:void(0)" onclick="$('#items_sidebar_div*').toggleClass('hidden');" data-toggle="tooltip" title=""><i class="fa fa-chevron-up pull-right"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right"><strong>Cost</strong></td>
+                    <td><strong><%= @user_summary_hash[current_user.id][0] %></strong></td>
+                </tr>
+
+
+
+            </tbody>
+        </table>
+        <!-- end Account assigment info -->
+
+        <!-- Item summary -->
+        <div class="text-center hidden" id="items_sidebar_div">
+            <h4> Your Items </h4>
+        </div>
+
+        <table class="table table-striped table-vcenter">
+            <tbody> 
+                <% @user_summary_hash[current_user.id][2].each do |assignment| %>
+                    <tr id="items_sidebar_div" class="hidden">
+                        <td class="text-right"><strong><%= assignment.equipment_item.name %></strong> <%= assignment.equipment_item.equipment_list.name %></td>
+                        <td><a data-original-title="Go to list" href="<%= trip_equipment_list_path(@trip, assignment.equipment_item.equipment_list) %>" onclick="" data-toggle="tooltip" title="Go to list"><i class="fa fa-angle-double-right fa-fw"></i></a></td>
+                    </tr>
+                <% end %>
+
+            </tbody>
+        </table>
+        <!-- end Item summary -->
+
     </div>
+    <!-- END Collapsible Options -->
+
 <% end %>
 
 

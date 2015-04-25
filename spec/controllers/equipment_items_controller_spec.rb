@@ -31,19 +31,6 @@ RSpec.describe EquipmentItemsController, type: :controller do
         end
     end
 
-    describe "GET #show" do
-        it "render and assigns the #show" do
-            item = FactoryGirl.create(:equipment_item, :equipment_list_id => @equipment_list.id, :user_id => @user.id)
-            get :show, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :id => item.id
-            expect(assigns(:equipment_item)).to eq(item)
-            expect(response).to render_template :show
-        end
-
-        it "Get a unvalid EquipmentItem" do
-            get :show, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :id => 999
-            expect(flash[:alert]).to eq(I18n.t 'trip_equipment_item_not_found')
-        end
-    end
 
     describe "PUT #edit" do
         before do

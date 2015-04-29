@@ -1,5 +1,20 @@
 require 'rails_helper'
 
-RSpec.describe Waypoint, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+RSpec.feature "Waypoint model test" do
+  describe "waypoint" do
+
+    it "is invalid without a latitude" do
+      expect {
+        FactoryGirl.create(:waypoint, :lat => nil)
+      }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "is invalid without a longitude" do
+      expect {
+        FactoryGirl.create(:waypoint, :lng => nil)
+      }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
 end
+

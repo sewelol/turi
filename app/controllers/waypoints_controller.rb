@@ -17,4 +17,5 @@ class WaypointsController < ApplicationController
     else
       render :action => :new
     end
+  end
 end

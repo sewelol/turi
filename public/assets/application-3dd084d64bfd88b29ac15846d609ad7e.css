@@ -1,0 +1,806 @@
+@charset "UTF-8";/* required styles */
+/* line 3, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-map-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-pane,
+.leaflet-tile-container,
+.leaflet-overlay-pane,
+.leaflet-shadow-pane,
+.leaflet-marker-pane,
+.leaflet-popup-pane,
+.leaflet-overlay-pane svg,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* line 21, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container {
+  overflow: hidden;
+  -ms-touch-action: none;
+}
+
+/* line 25, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* line 33, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+  display: block;
+}
+
+/* map is broken in FF if you have max-width: 100% on tiles */
+/* line 38, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container img {
+  max-width: none !important;
+}
+
+/* stupid Android 2 doesn't understand "max-width: none" properly */
+/* line 42, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container img.leaflet-image-layer {
+  max-width: 15000px !important;
+}
+
+/* line 45, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-tile {
+  filter: inherit;
+  visibility: hidden;
+}
+
+/* line 49, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-tile-loaded {
+  visibility: inherit;
+}
+
+/* line 52, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-zoom-box {
+  width: 0;
+  height: 0;
+}
+
+/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
+/* line 57, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-overlay-pane svg {
+  -moz-user-select: none;
+}
+
+/* line 61, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-tile-pane {
+  z-index: 2;
+}
+
+/* line 62, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-objects-pane {
+  z-index: 3;
+}
+
+/* line 63, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-overlay-pane {
+  z-index: 4;
+}
+
+/* line 64, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-shadow-pane {
+  z-index: 5;
+}
+
+/* line 65, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-marker-pane {
+  z-index: 6;
+}
+
+/* line 66, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-popup-pane {
+  z-index: 7;
+}
+
+/* line 68, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-vml-shape {
+  width: 1px;
+  height: 1px;
+}
+
+/* line 72, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.lvml {
+  behavior: url(#default#VML);
+  display: inline-block;
+  position: absolute;
+}
+
+/* control positioning */
+/* line 81, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control {
+  position: relative;
+  z-index: 7;
+  pointer-events: auto;
+}
+
+/* line 86, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-top,
+.leaflet-bottom {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* line 92, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-top {
+  top: 0;
+}
+
+/* line 95, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-right {
+  right: 0;
+}
+
+/* line 98, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-bottom {
+  bottom: 0;
+}
+
+/* line 101, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-left {
+  left: 0;
+}
+
+/* line 104, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control {
+  float: left;
+  clear: both;
+}
+
+/* line 108, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-right .leaflet-control {
+  float: right;
+}
+
+/* line 111, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-top .leaflet-control {
+  margin-top: 10px;
+}
+
+/* line 114, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-bottom .leaflet-control {
+  margin-bottom: 10px;
+}
+
+/* line 117, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-left .leaflet-control {
+  margin-left: 10px;
+}
+
+/* line 120, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-right .leaflet-control {
+  margin-right: 10px;
+}
+
+/* zoom and fade animations */
+/* line 127, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-fade-anim .leaflet-tile,
+.leaflet-fade-anim .leaflet-popup {
+  opacity: 0;
+  -webkit-transition: opacity 0.2s linear;
+  -moz-transition: opacity 0.2s linear;
+  -o-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
+}
+
+/* line 135, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-fade-anim .leaflet-tile-loaded,
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+  opacity: 1;
+}
+
+/* line 140, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-zoom-anim .leaflet-zoom-animated {
+  -webkit-transition: -webkit-transform 0.25s cubic-bezier(0, 0, 0.25, 1);
+  -moz-transition: -moz-transform 0.25s cubic-bezier(0, 0, 0.25, 1);
+  -o-transition: -o-transform 0.25s cubic-bezier(0, 0, 0.25, 1);
+  transition: transform 0.25s cubic-bezier(0, 0, 0.25, 1);
+}
+
+/* line 146, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile,
+.leaflet-touching .leaflet-zoom-animated {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+/* line 155, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-zoom-anim .leaflet-zoom-hide {
+  visibility: hidden;
+}
+
+/* cursors */
+/* line 162, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-clickable {
+  cursor: pointer;
+}
+
+/* line 165, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+
+/* line 169, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-popup-pane,
+.leaflet-control {
+  cursor: auto;
+}
+
+/* line 173, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-dragging .leaflet-container,
+.leaflet-dragging .leaflet-clickable {
+  cursor: move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
+
+/* visual tweaks */
+/* line 183, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container {
+  background: #ddd;
+  outline: 0;
+}
+
+/* line 187, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container a {
+  color: #0078A8;
+}
+
+/* line 190, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container a.leaflet-active {
+  outline: 2px solid orange;
+}
+
+/* line 193, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-zoom-box {
+  border: 2px dotted #38f;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* general typography */
+/* line 200, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container {
+  font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+/* general toolbar styles */
+/* line 207, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-bar {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+  border-radius: 4px;
+}
+
+/* line 211, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+
+/* line 223, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  display: block;
+}
+
+/* line 229, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-bar a:hover {
+  background-color: #f4f4f4;
+}
+
+/* line 232, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-bar a:first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+/* line 236, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-bar a:last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom: none;
+}
+
+/* line 241, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-bar a.leaflet-disabled {
+  cursor: default;
+  background-color: #f4f4f4;
+  color: #bbb;
+}
+
+/* line 247, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-touch .leaflet-bar a {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+/* zoom control */
+/* line 256, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  font: bold 18px 'Lucida Console', Monaco, monospace;
+  text-indent: 1px;
+}
+
+/* line 261, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-zoom-out {
+  font-size: 20px;
+}
+
+/* line 265, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-touch .leaflet-control-zoom-in {
+  font-size: 22px;
+}
+
+/* line 268, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-touch .leaflet-control-zoom-out {
+  font-size: 24px;
+}
+
+/* layers control */
+/* line 275, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-layers {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  background: #fff;
+  border-radius: 5px;
+}
+
+/* line 280, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-layers-toggle {
+  background-image: url(/assets/leaflet/layers-5ddbc467967fb01586761281bc1e2d81.png);
+  width: 36px;
+  height: 36px;
+}
+
+/* line 285, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-retina .leaflet-control-layers-toggle {
+  background-image: url(/assets/leaflet/layers-2x-9b97ff5c9138c3c25bdf88d1507492d6.png);
+  background-size: 26px 26px;
+}
+
+/* line 289, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-touch .leaflet-control-layers-toggle {
+  width: 44px;
+  height: 44px;
+}
+
+/* line 293, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+  display: none;
+}
+
+/* line 297, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+  display: block;
+  position: relative;
+}
+
+/* line 301, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-layers-expanded {
+  padding: 6px 10px 6px 6px;
+  color: #333;
+  background: #fff;
+}
+
+/* line 306, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-layers-selector {
+  margin-top: 2px;
+  position: relative;
+  top: 1px;
+}
+
+/* line 311, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-layers label {
+  display: block;
+}
+
+/* line 314, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-layers-separator {
+  height: 0;
+  border-top: 1px solid #ddd;
+  margin: 5px -10px 5px -6px;
+}
+
+/* attribution and scale controls */
+/* line 323, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container .leaflet-control-attribution {
+  background: #fff;
+  background: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* line 328, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+  padding: 0 5px;
+  color: #333;
+}
+
+/* line 333, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-attribution a {
+  text-decoration: none;
+}
+
+/* line 336, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-attribution a:hover {
+  text-decoration: underline;
+}
+
+/* line 339, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container .leaflet-control-attribution,
+.leaflet-container .leaflet-control-scale {
+  font-size: 11px;
+}
+
+/* line 343, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-left .leaflet-control-scale {
+  margin-left: 5px;
+}
+
+/* line 346, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-bottom .leaflet-control-scale {
+  margin-bottom: 5px;
+}
+
+/* line 349, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-scale-line {
+  border: 2px solid #777;
+  border-top: none;
+  line-height: 1.1;
+  padding: 2px 5px 1px;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* line 363, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-scale-line:not(:first-child) {
+  border-top: 2px solid #777;
+  border-bottom: none;
+  margin-top: -2px;
+}
+
+/* line 368, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+  border-bottom: 2px solid #777;
+}
+
+/* line 372, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+  box-shadow: none;
+}
+
+/* line 377, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+}
+
+/* popup */
+/* line 386, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-popup {
+  position: absolute;
+  text-align: center;
+}
+
+/* line 390, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-popup-content-wrapper {
+  padding: 1px;
+  text-align: left;
+  border-radius: 12px;
+}
+
+/* line 395, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-popup-content {
+  margin: 13px 19px;
+  line-height: 1.4;
+}
+
+/* line 399, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-popup-content p {
+  margin: 18px 0;
+}
+
+/* line 402, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-popup-tip-container {
+  margin: 0 auto;
+  width: 40px;
+  height: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* line 409, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-popup-tip {
+  width: 17px;
+  height: 17px;
+  padding: 1px;
+  margin: -10px auto 0;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* line 422, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: white;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+}
+
+/* line 428, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container a.leaflet-popup-close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 4px 0 0;
+  text-align: center;
+  width: 18px;
+  height: 14px;
+  font: 16px/14px Tahoma, Verdana, sans-serif;
+  color: #c3c3c3;
+  text-decoration: none;
+  font-weight: bold;
+  background: transparent;
+}
+
+/* line 442, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: #999;
+}
+
+/* line 445, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-popup-scrolled {
+  overflow: auto;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
+/* line 451, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-oldie .leaflet-popup-content-wrapper {
+  zoom: 1;
+}
+
+/* line 454, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-oldie .leaflet-popup-tip {
+  width: 24px;
+  margin: 0 auto;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+  filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+}
+
+/* line 461, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-oldie .leaflet-popup-tip-container {
+  margin-top: -1px;
+}
+
+/* line 465, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+  border: 1px solid #999;
+}
+
+/* div icon */
+/* line 475, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-leaflet-0.7.3/app/assets/stylesheets/leaflet/leaflet.scss */
+.leaflet-div-icon {
+  background: #fff;
+  border: 1px solid #666;
+}
+
+/*!
+ * bootstrap-vertical-tabs - v1.2.1
+ * https://dbtek.github.io/bootstrap-vertical-tabs
+ * 2014-11-07
+ * Copyright (c) 2014 İsmail Demirbilek
+ * License: MIT
+ */
+/* line 8, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.tabs-left, .tabs-right {
+  border-bottom: none;
+  padding-top: 2px;
+}
+
+/* line 12, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.tabs-left {
+  border-right: 1px solid #ddd;
+}
+
+/* line 15, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.tabs-right {
+  border-left: 1px solid #ddd;
+}
+
+/* line 18, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.tabs-left > li, .tabs-right > li {
+  float: none;
+  margin-bottom: 2px;
+}
+
+/* line 22, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.tabs-left > li {
+  margin-right: -1px;
+}
+
+/* line 25, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.tabs-right > li {
+  margin-left: -1px;
+}
+
+/* line 28, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.tabs-left > li.active > a,
+.tabs-left > li.active > a:hover,
+.tabs-left > li.active > a:focus {
+  border-bottom-color: #ddd;
+  border-right-color: transparent;
+}
+
+/* line 35, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.tabs-right > li.active > a,
+.tabs-right > li.active > a:hover,
+.tabs-right > li.active > a:focus {
+  border-bottom: 1px solid #ddd;
+  border-left-color: transparent;
+}
+
+/* line 41, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.tabs-left > li > a {
+  border-radius: 4px 0 0 4px;
+  margin-right: 0;
+  display: block;
+}
+
+/* line 46, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.tabs-right > li > a {
+  border-radius: 0 4px 4px 0;
+  margin-right: 0;
+}
+
+/* line 50, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.sideways {
+  margin-top: 50px;
+  border: none;
+  position: relative;
+}
+
+/* line 55, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.sideways > li {
+  height: 20px;
+  width: 120px;
+  margin-bottom: 100px;
+}
+
+/* line 60, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.sideways > li > a {
+  border-bottom: 1px solid #ddd;
+  border-right-color: transparent;
+  text-align: center;
+  border-radius: 4px 4px 0px 0px;
+}
+
+/* line 66, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.sideways > li.active > a,
+.sideways > li.active > a:hover,
+.sideways > li.active > a:focus {
+  border-bottom-color: transparent;
+  border-right-color: #ddd;
+  border-left-color: #ddd;
+}
+
+/* line 73, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.sideways.tabs-left {
+  left: -50px;
+}
+
+/* line 76, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.sideways.tabs-right {
+  right: -50px;
+}
+
+/* line 79, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.sideways.tabs-right > li {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+/* line 86, /home/kristoffer/.rvm/gems/ruby-2.1.5/gems/rails-assets-bootstrap-vertical-tabs-1.2.1/app/assets/stylesheets/bootstrap-vertical-tabs/bootstrap.vertical-tabs.scss */
+.sideways.tabs-left > li {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+/* line 4, /home/kristoffer/Sync/Skole/INF-2900/turi/app/assets/stylesheets/events.scss */
+.calendar-events li:hover {
+  cursor: auto;
+}
+
+/* line 8, /home/kristoffer/Sync/Skole/INF-2900/turi/app/assets/stylesheets/events.scss */
+.calendar-events a, .calendar-events a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+/* line 5, /home/kristoffer/Documents/Skole/INF-2900/turi/app/assets/stylesheets/media.scss */
+.media-accounts td {
+  padding-left: 3px !important;
+  padding-right: 0px !important;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+
+
+ */
+
+
+.background-image {
+    background: url(https://unsplash.it/g/1200?random&gravity=south) no-repeat;
+    background-size: 100%;
+}
+
+.header-buttons {
+    margin-top: 5px;
+}
+
+.header-buttons a, .header-buttons button {
+    font-size: 25px;
+}
+
+.sidebar-title .logo {
+    margin-right: 8px;
+    padding-bottom: 3px
+}

@@ -7,7 +7,7 @@ class FriendshipsController < ApplicationController
       @friendship = current_user.friendships.build(:friend_id => @user.id)
       flash[:notice] = I18n.t 'user_friendship_confirmed'
     else
-      flash[:alert] = I18n.t 'user_friendship_not_confirmed'
+      flash[:alert] = I18n.t 'user_request_not_confirmed'
     end
     redirect_to user_path @user
   end

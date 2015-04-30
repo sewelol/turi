@@ -27,8 +27,8 @@
               <% if current_user.id != @user.id%>
                   <% f = Friendship.where('(friend_id LIKE ? AND user_id LIKE ?) OR (user_id LIKE ? AND friend_id LIKE ?)', "%#{@user.id}%", "%#{current_user.id}%", "%#{current_user.id}%", "%#{@user.id}%") %>
                   <% if f.blank? %>
-                      <a href="<%= user_friendships_path(@user) %>" data-method="post"> <i class="fa fa-plus"></i></a>
-                      <%= link_to "Add Friend", user_friendships_path(@user), :method => :post %>
+                      <a href="<%= user_requests_path(@user) %>" data-method="post"> <i class="fa fa-plus"></i></a>
+                      <%= link_to "Add Friend", user_requests_path(@user), :method => :post %>
                   <% end %>
 
               <% end %>
@@ -82,39 +82,20 @@
         </ul>
         <h2> Friend requests </h2>
         <ul>
-          <% requests = Request.find_by(reciever_id: current_user) %>
-          <% unless requests.nil? %>
-              <% requests.each do |request| %>
+          <% req = Request.where(user_id: current_user.id) %>
+          <% unless req.nil? %>
+              <% req.each do |req| %>
                   <li>
                     <% if current_user.id == @user.id %>
-                        <%= form_tag({controller: :friendship, action: 'request'}, class: 'form-horizontal form-bordered') do |r| %>
-                            <div class="form-group">
-                              <%= label_tag(:friend_name, "Name", class: 'col-md-3 control-label') %>
-                              <div class="col-md-7">
-                                <%= text_field_tag(:user_name, request.requester.name, class: 'col-md-3 control-label') %>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <%= label_tag(:request_flag, t('accept'), class: 'col-md-3 control-label') %>
-                              <div class="col-md-7">
-                                <label class="switch switch-danger"><%= check_box_tag :request_flag, 1, true %><span></span></label>
-                              </div>
-                            </div>
-                            <div class="form-group form-actions">
-                              <div class="col-md-7 col-md-offset-3">
-                                <=% submit_tag "Save", id: 'save_friendship_button', class: 'btn btn-effect-ripple btn-primary', style: 'overflow: hidden; position: relativ;' %>
-                                <%= link_to "Cancel", users_friendships_requests_path(@user), class: 'btn btn-effect-ripple btn-danger', style: 'overflow:  hidden; position: relative;' %>
-                              </div>
-                            </div>
-                        <% end %>
-                        <%= link_to request.requester.name, user_path(request.requester), :method => :get %>
-                        <%= link_to "Accept", user_friendship_path(:friend_id => request), :method => :put %>
-                        <%= link_to "Decline", user_friendship_path(:friend_id => request), :method => :delete %>
+                            <% for request in @user.requests %>
+                                <%= link_to request.receiver.name, user_path(request.receiver), :method => :get %>
+                                <a href="<%= user_friendships_path(@user, :friend_id => request) %>" data-method="put"> <i class="fa fa-plus"></i></a>
+                                <a href="<%= user_friendships_path(@user, :friend_id => request) %>" data-meyhod="delete"><i class="fa fa-minus"></i></a>
+                            <% end %>
                     <% end %>
                   </li>
               <% end %>
           <% end %>
-
         </ul>
       </div>
 

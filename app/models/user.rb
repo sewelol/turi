@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 
   has_many :requests
-  has_many :requesters, :through => :requests
+  has_many :receivers, :through => :requests
 
   gravtastic
   has_many :trips # Do not make this dependent! This var has to be removed (replaced by participant owner).

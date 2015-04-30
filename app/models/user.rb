@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   validates_presence_of   :name
   validates_uniqueness_of :name
 
+  # FRIENDSHIPS BEGIN
   has_many :friendships
   has_many :friends, :through => :friendships
 
@@ -17,6 +18,7 @@ class User < ActiveRecord::Base
 
   has_many :requests
   has_many :requesters, :through => :requests
+  # FRIENDSHIPS END
 
   gravtastic
   has_many :trips # Do not make this dependent! This var has to be removed (replaced by participant owner).

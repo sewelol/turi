@@ -1,18 +1,19 @@
 class RequestsController < ApplicationController
-  before_action :set_request
+
+  before_action :set_user
 
   def new
     @request = Request.new
   end
 
   def create
-    @request = Request.create(:requester_id => current_user.id, :reciever_id => params[:user_id])
+    @request = Request.create(:user_id => current_user.id, :receiver_id => params[:user_id])
     if @request.save
       flash[:notice] = I18n.t 'user_request_added'
-      redirect_to user_path @user
+      redirect_to user_path current_user
     else
       flash[:error] = I18n.t 'user_request_not_added'
-      redirect_to user_path @user
+      redirect_to user_path current_user
     end
   end
 
@@ -22,7 +23,9 @@ class RequestsController < ApplicationController
   end
 
   private
-  def set_request
-    params.require(:request).permit(:user_id)
+
+  def set_user
+    @user = User.find(params[:user_id])
   end
+  
 end

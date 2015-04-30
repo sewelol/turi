@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
   validates_presence_of   :name
   validates_uniqueness_of :name
 
-  # FRIENDSHIPS BEGIN
   has_many :friendships
   has_many :friends, :through => :friendships
 
@@ -17,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 
   has_many :requests
-  has_many :requesters, :through => :requests
+  has_many :receivers, :through => :requests
   # FRIENDSHIPS END
 
   gravtastic

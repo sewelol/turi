@@ -124,10 +124,10 @@ ActiveRecord::Schema.define(version: 20150407093413) do
   add_index "participants", ["user_id"], name: "index_participants_on_user_id"
 
   create_table "requests", force: :cascade do |t|
-    t.integer  "requester_id"
-    t.integer  "reciever_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+    t.integer  "receiver_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "taggings", force: :cascade do |t|

@@ -130,6 +130,8 @@ ActiveRecord::Schema.define(version: 20150407093413) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "requests", ["user_id", "receiver_id"], name: "index_requests_on_user_id_and_receiver_id", unique: true
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"

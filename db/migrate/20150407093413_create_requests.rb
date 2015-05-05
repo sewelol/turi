@@ -6,5 +6,7 @@ class CreateRequests < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_index :requests, [:user_id, :receiver_id], unique: true
   end
 end

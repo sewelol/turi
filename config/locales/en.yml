@@ -223,5 +223,9 @@ en:
   user_request_added:                     "Friend requested."
   user_request_not_added:                 "Unable to request friend."
   user_request_not_confirmed:             "Request was successfully not confirmed, you didn't want that person as your friend."
-  user_request_removed:                   "Request removed."
+  user_request_not_yourself:              "Can't request to be friend with yourself"
+  user_request_not_exist:                 "Can't request to be friend with someone who doens't exist"
+  user_request_destroyed:                 "Request removed."
+  user_request_destroy_not_exist:         "Request does not exist"
+  user_request_destroy_not_destroyed:     "Request not removed."
 

@@ -6,9 +6,9 @@
       <div class="widget-image widget-image-sm">
         <div id="user-image">
           <% if @user.image %>
-            <img src="<%=@user.image%>" alt="image">
+              <img src="<%= @user.image %>" alt="image">
           <% else %>
-            <img src="http://lorempixel.com/315/270/nature" alt="image">
+              <img src="http://lorempixel.com/315/270/nature" alt="image">
           <% end %>
         </div>
         <div class="widget-image-content text-center">
@@ -24,10 +24,12 @@
               </h3>
             </div>
             <div class="col-xs-6 push-inner-top-bottom">
-              <% if current_user.id != @user.id%>
+              <% if current_user.id != @user.id %>
                   <% f = Friendship.where('(friend_id LIKE ? AND user_id LIKE ?) OR (user_id LIKE ? AND friend_id LIKE ?)', "%#{@user.id}%", "%#{current_user.id}%", "%#{current_user.id}%", "%#{@user.id}%") %>
                   <% if f.blank? %>
-                      <%= link_to user_requests_path @user, :method => :post do %>
+                      <%= link_to user_requests_path(@user),
+                                                     method: :post,
+                                                     id: 'create_request_id' do %>
                           <i class="fa fa-plus"></i> Add Friend
                       <% end %>
                   <% end %>
@@ -67,21 +69,22 @@
     </div>
     <div class="block full">
       <div class="block-title">
-       <h2> Friends </h2>
+        <h2> Friends </h2>
         <ul>
-        <% for user in @user.inverse_friends %>
-            <li>
+          <% for user in @user.inverse_friends %>
+              <li>
                 <%= link_to user.name, user_path(user), :method => :get %>
-            </li>
-        <% end %>
-        <% for friendship in @user.friendships %>
-            <li>
+              </li>
+          <% end %>
+          <% for friendship in @user.friendships %>
+              <li>
                 <%= link_to friendship.friend.name, user_path(friendship.friend), :method => :get %>
-                <% if current_user.id == @user.id%>
-                    <a href="<%= user_friendship_path(@user, friendship) %>" data-method="delete"> <i class="fa fa-minus"></i></a>
+                <% if current_user.id == @user.id %>
+                    <a href="<%= user_friendship_path(@user, friendship) %>" data-method="delete">
+                      <i class="fa fa-minus"></i></a>
                 <% end %>
-            </li>
-        <% end %>
+              </li>
+          <% end %>
         </ul>
         <h2> Friend requests </h2>
         <ul>
@@ -90,11 +93,12 @@
               <% req.each do |req| %>
                   <li>
                     <% if current_user.id == @user.id %>
-                            <% for request in @user.requests %>
-                                <%= link_to request.receiver.name, user_path(request.receiver), :method => :get %>
-                                <a href="<%= user_friendships_path(@user, :friend_id => request) %>" data-method="put"> <i class="fa fa-plus"></i></a>
-                                <a href="<%= user_friendships_path(@user, :friend_id => request) %>" data-meyhod="delete"><i class="fa fa-minus"></i></a>
-                            <% end %>
+                        <% for request in @user.requests %>
+                            <%= link_to request.receiver.name, user_path(request.receiver), :method => :get %>
+                            <a href="<%= user_friendships_path(@user, :friend_id => request) %>" data-method="put">
+                              <i class="fa fa-plus"></i></a>
+                            <a href="<%= user_friendships_path(@user, :friend_id => request) %>" data-meyhod="delete"><i class="fa fa-minus"></i></a>
+                        <% end %>
                     <% end %>
                   </li>
               <% end %>

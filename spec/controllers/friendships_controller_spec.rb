@@ -38,10 +38,10 @@ RSpec.describe FriendshipsController, type: :controller do
   describe 'DELETE #destroy' do
 
     it 'should delete a friendship if a friendship exist, and redirect to current_user' do
-      @friendships = FactoryGirl.create(:friendship, user_id: @user.id, friend_id: @friend.id)
+      @friendship = FactoryGirl.create(:friendship, user_id: @user.id, friend_id: @friend.id)
 
       expect {
-        delete :destroy, user_id: @user.id, id: @friend.id
+        delete :destroy, user_id: @user, id: @friendship.id
       }.to change(Friendship, :count).by(-1)
 
       expect(flash[:notice]).to eql(I18n.t('user_friendship_removed'))
@@ -50,7 +50,7 @@ RSpec.describe FriendshipsController, type: :controller do
 
     it 'should not delete a friendship if a friendship doesnt exist, and redirect to current user' do
       expect {
-        delete :destroy, user_id: @user.id, id: 9
+        delete :destroy, user_id: @user, id: 3
       }.to change(Friendship, :count).by(0)
 
       expect(flash[:alert]).to eql(I18n.t('user_friendship_not_removed'))

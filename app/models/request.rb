@@ -4,12 +4,12 @@ class Request < ActiveRecord::Base
 
   validates :user_id, :receiver_id, presence: true
   belongs_to :user
-  belongs_to :reciever, :class_name => User
+  belongs_to :receiver, :class_name => User
 
   private
 
   def cannot_add_self
-    errors.add(:user_id, 'You cannot add yourself as a friend.') if user_id == receiver_id
+    errors.add(:user_id, 'You cannot request yourself as a friend.') if user_id == receiver_id
   end
 
   def cannot_add_when_already_added

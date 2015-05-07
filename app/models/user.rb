@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
 
   has_many :requests
   has_many :receivers, :through => :requests
+
+  has_many :inverse_requests, class_name: Request, foreign_key: 'receiver_id'
+  has_many :inverse_receivers, through: :inverse_requests, source: :user
+
   # FRIENDSHIPS END
 
   gravtastic

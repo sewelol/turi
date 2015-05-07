@@ -1,8 +1,9 @@
 class Friendship < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :friend, :class_name => User
 
-  has_many :friendships
+  validates :user_id, :friend_id, presence: true
+  belongs_to :user
+  belongs_to :friend, :class_name => 'User'
+
 
   def self.request_exists(user_id, receiver_id)
     a = Request.exists?(user_id: receiver_id, receiver_id: user_id)

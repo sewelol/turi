@@ -25,12 +25,19 @@
             </div>
             <div class="col-xs-6 push-inner-top-bottom">
               <% if current_user.id != @user.id %>
-                  <% f = Friendship.where('(friend_id LIKE ? AND user_id LIKE ?) OR (user_id LIKE ? AND friend_id LIKE ?)', "%#{@user.id}%", "%#{current_user.id}%", "%#{current_user.id}%", "%#{@user.id}%") %>
+                  <% f = Request.where('(receiver_id LIKE ? AND user_id LIKE ?) OR (user_id LIKE ? AND receiver_id LIKE ?)', "%#{@user.id}%", "%#{current_user.id}%", "%#{current_user.id}%", "%#{@user.id}%") %>
+
                   <% if f.blank? %>
-                      <%= link_to user_requests_path(@user),
-                                                     method: :post,
-                                                     id: 'create_request_id' do %>
+                      <%= link_to user_requests_path(user_id: @user.id),
+                                  method: :post,
+                                  id: 'create_request_id' do %>
                           <i class="fa fa-plus"></i> Add Friend
+                      <% end %>
+                  <% else %>
+                      <%= link_to user_request_path(@user, f[0].id),
+                                  method: :delete,
+                                  id: 'remove_request_id' do %>
+                          <i class="fa fa-minus"></i> Remove friend request
                       <% end %>
                   <% end %>
 

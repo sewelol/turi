@@ -2,16 +2,14 @@ class RequestsController < ApplicationController
 
   before_action :set_user
 
-  def new
-    @request = Request.new
-  end
 
   def create
-    @request = Request.new(:user_id => current_user.id, :receiver_id => params[:user_id])
-    puts "in params we have #{params} and specifically #{params[:user_id]}. current user id: #{current_user.id}"
-    puts "All users: #{User.all}"
+    @request = current_user.requests.build(receiver_id: params[:user_id])
+    #puts "in params we have #{params} and specifically #{params[:user_id]}. current user id: #{current_user.id}"
+    #puts "All users: #{User.all}"
     rec = User.find_by_id(params[:user_id])
-    puts rec.inspect
+    #puts rec.inspect
+    #pp @request.inspect
     #puts "record is #{rec}"
     #byebug
     if current_user.id.eql?(params[:user_id].to_i)
@@ -29,6 +27,9 @@ class RequestsController < ApplicationController
   end
 
   def destroy
+    pp "params are #{params}"
+    #byebug
+
     @request = Request.find_by_id(params[:id])
     if @request.eql?(nil)
       flash[:alert] = t 'user_request_destroy_not_exist'
@@ -38,7 +39,7 @@ class RequestsController < ApplicationController
       flash[:alert] = t 'user_request_destroy_not_destroyed'
     end
 
-    redirect_to user_path current_user.id
+    redirect_to user_path params[:user_id]
   end
 
   private

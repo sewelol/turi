@@ -218,6 +218,8 @@ en:
   # friendship
   user_friendship_removed:                "Removed friendship."
   user_friendship_confirmed:              "Successfully confirmed friend!"
+  user_friendship_not_removed:            "Could not remove friendship!"
+  user_friendship_not_confirmed:          "Could not confirm friendship!"
 
   # request
   user_request_added:                     "Friend requested."

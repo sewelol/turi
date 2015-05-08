@@ -4,6 +4,8 @@ class EquipmentItemsController < ApplicationController
     before_action { |c| c.set_trip params[:trip_id] }
     before_action { |c| c.set_equipment_list params[:equipment_list_id] }
     before_action(:only => [:show, :update, :edit, :destroy]) { |c| c.set_equipment_item params[:id] }
+    before_action { |c| c.equipment_lists_users_summary @trip.equipment_lists }
+
     layout 'trip'
 
 

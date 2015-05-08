@@ -34,8 +34,89 @@
     </div>
 <% end %>
 
+<% content_for :page_scripts do %>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(moneyChart);
+      google.setOnLoadCallback(assigmentChart);
+
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function moneyChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'participant_name');
+        data.addColumn('number', 'total_assigned_cost');
+        data.addRows([
+                <% @list.each do |id, values| %>
+                    <% if id.is_a? Integer %>
+                        ['<%= User.find(id).name %>', <%= values[0] %>],
+                    <% else %>
+                        <% if values[0] > 0 %>
+                            ['<%= id %>', <%= values[0] %>],
+                        <% end %>
+                    <% end %>
+                <% end %>
+        ]);
+
+        // Set chart options
+        var options = {
+                       'width':300,
+                       'height':200,
+                        pieHole: 0.3
+
+                      };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('money_chart_div'));
+        chart.draw(data, options);
+      }
+
+      function assigmentChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'participant_name');
+        data.addColumn('number', 'total_assigned_items');
+        data.addRows([
+                <% @list.each do |id, values| %>
+                    <% if id.is_a? Integer %>
+                        ['<%= User.find(id).name %>', <%= values[1] %>],
+                    <% else %>
+                        <% if values[1] > 0 %>
+                            ['<%= id %>', <%= values[1] %>],
+                        <% end %>
+                    <% end %>
+                <% end %>
+        ]);
+
+        // Set chart options
+        var options = {
+                       'width':300,
+                       'height':200,
+                        pieHole: 0.3
+                      };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('item_chart_div'));
+        chart.draw(data, options);
+      }
+
+    </script>
+<% end %>
+
 
 <%= render 'equipment_items/form_sidebar' %>
+
 
 <% if @equipment_list.equipment_items.blank? %>
     <div class="row">
@@ -49,10 +130,47 @@
             </div>
         </div>
     </div>
+<% else %>
+    <!-- widgets -->
+    <div class="row">    
+        <div class="col-lg-offset-3 col-lg-3">
+            <a href="javascript:void(0)" onclick="$('#money_chart_div, #item_chart_div').toggleClass('hidden');" class="widget" id="money_widget">
+                <div class="widget-content widget-content-mini text-right clearfix">
+                    <div class="widget-icon pull-left themed-background-danger">
+                        <i class="gi gi-wallet text-light-op"></i>
+                    </div>
+                    <h2 class="widget-heading h3 text-danger">
+                        <strong>$ <span data-toggle="counter" data-to="<%= @total_amount %>"></span><%= @total_amount %></strong>
+                    </h2>
+                    <span class="text-muted"><%= t('trip_equipment_list_money_widget') %></span>
+                    <div id="money_chart_div" class="hidden" ></div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3">
+            <a href="javascript:void(0)" onclick="$('#money_chart_div, #item_chart_div').toggleClass('hidden');" class="widget" id="item_widget">
+                <div class="widget-content widget-content-mini text-right clearfix">
+                    <div class="widget-icon pull-left themed-background-warning">
+                        <i class="gi gi-briefcase text-light-op"></i>
+                    </div>
+                    <h2 class="widget-heading h3 text-warning">
+                        <strong><span data-toggle="counter" data-to="<%= @total_items %>"><%= @total_items %></span></strong>
+                    </h2>
+                    <span class="text-muted"><%= t('trip_equipment_list_item_widget') %></span>
+                    <div id="item_chart_div" class="hidden"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- end widgets -->
 <% end %>
 
+<% @list.each do |x, y| %>
+    <%= x %> <%= y[1] %></br>
+<% end %>
 
-<!-- Tasks List -->
+<!-- Task list -->
 <div class="row">
     <div class="col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
 
@@ -75,7 +193,7 @@
                                 },
                                 class: 'task-button text-danger',
                                 title: t('trip_equipment_item_delete'),
-                                id: 'delete_equipment_item'
+                                id: 'delete_' + item.id.to_s
                             %>
                     <% end %>
                     </div>

@@ -58,11 +58,12 @@ RSpec.describe EquipmentListsController, type: :controller do
             expect(response).to redirect_to root_path
             expect(flash[:alert]).to eq(I18n.t 'trip_equipment_list_not_found')
         end
+
     end
 
     describe "PUT #edit" do
         before do
-            @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
+                @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
         end
 
         it "locate the requested and redirect to the @equipment_list" do

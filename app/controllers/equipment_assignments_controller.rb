@@ -20,14 +20,13 @@ class EquipmentAssignmentsController <  ApplicationController
             if permitted[:number].to_i <= 0
                 @equipment_assignment.destroy
                 flash[:notice] = I18n.t'trip_equipment_assignment_deleted'
-             elsif (permitted[:number].to_i - @equipment_assignment.number) + @equipment_item.equipment_assignments.sum(:number) < @equipment_item.number
+            else 
                 if @equipment_assignment.update(params.require(:equipment_assignment).permit(:number))
                     flash[:notice] = I18n.t 'trip_equipment_assignment_updated'
                 else 
                     flash[:alert] = I18n.t 'trip_equipment_assignment_not_updated'
+                    @equipment_assignment.errors
                 end
-            else 
-                flash[:alert] = I18n.t 'trip_equipment_assignment_not_updated'
             end
         # If the equipment_assignment record not exist create a new one
         else 

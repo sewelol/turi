@@ -15,7 +15,11 @@ class EquipmentListsController < ApplicationController
 
     def show 
         @equipment_item = EquipmentItem.new
+        
 
+        # Item and cost summary for all participants for the spesfic trip,
+        # used for the charts in the show trip page. 
+        # Very simulare to the trips summary, just for one spesific trip, we might be able to combine these(?)
         @total_amount = 0
         @total_items = 0
         @equipment_list.equipment_items.each do |f|
@@ -36,9 +40,9 @@ class EquipmentListsController < ApplicationController
             item.equipment_assignments.each do |assignment|
                 hash_entry = @list[assignment.user_id]
                 hash_entry[0] += (assignment.number * item.price)
-                total_amount_remaining -= hash_entry[0]
+                total_amount_remaining -= (assignment.number * item.price)
                 hash_entry[1] += assignment.number
-                total_item_remaining -= hash_entry[1]
+                total_item_remaining -= assignment.number
                 @list[assignment.user_id] = hash_entry
             end
         end
@@ -94,15 +98,6 @@ class EquipmentListsController < ApplicationController
 
     def equipment_list_params
         params.require(:equipment_list).permit(:name, :description, :icon)
-    end
-
-    private
-    
-    def create_hash
-        @list = Hash.new
-        @trip.participants.each do |participant| 
-            @list[participant.user_id] = [0, 0]
-        end
     end
 
 end

@@ -42,7 +42,7 @@ class DiscussionsController < TripResourceController
       redirect_to [@trip, @discussion]
     else
       flash[:alert] = I18n.t 'discussion_not_updated'
-      render "edit"
+      render :edit
     end
   end
 

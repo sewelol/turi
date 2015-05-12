@@ -2,4 +2,19 @@
     <%= t(:new_discussion) %>
 <% end %>
 
+<% content_for :content_header do %>
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="header-buttons pull-right">
+            <a href="<%=trip_discussions_path(@trip)%>" class="btn btn-lg btn-effect-ripple" data-toggle="tooltip" data-original-title="<%=t('back')%>"><i class="fa fa-reply"></i></a>
+          </div>
+          <div class="header-section">
+            <h1><%= yield :page_title %></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+
 <%= render 'form' %>

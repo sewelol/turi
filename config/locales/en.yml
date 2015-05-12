@@ -249,6 +249,8 @@ en:
   discussion_delete_verification:   "Are you sure you want to delete this discussion?"
   back_to_discussions:              "Back to discussions"
   discussion:                       "Discussion"
+  trip_discussions_new_quote:       "Start a new discussion with others."
+  trip_discussions_new_btn:         "Create discussion"
 
 
   # comment
@@ -266,4 +268,10 @@ en:
   new_password:                 "New password"
   confirm_new_password:         "Confirm new password"
   change_my_password:           "Change my password"
+
+  activerecord:
+      attributes:
+        'discussion':
+          title:  "Topic"
+          body:   "Discussion"
 

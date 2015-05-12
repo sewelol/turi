@@ -80,7 +80,7 @@ RSpec.feature "Discussions" do
       end
 
       scenario "but decides to cancel" do
-        click_button 'cancel-save-discussion-btn'
+        click_link 'cancel-save-discussion-btn'
 
         expect(page).to have_content @discussion.title
         expect(page).to have_content @discussion.body

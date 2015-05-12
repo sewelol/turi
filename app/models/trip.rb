@@ -11,6 +11,7 @@ class Trip < ActiveRecord::Base
   has_many :discussions, :dependent => :delete_all
 
   validates_presence_of :title
+  validates :price, numericality: { greater_than_or_equal_to: 0 }
 
   def self.search(title_search, location_search, tag_search, date_beg, date_end)
     trips = []

@@ -34,7 +34,7 @@ class TripsController < ApplicationController
       flash[:notice] = I18n.t 'trip_created'
       redirect_to @trip
     else
-      flash[:alert] = I18n.t 'trip_not_created'
+      flash[:alert] = I18n.t :form_invalid
       render :new
     end
   end
@@ -47,7 +47,7 @@ class TripsController < ApplicationController
       flash[:notice] = I18n.t 'trip_updated'
       redirect_to @trip
     else
-      flash[:alert] = I18n.t 'trip_not_updated'
+      flash[:alert] = I18n.t :form_invalid
       render 'edit'
     end
   end

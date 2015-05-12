@@ -82,7 +82,7 @@ en:
   trip_dates_help:                "Entering your trip start and end date will add these events to your trip calendar."
   trip_locations_help:            "Entering your trip start and end location will add these points to your route map."
   trip_image:                     "Cover photo"
-  trip_image_help:                "You can paste any link to any image (best with 1060x260 px). It will be used as cover photo for your trip."
+  trip_image_help:                "You can paste any link to any image (best with 1060x260 px). It will be used as cover photo for your trip. If you don't provide an image we will choose a random image for you. Below you can find some example images (click on a image to copy the url)."
   trip_details:                   "Trip Home"
   trip_participants:              "Participants"
   trip_equipment:                 "Equipment"

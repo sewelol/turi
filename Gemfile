@@ -51,6 +51,9 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks'
 
 
+# Kaminari, pageinate 
+gem 'kaminari'
+
 source 'https://rails-assets.org' do
   # Only jQuery should be included as extra gem, any other JS library should be included from rails-assets
   gem 'rails-assets-leaflet'

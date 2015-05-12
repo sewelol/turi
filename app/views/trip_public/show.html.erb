@@ -1,0 +1,128 @@
+<% content_for :page_title do %>
+    <%= t('trip_public_title') + @trip.title %>
+<% end %>
+
+<% content_for :content_header do %>
+    <div class="content-header content-header-media" style="background: url(<%= @trip.image.empty? ? 'https://unsplash.it/1060/260?random' : @trip.image %>) no-repeat; background-size: 100%;">
+      <div class="header-section">
+        <div class="row">
+          <div class="col-sm-7 col-md-8 col-lg-9 content-float-hor push-bit-top-bottom clearfix">
+            <h1><%=@trip.title%></h1>
+            <h2 class="text-light-op">
+              <% if ! @trip.start_loc.blank? %>
+                  <%= @trip.start_loc %>
+              <% end %>
+              <% if ! @trip.start_date.blank? %>
+                  (<%= @trip.start_date %>)
+              <% end %>
+
+              <% if ! @trip.end_loc.blank? or ! @trip.end_date.blank? %>
+                    -
+              <% end %>
+
+              <% if ! @trip.end_loc.blank? %>
+                  <%= @trip.end_loc %>
+              <% end %>
+              <% if ! @trip.end_date.blank? %>
+                  (<%= @trip.end_date %>)
+              <% end %>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<!-- Description Widget -->
+<div class="col-md-8">
+    <div class="widget">
+        <div class="widget-content widget-content-mini themed-background-dark text-light-op border-bottom">
+          <span class="pull-right text-muted">Created by <%= @trip.user.name %> and last updated <%= time_ago_in_words(@trip.updated_at) %> ago
+          </span>
+              <a href="javascript:void(0)" class="text-light"><%= t('description') %></a><a href="javascript:void(0)" class="text-light"></a>
+         </div>
+         <div class="widget-content widget-content-full">
+             <p><%= @trip.description.empty? ? 'This awesome trip has no description yet' : @trip.description %></p>
+         </div>
+    </div>
+</div>
+<!-- End Description Widget -->
+
+<!-- Participant Widget -->
+<div class="col-md-4">
+    <div class="widget">
+      <div class="widget-content widget-content-mini themed-background-dark text-light-op border-bottom">
+          <span class="pull-right text-muted">
+                    <%= page_entries_info @participants %>
+          </span>
+          <a href="javascript:void(0)" class="text-light"></a><%= t('trip_participants') %><a href="javascript:void(0)" class="text-light"></a>
+        </div>
+        <div class="widget-content widget-content-full">
+            <table class="table table-borderless table-striped table-vcenter">
+                <tbody>
+                    <% @participants.each do |participant| %>
+                        <% user = participant.user %>
+                        <tr>
+                            <td class="text-center" style="width: 100px;">
+                                <img src="<%= user.gravatar_url %>" alt="User Image" class="img-circle">
+                            </td>
+                            <td>
+                                <a href="<%= user_path(user) %>"><%= user.name %></a><br>
+                                <a href="javascript:void(0)" class="text-muted"><small><%=t('trip_role_' << participant.participant_role.name)%></small></a>
+                            </td>
+                    <% end %>
+            </tbody>
+        </table>
+        </div>
+        <%= paginate @participants, :param_name => :user %>
+    </div>
+</div>
+<!-- END Participant Widget -->
+
+<!-- Article Widget -->
+<!-- hide if there is not articles to be showed -->
+<% unless @articles.empty? %>
+    <div class="col-md-8">
+      <% @articles.each do |article| %>
+          <div class="widget">
+                <div class="widget-content widget-content-mini themed-background-dark text-light-op">
+                    <span class="pull-right text-muted"> 
+                        <%= page_entries_info @articles %>
+                    </span>
+                    <a href="javascript:void(0)" class="text-light"><%= t('trip_public_article_title') %></a><a href="javascript:void(0)" class="text-light"></a>
+                </div>
+                <div class="widget-content">
+                    <h3> <%= article.title %> </h3>
+                    <%=raw(article.content) %>
+                </div>
+            <% end %>
+            <%= paginate @articles, :param_name => :page %>
+          </div>
+    </div>
+<% end %>
+<!-- End Article Widget -->
+
+
+
+<!-- Gallery Widget -->
+<!-- End Gallery Widget -->
+
+<!-- Equipment_list_price Widget -->
+<!-- hide if total_amount_summary is zero (not set) -->
+<% unless @total_amount_summary == 0 %>
+    <div class="col-md-4">
+        <div class="widget">
+            <div class="widget-content widget-content-mini themed-background-dark text-light-op">
+                    <%= t('trip_equipment_list_money_widget_index') %>
+            </div>
+            <div class="widget-content">
+                <h2> $ <%= @total_amount_summary %> </h2>
+            </div>
+        </div>
+    </div>
+<% end %>
+<!-- End Equipment_list_price Widget -->
+
+
+<!-- Routes Widget --> 
+<!-- End Routes Widget -->

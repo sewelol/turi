@@ -29,37 +29,5 @@
     <!-- END Article Header -->
 <% end %>
 
-<!-- Article Content -->
-<div class="row">
-<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-  <!-- Article Block -->
-  <div class="block">
-    <!-- Article Title -->
-    <div class="block-title">
-      <div class="block-options pull-right">
-        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Add to favorites"><i class="fa fa-star"></i></a>
-        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="Add bookmark"><i class="fa fa-bookmark"></i></a>
-        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Love it"><i class="fa fa-heart"></i></a>
-      </div>
-      <h2><i class="fa fa-clock-o"></i> <%= @article.created_at.strftime('%B %d, %Y') %></h2>
-    </div>
-    <!-- END Article Title -->
-
-    <!-- Article Content -->
-    <article class="article-story">
-        <%= simple_format(@article.content) %>
-    </article>
-    <hr>
-    <div class="block-section text-center">
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Facebook"><i class="fa fa-facebook"></i></a>
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Twitter"><i class="fa fa-twitter"></i></a>
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Linkedin"><i class="fa fa-linkedin"></i></a>
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Pinterest"><i class="fa fa-pinterest"></i></a>
-    </div>
-    <!-- END Article Content -->
-  </div>
-  <!-- END Article Block -->
-</div>
-</div>
-<!-- END Article Content -->
+<!-- render article -->
+<%= render 'article' %>

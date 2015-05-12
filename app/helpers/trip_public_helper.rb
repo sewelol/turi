@@ -1,0 +1,2 @@
+module TripPublicHelper
+end

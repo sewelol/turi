@@ -1,0 +1,25 @@
+<!-- Article Content -->
+<div class="row">
+<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+  <!-- Article Block -->
+  <div class="block">
+    <!-- Article Title -->
+    <div class="block-title">
+      <div class="block-options pull-right">
+
+      </div>
+      <h2><i class="fa fa-clock-o"></i> <%= @article.created_at.strftime('%B %d, %Y') %></h2>
+    </div>
+    <!-- END Article Title -->
+
+    <!-- Article Content -->
+    <article class="article-story">
+        <%= simple_format(@article.content) %>
+    </article>
+    <hr>
+    <!-- END Article Content -->
+  </div>
+  <!-- END Article Block -->
+</div>
+</div>
+<!-- END Article Content -->

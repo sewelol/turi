@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/features', to: 'web/page#features', as: 'features'
   get '/faq', to: 'web/page#faq', as: 'faq'
 
+  resources :image_search, only: [:index]
 
   # TODO: Use scopes so that we not bloat our routes.
   resources :trips do

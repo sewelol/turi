@@ -40,6 +40,9 @@ gem 'pundit'
 # Dropbox
 gem 'dropbox-sdk'
 
+# RestClient
+gem 'rest-client'
+
 # Geocoding (find lat/lng by adress)
 gem 'geocoder'
 

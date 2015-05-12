@@ -62,8 +62,15 @@
           <div class="form-group">
             <%= f.label :image, t('trip_image'), class: 'col-md-3 control-label' %>
             <div class="col-md-9">
-              <%= f.text_field :image, class: 'form-control', placeholder: 'https://unsplash.it/1060/260?random'%>
+              <%= f.text_field :image, class: 'form-control', placeholder: 'https://unsplash.it/1060/260?random' %>
               <span class="help-block"><%=t('trip_image_help')%></span>
+              <br/>
+              <div class="row image-search">
+                <div class="col-md-12 text-center loading-indicator">
+                  <i class="fa fa-spinner fa-2x fa-spin text-danger"></i>
+                </div>
+              </div>
+              <button id="image-search-refresh-button" class="btn btn-default"><i class="fa fa-refresh"></i></button>
             </div>
           </div>
 

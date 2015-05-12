@@ -34,8 +34,20 @@
 <% end %>
 
 <div class="trip clearfix">
+    <div class="col-md-4">
+        <div class="widget-content themed-background-flat clearfix">
+            <div class="widget-icon pull-right">
+                <i class="gi gi-albums text-light-op"></i>
+            </div>
+            <h2 class="widget-heading h3 text-light"><strong><%= t('trip_view_public_page')%></strong></h2>
+            <span class="text-light-op"></span>
+        </div>
+    </div>
+
+    <%= link_to "public_view", trip_public_path(@trip), :action => 'show', :id => @trip.id %>
+
   <blockquote class="pull-left">
-    <p><%= @trip.image.empty? ? 'This awesome trip has no description yet. Feel free to add a creative text!' : @trip.description %></p>
+    <p><%= @trip.description.empty? ? 'This awesome trip has no description yet. Feel free to add a creative text!' : @trip.description %></p>
     <small><span class="owner">Created by <%= @trip.user.name %></span> and last updated <%= time_ago_in_words(@trip.updated_at) %> ago</small>
   </blockquote>
 </div>

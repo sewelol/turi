@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324124701) do
+ActiveRecord::Schema.define(version: 20150508012530) do
 
   create_table "api_access_tokens", force: :cascade do |t|
     t.integer  "user_id"
@@ -174,11 +174,14 @@ ActiveRecord::Schema.define(version: 20150324124701) do
     t.text     "start_loc"
     t.text     "end_loc"
     t.text     "image"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.text     "start_date"
     t.text     "end_date"
     t.integer  "user_id"
+    t.boolean  "public",                default: false
+    t.boolean  "share_gallery",         default: false
+    t.decimal  "share_equipment_price", default: 0.0
   end
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"

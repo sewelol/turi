@@ -75,6 +75,42 @@
             </div>
           </div>
 
+
+            <div class="form-group">
+                <%= f.label :public, t('trip_public'), class: 'col-md-3 control-label' %>
+                <div class="col-md-9">
+                  <label class="switch switch-success"><%= f.check_box :public %><span></span></label>
+                  <span class="help-block"><%=t('trip_public_helper')%></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :share_gallery, t('trip_share_gallery'), class: 'col-md-3 control-label' %>
+                <div class="col-md-9">
+                    <label class="switch switch-success"><%= f.check_box :share_gallery %><span></span></label>
+                  <span class="help-block"><%=t('trip_share_gallery_helper')%></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :share_equipment_price, t('trip_share_equipment_price'), class: 'col-md-3 control-label' %>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                        <% if !current_page?(action: 'new') %>
+                            <button type="button" class="btn btn-effect-ripple btn-primary" onclick="$('#trip_share_equipment_price').val($(this).data('equipment-price'))" data-equipment-price="<%= @total_amount_summary %>"><i class="fa fa-search"></i> <%= t('trip_share_equipment_price_button') %></button>
+                        <% end %>
+                        </span>
+                        
+                        <%= f.number_field :share_equipment_price, class: 'form-control' %>
+                    </div>
+                  <span class="help-block"><%=t('trip_share_equipment_price_helper')%></span>
+                </div>
+            </div>
+
+
+
+
           <div class="form-group form-actions">
             <div class="col-md-9 col-md-offset-3">
               <%= f.submit class: 'btn btn-effect-ripple btn-primary' %>

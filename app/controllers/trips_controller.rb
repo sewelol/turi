@@ -1,13 +1,19 @@
 class TripsController < ApplicationController
-  include TripConcern
-  before_action(:only => [:show, :edit, :update, :destroy]) { |c| c.set_trip params[:id] }
+  include EquipmentConcern
+  before_action(:only => [:show, :edit, :update, :destroy, :public_show]) { |c| c.set_trip params[:id] }
+  before_action(:only => [:edit]) {|c| c.equipment_lists_users_summary @trip.equipment_lists}
 
   def show
+    # redirect to public view if the current_user is not a Participant and the trip is public
+    if (not TripPolicy.new(current_user, @trip).show?) && @trip.public
+        redirect_to :controller => 'trip_public', :action => 'show', :id => @trip.id
+        return
+    end
     authorize @trip
     @tags = @trip.tag_counts_on(:tags)
     render layout: 'trip'
   end
-
+    
   def index
     @trips =  Trip.all
   end
@@ -62,6 +68,6 @@ class TripsController < ApplicationController
 
   private
   def trip_params
-    params.require(:trip).permit(:title, :description, :start_loc, :start_date, :end_loc, :end_date, :image, :tag_list)
+      params.require(:trip).permit(:title, :description, :start_loc, :start_date, :end_loc, :end_date, :image, :tag_list, :public, :share_gallery, :share_equipment_price)
   end
 end

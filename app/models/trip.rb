@@ -13,6 +13,25 @@ class Trip < ActiveRecord::Base
   validates_presence_of :title
   validates :price, numericality: { greater_than_or_equal_to: 0 }
 
+  before_save :geocode_start_loc
+  before_save :geocode_end_loc
+
+  def geocode_start_loc
+    coords = Geocoder.coordinates(self.start_loc)
+    unless coords.empty?
+      self.start_loc_latitude = coords[0]
+      self.start_loc_longitude = coords[1]
+    end
+  end
+
+  def geocode_end_loc
+    coords = Geocoder.coordinates(self.end_loc)
+    unless coords.empty?
+      self.end_loc_latitude = coords[0]
+      self.end_loc_longitude = coords[1]
+    end
+  end
+
   def self.search(title_search, location_search, tag_search, date_beg, date_end)
     trips = []
 

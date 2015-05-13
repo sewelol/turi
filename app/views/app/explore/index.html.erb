@@ -34,11 +34,13 @@
 
             var markers = new L.MarkerClusterGroup();
 
-            <% @trip_items.each do |trip_item| %>
-                var tripMarker_<%= trip_item[:id] %> = new L.marker([<%=trip_item[:lat]%>, <%=trip_item[:long]%>], {icon: markerIcon, url: '<%= trip_item[:url] %>'});
-                tripMarker_<%= trip_item[:id] %>.on('click', onTripMarkerClick);
-                markers.addLayer(tripMarker_<%= trip_item[:id] %>);
-            <% end %>
+            $.getJSON('<%= api_explore_path %>', function(data) {
+                $.each(data, function(key, trip) {
+                    var tripMarker = new L.marker([trip.lat, trip.long], {icon: markerIcon, url: trip.url});
+                    tripMarker.on('click', onTripMarkerClick);
+                    markers.addLayer(tripMarker);
+                });
+            });
 
             map.addLayer(markers);
 

@@ -3,23 +3,27 @@ class App::ExploreController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @trips = Trip.all
+  end
+
+  def list
+    @trips = Trip.where(public: true)
+                 .where.not(start_loc: nil).where.not(start_loc: '')
+                 .where.not(start_loc_latitude: nil)
+                 .where.not(start_loc_longitude: nil)
 
     @trip_items = []
 
     @trips.each do |trip|
-      unless trip.start_loc.blank?
-        trip_coordinates = Geocoder.coordinates(trip.start_loc)
-        trip_item = {
-            id: trip.id,
-            url: trip_path(trip),
-            lat: trip_coordinates[0],
-            long: trip_coordinates[1]
-        }
-        @trip_items.push(trip_item)
-      end
+      trip_item = {
+          id: trip.id,
+          url: trip_public_path(trip),
+          lat: trip.start_loc_latitude,
+          long: trip.start_loc_longitude
+      }
+      @trip_items.push(trip_item)
     end
 
+    render json: @trip_items
   end
 
 end

@@ -18,11 +18,6 @@ RSpec.feature "equipment_list model test" do
             }.to raise_error(ActiveRecord::RecordInvalid)
         end
 
-        it "is invalid without a description" do
-            expect {
-                FactoryGirl.create(:equipment_list, :user => @user, :trip => @trip , :description => nil)
-            }.to raise_error(ActiveRecord::RecordInvalid)
-        end
     end
 end
 

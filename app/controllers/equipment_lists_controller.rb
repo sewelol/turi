@@ -36,8 +36,13 @@ class EquipmentListsController < ApplicationController
             @list[participant.user_id] = [0,0]
         end
 
+        @current_user_assignments = []
+
         @equipment_list.equipment_items.each do |item|
             item.equipment_assignments.each do |assignment|
+                if assignment.user_id == current_user.id
+                    @current_user_assignments.push assignment
+                end
                 hash_entry = @list[assignment.user_id]
                 hash_entry[0] += (assignment.number * item.price)
                 total_amount_remaining -= (assignment.number * item.price)

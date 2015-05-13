@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Equipment List" do
+RSpec.feature "Equipment Lists" do
     before do
         @user = FactoryGirl.create(:user)
         @trip = FactoryGirl.create(:trip, :user_id => @user.id)
@@ -15,7 +15,6 @@ RSpec.feature "Equipment List" do
         
         fill_in :equipment_list_name, :with => @equipment_list.name
         fill_in :equipment_list_description, :with => @equipment_list.description
-        fill_in :equipment_list_icon, :with => @equipment_list.icon
         click_button 'submit'
 
         expect(page).to have_content(I18n.t 'trip_equipment_list_created')

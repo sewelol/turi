@@ -6,31 +6,25 @@
 
 <% content_for :content_header do %>
     <div class="content-header">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="header-buttons pull-right">
-                    <% if policy(@trip).update? %>
-                        <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');" class="btn btn-lg btn-effect-ripple" data-toggle="tooltip" data-original-title="<%=t('trip_equipment_list_add_item')%>"><i class="fa fa-plus"></i></a>
-                        <a href="<%=edit_trip_equipment_list_path(@trip, @equipment_list)%>" id="edit_equipment_list" class="btn btn-lg btn-effect-ripple" data-toggle="tooltip" data-original-title="<%=t('trip_equipment_list_edit', :equipment_list_title => @equipment_list.name)%>"><i class="fa fa-pencil"></i></a>
-                        <%= link_to raw('<i class="fa fa-trash"></i>'),
-                            trip_equipment_list_path(@trip, @equipment_list),
-                            method: :delete,
-                            data: {
-                                confirm: t('trip_equipment_list_delete_confimation'),
-                                original_title: t('trip_equipment_list_delete'),
-                                toggle: 'tooltip'
-                            },
-                            title: t('trip_equipment_list_delete', :equipment_list_title => @equipment_list.name),
-                            class: 'btn btn-lg btn-effect-ripple',
-                            id: 'delete_equipment_list'
-                        %>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="header-buttons pull-right">
+            <% if policy(@trip).update? %>
+                <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');" class="btn btn-lg btn-effect-ripple" data-toggle="tooltip" title="<%=t('trip_equipment_list_add_item')%>"><i class="fa fa-plus"></i></a>
+                <a href="<%=edit_trip_equipment_list_path(@trip, @equipment_list)%>" id="edit_equipment_list" class="btn btn-lg btn-effect-ripple" data-toggle="tooltip" title="<%=t('trip_equipment_list_edit', :equipment_list_title => @equipment_list.name)%>"><i class="fa fa-pencil"></i></a>
+                <%= link_to trip_equipment_list_path(@trip, @equipment_list), method: :delete,
+                            data: { confirm: t('trip_equipment_list_delete_confirmation'), toggle: 'tooltip' },
+                            title: t('trip_equipment_list_delete', :equipment_list_title => @equipment_list.name), class: 'btn btn-lg btn-effect-ripple',
+                            id: 'delete_equipment_list' do %>
+                    <i class="fa fa-trash"></i>
                 <% end %>
-                </div>
-                <div class="header-section">
-                    <h1><%= @equipment_list.name %> <small><%= @equipment_list.description %></small></h1>
-                </div>
-            </div>
+            <% end %>
+          </div>
+          <div class="header-section">
+            <h1><%= @equipment_list.name %> <small><%= @equipment_list.description %></small></h1>
+          </div>
         </div>
+      </div>
     </div>
 <% end %>
 
@@ -39,77 +33,65 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
 
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1.0', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(moneyChart);
-      google.setOnLoadCallback(assigmentChart);
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function moneyChart() {
 
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function moneyChart() {
-
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'participant_name');
-        data.addColumn('number', 'total_assigned_cost');
-        data.addRows([
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'participant_name');
+            data.addColumn('number', 'total_assigned_cost');
+            data.addRows([
                 <% @list.each do |id, values| %>
                     <% if id.is_a? Integer %>
                         ['<%= User.find(id).name %>', <%= values[0] %>],
-                    <% else %>
-                        <% if values[0] > 0 %>
-                            ['<%= id %>', <%= values[0] %>],
-                        <% end %>
+                    <% elsif values[0] > 0 %>
+                        ['<%= id %>', <%= values[0] %>],
                     <% end %>
                 <% end %>
-        ]);
+            ]);
 
-        // Set chart options
-        var options = {
-                       'width':300,
-                       'height':200,
-                        pieHole: 0.3
+            // Set chart options
+            var options = { pieHole: 0.3 };
 
-                      };
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('money_chart_div'));
+            chart.draw(data, options);
+        }
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('money_chart_div'));
-        chart.draw(data, options);
-      }
-
-      function assigmentChart() {
-
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'participant_name');
-        data.addColumn('number', 'total_assigned_items');
-        data.addRows([
+        function assignmentChart() {
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'participant_name');
+            data.addColumn('number', 'total_assigned_items');
+            data.addRows([
                 <% @list.each do |id, values| %>
                     <% if id.is_a? Integer %>
                         ['<%= User.find(id).name %>', <%= values[1] %>],
-                    <% else %>
-                        <% if values[1] > 0 %>
-                            ['<%= id %>', <%= values[1] %>],
-                        <% end %>
+                    <% elsif values[1] > 0 %>
+                        ['<%= id %>', <%= values[1] %>],
                     <% end %>
                 <% end %>
-        ]);
+            ]);
 
-        // Set chart options
-        var options = {
-                       'width':300,
-                       'height':200,
-                        pieHole: 0.3
-                      };
+            // Set chart options
+            var options = { pieHole: 0.3 };
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('item_chart_div'));
-        chart.draw(data, options);
-      }
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('item_chart_div'));
+            chart.draw(data, options);
+        }
+
+        $(document).ready(function () {
+            $(window).resize(function(){
+                moneyChart();
+                assignmentChart();
+            });
+        });
 
     </script>
 <% end %>
@@ -118,145 +100,150 @@
 <%= render 'equipment_items/form_sidebar' %>
 
 
-<% if @equipment_list.equipment_items.blank? %>
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6 text-center">
-            <div class="clearfix">
-                <blockquote class="pull-left">
-                    <p><%= t('trip_equipment_item_add_qoute') %></p>
-                    <p><a class="btn btn-danger" href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');"><i class="fa fa-plus"></i> Add an equipment item.</a></p>
-                    <small><%=t('sincerely_turi')%></small>
-                </blockquote>
-            </div>
-        </div>
-    </div>
-<% else %>
-    <!-- widgets -->
-    <div class="row">    
-        <div class="col-lg-offset-3 col-lg-3">
-            <a href="javascript:void(0)" onclick="$('#money_chart_div, #item_chart_div').toggleClass('hidden');" class="widget" id="money_widget">
-                <div class="widget-content widget-content-mini text-right clearfix">
-                    <div class="widget-icon pull-left themed-background-danger">
-                        <i class="gi gi-wallet text-light-op"></i>
-                    </div>
-                    <h2 class="widget-heading h3 text-danger">
-                        <strong>$ <span data-toggle="counter" data-to="<%= @total_amount %>"></span><%= @total_amount %></strong>
-                    </h2>
-                    <span class="text-muted"><%= t('trip_equipment_list_money_widget') %></span>
-                    <div id="money_chart_div" class="hidden" ></div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-lg-3">
-            <a href="javascript:void(0)" onclick="$('#money_chart_div, #item_chart_div').toggleClass('hidden');" class="widget" id="item_widget">
-                <div class="widget-content widget-content-mini text-right clearfix">
-                    <div class="widget-icon pull-left themed-background-warning">
-                        <i class="gi gi-briefcase text-light-op"></i>
-                    </div>
-                    <h2 class="widget-heading h3 text-warning">
-                        <strong><span data-toggle="counter" data-to="<%= @total_items %>"><%= @total_items %></span></strong>
-                    </h2>
-                    <span class="text-muted"><%= t('trip_equipment_list_item_widget') %></span>
-                    <div id="item_chart_div" class="hidden"></div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <!-- end widgets -->
-<% end %>
-
-
-<!-- Task list -->
 <div class="row">
-    <div class="col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
+
+  <!-- widgets -->
+  <div class="col-md-12 col-lg-3">
+    <a href="javascript:void(0)" onclick="$('#money_chart_div').toggleClass('hidden');moneyChart();" class="widget" id="money_widget">
+      <div class="widget-content widget-content-mini text-right clearfix">
+        <div class="widget-icon pull-left themed-background-danger">
+          <i class="gi gi-wallet text-light-op"></i>
+        </div>
+        <h2 class="widget-heading h3 text-danger">
+          <strong>$ <span data-toggle="counter" data-to="<%= @total_amount %>"></span><%= @total_amount %></strong>
+        </h2>
+        <span class="text-muted"><%= t('trip_equipment_list_money_widget') %></span>
+        <div id="money_chart_div" style="max-width:100%; width: 100%; height: 200px;" class="hidden" ></div>
+      </div>
+    </a>
+
+    <a href="javascript:void(0)" onclick="$('#item_chart_div').toggleClass('hidden');assignmentChart();" class="widget" id="item_widget">
+      <div class="widget-content widget-content-mini text-right clearfix">
+        <div class="widget-icon pull-left themed-background-warning">
+          <i class="gi gi-briefcase text-light-op"></i>
+        </div>
+        <h2 class="widget-heading h3 text-warning">
+          <strong><span data-toggle="counter" data-to="<%= @total_items %>"><%= @total_items %></span></strong>
+        </h2>
+        <span class="text-muted"><%= t('trip_equipment_list_item_widget') %></span>
+        <div id="item_chart_div" style="max-width:100%; width: 100%; height: 200px;" class="hidden"></div>
+      </div>
+    </a>
+
+    <% unless @current_user_assignments.empty? %>
+    <div class="widget">
+      <div class="widget-content themed-background-danger text-light-op">
+        <i class="fa fa-fw fa-chevron-right"></i> <strong><%=t :trip_equipment_list_user_assignment_widget %></strong>
+      </div>
+      <div class="widget-content widget-content-full">
+        <table class="table table-striped table-borderless remove-margin">
+          <tbody>
+          <% @current_user_assignments.each do |assignment| %>
+              <tr>
+                <td><span class="text-black"><%= assignment.equipment_item.name %></span></td>
+                <td class="text-center" style="width: 80px;"><span class="text-muted"><%=assignment.number%></span></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% end %>
+
+  </div>
+  <!-- end widgets -->
+
+  <% if @equipment_list.equipment_items.blank? %>
+      <div class="col-md-12 col-lg-6 text-center">
+        <div class="clearfix">
+          <blockquote class="pull-left">
+            <p><%= t('trip_equipment_item_add_qoute') %></p>
+            <p><a class="btn btn-danger" href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');"><i class="fa fa-plus"></i> Add an equipment item.</a></p>
+            <small><%=t('sincerely_turi')%></small>
+          </blockquote>
+        </div>
+      </div>
+      </div>
+  <% else %>
+      <!-- Item list -->
+      <div class="col-md-12 col-lg-8">
 
         <ul class="task-list">
-            <% @equipment_list.equipment_items.each do |item| %>
+          <% @equipment_list.equipment_items.each do |item| %>
 
-                <li class="<%= item.number == item.equipment_assignments.sum(:number) ? 'task-done' : '' %>">
+              <li class="<%= item.number == item.equipment_assignments.sum(:number) ? 'task-done' : '' %>">
 
-                    <div class="task-actions">
-                        <% if policy(item).update? %>
-                            <a href="<%= edit_trip_equipment_list_equipment_item_path(@trip, @equipment_list, item) %>" data-toggle="tooltip" title="<%= t('trip_equipment_item_edit', :equipment_item_name => item.name) %>" class="task-button text-dark"><i class="fa fa-pencil"></i></a>
-                        <% end %>
-                        <% if policy(item).destroy? %>
-                            <%= link_to raw('<i class="fa fa-times"></i>'),
-                                trip_equipment_list_equipment_item_path(@trip, @equipment_list, item),
-                                method: :delete,
-                                data: {
-                                    confirm: t('trip_equipment_item_delete_confirmation'),
-                                    toggle: 'tooltip'
-                                },
-                                class: 'task-button text-danger',
-                                title: t('trip_equipment_item_delete'),
-                                id: 'delete_' + item.id.to_s
-                            %>
-                    <% end %>
-                    </div>
+                <div class="task-actions">
+                  <% if policy(item).update? %>
+                      <a href="<%= edit_trip_equipment_list_equipment_item_path(@trip, @equipment_list, item) %>" id="edit-item-<%=item.id%>-btn" data-toggle="tooltip" title="<%= t('trip_equipment_item_edit', :equipment_item_name => item.name) %>" class="task-button text-dark"><i class="fa fa-pencil"></i></a>
+                  <% end %>
 
-                    <a href="javascript:void(0)" onclick="$('#<%= item.id %>_tag').toggleClass('hidden');" class="task-link" id="task-link-<%=item.id%>">
-                        <span class="task-name"><%= item.name %></span>
-                        <% if item.number == item.equipment_assignments.sum(:number) %>
-                            <span class="label label-success task-state task-assigned"><%=item.number%>/<%=item.number%></span>
-                        <% else %>
-                            <span class="label label-danger task-state task-undone"><%= item.equipment_assignments.sum(:number)%>/<%=item.number%></span>
-                        <% end %>
-                    </a>
-                </li>
-                <div id='<%= item.id %>_tag' class="hidden">
-                    <% @trip.participants.each do |participant| %>
-                        <% assigment = item.equipment_assignments.find_by(:user_id => participant.user_id) %>
-                        <li class="in-2x">
-                            <div class="task-actions">
-                                <a href="javascript:void(0)" onclick="$('#equipment_assignment_form_<%= item.id %>_<%= participant.id%>').submit();" class="task-close text-danger"><i class="fa fa-credit-card fa-fw"></i></a>
-                                <% unless assigment.nil? %> <!-- FIXME -->
-                                    <%= link_to raw('<i class="fa fa-trash"></i>'),
-                                        trip_equipment_list_equipment_item_equipment_assignment_path(@trip, @equipment_list, item, assigment),
-                                        :method => :delete,
-                                        :data => {
-                                            :confirm => t('trip_equipment_assigment_delete_confirmation'),
-                                            :toogle => 'tooltip'
-                                        },
-                                        :class => 'text-danger',
-                                        :title => '',
-                                        :id => 'delete_equipment_assignment'
-                                    %>
+                  <a href="javascript:void(0)" onclick="$('#<%= item.id %>_tag').toggleClass('hidden');" class="task-link task-button" id="task-link-<%=item.id%>"  data-toggle="tooltip" title="<%= t :trip_equipment_assignment_manage %>">
+                    <i class="fa fa-user-plus"></i>
+                  </a>
 
-                            <% end %>
-                            </div>
-                            <label class="checkbox-inline">
-                                <% if assigment.nil? %>
-                                    <% assigment = EquipmentAssignment.new %>
-                                    <% assigment_number = 0 %>
-                                <% else %>
-                                    <% assigment_number = assigment.number %>
-                                <% end %>
-
-                                <% if policy(@trip).update? || current_user.id == participant.user_id %>
-                                    <%= form_tag({controller: :equipment_assignments, action: 'create', equipment_list_id: @equipment_list.id, equipment_item_id: item.id, id: assigment.id}, id: "equipment_assignment_form_#{item.id}_#{participant.id}") do |f| %>
-                                        <select id="equipment_assignment_number" name="equipment_assignment[number]" class="form-control" size="1">
-                                            <% 0.upto(item.number - item.equipment_assignments.sum(:number) + assigment_number) do |n| %>
-                                                <option value="<%= n %>"><%= n %></option>
-                                            <% end %>
-                                        </select>
-                                        <%= hidden_field_tag "equipment_assignment[user_id]", participant.user_id %>
-                                        <%= submit_tag t('save'), id: 'save_equipment_assigment', class: 'hidden' %>
-                                    <% end %>
-                                <% end %>
-                            </label>
-
-                            <span class="label label-info task-state task-assigned">
-                                <%= assigment_number %>/<%= item.number %>
-                            </span>
-                            <%= participant.user.name %>
-
-                        </li>
-                    <% end %>
+                  <% if policy(item).destroy? %>
+                      <%= link_to trip_equipment_list_equipment_item_path(@trip, @equipment_list, item), method: :delete,
+                                  data: { confirm: t('trip_equipment_item_delete_confirmation'), toggle: 'tooltip' },
+                                  class: 'task-button text-danger', title: t('trip_equipment_item_delete'), id: 'delete_' + item.id.to_s do %>
+                          <i class="fa fa-times"></i>
+                      <% end %>
+                  <% end %>
                 </div>
-            <% end %>
+
+                <a href="javascript:void(0)" onclick="$('#<%= item.id %>_tag').toggleClass('hidden');" class="task-link" id="task-link-<%=item.id%>" data-toggle="tooltip" title="<% t :trip_equipment_assignment_manage %>">
+                  <span class="task-name"><%= item.name %></span>
+                  <% if item.number == item.equipment_assignments.sum(:number) %>
+                      <span class="label label-success task-state task-assigned"><%=item.number%>/<%=item.number%></span>
+                  <% else %>
+                      <span class="label label-danger task-state task-undone"><%= t :trip_equipment_assignment_assigned, number: item.equipment_assignments.sum(:number), total: item.number %></span>
+                  <% end %>
+                </a>
+              </li>
+              <div id='<%= item.id %>_tag' class="hidden">
+                <% @trip.participants.each do |participant| %>
+                    <% assignment = find_assignment_by_participant_or_new item, participant %>
+                    <li class="in-2x">
+
+                      <%= image_tag participant.user.gravatar_url(size: 20), class: 'img-circle', style: 'margin-right: 10px'  %>
+
+                      <strong><%= participant.user.name %></strong>
+
+                      <div class="pull-right">
+                        <% if policy(@trip).update? || current_user.id == participant.user_id %>
+                            <%= form_for [@trip, @equipment_list, item, assignment], html: {class: 'form-inline'} do |f| %>
+                                <div class="form-group">
+                                  <%= f.select :number, options_for_select(0..item.possible_assignments(assignment.number), assignment.number), {}, class: 'form-control', size: 1, style: 'margin-right: 5px; padding: 1px;' %>
+                                </div>
+                                <div class="form-group">
+                                  <button type="submit" class="btn btn-xs btn-danger">
+                                    <i class="fa fa-check"></i>
+                                  </button>
+                                  <% unless assignment.new_record? %> <!-- FIXME -->
+                                      <%= link_to trip_equipment_list_equipment_item_equipment_assignment_path(@trip, @equipment_list, item, assignment),
+                                                  method: :delete, class: 'btn btn-xs btn-warning', title: t(:trip_equipment_assigment_delete), id: 'delete_equipment_assignment',
+                                                  data: { confirm: t('trip_equipment_assignment_delete_confirmation'), toggle: 'tooltip' } do %>
+                                          <i class="fa fa-trash"></i>
+                                      <% end %>
+                                  <% end %>
+                                </div>
+                                <%= f.hidden_field :user_id, value: participant.user.id %>
+                            <% end %>
+                        <% end %>
+                      </div>
+
+                  <span class="label label-info task-state task-assigned">
+                    <%= assignment.number %>/<%= item.number %>
+                  </span>
+
+                    </li>
+                <% end %>
+              </div>
+          <% end %>
 
         </ul>
-    </div>
-</div>
-<!-- END Task List -->
+      </div>
+      <!-- END Item List -->
+  <% end %>
+  </div>
+

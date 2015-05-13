@@ -68,9 +68,9 @@ ActiveRecord::Schema.define(version: 20150508012530) do
   add_index "discussions", ["user_id"], name: "index_discussions_on_user_id"
 
   create_table "equipment_assignments", force: :cascade do |t|
-    t.integer  "number"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "number",            default: 0, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "equipment_item_id"
     t.integer  "user_id"
   end
@@ -92,9 +92,8 @@ ActiveRecord::Schema.define(version: 20150508012530) do
   add_index "equipment_items", ["user_id"], name: "index_equipment_items_on_user_id"
 
   create_table "equipment_lists", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",        null: false
     t.string   "description"
-    t.string   "icon"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "trip_id"

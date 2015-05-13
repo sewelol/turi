@@ -121,7 +121,6 @@ en:
   trip_equipment_list_edit:                 "Edit %{equipment_list_title}"
   trip_equipment_name_description:          "Please enter the name of the new equipment list you want to add."
   trip_equipment_description_description:   "You can add a description of the list."
-  trip_equipment_icon_description:          "You can add a icon to the list."
   trip_equipment_list_not_created:          "Equipment list was not created!"
   trip_equipment_list_created:              "Equipment list was created."
   trip_equipment_list_updated:              "Equipment list was updated."
@@ -134,15 +133,14 @@ en:
   trip_equipment_list_collaborate:          "Click on a equipment list to the left to collaborate."
   trip_equipment_list_create:               "Create a new equipment list"
   trip_equipment_list_sign:                 "Yours sincerely, turi team"
-  trip_equipment_list_delete_confimation:   "Are you sure you want to delete this equipment list?"
+  trip_equipment_list_delete_confirmation:  "Are you sure you want to delete this equipment list?"
   trip_equipment_item_edit:                 "Edit equipment list"
   trip_equipment_item_add_qoute:            "Add an useful item to your equipment list."
   trip_equipment_list_money_widget_index:   "Total cost of trip"
   trip_equipment_list_item_widget_index:    "Total number of items"
   trip_equipment_list_money_widget:         "Total cost of list"
   trip_equipment_list_item_widget:          "Total number of items in the list"
-
-
+  trip_equipment_list_user_assignment_widget: "Your Items"
 
   # equipment_items
   trip_equipment_item_name_placeholder:     "Any name is fine."
@@ -167,11 +165,14 @@ en:
   trip_equipment_item_not_found:             "Equipment item not found!"
 
   # equipment_assignments
+  trip_equipment_assignment_manage:             "Manage item assignments"
+  trip_equipment_assignment_assigned:           "%{number}/%{total} assigned"
   trip_equipment_assigment_assignmnet:          "Assigned to"
   trip_equipment_assigment_number:              "Number"
-  trip_equipment_assigment_delete_confirmation: "Are you sure you want to delete this assigment?"
+  trip_equipment_assignment_delete_confirmation: "Are you sure you want to delete this assigment?"
   trip_equipment_assigment_assign:              "Add new assigment"
   trip_equipment_assigment_edit:                "Edit assigment"
+  trip_equipment_assigment_delete:              "Delete assigment"
   trip_equipment_assignment_created:            "Equipment Assigment successfully created"
   trip_equipment_assignment_not_created:        "Equipment Assigment not created"
   trip_equipment_assignment_updated:            "Equipment Assigment was updated"

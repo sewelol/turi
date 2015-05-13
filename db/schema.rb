@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20150513153130) do
   add_index "equipment_items", ["user_id"], name: "index_equipment_items_on_user_id"
 
   create_table "equipment_lists", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",        null: false
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -181,8 +181,6 @@ ActiveRecord::Schema.define(version: 20150513153130) do
     t.boolean  "public",              default: false
     t.boolean  "public_gallery",      default: false
     t.decimal  "price",               default: 0.0
-    t.float    "latitude"
-    t.float    "longitude"
     t.float    "start_loc_latitude"
     t.float    "start_loc_longitude"
     t.float    "end_loc_latitude"

@@ -23,7 +23,7 @@
 
                     <% @trip.equipment_lists.each do |equipment_list| %>
                         <!-- highlight list if selected -->
-                        <li class="<%= 'active' if @equipment_list.id == equipment_list.id%>">
+                        <li class="<%= 'active' if ! @equipment_list.nil? && @equipment_list.id == equipment_list.id %>">
                           <a href="<%= trip_equipment_list_path(@trip, equipment_list) %>" id="<%= equipment_list.name %>_equipment_link">
                                 <span class='badge pull-right'>
                                     <% sum = 0 %>

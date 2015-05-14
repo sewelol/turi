@@ -18,7 +18,10 @@ class Trip < ActiveRecord::Base
 
   def geocode_start_loc
     coords = Geocoder.coordinates(self.start_loc)
-    unless coords.empty?
+    if coords.empty?
+      self.start_loc_latitude = nil
+      self.start_loc_longitude = nil
+    else
       self.start_loc_latitude = coords[0]
       self.start_loc_longitude = coords[1]
     end
@@ -26,7 +29,10 @@ class Trip < ActiveRecord::Base
 
   def geocode_end_loc
     coords = Geocoder.coordinates(self.end_loc)
-    unless coords.empty?
+    if coords.empty?
+      self.end_loc_latitude = nil
+      self.end_loc_longitude = nil
+    else
       self.end_loc_latitude = coords[0]
       self.end_loc_longitude = coords[1]
     end

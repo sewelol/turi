@@ -3,16 +3,9 @@
     <div class="block">
         <!-- Horizontal form title -->
         <div class="block-title">
-            <h2>
-                <% if current_page?(:action => 'new') %>
-                    <%= t('trip_equipment_item_create') %> <%= @equipment_list.name %>
-                <% else %>
-                    <%= t('edit') %> <%= @equipment_item.name %>
-        <% end %>
-            </h2>
+            <h2><%= t('edit') %> <%= @equipment_item.name %></h2>
         </div>
         <!-- END horizontal form title -->
-
         <%= render 'form_small' %>
     </div>
 </div>

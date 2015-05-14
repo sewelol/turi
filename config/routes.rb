@@ -17,8 +17,8 @@ Rails.application.routes.draw do
     resources :participants
     resources :map
     resources :equipment_lists do
-        resources :equipment_items do
-            resources :equipment_assignments
+        resources :equipment_items, only: [:create, :update, :edit, :destroy] do
+            resources :equipment_assignments, only: [:create, :destroy]
         end
     end
     resources :events
@@ -36,12 +36,11 @@ Rails.application.routes.draw do
     resources :friendships
   end
 
-
-
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
   # Explore
   get 'explore', to: 'app/explore#index', as: 'explore'
+  get 'api/explore', to: 'app/explore#list', as: 'api_explore'
 
   # Search
   get 'search', to: 'search#index', as: 'search'

@@ -23,15 +23,17 @@
             </div>
           </div>
 
-          <%= f.submit t('save'),
-                       class: 'btn bt-effect-ripple, btn-primary',
-                       style: 'overflow: hidden; position: relative;',
-                       id: 'save-discussion-btn' %>
-          <%= button_to t('cancel'), :back,
-                               method: "get",
-                               id: 'cancel-save-discussion-btn',
-                               class: 'btn btn-effect-ripple btn-danger',
-                               style: 'overflow: hidden; position: relative;' %>
+          <div class="form-group form-actions">
+            <div class="col-md-9 col-md-offset-3">
+              <%= f.submit t('save'), class: 'btn bt-effect-ripple, btn-primary', id: 'save-discussion-btn' %>
+              <% if action_name == 'edit' %>
+                  <%= link_to t('cancel'), trip_discussion_path(@trip, @discussion), id: 'cancel-save-discussion-btn', class: 'btn btn-effect-ripple btn-danger' %>
+              <% else %>
+                  <%= link_to t('cancel'), trip_discussions_path, id: 'cancel-save-discussion-btn', class: 'btn btn-effect-ripple btn-danger' %>
+              <% end %>
+            </div>
+          </div>
+
       <% end %>
 
     </div>

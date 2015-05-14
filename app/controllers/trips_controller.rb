@@ -34,7 +34,7 @@ class TripsController < ApplicationController
       flash[:notice] = I18n.t 'trip_created'
       redirect_to @trip
     else
-      flash[:alert] = I18n.t 'trip_not_created'
+      flash[:alert] = I18n.t :form_invalid
       render :new
     end
   end
@@ -47,7 +47,7 @@ class TripsController < ApplicationController
       flash[:notice] = I18n.t 'trip_updated'
       redirect_to @trip
     else
-      flash[:alert] = I18n.t 'trip_not_updated'
+      flash[:alert] = I18n.t :form_invalid
       render 'edit'
     end
   end
@@ -68,6 +68,6 @@ class TripsController < ApplicationController
 
   private
   def trip_params
-      params.require(:trip).permit(:title, :description, :start_loc, :start_date, :end_loc, :end_date, :image, :tag_list, :public, :share_gallery, :share_equipment_price)
+      params.require(:trip).permit(:title, :description, :start_loc, :start_date, :end_loc, :end_date, :image, :tag_list, :public, :public_gallery, :price)
   end
 end

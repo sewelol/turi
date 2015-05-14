@@ -1,4 +1,3 @@
-require 'rails_helper'
 
 RSpec.describe EquipmentListsController, type: :controller do
     before do

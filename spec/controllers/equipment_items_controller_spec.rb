@@ -24,10 +24,10 @@ RSpec.describe EquipmentItemsController, type: :controller do
             expect(flash[:alert]).to eq(I18n.t 'trip_equipment_list_not_found')
         end
 
-        it "Render the for again, if something went wrong" do 
+        it "Redirect to equipment list if something went wrong" do
             post :create, :equipment_list_id => @equipment_list.id, :trip_id => @trip.id, :equipment_item => FactoryGirl.attributes_for(:equipment_item, :name => nil)
             expect(flash[:alert]).to eq(I18n.t 'trip_equipment_item_not_created')
-            expect(response).to render_template :new
+            expect(response).to redirect_to trip_equipment_list_path(@trip, @equipment_list)
         end
     end
 

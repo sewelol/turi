@@ -33,7 +33,6 @@
             // Render images.
             $.each(data, function(key, image)
             {
-                console.log(image)
                 var imageId = 'image-' + image.id;
                 element.append('<div class="col-md-3 col-sm-4 col-xs-6 image-container"><img id="' + imageId + '" src="' + image.thumb_url + '"/></div>')
                 $('#' + imageId).click(function()

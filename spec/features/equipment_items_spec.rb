@@ -43,7 +43,7 @@ RSpec.feature "Items for equipment_lists" do
 
 
        visit trip_equipment_list_path(@trip, @equipment_list)
-       click_link "Edit #{@item.name}"
+       click_link "edit-item-#{@item.id}-btn"
        expect(page.current_path).to eq edit_trip_equipment_list_equipment_item_path(@trip, @equipment_list, @item)
        fill_in 'equipment_item_name', with: "something else"
 

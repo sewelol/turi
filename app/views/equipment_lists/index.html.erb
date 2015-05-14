@@ -64,21 +64,36 @@
 <!-- widgets -->
 <div class="row">    
     <div class="col-lg-offset-3 col-lg-3">
-        <a href="javascript:void(0)" onclick="$('#money_piechart, #item_piechart').toggleClass('hidden');" class="widget" id="money_widget">
+      <% if @total_items_summary > 0 %>
+          <a href="javascript:void(0)" onclick="$('#money_piechart, #item_piechart').toggleClass('hidden');" class="widget" id="money_widget">
             <div class="widget-content widget-content-mini text-right clearfix">
-                <div class="widget-icon pull-left themed-background-danger">
-                    <i class="gi gi-wallet text-light-op"></i>
-                </div>
-                <h2 class="widget-heading h3 text-danger">
-                    <strong>$ <span data-toggle="counter" data-to="<%= @total_amount_summary %>"></span><%= @total_amount_summary %></strong>
-                </h2>
-                <span class="text-muted"><%= t('trip_equipment_list_money_widget_index') %></span>
-                <div id="money_piechart" class="hidden" ></div>
+              <div class="widget-icon pull-left themed-background-danger">
+                <i class="gi gi-wallet text-light-op"></i>
+              </div>
+              <h2 class="widget-heading h3 text-danger">
+                <strong>$ <span data-toggle="counter" data-to="<%= @total_amount_summary %>"></span><%= @total_amount_summary %></strong>
+              </h2>
+              <span class="text-muted"><%= t('trip_equipment_list_money_widget_index') %></span>
+              <div id="money_piechart" class="hidden" ></div>
             </div>
-        </a>
+          </a>
+      <% else %>
+          <div class="widget" id="money_widget">
+            <div class="widget-content widget-content-mini text-right clearfix">
+              <div class="widget-icon pull-left themed-background-danger">
+                <i class="gi gi-wallet text-light-op"></i>
+              </div>
+              <h2 class="widget-heading h3 text-danger">
+                <strong>$ <span data-toggle="counter" data-to="0"></span>0</strong>
+              </h2>
+              <span class="text-muted"><%= t('trip_equipment_list_money_widget_index') %></span>
+            </div>
+          </div>
+      <% end %>
     </div>
 
     <div class="col-lg-3">
+      <% if @total_items_summary > 0 %>
         <a href="javascript:void(0)" onclick="$('#money_piechart, #item_piechart').toggleClass('hidden');" class="widget" id="item_widget">
             <div class="widget-content widget-content-mini text-right clearfix">
                 <div class="widget-icon pull-left themed-background-warning">
@@ -91,6 +106,19 @@
                 <div id="item_piechart" class="hidden"></div>
             </div>
         </a>
+      <% else %>
+          <div class="widget" id="item_widget">
+            <div class="widget-content widget-content-mini text-right clearfix">
+              <div class="widget-icon pull-left themed-background-warning">
+                <i class="gi gi-briefcase text-light-op"></i>
+              </div>
+              <h2 class="widget-heading h3 text-warning">
+                <strong><span data-toggle="counter" data-to="0">0</span></strong>
+              </h2>
+              <span class="text-muted"><%= t('trip_equipment_list_item_widget_index') %></span>
+            </div>
+          </div>
+      <% end %>
     </div>
 </div>
 <!-- end widgets -->

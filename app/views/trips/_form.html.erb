@@ -3,39 +3,29 @@
     <div class="block">
       <!-- Horizontal Form Title -->
       <div class="block-title">
-        <h2>Your trip</h2>
+        <h2><%= t(:trip_create) %></h2>
       </div>
       <!-- END Horizontal Form Title -->
 
       <%= form_for @trip, html: {class: 'form-horizontal form-bordered'} do |f| %>
-          <% if @trip.errors.any? %>
-              <div id="error_explanation">
-                <h2> <%= pluralize(@trip.errors.count, "error") %>
-                  prohibited this trip from begin saved:
-                </h2>
-                <ul>
-                  <% @trip.errors.full_messages.each do |msg| %>
-                      <li><%= msg %> </li>
-                  <% end %>
-                </ul>
-              </div>
-          <% end %>
 
-          <div class="form-group">
-            <%= f.label :title, t('trip_title'), class: 'col-md-3 control-label' %>
+          <div class="<%= form_group_class @trip, :title %>">
+            <%= f.label :title, class: 'col-md-3 control-label' %>
             <div class="col-md-9">
               <%= f.text_field :title, class: 'form-control'%>
+              <%= form_group_errors @trip, :title %>
             </div>
           </div>
 
-          <div class="form-group">
-            <%= f.label :description, t('trip_description'), class: 'col-md-3 control-label' %>
+          <div class="<%= form_group_class @trip, :description %>">
+            <%= f.label :description, class: 'col-md-3 control-label' %>
             <div class="col-md-9">
               <%= f.text_area :description, class: 'form-control'%>
+              <%= form_group_errors @trip, :description %>
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="<%= form_group_class @trip, :start_date %> <%= form_group_class @trip, :end_date %>">
             <%= f.label :start_date, raw('<i class="fa fa-calendar"></i>'), class: 'col-md-3 control-label' %>
             <div class="col-md-9">
               <div class="input-group daterange">
@@ -43,11 +33,13 @@
                 <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
                 <%= f.text_field :end_date, class: 'form-control input-datepicker', placeholder: 'To mm/dd/yy', 'data-date-format' => 'mm/dd/yy' %>
               </div>
+              <%= form_group_errors @trip, :start_date %>
+              <%= form_group_errors @trip, :end_date %>
               <span class="help-block"><%=t('trip_dates_help')%></span>
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="<%= form_group_class @trip, :start_loc %> <%= form_group_class @trip, :end_loc %>">
             <%= f.label :start_loc, raw('<i class="fa fa-map-marker"></i>'), class: 'col-md-3 control-label' %>
             <div class="col-md-9">
               <div class="input-group daterange">
@@ -55,14 +47,17 @@
                 <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
                 <%= f.text_field :end_loc, class: 'form-control', placeholder: 'Your ending location.' %>
               </div>
+              <%= form_group_errors @trip, :start_loc %>
+              <%= form_group_errors @trip, :end_loc %>
               <span class="help-block"><%=t('trip_locations_help')%></span>
             </div>
           </div>
 
-          <div class="form-group">
-            <%= f.label :image, t('trip_image'), class: 'col-md-3 control-label' %>
+          <div class="<%= form_group_class @trip, :image %>">
+            <%= f.label :image, class: 'col-md-3 control-label' %>
             <div class="col-md-9">
               <%= f.text_field :image, class: 'form-control', placeholder: 'https://unsplash.it/1060/260?random' %>
+              <%= form_group_errors @trip, :image %>
               <span class="help-block"><%=t('trip_image_help')%></span>
               <br/>
               <div class="row image-search">
@@ -74,49 +69,50 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <%= f.label :tag_list, t('trip_tags'), class: 'col-md-3 control-label' %>
+          <div class="<%= form_group_class @trip, :tag_list %>">
+            <%= f.label :tag_list, class: 'col-md-3 control-label' %>
             <div class="col-md-9">
               <%= f.text_field :tag_list, class: 'input-tags', placeholder: 'Awesome tags for your trip...'%>
+              <%= form_group_errors @trip, :tag_list %>
               <span class="help-block"><%=t('trip_tags_help')%></span>
             </div>
           </div>
 
 
-            <div class="form-group">
-                <%= f.label :public, t('trip_public'), class: 'col-md-3 control-label' %>
-                <div class="col-md-9">
-                  <label class="switch switch-success"><%= f.check_box :public %><span></span></label>
-                  <span class="help-block"><%=t('trip_public_helper')%></span>
-                </div>
+          <div class="<%= form_group_class @trip, :public %>">
+            <%= f.label :public, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <label class="switch switch-success"><%= f.check_box :public %><span></span></label>
+              <%= form_group_errors @trip, :public %>
+              <span class="help-block"><%=t('trip_public_helper').html_safe%></span>
             </div>
+          </div>
 
-            <div class="form-group">
-                <%= f.label :share_gallery, t('trip_share_gallery'), class: 'col-md-3 control-label' %>
-                <div class="col-md-9">
-                    <label class="switch switch-success"><%= f.check_box :share_gallery %><span></span></label>
-                  <span class="help-block"><%=t('trip_share_gallery_helper')%></span>
-                </div>
+          <div class="<%= form_group_class @trip, :public_gallery %>">
+            <%= f.label :public_gallery, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <label class="switch switch-success"><%= f.check_box :public_gallery %><span></span></label>
+              <%= form_group_errors @trip, :public_gallery %>
+              <span class="help-block"><%=t('trip_public_gallery_helper').html_safe%></span>
             </div>
+          </div>
 
-            <div class="form-group">
-                <%= f.label :share_equipment_price, t('trip_share_equipment_price'), class: 'col-md-3 control-label' %>
-                <div class="col-md-9">
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                        <% if !current_page?(action: 'new') %>
-                            <button type="button" class="btn btn-effect-ripple btn-primary" onclick="$('#trip_share_equipment_price').val($(this).data('equipment-price'))" data-equipment-price="<%= @total_amount_summary %>"><i class="fa fa-search"></i> <%= t('trip_share_equipment_price_button') %></button>
-                        <% end %>
-                        </span>
-                        
-                        <%= f.number_field :share_equipment_price, class: 'form-control' %>
-                    </div>
-                  <span class="help-block"><%=t('trip_share_equipment_price_helper')%></span>
-                </div>
+          <div class="<%= form_group_class @trip, :price %>">
+            <%= f.label :price, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-euro"></i></span>
+                <%= f.number_field :price, class: 'form-control' %>
+                <span class="input-group-btn">
+                    <% if action_name == 'edit' and @total_amount_summary > 0 %>
+                        <button type="button" class="btn btn-effect-ripple btn-primary" onclick="$('#trip_price').val($(this).data('equipment-price'))" data-equipment-price="<%= @total_amount_summary %>"><i class="fa fa-reply"></i> <%= t('trip_copy_equipment_price') %></button>
+                    <% end %>
+                </span>
+              </div>
+              <%= form_group_errors @trip, :price %>
+              <span class="help-block"><%=t('trip_price_helper')%></span>
             </div>
-
-
-
+          </div>
 
           <div class="form-group form-actions">
             <div class="col-md-9 col-md-offset-3">

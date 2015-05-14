@@ -131,7 +131,22 @@ en:
   trip_role_owner:                "Owner"
   trip_role_editor:               "Editor"
   trip_role_viewer:               "Viewer"
+
+
+  # routes
   trip_add_route:                 "Add route"
+  trip_route_index_title:         "Routes"
+  trip_route_index:               "%{trip_name}&#39;s routes"
+  trip_route_edit:                "Edit route"
+  trip_route_destroy:             "Delete route"
+  trip_route_map:                 "Map"
+  trip_route_desc:                "Description"
+  trip_route_route:               "Route"
+  trip_route_route_title:         "Route title"
+  trip_route_route_desc:          "Route description"
+  trip_route_route_save:          "Save route"
+
+
 
   # equipment_lists
   trip_equipment_list_create:               "Create a new Equipment List for %{trip_title}"

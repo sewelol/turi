@@ -12,16 +12,30 @@ class RoutesController < ApplicationController
   def show
     @trip = Trip.find(params[:trip_id])
     @route = Route.find(params[:id])
-
   end
 
   def new
     @trip = Trip.find(params[:trip_id])
-
     @route = Route.new
-
   end
 
+  def edit
+    @trip = Trip.find(params[:trip_id])
+    @route = Route.find(params[:id])
+  end
+
+  def update
+    @trip = Trip.find(params[:trip_id])
+    @route = Route.find(params[:id])
+
+    if @route.update(route_params)
+      flash[:notice] = I18n.t 'trip_route_updated'
+      redirect_to [@trip, @article]
+    else
+      flash[:alert] = I18n.t 'trip_route_not_updated'
+      render 'new'
+    end
+  end
 
   def create
     @trip = Trip.find(params[:trip_id])
@@ -31,13 +45,7 @@ class RoutesController < ApplicationController
     else
       render 'new'
     end
-
-
-
-    # redirect_to trip_route_path
   end
-
-
 
   private
   def route_params

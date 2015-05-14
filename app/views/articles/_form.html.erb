@@ -51,6 +51,11 @@
                 <%= f.text_area :content, size: '24x6' %>
               </div>
 
+              <div class="form-group">
+                <%= f.label :public, class: 'col-md-1 control-label' %>
+                <label class="switch switch-success"><%= f.check_box :public %><span></span></label>
+              </div>
+
               <div class="form-group form-actions">
                 <%= f.submit t('save'), id: 'article_create_button' , class: 'btn btn-effect-ripple btn-primary' %>
                 <%= link_to t('cancel'), trip_articles_path, class: 'btn btn-effect-ripple btn-danger' %>

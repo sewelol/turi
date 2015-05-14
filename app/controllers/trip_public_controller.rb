@@ -14,8 +14,7 @@ class TripPublicController < ApplicationController
 
 
        # move down when articles get public variable FIXME
-       articles = @trip.articles #.where(:public => true)
-       @articles = Kaminari.paginate_array(articles).page(params[:page]).per(1)
+       @articles = Kaminari.paginate_array(@trip.articles.where(:public => true)).page(params[:page]).per(1)
 
 
        @participants = Kaminari.paginate_array(@trip.participants).page(params[:user]).per(2)

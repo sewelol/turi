@@ -38,8 +38,9 @@ ActiveRecord::Schema.define(version: 20150513153130) do
     t.string   "title"
     t.text     "content"
     t.integer  "trip_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "public",     default: false
   end
 
   add_index "articles", ["trip_id"], name: "index_articles_on_trip_id"

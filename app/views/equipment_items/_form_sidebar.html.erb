@@ -1,0 +1,38 @@
+<div id="sidebar-alt" tabindex="-1" aria-hidden="true">
+  <!-- Toggle Alternative Sidebar Button (visible only in static layout) -->
+  <a href="javascript:void(0)" id="sidebar-alt-close" onclick="App.sidebar('toggle-sidebar-alt');"><i class="fa fa-times"></i></a>
+
+  <!-- Wrapper for scrolling functionality -->
+  <div id="sidebar-scroll-alt">
+    <!-- Sidebar Content -->
+    <div class="sidebar-content">
+      <!-- Item -->
+      <div class="sidebar-section">
+        <h2 class="text-light"><%= t('trip_equipment_list_add_item') %></h2>
+        <%= form_for [@trip, @equipment_list, @equipment_item], html: {class: 'form-control-borderless'} do |f| %>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control', placeholder: t('trip_equipment_item_name_placeholder') %>
+            </div>
+            <div class="form-group">
+              <%= f.label :number, t('trip_equipment_item_number_placeholder') %>
+              <%= f.number_field :number, class: 'form-control', placeholder: t('trip_equipment_item_number_placeholder') %>
+            </div>
+            <div class="form-group">
+              <%= f.label :price, t('trip_equipment_item_price_placeholder') %>
+              <%= f.text_field :price, class: 'form-control', placeholder: t('trip_equipment_item_price_placeholder') %>
+            </div>
+            <div class="form-group remove-margin">
+              <%= f.submit t('add'), class: 'btn btn-effect-ripple btn-primary', id: 'submit', onclick: 'App.sidebar("close-sidebar-alt");' %>
+              <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" onclick="App.sidebar('close-sidebar-alt');"><%= t('cancel') %></a>
+            </div>
+        <% end %>
+      </div>
+      <!-- END Item -->
+
+    </div>
+    <!-- END Sidebar Content -->
+  </div>
+  <!-- END Wrapper for scrolling functionality -->
+</div>
+<!-- END Alternative Sidebar -->

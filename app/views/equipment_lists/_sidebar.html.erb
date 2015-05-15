@@ -4,32 +4,66 @@
         inner-sidebar-left
     <% end %>
 
+    <% content_for :page_script do %>
+        <script src="public/app/js/compNestable.js"></script>
+        <script> $(function(){ CompNestable.init(); });</script>
+    <% end %>
 
     <div id="page-content-sidebar">
-      <!-- Collapsible Options -->
-      <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-options">Options</a>
-      <div id="todo-options" class="collapse navbar-collapse remove-padding">
-        <!-- Lists -->
-        <h4 class="inner-sidebar-header">
-          <a href="<%= new_trip_equipment_list_path(@trip) %>" class="btn btn-xs btn-default pull-right" title="Create equipment list"><i class="fa fa-plus"></i></a>
-          Lists
-        </h4>
-        <div class="block-section">
-          <ul class="nav nav-pills nav-stacked">
+        <!-- Collapsible Options -->
+        <a href="javascript:void(0)" class="btn btn-block btn-default visible-xs" data-toggle="collapse" data-target="#todo-options">Options</a>
+        <div id="todo-options" class="collapse navbar-collapse remove-padding">
+            <!-- Lists -->
+            <h4 class="inner-sidebar-header">
+                <a href="<%= new_trip_equipment_list_path(@trip) %>" class="btn btn-xs btn-default pull-right" title="Create equipment list" id='new_list'><i class="fa fa-plus"></i></a>
+                Lists
+            </h4>
+            <div class="block-section">
+                <ul class="nav nav-pills nav-stacked">
 
-            <% @trip.equipment_lists.each do |equipment_list| %>
-                <li class="<%= current_page?(trip_equipment_list_path(@trip, equipment_list)) || current_page?(edit_trip_equipment_list_path(@trip, equipment_list)) ? 'active' : ''%>">
-                  <a href="<%= trip_equipment_list_path(@trip, equipment_list) %>" id="<%= equipment_list.name %>_equipment_link">
-                    <i class="fa <%= equipment_list.icon %> fa-fw icon-push"></i> <strong><%= equipment_list.name %></strong>
-                  </a>
-                </li>
-            <% end %>
-          </ul>
+                    <% @trip.equipment_lists.each do |equipment_list| %>
+                        <!-- highlight list if selected -->
+                        <li class="<%= 'active' if ! @equipment_list.nil? && @equipment_list.id == equipment_list.id %>">
+                          <a href="<%= trip_equipment_list_path(@trip, equipment_list) %>" id="<%= equipment_list.name %>_equipment_link">
+                                <span class='badge pull-right'>
+                                    <% sum = 0 %>
+                                    <% equipment_list.equipment_items.each do |item| %>
+                                        <% sum += item.equipment_assignments.sum(:number) %>
+                                    <% end %>
+                                    <%= sum %>/
+                                    <%= equipment_list.equipment_items.sum(:number) %>
+                                </span>
+                                <i class="fa fa-list fa-fw icon-push"></i>
+                                <strong data-toggle="tooltip" title="<%=equipment_list.name%>"><%=truncate(equipment_list.name, length: 15)%></strong>
+                            </a>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
         </div>
-        <!-- END Lists -->
 
-      </div>
-      <!-- END Collapsible Options -->
+        <!--  Account assignment Info -->
+        <h4 class="inner-sidebar-header">
+            Trip overview
+        </h4>
+        <table class="table table-striped table-vcenter">
+            <tbody>
+                <tr>
+                    <td class="text-right"><strong>Total items</strong></td>
+                    <td><strong><%= @total_items_summary %></strong></td>
+                </tr>
+                <tr>
+                    <td class="text-right"><strong>Trip costs</strong></td>
+                    <td><strong><%= @total_amount_summary %></strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- end Account assignment info -->
+
     </div>
+    <!-- END Collapsible Options -->
 
 <% end %>
+
+
+

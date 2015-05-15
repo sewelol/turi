@@ -10,21 +10,26 @@ Rails.application.routes.draw do
   get '/features', to: 'web/page#features', as: 'features'
   get '/faq', to: 'web/page#faq', as: 'faq'
 
+  resources :image_search, only: [:index]
 
   # TODO: Use scopes so that we not bloat our routes.
   resources :trips do
     resources :participants
     resources :map
     resources :equipment_lists do
-        resources :equipment_items do
-            resources :equipment_assignments
+        resources :equipment_items, only: [:create, :update, :edit, :destroy] do
+            resources :equipment_assignments, only: [:create, :destroy]
         end
     end
     resources :events
     resources :articles
-
+    resources :discussions do
+      resources :comments
+    end
     resources :media, only: [:index, :show, :destroy]
   end
+
+  resources :trip_public
 
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users, only: [:show, :edit, :update] do
@@ -32,9 +37,11 @@ Rails.application.routes.draw do
     resources :requests, only: [:create, :destroy]
   end
 
-
-
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+
+  # Explore
+  get 'explore', to: 'app/explore#index', as: 'explore'
+  get 'api/explore', to: 'app/explore#list', as: 'api_explore'
 
   # Search
   get 'search', to: 'search#index', as: 'search'

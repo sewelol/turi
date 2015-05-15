@@ -17,6 +17,10 @@ rake db:migrate
 rake db:test:prepare
 rake db:seed
 ```
+Updating from 2.1.5 to 2.1.6 do:
+```
+rvm install 2.1.6
+```
 
 For the sake of completeness you can add a `RAILS_ENV=production` behind the rake commands if you want to run the app locally with max performance (note that you need a local postgres installation for this).
 

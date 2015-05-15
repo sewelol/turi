@@ -8,7 +8,7 @@ RSpec.describe EquipmentAssignment, type: :model do
     before do 
         @user = FactoryGirl.create(:user)
         @trip = FactoryGirl.create(:trip)
-        @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+        @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
         @equipment_item = FactoryGirl.create(:equipment_item, :equipment_list_id => @equipment_list.id, :user_id => @user.id)
     end
 

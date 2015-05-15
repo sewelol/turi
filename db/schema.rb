@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407093413) do
+ActiveRecord::Schema.define(version: 20150513153130) do
 
   create_table "api_access_tokens", force: :cascade do |t|
     t.integer  "user_id"
@@ -38,16 +38,40 @@ ActiveRecord::Schema.define(version: 20150407093413) do
     t.string   "title"
     t.text     "content"
     t.integer  "trip_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "public",     default: false
   end
 
   add_index "articles", ["trip_id"], name: "index_articles_on_trip_id"
 
+  create_table "comments", force: :cascade do |t|
+    t.text     "body",          null: false
+    t.integer  "discussion_id"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "comments", ["discussion_id"], name: "index_comments_on_discussion_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "discussions", force: :cascade do |t|
+    t.integer  "trip_id"
+    t.integer  "user_id"
+    t.text     "title",      null: false
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "discussions", ["trip_id"], name: "index_discussions_on_trip_id"
+  add_index "discussions", ["user_id"], name: "index_discussions_on_user_id"
+
   create_table "equipment_assignments", force: :cascade do |t|
-    t.integer  "number"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "number",            default: 0, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "equipment_item_id"
     t.integer  "user_id"
   end
@@ -69,15 +93,16 @@ ActiveRecord::Schema.define(version: 20150407093413) do
   add_index "equipment_items", ["user_id"], name: "index_equipment_items_on_user_id"
 
   create_table "equipment_lists", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",        null: false
     t.string   "description"
-    t.string   "icon"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "trip_id"
+    t.integer  "user_id"
   end
 
   add_index "equipment_lists", ["trip_id"], name: "index_equipment_lists_on_trip_id"
+  add_index "equipment_lists", ["user_id"], name: "index_equipment_lists_on_user_id"
 
   create_table "events", force: :cascade do |t|
     t.string   "name",                     null: false
@@ -158,11 +183,18 @@ ActiveRecord::Schema.define(version: 20150407093413) do
     t.text     "start_loc"
     t.text     "end_loc"
     t.text     "image"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.text     "start_date"
     t.text     "end_date"
     t.integer  "user_id"
+    t.boolean  "public",              default: false
+    t.boolean  "public_gallery",      default: false
+    t.decimal  "price",               default: 0.0
+    t.float    "start_loc_latitude"
+    t.float    "start_loc_longitude"
+    t.float    "end_loc_latitude"
+    t.float    "end_loc_longitude"
   end
 
   add_index "trips", ["user_id"], name: "index_trips_on_user_id"

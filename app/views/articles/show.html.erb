@@ -2,51 +2,32 @@
     <%= @article.title %>
 <% end %>
 
+<% content_for :page_class do %>
+    background-image
+<% end %>
 
-<!-- Article Header -->
-<div class="content-header">
-    <div class="header-section clearfix">
-      <h1><%= @article.title %> </h1>
-    </div>
-</div>
-<!-- END Article Header -->
-
-<!-- Article Content -->
-<div class="row">
-<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-  <!-- Article Block -->
-  <div class="block">
-    <!-- Article Title -->
-    <div class="block-title">
-      <div class="block-options pull-right">
-        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-warning" data-toggle="tooltip" title="Add to favorites"><i class="fa fa-star"></i></a>
-        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-success" data-toggle="tooltip" title="Add bookmark"><i class="fa fa-bookmark"></i></a>
-        <a href="javascript:void(0)" class="btn btn-effect-ripple btn-danger" data-toggle="tooltip" title="Love it"><i class="fa fa-heart"></i></a>
+<% content_for :content_header do %>
+    <!-- Article Header -->
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="header-buttons pull-right">
+            <%= link_to raw('<i class="fa fa-reply"></i>'), trip_articles_path(@trip), class: 'btn btn-lg btn-effect-ripple',  data: { toggle: 'tooltip', original_title: t('trip_article_index_title') } %>
+            <% if policy(@trip).update? %>
+                <%= link_to raw('<i class="fa fa-pencil"></i>'), [:edit, @trip, @article], id: 'edit_article_button',class: 'btn btn-lg btn-effect-ripple', data: { toggle: 'tooltip', original_title: t('trip_article_edit')} %>
+                <%= link_to raw('<i class="fa fa-trash"></i>'), trip_article_path(@trip, @article),
+                        method: :delete, data: {confirm: t('trip_article_destroy_confirm'), toggle: 'tooltip', original_title: t('trip_article_destroy')},
+                        id: 'delete_article_button', class: 'btn btn-lg btn-effect-ripple' %>
+            <% end %>
+          </div>
+          <div class="header-section">
+            <h1><%= @article.title %></h1>
+          </div>
+        </div>
       </div>
-      <h2><i class="fa fa-clock-o"></i><%= @article.created_at.strftime(' %d %B %Y') %></h2>
     </div>
-    <!-- END Article Title -->
+    <!-- END Article Header -->
+<% end %>
 
-    <!-- Article Content -->
-    <article class="article-story">
-        <%= simple_format(@article.content) %>
-    </article>
-    <hr>
-    <div class="block-section text-left">
-      <%= link_to raw('<i></i> ' << t('trip_article_edit_btn')), [:edit, @trip, @article], id: 'edit_article_button',class: 'btn btn-primary push-bit' %>
-      <%= link_to raw('<i></i> ' << t('trip_article_destroy_btn')), trip_article_path(@trip, @article),
-                  method: :delete, data: {confirm: t('trip_article_destroy_confirm')}, id: 'delete_article_button',class: 'btn btn-primary push-bit' %>
-    </div>
-    <div class="block-section text-center">
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Facebook"><i class="fa fa-facebook"></i></a>
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Twitter"><i class="fa fa-twitter"></i></a>
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Linkedin"><i class="fa fa-linkedin"></i></a>
-      <a href="javascript:void(0)" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Share on Pinterest"><i class="fa fa-pinterest"></i></a>
-    </div>
-    <!-- END Article Content -->
-  </div>
-  <!-- END Article Block -->
-</div>
-</div>
-<!-- END Article Content -->
+<!-- render article -->
+<%= render 'article' %>

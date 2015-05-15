@@ -9,8 +9,8 @@ module TripConcern
 
     def set_trip(trip)
         @trip = Trip.find(trip)
-        rescue ActiveRecord::RecordNotFound
-            flash[:alert] = I18n.t 'trip_not_found'
-            redirect_to :back
+    rescue ActiveRecord::RecordNotFound
+        flash[:alert] = I18n.t 'trip_not_found'
+        redirect_to :back
     end
 end

@@ -26,6 +26,7 @@ en:
   email:  "Email"
   role:   "Role"
   save:   "Save"
+  add:    "Add"
   cancel: "Cancel"
   can_edit: "Can edit"
   search:   "Search"
@@ -34,9 +35,17 @@ en:
   color: "Color"
   description: "Description"
   back: "Back"
+  edit: "Edit"
+  publish: "Publish"
+  by: "by"
+  now: "Now"
+  reply : "Reply"
+  distance_ago: "%{distance} ago"
+  form_invalid: "Some information needs your attention, therefore we did not save your changes yet."
 
   # http://en.wikipedia.org/wiki/Date_format_by_country
   # https://hackhands.com/format-datetime-ruby/
+  # TODO: I've seen this already exists in official rails translations.. so may we should go with them.
   date_time:  "%d/%m/%Y %I:%M %p"
 
   header_title: "turi"
@@ -64,6 +73,7 @@ en:
   user_id_not_found:              "This user id is not valid"
   user_must_have_email:           "You can't have a blank email"
   user_must_have_name:            "You can't have a blank name"
+  edit_user:                      "Edit user"
 
   #Trips (trip_controller)
   trip_title:                     "Title"
@@ -71,12 +81,15 @@ en:
   trip_tags:                      "Tags"
   trip_tags_help:                 "You can see tags as categories which help us to improve the search results. You can add several tags by seperating them with a comma."
   trip_dates_help:                "Entering your trip start and end date will add these events to your trip calendar."
-  trip_locations_help:            "Entering your trip start and end location will add these points to your route map."
-  trip_image:                     "Cover photo"
-  trip_image_help:                "You can paste any link to any image (best with 1060x260 px). It will be used as cover photo for your trip."
+  trip_locations_help:            "Entering your trip start and end location will add these points to your route map. If you set your trip to public others can find your trip using the location."
+  trip_image_help:                "You can paste any link to any image (best with 1060x260 px). It will be used as cover photo for your trip. If you don't provide an image we will choose a random image for you. Below you can find some awesome example images (click on a image to copy the image url into the cover photo field)."
+  trip_public_helper:             "<p>If you set the trip to public, other users will be able to see the trip on the explore map and using the search form.</p><p><b>Note</b> that by default only the name, location, starte/end date, the cover phote, the tags and the description is public visible.</p><p>By default blog articles and routes are not visible on the public trip view. However you can change this behaviour in the according blog or the route view.</p><p>Discussions, equipment items are always private.</p>"
+  trip_public_gallery_helper:     "Enable this option to show your public gallery on the public trip view. We will <b>only</b> display images which are in the <i>turi/my_trip_name/<b>public</b></i> folder. Visit your trip gallery page for detailed instructions."
+  trip_price_helper:              "How much will the trip cost? Unless this price is zero it will be visible if you set the trip to public."
   trip_details:                   "Trip Home"
   trip_participants:              "Participants"
   trip_equipment:                 "Equipment"
+  trip_copy_equipment_price:      "Insert equipment price"
   trip_media:                     "Gallery"
   trip_article:                   "Blog"
   trip_events:                    "Calendar"
@@ -117,22 +130,28 @@ en:
   trip_equipment_list_updated:              "Equipment list was updated."
   trip_equipment_list_not_updated:          "Equipment list was not updated."
   trip_equipment_list_deleted:              "Equipment list successfully deleted."
-  trip_equipment_list_delete:               "Delete Equipment List"
+  trip_equipment_list_delete:               "Delete %{equipment_list_title}"
   trip_equipment_list_not_found:            "Equipment list not found!"
   trip_equipment_list_title:                "Equipment List"
   trip_equipment_list_no_list:              "You don't have any equipment lists right now."
   trip_equipment_list_collaborate:          "Click on a equipment list to the left to collaborate."
   trip_equipment_list_create:               "Create a new equipment list"
   trip_equipment_list_sign:                 "Yours sincerely, turi team"
-  trip_equipment_list_delete_confimation:   "Are you sure you want to delete this equipment list?"
+  trip_equipment_list_delete_confirmation:  "Are you sure you want to delete this equipment list?"
   trip_equipment_item_edit:                 "Edit equipment list"
-
+  trip_equipment_item_add_qoute:            "Add an useful item to your equipment list."
+  trip_equipment_list_money_widget_index:   "Total cost of trip"
+  trip_equipment_list_item_widget_index:    "Total number of items"
+  trip_equipment_list_money_widget:         "Total cost of list"
+  trip_equipment_list_item_widget:          "Total number of items in the list"
+  trip_equipment_list_user_assignment_widget: "Your Items"
 
   # equipment_items
   trip_equipment_item_name_placeholder:     "Any name is fine."
   trip_equipment_item_price_placeholder:    "Price for one item"
   trip_equipment_item_number_placeholder:   "Number of items"
   trip_equipment_item_new_item:             "New item"
+  trip_equipment_list_add_item:             "Add item"
   trip_equipment_item_edit:                 "Edit %{equipment_item_name}"
   created_by:                               "Created by:"
   trip_equipment_item_delete_confirmation:   "are you sure you want to delete this equipment item?"
@@ -150,13 +169,16 @@ en:
   trip_equipment_item_not_found:             "Equipment item not found!"
 
   # equipment_assignments
+  trip_equipment_assignment_manage:             "Manage item assignments"
+  trip_equipment_assignment_assigned:           "%{number}/%{total} assigned"
   trip_equipment_assigment_assignmnet:          "Assigned to"
   trip_equipment_assigment_number:              "Number"
-  trip_equipment_assigment_delete_confirmation: "Are you sure you want to delete this assigment?"
+  trip_equipment_assignment_delete_confirmation: "Are you sure you want to delete this assigment?"
   trip_equipment_assigment_assign:              "Add new assigment"
   trip_equipment_assigment_all_assigned:        "All items assigned"
   trip_equipment_assigment_assignment:          "Assigned"
   trip_equipment_assigment_edit:                "Edit assigment"
+  trip_equipment_assigment_delete:              "Delete assigment"
   trip_equipment_assignment_created:            "Equipment Assigment successfully created"
   trip_equipment_assignment_not_created:        "Equipment Assigment not created"
   trip_equipment_assignment_updated:            "Equipment Assigment was updated"
@@ -188,19 +210,20 @@ en:
   trip_events_no_description:   "No description for this event."
 
   # articles
-  trip_article_index:           "Blog index"
-  trip_article_entry:           "Blog entry"
-  trip_article_new:             "New blog entry"
-  trip_article_edit:            "Edit blog entry"
-  trip_article_edit_btn:        "Edit"
-  trip_article_destroy_btn:     "Delete"
-  trip_article_destroy_confirm: "Are you sure you want to delete this entry?"
-  trip_article_new_btn:         "Create new blog"
-  trip_article_created:         "Blog entry created."
-  trip_article_not_created:     "Blog entry was not created."
-  trip_article_updated:         "Blog entry updated."
-  trip_article_not_updated:     "Blog update failed."
-  trip_article_destroyed:       "Blog entry deleted."
+  trip_article_index_title:     "Blog"
+  trip_article_index:           "%{trip_name}&#39;s blog"
+  trip_article_entry:           "Article"
+  trip_article_new_quote:       "Share your experience with others."
+  trip_article_new:             "New article"
+  trip_article_edit:            "Edit article"
+  trip_article_destroy:         "Delete article"
+  trip_article_destroy_confirm: "Are you sure you want to delete this article?"
+  trip_article_new_btn:         "Create new article"
+  trip_article_created:         "Article created."
+  trip_article_not_created:     "Article was not created."
+  trip_article_updated:         "Article updated."
+  trip_article_not_updated:     "Article update failed."
+  trip_article_destroyed:       "Article deleted."
 
   # dropbox
   dropbox:                          "Dropbox" # I know, i know...
@@ -230,4 +253,52 @@ en:
   user_request_destroyed:                 "Request removed."
   user_request_destroy_not_exist:         "Request does not exist"
   user_request_destroy_not_destroyed:     "Request not removed."
+
+  # discussion
+  discussion_updated:               "Discussion has been updated."
+  discussion_not_updated:           "Discussion has not been updated."
+  discussion_created:               "Discussion has been created."
+  discussion_not_created:           "Discussion has not been created."
+  discussion_destroyed:             "Discussion has been deleted."
+  trip_discussions_form:            "Your discussion for '%{trip_title}'"
+  edit_discussion:                  "Edit discussion"
+  discussions:                      "Discussions"
+  new_discussion:                   "New discussion"
+  trip_discussion_delete:           "Delete discussion"
+  discussion_delete_verification:   "Are you sure you want to delete this discussion?"
+  back_to_discussions:              "Back to discussions"
+  discussion:                       "Discussion"
+  trip_discussions_new_quote:       "Start a new discussion with others."
+  trip_discussions_new_btn:         "Create discussion"
+
+
+  # comment
+  comment_created:              "Comment has been created."
+  comment_not_created:          "Comment has not been created."
+  comment_updated:              "Comment has been updated."
+  comment_not_updated:          "Comment has not been updated."
+  comment_deleted:              "Comment has been deleted."
+  write_your_comment:           "Write your comment..."
+
+  # password
+  reset_password:               "Reset password"
+  back_to_login:                "Back to login"
+  reset:                        "Reset"
+  new_password:                 "New password"
+  confirm_new_password:         "Confirm new password"
+  change_my_password:           "Change my password"
+
+  activerecord:
+      attributes:
+        'trip':
+          title:                "Title"
+          description:          "Description"
+          image:                "Cover photo"
+          tags:                 "Tags"
+          public:               "Public"
+          public_gallery:       "Public Gallery"
+          price:                "Estimated trip price"
+        'discussion':
+          title:  "Topic"
+          body:   "Discussion"
 

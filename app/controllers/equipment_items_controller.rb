@@ -3,14 +3,10 @@ class EquipmentItemsController < ApplicationController
     include EquipmentConcern
     before_action { |c| c.set_trip params[:trip_id] }
     before_action { |c| c.set_equipment_list params[:equipment_list_id] }
-    before_action(:only => [:show, :update, :edit, :destroy]) { |c| c.set_equipment_item params[:id] }
+    before_action(:only => [:update, :edit, :destroy]) { |c| c.set_equipment_item params[:id] }
+    before_action { |c| c.equipment_lists_users_summary @trip.equipment_lists }
+
     layout 'trip'
-
-
-    def show
-        authorize @trip
-        @equipment_assignment = EquipmentAssignment.new
-    end
 
     def create
         @equipment_item = EquipmentItem.create(equipment_item_params)
@@ -24,8 +20,8 @@ class EquipmentItemsController < ApplicationController
             redirect_to trip_equipment_list_path(@trip, @equipment_list)
         else
             flash[:alert] = I18n.t 'trip_equipment_item_not_created'
-            render :new
-        end 
+            redirect_to trip_equipment_list_path(@trip, @equipment_list)
+        end
     end
 
     def update
@@ -35,13 +31,13 @@ class EquipmentItemsController < ApplicationController
             redirect_to trip_equipment_list_path(@trip, @equipment_list)
         else
             flash[:alert] = I18n.t 'trip_equipment_item_not_updated'
-            render 'edit'
+            render :edit
         end
     end
 
     def edit
         authorize @equipment_item
-        render 'edit'
+        render :edit
     end
 
     def destroy

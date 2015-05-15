@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe TripsController, :type => :controller do
     before do
         @user = FactoryGirl.create(:user)
+        @user2 = FactoryGirl.create(:user)
         sign_in(@user)
 
 
@@ -33,7 +34,7 @@ RSpec.describe TripsController, :type => :controller do
 
         it "Render the form again, if something went wrong" do
             post :create, trip: FactoryGirl.attributes_for(:trip, :title => nil)
-            expect(flash[:alert]).to eq(I18n.t 'trip_not_created')
+            expect(flash[:alert]).to eq(I18n.t :form_invalid)
             expect(response).to render_template :new
         end
     end
@@ -53,6 +54,14 @@ RSpec.describe TripsController, :type => :controller do
             expect(response).to redirect_to root_path
             expect(flash[:alert]).to eq(I18n.t 'trip_not_found')
         end
+
+        it "redirects to public view if user is not a participant and the trip is public" do
+            trip = FactoryGirl.create(:trip, :user => @user2, :public => true)
+            get :show, id: trip.id
+
+            expect(response).to redirect_to trip_public_path(trip.id)
+        end
+
     end
 
 
@@ -82,7 +91,7 @@ RSpec.describe TripsController, :type => :controller do
             expect(@trip.description).not_to eq("Something")
             expect(@trip.title).to eq(@trip.title)
             expect(response).to render_template :edit
-            expect(flash[:alert]).to eq(I18n.t 'trip_not_updated')
+            expect(flash[:alert]).to eq(I18n.t :form_invalid)
         end
     end
 

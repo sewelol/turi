@@ -20,8 +20,8 @@ RSpec.feature 'Article Operations' do
     visit trip_articles_path(@trip)
 
     click_link 'add_article_button'
-    fill_in 'Title', with: @article.title
-    fill_in 'Content', with: @article.content
+    fill_in 'article_title', with: @article.title
+    fill_in 'article_content', with: @article.content
     click_button 'article_create_button'
 
     expect(page).to have_content(I18n.t 'trip_article_created')
@@ -35,8 +35,8 @@ RSpec.feature 'Article Operations' do
     visit trip_article_path(@trip, @article)
 
     click_link 'edit_article_button'
-    fill_in 'Title', with: 'Various updates'
-    fill_in 'Content', with: 'Various content'
+    fill_in 'article_title', with: 'Various updates'
+    fill_in 'article_content', with: 'Various content'
     click_button 'article_create_button'
 
     expect(page).to have_content('Various updates')

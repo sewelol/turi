@@ -1,0 +1,30 @@
+box: wercker/rvm
+# Build definition
+# See the Rails section on the wercker devcenter:
+# http://devcenter.wercker.com/articles/languages/ruby/settingup-rails4.html
+services:
+  - wercker/postgresql
+# See more about services on our devcenter:
+# http://devcenter.wercker.com/articles/services/
+build:
+    steps:
+        - rvm-use:
+              version: 2.1.6
+
+        # A step that executes `bundle install` command
+        - bundle-install
+
+        # A step that prepares the database.yml using the database in services
+        - rails-database-yml
+
+        - script:
+            name: echo ruby information
+            code: |
+                echo "ruby version $(ruby --version) running"
+                echo "from location $(which ruby)"
+                echo -p "gem list: $(gem list)"
+
+        # Add more steps here:
+        - script:
+               name: rspec
+               code: bundle exec rspec

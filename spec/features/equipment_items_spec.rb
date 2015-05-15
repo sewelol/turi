@@ -12,10 +12,9 @@ RSpec.feature "Items for equipment_lists" do
        FactoryGirl.create(:participant, :trip_id => @trip.id, :user_id => @user2.id, :participant_role_id => ParticipantRole.editor.id)
        FactoryGirl.create(:participant, :trip_id => @trip.id, :user_id => @user3.id, :participant_role_id => ParticipantRole.viewer.id)       
        
-       @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+       @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
        @item = FactoryGirl.build(:equipment_item)
        login_as(@user, :scope => :user)
-       #sign_in_as!(@user)
        
        visit trip_path(@trip)
    end
@@ -37,20 +36,15 @@ RSpec.feature "Items for equipment_lists" do
 
        expect(page).to have_content(@item.name)
 
-
-       # click the item(show item) and check if the values are correct
-       click_link @item.name
-       expect(page).to have_content(@user.name)
-       expect(page).to have_content(@item.number)
-       expect(page).to have_content(@item.price)
    end
 
    scenario "Edit a item" do
        @item = FactoryGirl.create(:equipment_item, :equipment_list_id => @equipment_list.id, :user_id => @user.id)
 
 
-       visit trip_equipment_list_equipment_item_path(@trip, @equipment_list, @item)
-       click_link 'edit_equipment_item'
+       visit trip_equipment_list_path(@trip, @equipment_list)
+       click_link "edit-item-#{@item.id}-btn"
+       expect(page.current_path).to eq edit_trip_equipment_list_equipment_item_path(@trip, @equipment_list, @item)
        fill_in 'equipment_item_name', with: "something else"
 
        click_button 'submit'
@@ -63,8 +57,8 @@ RSpec.feature "Items for equipment_lists" do
    scenario "Delete a item" do
        @item = FactoryGirl.create(:equipment_item, :equipment_list_id => @equipment_list.id, :user_id => @user.id)
        
-       visit trip_equipment_list_equipment_item_path(@trip, @equipment_list, @item)    
-       click_link 'delete_equipment_item'
+       visit trip_equipment_list_path(@trip, @equipment_list)    
+       click_link 'delete_' + @item.id.to_s
 
        expect(page.current_path).to eq(trip_equipment_list_path(@trip, @equipment_list))
        expect(page).to have_content(I18n.t 'trip_equipment_item_deleted')
@@ -76,10 +70,10 @@ RSpec.feature "Items for equipment_lists" do
        
        logout(:user)
        login_as(@user2, :scope => :user)
-       visit trip_equipment_list_equipment_item_path(@trip, @equipment_list, @item)
-       expect(page).to have_link('delete_equipment_item')
+       visit trip_equipment_list_path(@trip, @equipment_list)
+       expect(page).to have_link('delete_' + @item.id.to_s)
 
-       click_link 'delete_equipment_item'
+       click_link 'delete_' + @item.id.to_s
        expect(page.current_path).to eq(trip_equipment_list_path(@trip, @equipment_list))
        expect(page).to have_content(I18n.t 'trip_equipment_item_deleted')
    end
@@ -89,12 +83,12 @@ RSpec.feature "Items for equipment_lists" do
 
        logout(:user)
        login_as(@user2, :scope => :user)
-       visit trip_equipment_list_equipment_item_path(@trip, @equipment_list, @item)
-       expect(page).not_to have_link('delete_equipment_item')
-       expect(page).to have_link('edit_equipment_item')
+       visit trip_equipment_list_path(@trip, @equipment_list)
+       expect(page).not_to have_link('delete_' + @item.id.to_s)
+       expect(page).to have_link('Edit ' + @item.name)
 
        # edit the item 
-       click_link 'edit_equipment_item'
+       click_link 'Edit ' + @item.name
        fill_in 'equipment_item_name', with: 'Something'
        click_button 'submit'
        expect(page.current_path).to eq(trip_equipment_list_path(@trip, @equipment_list))
@@ -107,8 +101,8 @@ RSpec.feature "Items for equipment_lists" do
 
        logout(:user)
        login_as(@user3, :scope => :user)
-       visit trip_equipment_list_equipment_item_path(@trip, @equipment_list, @item)
-       expect(page).not_to have_link 'edit_equipment_item'
-       expect(page).not_to have_link 'delete_equipment_item'
+       visit trip_equipment_list_path(@trip, @equipment_list)
+       expect(page).not_to have_link 'Edit ' + @item.name
+       expect(page).not_to have_link 'delete_' + @item.id.to_s
    end
 end

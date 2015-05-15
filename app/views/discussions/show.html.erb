@@ -1,0 +1,87 @@
+<% content_for :page_title do %>
+    <%= t(:discussion) %>
+<% end %>
+
+<% content_for :content_header do %>
+    <div class="content-header">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="header-buttons pull-right">
+            <%= link_to trip_discussions_path(@trip), title: t(:back_to_discussions), data: { toggle: 'tooltip' }, class: 'btn btn-lg btn-effect-ripple' do %>
+                <i class="fa fa-reply"></i>
+            <% end %>
+            <% if policy(@trip).update? %>
+                <%= link_to edit_trip_discussion_path(@trip, @discussion), title: t(:edit_discussion), data: { toggle: 'tooltip' }, id: 'edit-discussion-btn', class: 'btn btn-lg btn-effect-ripple' do %>
+                    <i class="fa fa-pencil"></i>
+                <% end %>
+                <%= link_to trip_discussion_path(@trip, @discussion), method: :delete, title: t(:trip_discussion_delete),
+                            data: { confirm: t(:discussion_delete_verification), toggle: 'tooltip' }, id: 'destroy-discussion-btn', class: 'btn btn-lg btn-effect-ripple' do %>
+                    <i class="fa fa-trash"></i>
+                <% end %>
+            <% end %>
+          </div>
+          <div class="header-section">
+            <h1><%= @discussion.title %></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<div class="block">
+  <table class="table table-striped" id="comment-list">
+    <thead>
+    <tr>
+      <th colspan="2"><%= @discussion.title %> <small><%=t 'by'%> <a href="<%= user_path @discussion.user %>"><strong><%= @discussion.user.name %></strong></a> <em><%= t 'distance_ago', distance: distance_of_time_in_words(Time.now - @discussion.updated_at)%></em></small></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr class="discussion-entry-head">
+      <td class="text-center"><a href="<%= user_path @discussion.user %>"><strong><%= @discussion.user.name %></strong></a></td>
+      <td><em><%= t 'distance_ago', distance: distance_of_time_in_words(Time.now - @discussion.updated_at)%></em></td>
+    </tr>
+    <tr class="discussion-entry">
+      <td class="text-center" style="width: 12%;">
+        <div class="push-bit">
+          <%= link_to image_tag(@discussion.user.gravatar_url(size: 64), class: 'img-circle'), user_path(@discussion.user) %>
+        </div>
+      </td>
+      <td>
+        <p><%= @discussion.body %></p>
+      </td>
+    </tr>
+
+
+    <% if @comments.exists? %>
+        <%= render partial: 'comments/comment', collection: @comments.select(&:persisted?) %>
+    <% end %>
+
+    <tr class="comment-editor-head">
+      <td class="text-center"><a href="page_ready_profile.html"><strong>You</strong></a></td>
+      <td><em><%= t 'now' %></em></td>
+    </tr>
+    <tr class="comment-editor">
+      <td class="text-center">
+        <%= link_to image_tag(@discussion.user.gravatar_url(size: 64), class: 'img-circle'), user_path(@discussion.user) %>
+      </td>
+      <td>
+        <%= form_for [@trip, @discussion, @comment], remote: true, html: { id: 'new_comment', class: 'form-horizontal' } do |f| %>
+          <div class="form-group">
+            <div class="col-md-12">
+              <%= f.text_area :body, rows: '8', class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12">
+              <%= button_tag type: 'submit', id: 'save-comment-btn', class: 'btn btn-sm btn-primary' do %>
+                  <i class="fa fa-reply"></i> <%= t 'reply' %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

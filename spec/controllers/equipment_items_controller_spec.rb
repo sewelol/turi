@@ -5,7 +5,7 @@ RSpec.describe EquipmentItemsController, type: :controller do
         @user = FactoryGirl.create(:user)
         @trip = FactoryGirl.create(:trip)
         FactoryGirl.create(:participant, :trip_id => @trip.id, :user_id => @user.id, participant_role_id: ParticipantRole.owner.id)
-        @equipment_list = FactoryGirl.create(:equipment_list, :trip_id => @trip.id)
+        @equipment_list = FactoryGirl.create(:equipment_list, :trip => @trip, :user => @user)
         @equipment_item = FactoryGirl.build(:equipment_item)
         sign_in(@user)
 
@@ -24,26 +24,13 @@ RSpec.describe EquipmentItemsController, type: :controller do
             expect(flash[:alert]).to eq(I18n.t 'trip_equipment_list_not_found')
         end
 
-        it "Render the for again, if something went wrong" do 
+        it "Redirect to equipment list if something went wrong" do
             post :create, :equipment_list_id => @equipment_list.id, :trip_id => @trip.id, :equipment_item => FactoryGirl.attributes_for(:equipment_item, :name => nil)
             expect(flash[:alert]).to eq(I18n.t 'trip_equipment_item_not_created')
-            expect(response).to render_template :new
+            expect(response).to redirect_to trip_equipment_list_path(@trip, @equipment_list)
         end
     end
 
-    describe "GET #show" do
-        it "render and assigns the #show" do
-            item = FactoryGirl.create(:equipment_item, :equipment_list_id => @equipment_list.id, :user_id => @user.id)
-            get :show, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :id => item.id
-            expect(assigns(:equipment_item)).to eq(item)
-            expect(response).to render_template :show
-        end
-
-        it "Get a unvalid EquipmentItem" do
-            get :show, :trip_id => @trip.id, :equipment_list_id => @equipment_list.id, :id => 999
-            expect(flash[:alert]).to eq(I18n.t 'trip_equipment_item_not_found')
-        end
-    end
 
     describe "PUT #edit" do
         before do

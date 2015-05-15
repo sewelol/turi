@@ -6,9 +6,9 @@
       <div class="widget-image widget-image-sm">
         <div id="user-image">
           <% if @user.image %>
-              <img src="<%= @user.image %>" alt="image">
+            <img src="<%=@user.image%>" alt="image">
           <% else %>
-              <img src="http://lorempixel.com/315/270/nature" alt="image">
+            <img src="http://lorempixel.com/315/270/nature" alt="image">
           <% end %>
         </div>
         <div class="widget-image-content text-center">
@@ -74,9 +74,17 @@
   <div class="col-md-7 col-lg-8">
     <div class="block full">
       <div class="block-title">
-        <div class="block-options pull-right">
-          <a href="<%= edit_user_path(@user) %>" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="Edit user"><i class="fa fa-cog"></i></a>
-        </div>
+        <% if policy(@user).update? %>
+            <div class="block-options pull-right">
+              <%= link_to edit_user_path(@user),
+                            id: "edit-user-btn",
+                            class: "btn btn-effect-ripple btn-default",
+                            data_toggle: "tooltip",
+                            title: t(:edit_user) do %>
+                  <i class="fa fa-cog"></i>
+              <% end %>
+            </div>
+        <% end %>
       </div>
     </div>
     <div class="block full">
@@ -150,7 +158,6 @@
           <% end %>
         </div>
       </div>
-
     </div>
 
   </div>

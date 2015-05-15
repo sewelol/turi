@@ -31,6 +31,10 @@ module ApplicationHelper
     render 'layouts/quote', :message => message
   end
 
+  def quote_btn(message, link_title, link, link_id)
+    render 'layouts/quote_btn', :message => message, :link_title => link_title, :link => link, :link_id => link_id
+  end
+
   def quote_t(message)
     quote t(message)
   end

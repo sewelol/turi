@@ -7,25 +7,16 @@
   </li>
 
   <li>
-    <a href="<%=new_trip_path%>" id="create_trip_link" title="<%=t('trip_create')%>">
+    <a href="<%=new_trip_path%>" id="create_trip_link" title="<%=t('trip_create')%>" data-no-turbolink="true">
       <i class="gi gi-plus"></i>
     </a>
   </li>
 
   <li>
-    <a href="<%=trips_path%>" id="explore_trips_link" title="<%=t('trip_explore')%>">
+    <a href="<%=explore_path%>" id="explore_trips_link" title="<%=t('trip_explore')%>" data-no-turbolink="true">
       <i class="gi gi-compass sidebar-nav-icon"></i>
     </a>
   </li>
-
-  <!-- Alternative Sidebar Toggle Button -->
-  <li>
-    <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar-alt');
-            this.blur();">
-      <i class="gi gi-message_empty"></i>
-    </a>
-  </li>
-  <!-- END Alternative Sidebar Toggle Button -->
 
   <!-- Logout Button -->
   <% if current_user %>

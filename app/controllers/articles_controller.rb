@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
 
   def index
     authorize @trip, :show?
-    @articles = @trip.articles
+    @articles = @trip.articles.reverse
   end
 
   def show
@@ -66,6 +66,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :content)
+    params.require(:article).permit(:title, :content, :public)
   end
 end

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users, only: [:show, :edit, :update] do
     resources :friendships
+    resources :requests, only: [:create, :destroy]
   end
 
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'

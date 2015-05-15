@@ -148,6 +148,15 @@ ActiveRecord::Schema.define(version: 20150513153130) do
   add_index "participants", ["user_id", "trip_id"], name: "index_participants_on_user_id_and_trip_id", unique: true
   add_index "participants", ["user_id"], name: "index_participants_on_user_id"
 
+  create_table "requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "receiver_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "requests", ["user_id", "receiver_id"], name: "index_requests_on_user_id_and_receiver_id", unique: true
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"

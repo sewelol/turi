@@ -76,6 +76,9 @@ en:
   edit_user:                      "Edit user"
 
   #Trips (trip_controller)
+  trip_title:                     "Title"
+  trip_description:               "Description"
+  trip_tags:                      "Tags"
   trip_tags_help:                 "You can see tags as categories which help us to improve the search results. You can add several tags by seperating them with a comma."
   trip_dates_help:                "Entering your trip start and end date will add these events to your trip calendar."
   trip_locations_help:            "Entering your trip start and end location will add these points to your route map. If you set your trip to public others can find your trip using the location."
@@ -121,6 +124,7 @@ en:
   trip_equipment_list_edit:                 "Edit %{equipment_list_title}"
   trip_equipment_name_description:          "Please enter the name of the new equipment list you want to add."
   trip_equipment_description_description:   "You can add a description of the list."
+  trip_equipment_icon_description:          "You can add a icon to the list."
   trip_equipment_list_not_created:          "Equipment list was not created!"
   trip_equipment_list_created:              "Equipment list was created."
   trip_equipment_list_updated:              "Equipment list was updated."
@@ -171,6 +175,8 @@ en:
   trip_equipment_assigment_number:              "Number"
   trip_equipment_assignment_delete_confirmation: "Are you sure you want to delete this assigment?"
   trip_equipment_assigment_assign:              "Add new assigment"
+  trip_equipment_assigment_all_assigned:        "All items assigned"
+  trip_equipment_assigment_assignment:          "Assigned"
   trip_equipment_assigment_edit:                "Edit assigment"
   trip_equipment_assigment_delete:              "Delete assigment"
   trip_equipment_assignment_created:            "Equipment Assigment successfully created"
@@ -233,9 +239,20 @@ en:
   dropbox_configuration_missing:    "@developer: You need to setup the dropbox configuration for your local project!"
 
   # friendship
-  user_friendship_added:                  "Added friend."
-  user_friendship_removed:                "Removed friend."
-  user_frienship_not_added:               "Unable to add friend."
+  user_friendship_removed:                "Removed friendship."
+  user_friendship_confirmed:              "Successfully confirmed friend!"
+  user_friendship_not_removed:            "Could not remove friendship!"
+  user_friendship_not_confirmed:          "Could not confirm friendship!"
+
+  # request
+  user_request_added:                     "Friend requested."
+  user_request_not_added:                 "Unable to request friend."
+  user_request_not_confirmed:             "Request was successfully not confirmed, you didn't want that person as your friend."
+  user_request_not_yourself:              "Can't request to be friend with yourself"
+  user_request_not_exist:                 "Can't request to be friend with someone who doens't exist"
+  user_request_destroyed:                 "Request removed."
+  user_request_destroy_not_exist:         "Request does not exist"
+  user_request_destroy_not_destroyed:     "Request not removed."
 
   # discussion
   discussion_updated:               "Discussion has been updated."

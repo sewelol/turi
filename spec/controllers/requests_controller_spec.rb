@@ -10,7 +10,7 @@ RSpec.describe RequestsController, type: :controller do
   end
 
   describe "POST #create" do
-    context 'With valid attributes' do
+    context 'with valid attributes' do
       it "creates a friend request" do
         expect {
           post :create, user_id: @user_one.id, receiver_id: @user_two.id

@@ -24,14 +24,14 @@ RSpec.feature 'Friendship' do
         expect(page).to have_content(I18n.t('user_friendship_confirmed'))
         expect(page).to_not have_selector(:link_or_button, "accept_friend_request_#{@userTwo.id}")
 
-        within("#myFriends") do
+        within("#my-friends") do
           expect(page).to have_content "#{@userTwo.name}"
           expect(page).to have_selector(:link_or_button, "delete_friend_#{@userTwo.id}")
         end
 
         click_link "delete_friend_#{@userTwo.id}"
 
-        within("#myFriends") do
+        within("#my-friends") do
           expect(page).to_not have_content "#{@userTwo.name}"
           expect(page).to_not have_selector(:link_or_button, "delete_friend_#{@userTwo.id}")
         end
@@ -42,14 +42,14 @@ RSpec.feature 'Friendship' do
         login_as(@userTwo, scope: :user)
         visit user_path @userTwo
 
-        within("#myFriends") do
+        within("#my-friends") do
           expect(page).to have_content "#{@userOne.name}"
           expect(page).to have_selector(:link_or_button, "delete_friend_#{@userOne.id}")
         end
 
         click_link "delete_friend_#{@userOne.id}"
 
-        within("#myFriends") do
+        within("#my-friends") do
           expect(page).to_not have_content "#{@userOne.name}"
           expect(page).to_not have_selector(:link_or_button, "delete_friend_#{@userOne.id}")
         end
@@ -61,7 +61,7 @@ RSpec.feature 'Friendship' do
         login_as(@userTwo, scope: :user)
         visit user_path @userTwo
 
-        within("#myFriends") do
+        within("#my-friends") do
           expect(page).to_not have_content "#{@userOne.name}"
           expect(page).to_not have_selector(:link_or_button, "delete_friend_#{@userOne.id}")
         end
@@ -75,7 +75,7 @@ RSpec.feature 'Friendship' do
       visit user_path @userOne
 
       within("#friend-requests") do
-        expect(page).to_not have_content "accept_friend_request_#{userTwo.id}"
+        expect(page).to_not have_content "accept_friend_request_#{@userTwo.id}"
       end
     end
   end

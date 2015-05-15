@@ -4,17 +4,12 @@ class RequestsController < ApplicationController
 
 
   def create
-    @request = current_user.requests.build(receiver_id: params[:user_id])
-    #puts "in params we have #{params} and specifically #{params[:user_id]}. current user id: #{current_user.id}"
-    #puts "All users: #{User.all}"
-    rec = User.find_by_id(params[:user_id])
-    #puts rec.inspect
-    #pp @request.inspect
-    #puts "record is #{rec}"
     #byebug
-    if current_user.id.eql?(params[:user_id].to_i)
+    @request = current_user.requests.build(receiver_id: params[:receiver_id])
+    receiver = User.find_by_id(params[:receiver_id])
+    if current_user.id.eql?(params[:receiver_id].to_i)
       flash[:error] = t 'user_request_not_yourself'
-    elsif rec.eql?(nil)
+    elsif receiver.eql?(nil)
       flash[:error] = t 'user_request_not_exist'
       redirect_to user_path current_user.id
       return
@@ -23,13 +18,10 @@ class RequestsController < ApplicationController
     else
       flash[:error] = I18n.t 'user_request_not_added'
     end
-    redirect_to user_path params[:user_id]
+    redirect_to user_path params[:receiver_id]
   end
 
   def destroy
-    pp "params are #{params}"
-    #byebug
-
     @request = Request.find_by_id(params[:id])
     if @request.eql?(nil)
       flash[:alert] = t 'user_request_destroy_not_exist'

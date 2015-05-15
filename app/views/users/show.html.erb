@@ -32,7 +32,7 @@
                     <% f = Friendship.where('(user_id LIKE ? AND friend_id  LIKE ?) OR (user_id LIKE ? AND friend_id LIKE ?)', @user.id, current_user.id, current_user.id, @user.id) %>
 
                     <% if r.blank? and f.blank? %>
-                        <%= link_to user_requests_path(user_id: @user.id),
+                        <%= link_to user_requests_path(user_id: current_user.id, receiver_id: @user.id),
                                     method: :post,
                                     id: 'create_request_id' do %>
                             <i class="fa fa-plus"></i> Add Friend
@@ -116,6 +116,7 @@
           <% if current_user.id == @user.id %>
               <h2> Friend requests </h2>
               <ul>
+
                 <% for request in current_user.inverse_requests %>
                     <li>
                       <%= link_to request.user.name, user_path(request.user), method: :get %>
@@ -131,6 +132,20 @@
                     </li>
                 <% end %>
 
+                <% for request in current_user.requests %>
+                    <li>
+                      <%= link_to request.receiver.name, user_path(request.receiver), method: :get %>
+                      <%= link_to user_friendships_path(@user, friend_id: request.receiver.id),
+                                  id: "accept_friend_request_#{request.receiver.id}",
+                                  method: :post do %>
+                          <i class="fa fa-plus"></i>
+                      <% end %>
+                      <%= link_to user_request_path(@user, request.id),
+                                  method: :delete do %>
+                          <i class="fa fa-minus"></i>
+                      <% end %>
+                    </li>
+                <% end %>
               </ul>
           <% end %>
         </div>

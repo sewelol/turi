@@ -38,25 +38,31 @@
 </div>
 
 
-    <div class="col-lg-12">
-      <div class="block">
-        <div class="block-content">
-          <div class="row">
-            <%= form_for [@trip, @route], html: {class:'form-horizontal form-bordered'} do |f| %>
+<div class="col-lg-12">
+  <div class="block">
+    <div class="block-content">
+      <div class="row">
 
-                <div class="col-lg-6">
-                    <%= f.text_field :title, :value => t('trip_route_route_title') %> <br>
-                    <%= f.text_area :desc, :value => t('trip_route_route_desc') %> <br>
-                    <%= f.submit t('trip_route_route_save'), class: 'btn btn-primary', data: { no_turbolink: true }%>
-                </div>
+        <%= form_for [@trip, @route], html: {class:'form-horizontal form-bordered'} do |f| %>
 
-                <div class="col-lg-6">
-                    <ul id="waypoint-list">
-                      <!--<%= render 'waypoint_fields' %>-->
-                    </ul>
-                </div>
-            <% end %>
+          <div class="col-lg-6">
+            <div class="form-group">
+                <%= f.text_field :title, :value => t('trip_route_route_title') %> <br>
+                <%= f.text_area :desc, :value => t('trip_route_route_desc') %> <br>
+
+                <%= f.label :public, class: 'control-label' %>
+                <label class="switch switch-success"><%= f.check_box :public %><span></span></label> <br>
+
+                <%= f.submit t('trip_route_route_save'), class: 'btn btn-primary', data: { no_turbolink: true }%>
+            </div>
           </div>
+
+          <div class="col-lg-6">
+            <ul id="waypoint-list"></ul>
+          </div>
+
+        <% end %>
+
       </div>
     </div>
   </div>

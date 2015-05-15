@@ -3,6 +3,7 @@ class CreateRoutes < ActiveRecord::Migration
     create_table :routes do |t|
       t.string :title
       t.string :desc
+      t.boolean :public
 
       t.timestamps null: false
     end

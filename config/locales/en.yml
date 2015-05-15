@@ -139,6 +139,7 @@ en:
   trip_route_index:               "%{trip_name}&#39;s routes"
   trip_route_edit:                "Edit route"
   trip_route_destroy:             "Delete route"
+  trip_route_destroy_confirm:     "Are you sure you want to delete this route?"
   trip_route_map:                 "Map"
   trip_route_desc:                "Description"
   trip_route_route:               "Route"

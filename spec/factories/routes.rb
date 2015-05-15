@@ -3,8 +3,10 @@ FactoryGirl.define do
     title "My Title"
     desc "My description"
 
-    before(:create) do |route|
-      route.waypoints << FactoryGirl.build(:waypoint)
+    trait :with_waypoint do
+      before(:create) do |route|
+        route.waypoints << FactoryGirl.create(:waypoint, route: route)
+      end
     end
 
   end

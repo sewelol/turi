@@ -146,7 +146,12 @@ en:
   trip_route_route_title:         "Route title"
   trip_route_route_desc:          "Route description"
   trip_route_route_save:          "Save route"
-
+  trip_route_not_updated:         "Route was not updated."
+  trip_route_updated:             "Route was updated."
+  trip_route_deleted:             "Route deleted."
+  trip_route_not_found:           "Route not found."
+  trip_route_not_added:           "Route was not created."
+  trip_route_added:               "Route created."
 
 
   # equipment_lists

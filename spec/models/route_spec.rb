@@ -16,10 +16,10 @@ RSpec.feature "Route model test" do
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
-    it "is valid"
+    it "is valid" do
       expect {
-        FactoryGirl.create(:route)
-      }.to be_valid
+        FactoryGirl.create(:route, :with_waypoint)
+      }.not_to raise_error
     end
 
   end

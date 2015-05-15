@@ -6,7 +6,15 @@ class RoutesController < TripResourceController
   end
 
   def show
-    @route = Route.find(params[:id])
+    #byebug
+    if Route.where(id: params[:id]).empty?
+      flash[:alert] = I18n.t 'trip_route_not_found'
+      redirect_to root_path
+    else
+      @route = Route.find(params[:id])
+      render 'show'
+    end
+
   end
 
   def new
@@ -22,10 +30,10 @@ class RoutesController < TripResourceController
 
     @route = @trip.routes.build(route_params)
     if @route.save
-      flash[:notice] = I18n.t 'trip_add_route'
+      flash[:notice] = I18n.t 'trip_route_added'
       redirect_to [@trip, @route]
     else
-      flash[:alert] = I18n.t 'trip_add_route_failed'
+      flash[:alert] = I18n.t 'trip_route_not_added'
       render 'new'
     end
     # redirect_to trip_route_path
@@ -39,14 +47,23 @@ class RoutesController < TripResourceController
 
   def update
     authorize @trip, :update?
-    @route = @trip.routes.find(params[:id])
 
-    if @route.update(route_params)
-      flash[:notice] = I18n.t 'trip_route_updated'
-      redirect_to [@trip, @article]
-    else
+    #byebug
+
+    if Route.where(id: params[:id]).empty?
       flash[:alert] = I18n.t 'trip_route_not_updated'
-      render 'edit'
+      redirect_to root_path
+    else
+
+      @route = Route.find(params[:id])
+
+      if @route.update(route_params)
+        flash[:notice] = I18n.t 'trip_route_updated'
+        redirect_to [@trip, @route]
+      else
+        flash[:alert] = I18n.t 'trip_route_not_updated'
+        render 'edit'
+      end
     end
   end
 

@@ -37,11 +37,12 @@ RSpec.describe RoutesController, type: :controller do
 
     it "Create a valid Route" do
 
-      pp FactoryGirl.attributes_for(:route, :waypoints_attributes => FactoryGirl.attributes_for(:waypoint))
-
-      expect { post :create, :route => FactoryGirl.attributes_for(:route, :waypoint => FactoryGirl.attributes_for(:waypoint), trip_id: @trip.id) }.to change(Route, :count).by(1)
-      expect(response).to redirect_to Route(@trip).last
-      expect(flash[:notice]).to eq(I18n.t 'trip_add_route')
+      rout = FactoryGirl.attributes_for(:route).merge(waypoints_attributes: [FactoryGirl.attributes_for(:waypoint)])
+      expect {
+        post :create, route: rout, trip_id: @trip.id
+      }.to change(Route, :count).by(1)
+      #expect(response).to redirect_to @trip  # FIXME How to redirect? Should redirect to ..trips/1/routes/1
+      expect(flash[:notice]).to eq(I18n.t 'trip_route_added')
     end
 
     it "Create a valid route, for a non existing trip" do
@@ -52,16 +53,16 @@ RSpec.describe RoutesController, type: :controller do
 
     it "Render the form again, if something went wrong" do
       post :create, :trip_id => @trip.id, route: FactoryGirl.attributes_for(:route, :name => nil)
-      expect(flash[:alert]).to eq(I18n.t 'trip_add_route_failed')
+      expect(flash[:alert]).to eq(I18n.t 'trip_route_not_added')
       expect(response).to render_template :new
     end
   end
 
   describe "GET #show" do
     it "Render and assign the #show" do
-      route = FactoryGirl.create(:route, :trip_id => @trip.id)
-      get :show, :trip_id => @trip.id, :id => route.id
-      expect(assigns(:route)).to eq(route)
+      @route = FactoryGirl.create(:route, :with_waypoint)
+      get :show, :trip_id => @trip.id, :id => @route.id
+      expect(assigns(:route)).to eq(@route)
       expect(response).to render_template :show
     end
 
@@ -74,11 +75,11 @@ RSpec.describe RoutesController, type: :controller do
 
   describe "PUT #edit" do
     before do
-      @route = FactoryGirl.create(:route, :trip_id => @trip.id)
+      @route = FactoryGirl.create(:route, :with_waypoint)
     end
 
     it "locate the requested route and redirect to the @route" do
-      put :update, :trip_id => @trip.id, :id => @route.id, :route => FactoryGirl.attributes_for(:route)
+      put :update, :id => @route.id, :route => @route, :trip_id => @trip.id
       expect(assigns(:route)).to eq(@route)
       expect(flash[:notice]).to eq(I18n.t 'trip_route_updated')
     end
@@ -101,11 +102,11 @@ RSpec.describe RoutesController, type: :controller do
 
   describe "DELETE #delete" do
     before do
-      @route = FactoryGirl.create(:route, :trip_id => @trip.id)
+      @route = FactoryGirl.create(:route, :with_waypoint)
     end
 
     it "Deletes the route" do
-      expect { delete :destroy, :trip_id => @trip.id, :id => @route.id}.to change(Route, :count).by(-1)
+      expect { delete :destroy, :id => @route.id, :trip_id => @trip.id }.to change(Route, :count).by(-1)
       expect(response).to redirect_to trip_routes_path(@trip.id)
       expect(flash[:notice]).to eq(I18n.t 'trip_route_deleted')
     end

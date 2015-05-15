@@ -239,10 +239,13 @@ en:
   dropbox_configuration_missing:    "@developer: You need to setup the dropbox configuration for your local project!"
 
   # friendship
+  user_friendship_remove:                 "Remove friendship"
   user_friendship_removed:                "Removed friendship."
   user_friendship_confirmed:              "Successfully confirmed friend!"
   user_friendship_not_removed:            "Could not remove friendship!"
   user_friendship_not_confirmed:          "Could not confirm friendship!"
+  user_friendship_add_friend:             "Add Friend"
+      
 
   # request
   user_request_added:                     "Friend requested."
@@ -253,6 +256,8 @@ en:
   user_request_destroyed:                 "Request removed."
   user_request_destroy_not_exist:         "Request does not exist"
   user_request_destroy_not_destroyed:     "Request not removed."
+  user_request_remove:                    "Remove friend request"
+  user_request_accept:                    "Accept friend request"
 
   # discussion
   discussion_updated:               "Discussion has been updated."

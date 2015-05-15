@@ -15,6 +15,12 @@ RSpec.feature "Waypoint model test" do
         FactoryGirl.create(:waypoint, :lng => nil)
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
+
+    it "is valid" do
+      expect {
+        FactoryGirl.create(:waypoint)
+      }.to be_valid
+    end
   end
 end
 

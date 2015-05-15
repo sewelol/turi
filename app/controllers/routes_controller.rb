@@ -1,51 +1,64 @@
-class RoutesController < ApplicationController
-
-  before_action :authenticate_user!
-
-  layout 'trip'
+class RoutesController < TripResourceController
 
   def index
-    @trip = Trip.find(params[:trip_id])
     @routes = @trip.routes.all
     # @route = Route.find(params[:id])
   end
 
   def show
-    @trip = Trip.find(params[:trip_id])
     @route = Route.find(params[:id])
   end
 
   def new
-    @trip = Trip.find(params[:trip_id])
+    authorize @trip, :update?
+
     @route = Route.new
+  end
+  
+
+
+  def create
+    authorize @trip, :update?
+
+    @route = @trip.routes.build(route_params)
+    if @route.save
+      flash[:notice] = I18n.t 'trip_add_route'
+      redirect_to [@trip, @route]
+    else
+      flash[:alert] = I18n.t 'trip_add_route_failed'
+      render 'new'
+    end
+    # redirect_to trip_route_path
   end
 
   def edit
-    @trip = Trip.find(params[:trip_id])
-    @route = Route.find(params[:id])
+    authorize @trip, :update?
+    @route = @trip.routes.find(params[:id])
+    render 'edit'
   end
 
   def update
-    @trip = Trip.find(params[:trip_id])
-    @route = Route.find(params[:id])
+    authorize @trip, :update?
+    @route = @trip.routes.find(params[:id])
 
     if @route.update(route_params)
       flash[:notice] = I18n.t 'trip_route_updated'
       redirect_to [@trip, @article]
     else
       flash[:alert] = I18n.t 'trip_route_not_updated'
-      render 'new'
+      render 'edit'
     end
   end
 
-  def create
-    @trip = Trip.find(params[:trip_id])
-    @route = @trip.routes.build(route_params)
-    if @route.save
-      redirect_to [@trip, @route]
-    else
-      render 'new'
-    end
+  def destroy
+
+    # The owner and other editors are allowed to destroy the route
+    authorize @trip, :update?
+    @route = @trip.routes.find(params[:id])
+
+    @route.destroy
+    flash[:notice] = I18n.t 'trip_route_deleted'
+    redirect_to trip_routes_path(@trip)
   end
 
   private

@@ -15,6 +15,13 @@ RSpec.feature "Route model test" do
         FactoryGirl.create(:route, :desc => nil)
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
+
+    it "is valid"
+      expect {
+        FactoryGirl.create(:route)
+      }.to be_valid
+    end
+
   end
 end
 

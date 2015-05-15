@@ -24,10 +24,10 @@ class ArticlesController < ApplicationController
     @article = @trip.articles.build(article_params)
 
     if @article.save
-      flash[:notice] = I18n.t 'trip_article_created'
+      #flash[:notice] = I18n.t 'trip_article_created'
       redirect_to [@trip, @article]
     else
-      flash[:alert] = I18n.t 'trip_article_not_created'
+      #flash[:alert] = I18n.t 'trip_article_not_created'
       render 'new'
     end
   end
@@ -42,10 +42,10 @@ class ArticlesController < ApplicationController
     @article = @trip.articles.find(params[:id])
 
     if @article.update(article_params)
-      flash[:notice] = I18n.t 'trip_article_updated'
+      #flash[:notice] = I18n.t 'trip_article_updated'
       redirect_to [@trip, @article]
     else
-      flash[:alert] = I18n.t 'trip_article_not_updated'
+      #flash[:alert] = I18n.t 'trip_article_not_updated'
       render 'new'
     end
   end

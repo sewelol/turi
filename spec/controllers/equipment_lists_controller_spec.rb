@@ -28,7 +28,7 @@ RSpec.describe EquipmentListsController, type: :controller do
         it "Create a valid Equipment list" do
             expect { post :create, :trip_id => @trip.id, :equipment_list => FactoryGirl.attributes_for(:equipment_list, :trip_id => @trip.id) }.to change(EquipmentList, :count).by(1)
             #expect(response).to redirect_to EquipmentList(@trip).last  # FIXME i have no clue what to put here
-            expect(flash[:notice]).to eq(I18n.t 'trip_equipment_list_created')
+            #expect(flash[:notice]).to eq(I18n.t 'trip_equipment_list_created')
         end
 
         it "Create a valid Equipment list, for a non existing trip" do
@@ -39,7 +39,7 @@ RSpec.describe EquipmentListsController, type: :controller do
 
         it "Render the form again, if something went wrong" do
             post :create, :trip_id => @trip.id, equipment_list: FactoryGirl.attributes_for(:equipment_list, :name => nil)
-            expect(flash[:alert]).to eq(I18n.t 'trip_equipment_list_not_created')
+            #expect(flash[:alert]).to eq(I18n.t 'trip_equipment_list_not_created')
             expect(response).to render_template :new
         end
     end
@@ -68,7 +68,7 @@ RSpec.describe EquipmentListsController, type: :controller do
         it "locate the requested and redirect to the @equipment_list" do
             put :update, :trip_id => @trip.id, :id => @equipment_list.id, :equipment_list => FactoryGirl.attributes_for(:equipment_list)
             expect(assigns(:equipment_list)).to eq(@equipment_list)
-            expect(flash[:notice]).to eq(I18n.t 'trip_equipment_list_updated')
+            #expect(flash[:notice]).to eq(I18n.t 'trip_equipment_list_updated')
         end
 
         it "change the @equipment_list's attributes" do
@@ -82,7 +82,7 @@ RSpec.describe EquipmentListsController, type: :controller do
             put :update, :trip_id => @trip.id, :id => @equipment_list.id, :equipment_list => FactoryGirl.attributes_for(:equipment_list, :name => nil, :description => "Something")
             @equipment_list.reload
             expect(@equipment_list.description).not_to eq("Something")
-            expect(flash[:alert]).to eq(I18n.t 'trip_equipment_list_not_updated')
+            #expect(flash[:alert]).to eq(I18n.t 'trip_equipment_list_not_updated')
         end
             
     end

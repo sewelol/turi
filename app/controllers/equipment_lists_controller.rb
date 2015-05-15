@@ -69,10 +69,10 @@ class EquipmentListsController < ApplicationController
         @equipment_list.user = current_user
         
         if @equipment_list.save
-            flash[:notice] = I18n.t 'trip_equipment_list_created'
+            #flash[:notice] = I18n.t 'trip_equipment_list_created'
             redirect_to trip_equipment_list_path(@trip.id, @equipment_list)
         else 
-            flash[:alert] = I18n.t 'trip_equipment_list_not_created'
+            #flash[:alert] = I18n.t 'trip_equipment_list_not_created'
             render :new
         end
     end
@@ -80,10 +80,10 @@ class EquipmentListsController < ApplicationController
     def update
         authorize @trip
         if @equipment_list.update(equipment_list_params)
-            flash[:notice] = I18n.t 'trip_equipment_list_updated'
+            #flash[:notice] = I18n.t 'trip_equipment_list_updated'
             redirect_to trip_equipment_list_path(@trip, @equipment_list)
         else
-            flash[:alert] = I18n.t 'trip_equipment_list_not_updated'
+            #flash[:alert] = I18n.t 'trip_equipment_list_not_updated'
             render 'edit'
         end
     end

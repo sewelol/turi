@@ -26,7 +26,6 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    # not use global value if you not need it in the view!
     friendship = Friendship.find(params[:id])
 
     if friendship.nil?

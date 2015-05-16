@@ -30,7 +30,7 @@ feature 'User_page' do
 
   scenario 'edit user details with correct details' do
     click_link 'edit-user-btn'
-    expect(page).to have_content('Welcome to the edit user page')
+    expect(page).to have_content(I18n.t('edit_user'))
     #expect(response).to render_template(:edit)
 
     runar = User.create(name: 'Runar', email: 'runar@turi.no', age: 24, country: 'Japan', town: 'Japan', status: 'It\'s complicated')

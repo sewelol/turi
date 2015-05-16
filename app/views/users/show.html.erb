@@ -1,5 +1,5 @@
 <% content_for :page_title do %>
-    <%= t('user_profile') %> - <%= @user.name %>
+    <%= @user.name %>
 <% end %>
 
 <div class="row">
@@ -29,7 +29,7 @@
 
                     <!-- Friendship Widget -->
                     <div class="col-md-2 col-md-offset-5">
-                        <div class="widget-heading themed-background-dark text-light-op">
+                        <div class="widget-heading themed-background-dark text-light-op" id="friendship_div">
                             <% if current_user.id != @user.id %>
                                 <!-- Request a Friendship -->
                                 <% if @requests.blank? and @friendships.blank? %>
@@ -40,7 +40,7 @@
                                     <% end %>
 
                                 <!-- FIXME if a request is made, the reciver should be able to accept it when they look at the requestors user page -->
-                            <% elsif @requests[0].user_id == @user.id && @requests[0].receiver_id == current_user.id %>
+                            <% elsif !@requests[0].blank? && @requests[0].user_id == @user.id && @requests[0].receiver_id == current_user.id %>
                                     <%= link_to user_friendships_path(current_user, friend_id: @user.id),
                                         id: "accept_friend_request_#{@user.name}",
                                         method: :post do %>
@@ -78,9 +78,9 @@
     </div>
     <!-- End User Profile Header -->
 
-    <!-- Participant Widget -->
+    <!-- Friendship Widget -->
     <div class="col-md-4">
-        <div class="widget">
+        <div class="widget" id="friendship_widget">
             <div class="widget-content widget-content-mini themed-background-dark text-light-op border-bottom">
                 <span class="pull-right text-muted">
                     <%= page_entries_info @friends %>
@@ -118,7 +118,7 @@
             <%= paginate @friends, :param_name => :friends %>
         </div>
     </div>
-    <!-- END Participant Widget -->
+    <!-- END Friendship Widget -->
 
 
     <!-- Public trips participanting in -->
@@ -153,9 +153,9 @@
 
 
     <!-- Friendship Request Widget -->
-    <% if current_user == @user && ! current_user.inverse_requests.empty? %>
+    <% if current_user == @user && !current_user.inverse_requests.empty? %>
         <div class="col-md-4 col-md-offset-4">
-            <div class="widget">
+            <div class="widget" id="friendship_request_widget">
                 <div class="widget-content widget-content-mini themed-background-dark text-light-op border-bottom">
                     <a href="javascript:void(0)" class="text-light"></a><%= t('trip_participants') %><a href="javascript:void(0)" class="text-light"></a>
                 </div>

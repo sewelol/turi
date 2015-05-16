@@ -79,7 +79,7 @@ RSpec.describe RoutesController, type: :controller do
     end
 
     it "locate the requested route and redirect to the @route" do
-      put :update, :id => @route.id, :route => @route, :trip_id => @trip.id
+      put :update, :id => @route.id, :route => FactoryGirl.attributes_for(:route), :trip_id => @trip.id
       expect(assigns(:route)).to eq(@route)
       expect(flash[:notice]).to eq(I18n.t 'trip_route_updated')
     end
@@ -92,10 +92,16 @@ RSpec.describe RoutesController, type: :controller do
     end
 
     it "invalid/missing attributes" do
-      put :update, :trip_id => @trip.id, :id => @route.id, :route => FactoryGirl.attributes_for(:route, :name => nil, :description => "Some description")
+      put :update, :trip_id => @trip.id, :id => @route.id, :route => FactoryGirl.attributes_for(:route, :title => nil, :desc => "Some description")
       @route.reload
       expect(@route.desc).not_to eq("Some description")
       expect(flash[:alert]).to eq(I18n.t 'trip_route_not_updated')
+    end
+
+    it "Get a invalid route" do
+      get :update, :trip_id => @trip.id, :id => 999
+      expect(response).to redirect_to root_path
+      expect(flash[:alert]).to eq(I18n.t 'trip_route_not_found')
     end
 
   end
@@ -106,7 +112,7 @@ RSpec.describe RoutesController, type: :controller do
     end
 
     it "Deletes the route" do
-      expect { delete :destroy, :id => @route.id, :trip_id => @trip.id }.to change(Route, :count).by(-1)
+      expect { delete :destroy, :trip_id => @trip.id, :id => @route.id }.to change(Route, :count).by(-1)
       expect(response).to redirect_to trip_routes_path(@trip.id)
       expect(flash[:notice]).to eq(I18n.t 'trip_route_deleted')
     end

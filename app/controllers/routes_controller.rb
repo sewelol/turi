@@ -6,7 +6,6 @@ class RoutesController < TripResourceController
   end
 
   def show
-    #byebug
     if Route.where(id: params[:id]).empty?
       flash[:alert] = I18n.t 'trip_route_not_found'
       redirect_to root_path
@@ -48,10 +47,8 @@ class RoutesController < TripResourceController
   def update
     authorize @trip, :update?
 
-    #byebug
-
     if Route.where(id: params[:id]).empty?
-      flash[:alert] = I18n.t 'trip_route_not_updated'
+      flash[:alert] = I18n.t 'trip_route_not_found'
       redirect_to root_path
     else
 
@@ -71,12 +68,19 @@ class RoutesController < TripResourceController
 
     # The owner and other editors are allowed to destroy the route
     authorize @trip, :update?
-    @route = @trip.routes.find(params[:id])
 
-    @route.destroy
-    flash[:notice] = I18n.t 'trip_route_deleted'
-    redirect_to trip_routes_path(@trip)
+    if Route.where(id: params[:id]).empty?
+      flash[:alert] = I18n.t 'trip_route_not_found'
+      redirect_to root_path
+    else
+      @route = Route.find(params[:id])
+
+      @route.destroy
+      flash[:notice] = I18n.t 'trip_route_deleted'
+      redirect_to trip_routes_path(@trip)
+    end
   end
+
 
   private
   def route_params

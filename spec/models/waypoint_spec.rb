@@ -19,7 +19,7 @@ RSpec.feature "Waypoint model test" do
     it "is valid" do
       expect {
         FactoryGirl.create(:waypoint)
-      }.to be_valid
+      }.not_to raise_error
     end
   end
 end

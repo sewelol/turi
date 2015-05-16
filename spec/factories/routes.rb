@@ -8,13 +8,5 @@ FactoryGirl.define do
         route.waypoints << FactoryGirl.create(:waypoint, route: route)
       end
     end
-
   end
-  #trait :waypoint do
-  #  desc "waypoint #1"
-  #  lat 20.00
-  #  lng 30.30
-  #  typ "wayPointIcon"
-  #end
-
 end

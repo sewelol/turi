@@ -39,8 +39,8 @@
                                         <%= t('user_friendship_add_friend') %>
                                     <% end %>
 
-                                    <!-- FIXME if a request is made, the reciver should be able to accept it when they look at the requestors user page -->
-                                <% elsif @friendships.blank? && (@requests[0].receiver_id != current_user) %>
+                                <!-- FIXME if a request is made, the reciver should be able to accept it when they look at the requestors user page -->
+                            <% elsif @requests[0].user_id == @user.id && @requests[0].receiver_id == current_user.id %>
                                     <%= link_to user_friendships_path(current_user, friend_id: @user.id),
                                         id: "accept_friend_request_#{@user.name}",
                                         method: :post do %>
@@ -172,9 +172,14 @@
                                     </td>
                                     <td class="pull-right"  style="margin-top: 30px; margin-right: 20px;">
                                         <%= link_to user_friendships_path(current_user, friend_id: request.user_id),
-                                            id: "accept_friend_request_#{@user.name}",
+                                            id: "accept_friend_request_#{request.user.name}",
                                             method: :post do %>
                                             <%= t('user_request_accept') %>
+                                        <% end %>
+                                        <%= link_to user_request_path(@user, request.id),
+                                             id: "remove_friend_request_#{request.user.name}",
+                                             method: :delete do %>
+                                             <%= t('user_request_remove') %>
                                         <% end %>
                                     </td>
                         <% end %>

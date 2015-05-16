@@ -22,6 +22,9 @@ class UsersController < ApplicationController
 
     @requests = Request.where('(user_id LIKE ? AND receiver_id  LIKE ?) OR (user_id LIKE ? AND receiver_id LIKE ?)', @user.id, current_user.id, current_user.id, @user.id)
     @friendships = Friendship.where('(user_id LIKE ? AND friend_id  LIKE ?) OR (user_id LIKE ? AND friend_id LIKE ?)', @user.id, current_user.id, current_user.id, @user.id)
+
+
+    
   end
 
   def edit

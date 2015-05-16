@@ -29,10 +29,8 @@ class FriendshipsController < ApplicationController
     # not use global value if you not need it in the view!
     friendship = Friendship.find(params[:id])
 
-
     if friendship.nil?
       flash[:alert] = I18n.t('user_friendship_not_removed')
-
     elsif friendship.destroy
       flash[:notice] = I18n.t 'user_friendship_removed'
     else

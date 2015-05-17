@@ -30,10 +30,10 @@ feature 'User_page' do
 
   scenario 'edit user details with correct details' do
     click_link 'edit-user-btn'
-    expect(page).to have_content('Welcome to the edit user page')
+    expect(page).to have_content(I18n.t('edit_user'))
     #expect(response).to render_template(:edit)
 
-    runar = User.create(name: 'Runar', email: 'runar@turi.no', age: 24, country: 'Japan', town: 'Japan', status: 'It\'s complicated')
+    runar = User.create(name: 'Runar', email: 'runar@turi.no', age: 24, country: 'Japan', town: 'Japan', status: 'It\'s complicated', about: "Hello World")
 
     fill_in 'Name', with: runar.name
     fill_in 'Email', with: runar.email
@@ -41,6 +41,7 @@ feature 'User_page' do
     fill_in 'Country', with: runar.country
     fill_in 'Town', with: runar.town
     fill_in 'Status', with: runar.status
+    fill_in 'About', with: runar.about
 
     click_button 'save-user-btn'
 
@@ -50,6 +51,7 @@ feature 'User_page' do
     expect(page).to have_content(runar.country)
     expect(page).to have_content(runar.town)
     expect(page).to have_content(runar.status)
+    expect(page).to have_content(runar.about)
   end
 
   scenario 'edit user details with incorrect details' do
@@ -76,5 +78,28 @@ feature 'User_page' do
     visit user_path(other_user)
 
     expect(page).to_not have_selector(:link_or_button, "edit-user-btn")
+  end
+
+
+  scenario "Show public trips the user has created and is a participant in only" do
+      trip_not_public = FactoryGirl.create(:trip)
+      FactoryGirl.create(:participant, trip_id: trip_not_public.id, user_id: user.id, participant_role_id: ParticipantRole.owner.id)
+
+      trip_public = FactoryGirl.create(:trip, :public => true)
+      FactoryGirl.create(:participant, trip_id: trip_public.id, user_id: user.id, participant_role_id: ParticipantRole.owner.id)
+
+      trip_not_public_participant = FactoryGirl.create(:trip)
+      FactoryGirl.create(:participant, trip_id: trip_not_public_participant.id, user_id: user.id, participant_role_id: ParticipantRole.editor.id)
+      
+      trip_public_participant = FactoryGirl.create(:trip, :public => true)
+      FactoryGirl.create(:participant, trip_id: trip_public_participant.id, user_id: user.id, participant_role_id: ParticipantRole.editor.id)
+
+
+
+      visit user_path(user)
+      expect(page).to have_content(trip_public.title)
+      expect(page).to_not have_content(trip_not_public.title)
+      expect(page).to have_content(trip_public_participant.title)
+      expect(page).to_not have_content(trip_not_public_participant.title)
   end
 end

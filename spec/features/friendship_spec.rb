@@ -11,29 +11,33 @@ RSpec.feature 'Friendship' do
 
   context 'with request made' do
     before do
-      @friendRequest = FactoryGirl.create(:request, user_id: @userOne.id, receiver_id: @userTwo.id)
-      visit user_path @userOne
+      # @userTwo request a Friendship with @userOne
+      @friendRequest = FactoryGirl.create(:request, user_id: @userTwo.id, receiver_id: @userOne.id)
+      visit dashboard_path
     end
 
     context 'accepts a request' do
       before do
-        click_link "accept_friend_request_#{@userTwo.id}"
+          within "#friendship_request_widget" do
+            click_link "accept_friend_request_#{@userTwo.name}"
+          end
       end
 
       scenario 'the view is correct for the user' do
         expect(page).to have_content(I18n.t('user_friendship_confirmed'))
-        expect(page).to_not have_selector(:link_or_button, "accept_friend_request_#{@userTwo.id}")
+        expect(page).to_not have_selector(:link_or_button, "accept_friend_request_#{@userTwo.name}")
 
-        within("#my-friends") do
+        visit user_path(@userOne)
+        within("#friendship_widget") do
           expect(page).to have_content "#{@userTwo.name}"
-          expect(page).to have_selector(:link_or_button, "delete_friend_#{@userTwo.id}")
+          expect(page).to have_selector(:link_or_button, "delete_friend_#{@userTwo.name}")
         end
 
-        click_link "delete_friend_#{@userTwo.id}"
+        click_link "delete_friend_#{@userTwo.name}"
 
-        within("#my-friends") do
+        within("#friendship_widget") do
           expect(page).to_not have_content "#{@userTwo.name}"
-          expect(page).to_not have_selector(:link_or_button, "delete_friend_#{@userTwo.id}")
+          expect(page).to_not have_selector(:link_or_button, "delete_friend_#{@userTwo.name}")
         end
       end
 
@@ -42,40 +46,29 @@ RSpec.feature 'Friendship' do
         login_as(@userTwo, scope: :user)
         visit user_path @userTwo
 
-        within("#my-friends") do
+        within("#friendship_widget") do
           expect(page).to have_content "#{@userOne.name}"
-          expect(page).to have_selector(:link_or_button, "delete_friend_#{@userOne.id}")
+          expect(page).to have_selector(:link_or_button, "delete_friend_#{@userOne.name}")
         end
 
-        click_link "delete_friend_#{@userOne.id}"
+        click_link "delete_friend_#{@userOne.name}"
 
-        within("#my-friends") do
+        within("#friendship_widget") do
           expect(page).to_not have_content "#{@userOne.name}"
-          expect(page).to_not have_selector(:link_or_button, "delete_friend_#{@userOne.id}")
+          expect(page).to_not have_selector(:link_or_button, "delete_friend_#{@userOne.name}")
         end
       end
 
       scenario 'it is removed for the unfriended' do
-        click_link "delete_friend_#{@userTwo.id}"
+        click_link "delete_friend_#{@userTwo.name}"
         logout
         login_as(@userTwo, scope: :user)
         visit user_path @userTwo
 
-        within("#my-friends") do
+        within("#friendship_widget") do
           expect(page).to_not have_content "#{@userOne.name}"
           expect(page).to_not have_selector(:link_or_button, "delete_friend_#{@userOne.id}")
         end
-      end
-    end
-
-  end
-
-  context 'without request made' do
-    scenario 'there is no button to accept a friendship' do
-      visit user_path @userOne
-
-      within("#friend-requests") do
-        expect(page).to_not have_content "accept_friend_request_#{@userTwo.id}"
       end
     end
   end

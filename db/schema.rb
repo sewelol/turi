@@ -217,7 +217,10 @@ ActiveRecord::Schema.define(version: 20150513153130) do
     t.string   "town"
     t.integer  "age"
     t.string   "status"
+    t.integer  "gender"
+    t.text     "about"
     t.text     "image"
+    t.text     "cover_image"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

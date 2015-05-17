@@ -12,6 +12,7 @@ feature 'request' do
 
     click_link 'create_request_id'
 
+
     expect(page).to have_content I18n.t('user_request_added')
     expect(page).to_not have_selector(:link_or_button, 'create_request_id')
     expect(page).to_not have_selector(:link_or_button, 'accept_friend_request_' + @userTwo.name)   
@@ -28,11 +29,13 @@ feature 'request' do
 
     logout
     login_as @userTwo, scope: :user
-    visit user_path(@userTwo)
+    visit dashboard_path
 
-    expect(page).to have_content(@userOne.name)    
-    expect(page).to have_selector(:link_or_button, 'accept_friend_request_' + @userOne.name)
-    expect(page).to have_selector(:link_or_button, 'remove_friend_request_' + @userOne.name)    
+    within "#friendship_request_widget" do 
+        expect(page).to have_content(@userOne.name)    
+        expect(page).to have_selector(:link_or_button, 'accept_friend_request_' + @userOne.name)
+        expect(page).to have_selector(:link_or_button, 'remove_friend_request_' + @userOne.name)    
+    end
   end
 
   scenario 'create request and the other friend accept it via the requestors userpage' do

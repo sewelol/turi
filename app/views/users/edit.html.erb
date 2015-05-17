@@ -65,11 +65,27 @@
                 </div>
               </div>
 
+              <div class="<%= form_group_class @user, :cover_image %>">              
+                <%= f.label :cover_image, class: "col-md-3 control-label" %><br>
+                <div class="col-md-9">
+                    <%= f.text_field :cover_image, class: "form-control" %>
+                    <%= form_group_errors @user, :cover_image %>                    
+                </div>
+              </div>
+
+              <div class="<%= form_group_class @user, :about %>">              
+                <%= f.label :about, class: "col-md-3 control-label" %><br>
+                <div class="col-md-9">
+                    <%= f.text_field :about, class: "form-control" %>
+                    <%= form_group_errors @user, :about %>                    
+                </div>
+              </div>
+
               <div class="<%= form_group_class @user, :gender %>">                            
                   <%= f.label :gender, class: "col-md-3 control-label" %><br>
                   <div class="col-md-9">
-                    <input type="radio" id="user_gender" name="user[gender]" value=1> Male
-                    <input type="radio" id="user_gender" name="user[gender]" value=2> Female
+                    <input type="radio" id="user_gender" name="user[gender]" value=1> <%= t('male') %>
+                    <input type="radio" id="user_gender" name="user[gender]" value=2> <%= t('female') %>
                     <%= form_group_errors @user, :gender %>                                        
                   </div>
               </div>

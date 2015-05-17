@@ -42,6 +42,7 @@ en:
   reply : "Reply"
   distance_ago: "%{distance} ago"
   form_invalid: "Some information needs your attention, therefore we did not save your changes yet."
+  friends: "Friends"
 
   # http://en.wikipedia.org/wiki/Date_format_by_country
   # https://hackhands.com/format-datetime-ruby/
@@ -258,6 +259,7 @@ en:
   user_request_destroy_not_destroyed:     "Request not removed."
   user_request_remove:                    "Remove friend request"
   user_request_accept:                    "Accept friend request"
+  user_request_widget_heading:            "Friend Requests"
 
   # discussion
   discussion_updated:               "Discussion has been updated."

@@ -23,7 +23,7 @@ RSpec.feature 'Request and friendship' do
         logout
         login_as(@userTwo, scope: :user)
 
-        visit user_path(@userTwo)
+        visit dashboard_path
 
         within "#friendship_request_widget" do
             expect(page).to have_content(@userOne.name)
@@ -36,7 +36,7 @@ RSpec.feature 'Request and friendship' do
         expect(page).to have_content(I18n.t('user_friendship_confirmed'))
 
 
-        # If we move friendship_request_widget adjust it here...
+        visit user_path(@userTwo)
         within "#friendship_widget" do
             expect(page).to have_content(@userOne.name)
             expect(page).to have_link("delete_friend_#{@userOne.name}")

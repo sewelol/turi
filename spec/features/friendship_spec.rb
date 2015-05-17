@@ -13,7 +13,7 @@ RSpec.feature 'Friendship' do
     before do
       # @userTwo request a Friendship with @userOne
       @friendRequest = FactoryGirl.create(:request, user_id: @userTwo.id, receiver_id: @userOne.id)
-      visit user_path @userOne
+      visit dashboard_path
     end
 
     context 'accepts a request' do
@@ -27,6 +27,7 @@ RSpec.feature 'Friendship' do
         expect(page).to have_content(I18n.t('user_friendship_confirmed'))
         expect(page).to_not have_selector(:link_or_button, "accept_friend_request_#{@userTwo.name}")
 
+        visit user_path(@userOne)
         within("#friendship_widget") do
           expect(page).to have_content "#{@userTwo.name}"
           expect(page).to have_selector(:link_or_button, "delete_friend_#{@userTwo.name}")

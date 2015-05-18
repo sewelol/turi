@@ -32,7 +32,7 @@ class TripResourceController < ApplicationController
     @trip = Trip.find params[:trip_id]
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = I18n.t 'trip_not_found'
-    redirect_to :back
+    redirect_to dashboard_path
   end
 
 end

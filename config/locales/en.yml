@@ -8,7 +8,6 @@
 #
 # In views, this is aliased to just `t`:
 #
-#     	
 #
 # To use a different locale, set it with `I18n.locale`:
 #
@@ -271,11 +270,6 @@ en:
   dropbox_auth_not_approved_error:  "Not approved? Why not, bro?"
   dropbox_auth_provider_error:      "Strange error."
   dropbox_error:                    "Error communicating with Dropbox servers."
-
-  # friendship
-  friendship_added:                  "Added friend '%{name}'."
-  friendship_removed:                "Removed friend '%{name}'."
-  frienship_not_added:               "Unable to add friend '%{name}'."
   dropbox_configuration_missing:    "@developer: You need to setup the dropbox configuration for your local project!"
 
   # friendship

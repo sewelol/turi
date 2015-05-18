@@ -26,10 +26,6 @@ Rails.application.routes.draw do
     resources :routes do
       resources :waypoints
     end
-    resources :equipment_lists
-    resources :friendships
-    resources :events
-    resources :articles
 
     resources :discussions do
       resources :comments

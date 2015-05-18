@@ -14,8 +14,6 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -54,8 +52,7 @@ gem 'geocoder'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 
-
-# Kaminari, pageinate 
+# Kaminari, pageinate
 gem 'kaminari'
 
 source 'https://rails-assets.org' do
@@ -80,7 +77,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  #gem 'spring'
+  gem 'spring'
 
   gem 'rspec-rails'
   gem 'capybara'

@@ -2,6 +2,11 @@
     <%= @trip.title %>
 <% end %>
 
+<% content_for :page_scripts do %>
+    <script src="<%= asset_path 'app/js/pages/readyDashboard.js' %>"></script>
+    <script>$(function(){ ReadyDashboard.init(); });</script>
+<% end %>
+
 <% content_for :content_header do %>
     <div class="content-header content-header-media" style="background: url(<%= @trip.image.empty? ? 'https://unsplash.it/1060/260?random' : @trip.image %>) no-repeat; background-size: 100%;">
       <div class="header-section">
@@ -9,23 +14,23 @@
           <div class="col-sm-7 col-md-8 col-lg-9 content-float-hor push-bit-top-bottom clearfix">
             <h1><%=@trip.title%></h1>
             <h2 class="text-light-op">
-              <% if ! @trip.start_loc.blank? %>
-                  <%= @trip.start_loc %>
-              <% end %>
-              <% if ! @trip.start_date.blank? %>
-                  (<%= @trip.start_date %>)
-              <% end %>
 
-              <% if ! @trip.end_loc.blank? or ! @trip.end_date.blank? %>
-                    -
-              <% end %>
+              <span class="trip-location">
+                  <% if ! @trip.start_loc.blank? %>
+                      <i class="fa fa-map-marker trip-detail-icon"></i>
+                  <% end %>
+                  <%= @trip.start_loc.blank? ? '' : @trip.start_loc %>
+                  <%= @trip.end_loc.blank? ? '' : '- ' << @trip.end_loc %>
+              </span>
 
-              <% if ! @trip.end_loc.blank? %>
-                  <%= @trip.end_loc %>
-              <% end %>
-              <% if ! @trip.end_date.blank? %>
-                  (<%= @trip.end_date %>)
-              <% end %>
+              <span class="trip-dates">
+                  <% if ! @trip.start_date.blank? %>
+                      <i class="fa fa-calendar trip-detail-icon"></i>
+                  <% end %>
+                  <%= @trip.start_date.blank? ? '' : @trip.start_date  %>
+                  <%= @trip.end_date.blank? ? '' : '- ' << @trip.end_date  %>
+              </span>
+
             </h2>
           </div>
         </div>
@@ -33,21 +38,55 @@
     </div>
 <% end %>
 
-<div class="trip clearfix">
-    <div class="col-md-4">
-        <div class="widget-content themed-background-flat clearfix">
-            <div class="widget-icon pull-right">
-                <i class="gi gi-albums text-light-op"></i>
-            </div>
-            <h2 class="widget-heading h3 text-light"><strong><%= t('trip_view_public_page')%></strong></h2>
-            <span class="text-light-op"></span>
-        </div>
-    </div>
 
-    <%= link_to "public_view", trip_public_path(@trip), :action => 'show', :id => @trip.id %>
-
+<div class="trip">
   <blockquote class="pull-left">
     <p><%= @trip.description.empty? ? 'This awesome trip has no description yet. Feel free to add a creative text!' : @trip.description %></p>
     <small><span class="owner">Created by <%= @trip.user.name %></span> and last updated <%= time_ago_in_words(@trip.updated_at) %> ago</small>
   </blockquote>
+</div>
+
+<div class="row">
+
+  <div class="col-sm-6 col-lg-3">
+    <% if @trip.public %>
+        <%= render 'widgets/public' %>
+    <% else %>
+        <%= render 'widgets/private' %>
+    <% end %>
+  </div>
+
+  <div class="col-sm-6 col-lg-3">
+    <%= render 'widgets/participants' %>
+  </div>
+
+  <div class="col-sm-6 col-lg-3">
+    <%= render 'widgets/routes' %>
+  </div>
+
+  <div class="col-sm-6 col-lg-3">
+    <%= render 'widgets/equipment_costs' %>
+  </div>
+
+
+</div>
+
+<div class="row">
+
+  <div class="col-sm-6 col-md-3">
+    <%= render 'widgets/equipment_lists' %>
+  </div>
+
+  <div class="col-sm-6 col-md-3">
+    <%= render 'widgets/events_upcoming' %>
+  </div>
+
+  <div class="col-sm-6 col-md-3">
+    <%= render 'widgets/discussions_recent' %>
+  </div>
+
+  <div class="col-sm-6 col-md-3">
+    <%= render 'widgets/participant_list' %>
+  </div>
+
 </div>

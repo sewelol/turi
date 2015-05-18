@@ -1,0 +1,17 @@
+<!-- People Widget -->
+<div class="widget">
+  <div class="widget-content border-bottom">
+    <i class="gi gi-parents"></i>
+    <%= link_to trip_participants_path(@trip) do %>
+        <strong><%= t :trip_participants %></strong>
+    <% end %>
+  </div>
+  <div class="widget-content widget-content-full">
+    <table class="table table-borderless table-striped table-vcenter">
+      <tbody>
+      <%= render partial: '/widgets/records/participant', collection: @trip.participants %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- END People Widget -->

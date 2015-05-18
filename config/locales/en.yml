@@ -40,9 +40,16 @@ en:
   by: "by"
   now: "Now"
   reply : "Reply"
+  public_trip: "Public trip"
+  private_trip: "Private trip"
   distance_ago: "%{distance} ago"
   form_invalid: "Some information needs your attention, therefore we did not save your changes yet."
   friends: "Friends"
+
+  participant: {
+    one: "Participant",
+    other: "Participants"
+  }
 
   # http://en.wikipedia.org/wiki/Date_format_by_country
   # https://hackhands.com/format-datetime-ruby/
@@ -75,6 +82,11 @@ en:
   user_must_have_email:           "You can't have a blank email"
   user_must_have_name:            "You can't have a blank name"
   edit_user:                      "Edit user"
+
+  # Widgets
+  widget_public_description:     "Click to see how other users see your trip."
+  widget_private_description:     "Click to edit the trip settings."
+  widget_equipment_costs_description: "Calculated equipment lists price."
 
   #Trips (trip_controller)
   trip_title:                     "Title"

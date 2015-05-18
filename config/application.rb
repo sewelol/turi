@@ -27,6 +27,9 @@ module Turi
     config.assets.initialize_on_precompile = false
 
     # Vagrant allow web console
-    config.web_console.whitelisted_ips = '10.0.2.2'
+    if Rails.env.development?
+      config.web_console.whitelisted_ips = '10.0.2.2'
+    end
+
   end
 end

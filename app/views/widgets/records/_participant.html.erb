@@ -1,0 +1,12 @@
+<tr>
+  <td class="text-center" style="width: 100px;">
+    <%= image_tag participant.user.gravatar_url, class: 'img-circle' %>
+  </td>
+  <td>
+    <a href="javascript:void(0)"><%= participant.user.name %></a><br>
+    <i class="fa fa-fw fa-user text-info" data-toggle="tooltip" title="<%=t('role')%>"></i> <small><%=t('trip_role_' << participant.participant_role.name)%></small>
+  </td>
+  <td class="text-center" style="width: 80px;">
+    <a href="<%= user_path participant.user %>" class="btn btn-effect-ripple btn-xs btn-primary" data-toggle="tooltip"><i class="fa fa-search"></i></a>
+  </td>
+</tr>

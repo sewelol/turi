@@ -1,0 +1,11 @@
+<a href="<%= trip_participants_path @trip %>" class="widget">
+  <div class="widget-content widget-content-mini text-right clearfix">
+    <div class="widget-icon pull-left themed-background-success">
+      <i class="gi gi-user text-light-op"></i>
+    </div>
+    <h2 class="widget-heading h3 text-success">
+      <strong><span data-toggle="counter" data-to="<%= @trip.participants.count %>"></span></strong>
+    </h2>
+    <span class="text-muted"><%= t :participant, count: @trip.participants.count %></span>
+  </div>
+</a>

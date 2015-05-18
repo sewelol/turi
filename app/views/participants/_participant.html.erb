@@ -1,0 +1,23 @@
+<tr class="animation-fadeInQuick2" id="participant-row-<%= participant.id %>">
+  <td class="text-center" style="width: 100px;"><%= image_tag participant.user.gravatar_url, class: 'img-circle img-thumbnail img-thumbnail-avatar' %></td>
+  <td>
+    <h4><strong><%= participant.user.name %></strong></h4>
+    <i class="fa fa-fw fa-envelope text-danger" data-toggle="tooltip" title="<%=t('email')%>"></i> <%= participant.user.email %><br>
+    <i class="fa fa-fw fa-user text-info" data-toggle="tooltip" title="<%=t('role')%>"></i> <%=t('trip_role_' << participant.participant_role.name)%>
+  </td>
+  <td class="text-right" style="width: 20%;">
+    <a href="<%= user_path(participant.user) %>" class="btn btn-sm btn-primary" data-toggle="tooltip" title="<%=t('user_go_to_profile_page')%>"><i class="fa fa-share"></i></a>
+    <% if policy(participant).destroy? %>
+        <%= link_to raw('<i class="fa fa-trash"></i>'),
+                    trip_participant_path(@trip, participant),
+                    :method => :delete,
+                    data: {
+                            confirm: t('trip_participant_remove_confirm'),
+                            toggle: 'tooltip'
+                    },
+                    title: t('trip_participant_remove'),
+                    class: 'btn btn-sm btn-danger remove-participant-button'
+        %>
+    <% end %>
+  </td>
+</tr>

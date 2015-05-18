@@ -10,7 +10,11 @@ class EquipmentItem < ActiveRecord::Base
   validates_presence_of :equipment_list_id, allow_nil: false
 
   def possible_assignments(assigned)
-    self.number - self.equipment_assignments.sum(:number) + assigned
+    self.number - self.assignments_sum + assigned
+  end
+
+  def assignments_sum
+    self.equipment_assignments.sum(:number)
   end
 
 end

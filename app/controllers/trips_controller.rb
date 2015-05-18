@@ -11,9 +11,10 @@ class TripsController < ApplicationController
     end
     authorize @trip
     @tags = @trip.tag_counts_on(:tags)
+    @equipment_lists = @trip.equipment_lists
     render layout: 'trip'
   end
-    
+
   def index
     @trips =  Trip.all
   end

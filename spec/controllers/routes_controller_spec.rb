@@ -48,7 +48,7 @@ RSpec.describe RoutesController, type: :controller do
     it "Create a valid route, for a non existing trip" do
       post :create, :trip_id => 999, :route => FactoryGirl.attributes_for(:route, :trip_id => 999)
       expect(flash[:alert]).to eq(I18n.t 'trip_not_found')
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to dashboard_path
     end
 
     it "Render the form again, if something went wrong" do

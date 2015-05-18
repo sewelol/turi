@@ -9,11 +9,16 @@
 <% content_for :page_scripts do %>
     <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2'></script>
 
-    <%= render 'routes/map' %>
+    <script>
+        $(function () {
+            <%= render 'routes/map' %>
 
-    <%= render 'routes/map_control' %>
+            <%= render 'routes/map_control' %>
 
-    <%= render 'routes/create_gui' %>
+            <%= render 'routes/create_gui' %>
+
+        });
+    </script>
 
 
 
